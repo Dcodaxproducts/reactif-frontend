@@ -44,15 +44,15 @@ const Navbar = () => {
     router.push("/#contact");
   };
 
- const getInitials = (name?: string) => {
-  if (!name) return ""; // handle undefined or empty string
+  const getInitials = (name?: string) => {
+    if (!name) return ""; // handle undefined or empty string
 
-  const parts = name.trim().split(" ").filter(Boolean); // remove empty parts
-  if (parts.length === 0) return "";
+    const parts = name.trim().split(" ").filter(Boolean); // remove empty parts
+    if (parts.length === 0) return "";
 
-  if (parts.length === 1) return parts[0][0].toUpperCase(); // single word
-  return (parts[0][0] + parts[1][0]).toUpperCase(); // first letters of first two words
-};
+    if (parts.length === 1) return parts[0][0].toUpperCase(); // single word
+    return (parts[0][0] + parts[1][0]).toUpperCase(); // first letters of first two words
+  };
   const closeSidebar = () => setIsSidebarOpen(false);
 
   useEffect(() => {
@@ -147,6 +147,17 @@ const Navbar = () => {
               >
                 Contact
               </span>
+
+              {
+                user && (
+                  <span
+                    onClick={() => router.push("/order/management")}
+                    className="hover:text-blue-400 transition text-gray-300 cursor-pointer"
+                  >
+                    My Bookings
+                  </span>
+                )
+              }
             </div>
           </div>
 
@@ -187,13 +198,13 @@ const Navbar = () => {
                       Profile
                     </button>
 
-                    <button
+                    {/* <button
                       onClick={() => router.push("/order/management")}
                       className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100"
                     >
                       <FiPackage size={16} />
                       My Orders
-                    </button>
+                    </button> */}
 
                     <button
                       onClick={() => router.push("/settings")}

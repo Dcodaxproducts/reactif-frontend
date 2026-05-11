@@ -10,9 +10,9 @@ export default function Page() {
 
     <section className="relative overflow-hidden">
       <Navbar />
-<GlobalBackground />
+      <GlobalBackground />
 
-      
+
       <Management />
     </section>
 

@@ -206,10 +206,10 @@ const Management = () => {
 
         <div className="flex flex-col gap-2">
           <h1 className="text-neutral-50 text-3xl sm:text-4xl font-semibold font-hk">
-            Order Management
+            Booking Management
           </h1>
           <p className="text-neutral-50/60 text-base sm:text-lg font-medium font-hk">
-            Track and manage your orders
+            Track and manage your bookings
           </p>
         </div>
 

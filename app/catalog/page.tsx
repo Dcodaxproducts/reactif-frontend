@@ -13,17 +13,17 @@ export default function Page() {
     <section className="relative overflow-hidden">
       <Navbar />
       <GlobalBackground style={{
-    backgroundImage: `
+        backgroundImage: `
       linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
       url('/assets/AllVendorServices/background.png')
     `,
-  }} />
+      }} />
       <Hero />
       <div className="px-10 md:px-30 space-y-15 pb-20">
         <ProductFilterBar />
-      <CatalogGrid />
+        <CatalogGrid />
       </div>
-      
+
     </section>
 
   );
