@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IconType } from "react-icons";
 import { FaLightbulb } from "react-icons/fa";
-import { API_BASE_URL } from "@/lib/constants";
+import { useCategories } from "@/hooks/useCategories";
 
 /* =========================
    Skeleton Card
@@ -77,9 +77,7 @@ function ServiceCard({
             </p>
           </div>
 
-          <p className="text-white/70 text-sm md:text-base">
-            {description}
-          </p>
+          <p className="text-white/70 text-sm md:text-base">{description}</p>
 
           <div>
             <p className="text-white text-sm md:text-base font-medium mb-4">
@@ -95,9 +93,7 @@ function ServiceCard({
               ].map((service, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-pink-400" />
-                  <span className="text-white text-sm">
-                    {service}
-                  </span>
+                  <span className="text-white text-sm">{service}</span>
                 </div>
               ))}
             </div>
@@ -120,50 +116,12 @@ function ServiceCard({
 ========================= */
 
 export default function TailoredServices() {
-  const [categories, setCategories] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const { categories, loading, hasMore, loadMore } = useCategories();
 
   const gridRef = useRef<HTMLDivElement | null>(null);
 
-  const fetchCategories = async (pageNumber = 1) => {
-    try {
-      setLoading(true);
-
-      const res = await fetch(
-        `${API_BASE_URL}/categories?page=${pageNumber}`
-      );
-      const data = await res.json();
-
-      const active = data.data.filter(
-        (item: any) => item.status === 1
-      );
-
-      setCategories((prev) =>
-        pageNumber === 1 ? active : [...prev, ...active]
-      );
-
-      // ✅ Correct pagination check
-      setHasMore(
-        data.pagination.currentPage < data.pagination.totalPages
-      );
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCategories(1);
-  }, []);
-
   const handleLoadMore = async () => {
-    const nextPage = page + 1;
-    setPage(nextPage);
-
-    await fetchCategories(nextPage);
+    await loadMore();
 
     setTimeout(() => {
       gridRef.current?.scrollIntoView({
@@ -177,8 +135,12 @@ export default function TailoredServices() {
     <section className="relative w-full py-16 md:py-28 overflow-hidden">
       <style jsx>{`
         @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
+          0% {
+            background-position: -200% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
         }
         @keyframes fadeUp {
           to {
@@ -225,7 +187,7 @@ export default function TailoredServices() {
                   key={cat.id}
                   id={cat.id}
                   title={cat.name}
-                  description={cat.description}
+                  description={cat.description || ""}
                   icon={FaLightbulb}
                   index={index}
                 />

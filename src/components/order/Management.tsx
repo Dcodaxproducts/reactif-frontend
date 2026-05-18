@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { API_BASE_URL } from "@/lib/constants";
+import { useBookings } from "@/hooks/useBookings";
+import type { Booking, BookingFieldResponse } from "@/types/bookings";
 import { toast } from "sonner";
 
 const getProgressFromStatus = (status: string) => {
@@ -24,41 +24,35 @@ const getProgressFromStatus = (status: string) => {
 };
 
 const formatStatusLabel = (status: string) => {
-  return status
-    .replace("_", " ")
-    .replace(/\b\w/g, (l) => l.toUpperCase());
+  return status.replace("_", " ").replace(/\b\w/g, (l) => l.toUpperCase());
 };
 
-const OrderCard = ({
-  booking,
-}: any) => {
+const OrderCard = ({ booking }: { booking: Booking }) => {
   const router = useRouter();
 
-  let serviceData: any = null;
-let fieldResponses: any[] = [];
+  let serviceData: Record<string, unknown> | null = null;
+  let fieldResponses: BookingFieldResponse[] = [];
 
-try {
-  serviceData =
-    typeof booking.service_data === "string"
-      ? JSON.parse(booking.service_data)
-      : booking.service_data || null;
-} catch {
-  serviceData = null;
-}
+  try {
+    serviceData =
+      typeof booking.service_data === "string"
+        ? JSON.parse(booking.service_data)
+        : booking.service_data || null;
+  } catch {
+    serviceData = null;
+  }
 
-try {
-  const parsed =
-    typeof booking.field_responses === "string"
-      ? JSON.parse(booking.field_responses)
-      : booking.field_responses;
+  try {
+    const parsed =
+      typeof booking.field_responses === "string"
+        ? JSON.parse(booking.field_responses)
+        : booking.field_responses;
 
-  fieldResponses = Array.isArray(parsed) ? parsed : [];
-} catch {
-  fieldResponses = [];
-}
-  const quantityField = fieldResponses.find(
-    (f: any) => f.field_name === "quantity"
-  );
+    fieldResponses = Array.isArray(parsed) ? parsed : [];
+  } catch {
+    fieldResponses = [];
+  }
+  const quantityField = fieldResponses.find((f) => f.field_name === "quantity");
 
   const quantity = quantityField?.value || null;
 
@@ -69,7 +63,6 @@ try {
 
   return (
     <Card className="w-full bg-neutral-800 border border-neutral-50/30 rounded-xl px-4 sm:px-6 py-6 flex flex-col gap-8">
-      
       {/* TOP */}
       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
         <div className="flex gap-4">
@@ -79,7 +72,9 @@ try {
 
           <div className="flex flex-col gap-1">
             <h3 className="text-neutral-50 text-lg sm:text-xl font-semibold font-hk">
-              {serviceData?.service_name || booking.service?.name}
+              {String(
+                serviceData?.service_name || booking.service?.name || "Booking",
+              )}
               {quantity && ` (x${quantity})`}
             </h3>
             <p className="text-neutral-50/60 text-sm font-medium font-hk">
@@ -119,7 +114,6 @@ try {
 
       {/* INFO BOX */}
       <div className="w-full bg-neutral-800 border border-neutral-50/10 rounded-lg px-4 py-4 flex flex-col md:flex-row gap-6 md:gap-16">
-
         <div className="flex flex-col gap-1">
           <span className="text-neutral-50 text-sm font-semibold font-hk">
             Scheduled Date
@@ -168,42 +162,15 @@ try {
 };
 
 const Management = () => {
-  const [bookings, setBookings] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { bookings, loading, error } = useBookings();
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const token = localStorage.getItem("sessionToken");
-
-        const res = await fetch(`${API_BASE_URL}/booking-list`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          toast.error("Failed to load bookings");
-          return;
-        }
-
-        setBookings(data.data || []);
-      } catch (error) {
-        toast.error("Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBookings();
-  }, []);
+  if (error) {
+    toast.error("Failed to load bookings");
+  }
 
   return (
     <div className="w-full min-h-screen">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 flex flex-col gap-8">
-
         <div className="flex flex-col gap-2">
           <h1 className="text-neutral-50 text-3xl sm:text-4xl font-semibold font-hk">
             Booking Management

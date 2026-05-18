@@ -1,154 +1,131 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-import { API_BASE_URL } from "@/lib/constants"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
+import { ApiError } from "@/services/api-client";
+import { authService } from "@/services/auth";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
-import Link from "next/link"
+import Link from "next/link";
 
 const OTPForm = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [email, setEmail] = useState("")
-  const [otp, setOtp] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
-  const [countdown, setCountdown] = useState(60)
-  const [canResend, setCanResend] = useState(false)
+  const [countdown, setCountdown] = useState(60);
+  const [canResend, setCanResend] = useState(false);
 
   /* --------------------------
      Load stored user on mount
   -------------------------- */
   useEffect(() => {
-    const storedUser = localStorage.getItem("current_user")
+    const storedUser = localStorage.getItem("current_user");
     if (storedUser) {
-      const parsed = JSON.parse(storedUser)
-      setEmail(parsed.email || "")
+      const parsed = JSON.parse(storedUser);
+      setEmail(parsed.email || "");
     }
-  }, [])
+  }, []);
 
   /* --------------------------
      Countdown Timer
   -------------------------- */
   useEffect(() => {
     if (countdown <= 0) {
-      setCanResend(true)
-      return
+      setCanResend(true);
+      return;
     }
 
     const timer = setTimeout(() => {
-      setCountdown((prev) => prev - 1)
-    }, 1000)
+      setCountdown((prev) => prev - 1);
+    }, 1000);
 
-    return () => clearTimeout(timer)
-  }, [countdown])
+    return () => clearTimeout(timer);
+  }, [countdown]);
 
   /* --------------------------
      Validation
   -------------------------- */
   const validateForm = () => {
-    if (!otp.trim())
-      return "Please enter the full verification code."
+    if (!otp.trim()) return "Please enter the full verification code.";
 
-    if (!/^\d{5}$/.test(otp))
-      return "OTP must be exactly 5 digits."
+    if (!/^\d{5}$/.test(otp)) return "OTP must be exactly 5 digits.";
 
-    return null
-  }
+    return null;
+  };
 
   /* --------------------------
      Submit Handler
   -------------------------- */
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
-    setSuccess(null)
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
 
     if (!navigator.onLine) {
-      setError("No internet connection.")
-      return
+      setError("No internet connection.");
+      return;
     }
 
-    const validationError = validateForm()
+    const validationError = validateForm();
     if (validationError) {
-      setError(validationError)
-      return
+      setError(validationError);
+      return;
     }
 
     try {
-      setLoading(true)
+      setLoading(true);
 
-      const token = localStorage.getItem("sessionToken")
+      const token = localStorage.getItem("sessionToken");
       if (!token) {
-        throw new Error("Session expired. Please sign up again.")
+        throw new Error("Session expired. Please sign up again.");
       }
 
-      const response = await fetch(
-        `${API_BASE_URL}/auth/verify-otp`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            email,
-            otp,
-          }),
-        }
-      )
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        if (response.status === 400)
-          throw new Error("Incorrect OTP.")
-
-        if (response.status === 410)
-          throw new Error("OTP expired. Request a new one.")
-
-        if (response.status === 429)
-          throw new Error("Too many attempts. Request a new OTP.")
-
-        if (response.status === 422)
-          throw new Error(data?.message || "Validation failed.")
-
-        throw new Error("Verification failed. Try again.")
-      }
+      await authService.verifyOtp({ email, otp }, token);
 
       /* --------------------------
          SUCCESS PATH (C8.2)
       -------------------------- */
 
-      const storedUser = localStorage.getItem("current_user")
+      const storedUser = localStorage.getItem("current_user");
 
       if (storedUser) {
-        const parsedUser = JSON.parse(storedUser)
-        parsedUser.isVerified = true
-        localStorage.setItem("current_user", JSON.stringify(parsedUser))
+        const parsedUser = JSON.parse(storedUser);
+        parsedUser.isVerified = true;
+        localStorage.setItem("current_user", JSON.stringify(parsedUser));
       }
 
-      setSuccess("Account verified successfully!")
+      setSuccess("Account verified successfully!");
 
       /* --------------------------
          Navigate to Home (C9)
       -------------------------- */
       setTimeout(() => {
-        router.push("/")
-      }, 1200)
-
-    } catch (err: any) {
-      setError(err.message)
+        router.push("/");
+      }, 1200);
+    } catch (err: unknown) {
+      const message =
+        err instanceof ApiError && err.status === 400
+          ? "Incorrect OTP."
+          : err instanceof ApiError && err.status === 410
+            ? "OTP expired. Request a new one."
+            : err instanceof ApiError && err.status === 429
+              ? "Too many attempts. Request a new OTP."
+              : err instanceof Error
+                ? err.message
+                : "Verification failed. Try again.";
+      setError(message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   /* --------------------------
      Resend OTP (UI only trigger)
@@ -158,48 +135,31 @@ const OTPForm = () => {
    Resend OTP (backend integrated)
 -------------------------- */
 
-const handleResend = async () => {
-  setError(null)
-  setSuccess(null)
+  const handleResend = async () => {
+    setError(null);
+    setSuccess(null);
 
-  if (!navigator.onLine) {
-    setError("No internet connection.")
-    return
-  }
-
-  try {
-    setLoading(true)
-    const response = await fetch(
-      `${API_BASE_URL}/auth/resend-otp`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      }
-    )
-
-    const data = await response.json()
-
-    if (!response.ok) {
-      if (response.status === 422)
-        throw new Error(data?.message || "Validation failed.")
-
-      throw new Error(data?.message || "Failed to resend OTP. Try again.")
+    if (!navigator.onLine) {
+      setError("No internet connection.");
+      return;
     }
 
-    // Success
-    setSuccess("A new OTP has been sent to your email.")
-    setCountdown(60)
-    setCanResend(false)
+    try {
+      setLoading(true);
+      await authService.resendOtp({ email });
 
-  } catch (err: any) {
-    setError(err.message)
-  } finally {
-    setLoading(false)
-  }
-}
+      // Success
+      setSuccess("A new OTP has been sent to your email.");
+      setCountdown(60);
+      setCanResend(false);
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Failed to resend OTP. Try again.";
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section className="w-full min-h-screen flex items-center justify-center px-4 py-10">
@@ -237,9 +197,7 @@ const handleResend = async () => {
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Email (readonly, auto-filled) */}
           <div className="space-y-2">
-            <Label className="text-neutral-50 font-semibold">
-              Email
-            </Label>
+            <Label className="text-neutral-50 font-semibold">Email</Label>
             <Input
               value={email}
               readOnly
@@ -254,9 +212,7 @@ const handleResend = async () => {
             </Label>
             <Input
               value={otp}
-              onChange={(e) =>
-                setOtp(e.target.value.replace(/\D/g, ""))
-              }
+              onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
               maxLength={5}
               placeholder="12345"
               className="bg-transparent border-neutral-50/30 text-white text-center tracking-widest text-lg focus:border-blue-600"
@@ -264,9 +220,7 @@ const handleResend = async () => {
           </div>
 
           {/* Error / Success */}
-          {error && (
-            <p className="text-red-500 text-sm font-medium">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
           {success && (
             <p className="text-green-500 text-sm font-medium">{success}</p>
           )}
@@ -316,7 +270,7 @@ const handleResend = async () => {
         </form>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default OTPForm
+export default OTPForm;

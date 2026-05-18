@@ -35,12 +35,15 @@ const parseResponse = async <T>(response: Response): Promise<T> => {
 
 export const apiClient = async <T>(
   endpoint: string,
-  { token, headers, ...options }: RequestOptions = {},
+  { token, headers, body, ...options }: RequestOptions = {},
 ): Promise<T> => {
+  const isFormData = body instanceof FormData;
+
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
+    body,
     headers: {
-      "Content-Type": "application/json",
+      ...(isFormData ? {} : { "Content-Type": "application/json" }),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...headers,
     },

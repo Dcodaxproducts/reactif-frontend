@@ -9,10 +9,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useAuth } from "@/hooks/useAuth"; 
+import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import Link from "next/link";
-import { API_BASE_URL } from "@/lib/constants";
+import { bookingService } from "@/services/bookings";
 import { useRouter, useSearchParams } from "next/navigation";
 interface FieldOption {
   key: string;
@@ -55,72 +55,70 @@ export default function PaintProtectionCard({
 }: PaintProtectionCardProps) {
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [formValues, setFormValues] = useState<Record<string, any>>({});
-const { user, loading: authLoading } = useAuth();
-const [bookingLoading, setBookingLoading] = useState(false);
-  const currentService = services.find(
-    (s) => s.id.toString() === activeItem
-  );
+  const { user, loading: authLoading } = useAuth();
+  const [bookingLoading, setBookingLoading] = useState(false);
+  const currentService = services.find((s) => s.id.toString() === activeItem);
   const summaryBg = "bg-[#F262B5]/10 outline-[#F262B5]/10";
-const searchParams = useSearchParams();
-const designerId = searchParams.get("designerId");
+  const searchParams = useSearchParams();
+  const designerId = searchParams.get("designerId");
   const activeBg = "bg-[#F262B5]";
 
-const router = useRouter();
+  const router = useRouter();
   const generateSchema = () => {
-  if (!currentService?.fields) return null;
+    if (!currentService?.fields) return null;
 
-  const schemaFields: Record<string, any> = {};
+    const schemaFields: Record<string, any> = {};
 
-  currentService.fields.forEach((field) => {
-    let validator;
+    currentService.fields.forEach((field) => {
+      let validator;
 
-    switch (field.input_type) {
-      case "email":
-        validator = z.string().email(`${field.label} must be a valid email`);
-        break;
+      switch (field.input_type) {
+        case "email":
+          validator = z.string().email(`${field.label} must be a valid email`);
+          break;
 
-      case "number":
-        validator = z.coerce
-          .number()
-          .min(0, `${field.label} must be a valid number`);
-        break;
+        case "number":
+          validator = z.coerce
+            .number()
+            .min(0, `${field.label} must be a valid number`);
+          break;
 
-      case "tel":
-        validator = z
-          .string()
-          .min(6, `${field.label} must be a valid phone number`);
-        break;
+        case "tel":
+          validator = z
+            .string()
+            .min(6, `${field.label} must be a valid phone number`);
+          break;
 
-      case "file":
-        validator = z.any();
-        break;
+        case "file":
+          validator = z.any();
+          break;
 
-      case "checkbox":
-        validator = z.array(z.string());
-        break;
+        case "checkbox":
+          validator = z.array(z.string());
+          break;
 
-      default:
-        validator = z.string();
-    }
+        default:
+          validator = z.string();
+      }
 
-    if (field.is_required) {
-      validator = validator.refine(
-        (val: any) =>
-          val !== undefined &&
-          val !== null &&
-          val !== "" &&
-          !(Array.isArray(val) && val.length === 0),
-        `${field.label} is required`
-      );
-    } else {
-      validator = validator.optional();
-    }
+      if (field.is_required) {
+        validator = validator.refine(
+          (val: any) =>
+            val !== undefined &&
+            val !== null &&
+            val !== "" &&
+            !(Array.isArray(val) && val.length === 0),
+          `${field.label} is required`,
+        );
+      } else {
+        validator = validator.optional();
+      }
 
-    schemaFields[field.field_name] = validator;
-  });
+      schemaFields[field.field_name] = validator;
+    });
 
-  return z.object(schemaFields);
-};
+    return z.object(schemaFields);
+  };
 
   // Auto select first service
   useEffect(() => {
@@ -143,167 +141,138 @@ const router = useRouter();
   const handleChange = (fieldName: string, value: any) => {
     setFormValues((prev) => ({ ...prev, [fieldName]: value }));
     setFormErrors((prev) => {
-    const updated = { ...prev };
-    delete updated[fieldName];
-    return updated;
-  });
-  };
-  
-const handleCreateBooking = async () => {
-  if (!currentService) {
-    toast.error("Please select a service");
-    return;
-  }
- if (!user) {
-  toast.error("Please login first");
-
-  // ✅ Save current page URL
-  if (typeof window !== "undefined") {
-    localStorage.setItem("redirectAfterLogin", window.location.href);
-  }
-
-  router.push("/login");
-  return;
-}
-
-  // 🔐 Zod Validation
-const schema = generateSchema();
-
-if (schema) {
-  const result = schema.safeParse(formValues);
-
-  if (!result.success) {
-    const errors: Record<string, string> = {};
-
-    result.error.errors.forEach((err) => {
-      const field = err.path[0] as string;
-      errors[field] = err.message;
+      const updated = { ...prev };
+      delete updated[fieldName];
+      return updated;
     });
+  };
 
-    setFormErrors(errors);
-
-    toast.error("Please fill all required fields");
-    return;
-  }
-
-  setFormErrors({});
-}
-
-
-  const token = localStorage.getItem("sessionToken");
-  if (!token) return;
-
-  setBookingLoading(true);
-
-  try {
-    const isSchedule = true;
-
-    const formData = new FormData();
-
-    // Basic fields
-    formData.append("service_id", String(currentService.id));
-    formData.append("address", "Rawalpindi, Pakistan");
-    formData.append("latitude", "33.5651");
-    formData.append("longitude", "73.0169");
-    formData.append("datetime", new Date().toISOString());
-    formData.append("status", "new_booking");
-    formData.append("is_schedule", isSchedule ? "1" : "0");
-    formData.append("distance", "5.5");
-    formData.append("base_fare", String(currentService.price || 10));
-    formData.append("subtotal", String(currentService.price || 50));
-    formData.append("extra_charges_amount", "5");
-    formData.append(
-      "total_amount",
-      String((currentService.price || 50) + 5)
-    );
-    formData.append("payment_type", "cash");
-    formData.append("booking_type", "without_bidding");
-if (designerId) {
-  formData.append("designer_id", designerId);
-}
-    if (isSchedule) {
-      formData.append("schedule_datetime", new Date().toISOString());
+  const handleCreateBooking = async () => {
+    if (!currentService) {
+      toast.error("Please select a service");
+      return;
     }
+    if (!user) {
+      toast.error("Please login first");
 
-    // Service Data
-    formData.append(
-      "service_data",
-      JSON.stringify({
-        service_name: currentService.name,
-        category: activeCategory,
-      })
-    );
-
-    // Field Responses
-    const formattedFieldResponses = currentService.fields?.map((field) => {
-      const value = formValues[field.field_name];
-
-      // If file → append separately
-      if (field.input_type === "file" && value instanceof File) {
-        formData.append(`file_${field.id}`, value);
+      // ✅ Save current page URL
+      if (typeof window !== "undefined") {
+        localStorage.setItem("redirectAfterLogin", window.location.href);
       }
 
-      return {
-        field_id: field.id,
-        field_name: field.field_name,
-        field_type: field.input_type,
-        lable: field.label,
-        value:
-          field.input_type === "file"
-            ? value instanceof File
-              ? `file_${field.id}` // reference key
-              : null
-            : Array.isArray(value)
-            ? value.join(", ")
-            : value ?? "",
-      };
-    }) || [];
+      router.push("/login");
+      return;
+    }
 
-    formData.append(
-      "field_responses",
-      JSON.stringify(formattedFieldResponses)
-    );
+    // 🔐 Zod Validation
+    const schema = generateSchema();
 
-    console.log("🚀 Sending FormData...");
+    if (schema) {
+      const result = schema.safeParse(formValues);
 
-    const res = await fetch(`${API_BASE_URL}/booking`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        // ❌ DO NOT SET Content-Type manually
-      },
-      body: formData,
-    });
+      if (!result.success) {
+        const errors: Record<string, string> = {};
 
-    const text = await res.text();
-    console.log("📦 Raw Backend Response:", text);
+        result.error.errors.forEach((err) => {
+          const field = err.path[0] as string;
+          errors[field] = err.message;
+        });
 
-    let data;
+        setFormErrors(errors);
+
+        toast.error("Please fill all required fields");
+        return;
+      }
+
+      setFormErrors({});
+    }
+
+    const token = localStorage.getItem("sessionToken");
+    if (!token) return;
+
+    setBookingLoading(true);
+
     try {
-      data = JSON.parse(text);
-    } catch {
-      toast.error("Server error");
-      return;
-    }
+      const isSchedule = true;
 
-    if (!res.ok) {
-      toast.error(data.message || "Booking failed");
-      return;
-    }
+      const formData = new FormData();
 
-    toast.success("Booking created successfully 🎉");
-    router.push('/order/management');
-  } catch (error) {
-    console.error("🔥 Booking Error:", error);
-    toast.error("Something went wrong");
-  } finally {
-    setBookingLoading(false);
-  }
-};
+      // Basic fields
+      formData.append("service_id", String(currentService.id));
+      formData.append("address", "Rawalpindi, Pakistan");
+      formData.append("latitude", "33.5651");
+      formData.append("longitude", "73.0169");
+      formData.append("datetime", new Date().toISOString());
+      formData.append("status", "new_booking");
+      formData.append("is_schedule", isSchedule ? "1" : "0");
+      formData.append("distance", "5.5");
+      formData.append("base_fare", String(currentService.price || 10));
+      formData.append("subtotal", String(currentService.price || 50));
+      formData.append("extra_charges_amount", "5");
+      formData.append("total_amount", String((currentService.price || 50) + 5));
+      formData.append("payment_type", "cash");
+      formData.append("booking_type", "without_bidding");
+      if (designerId) {
+        formData.append("designer_id", designerId);
+      }
+      if (isSchedule) {
+        formData.append("schedule_datetime", new Date().toISOString());
+      }
+
+      // Service Data
+      formData.append(
+        "service_data",
+        JSON.stringify({
+          service_name: currentService.name,
+          category: activeCategory,
+        }),
+      );
+
+      // Field Responses
+      const formattedFieldResponses =
+        currentService.fields?.map((field) => {
+          const value = formValues[field.field_name];
+
+          // If file → append separately
+          if (field.input_type === "file" && value instanceof File) {
+            formData.append(`file_${field.id}`, value);
+          }
+
+          return {
+            field_id: field.id,
+            field_name: field.field_name,
+            field_type: field.input_type,
+            lable: field.label,
+            value:
+              field.input_type === "file"
+                ? value instanceof File
+                  ? `file_${field.id}` // reference key
+                  : null
+                : Array.isArray(value)
+                  ? value.join(", ")
+                  : (value ?? ""),
+          };
+        }) || [];
+
+      formData.append(
+        "field_responses",
+        JSON.stringify(formattedFieldResponses),
+      );
+
+      await bookingService.create(formData, token);
+
+      toast.success("Booking created successfully 🎉");
+      router.push("/order/management");
+    } catch (error) {
+      console.error("🔥 Booking Error:", error);
+      toast.error("Something went wrong");
+    } finally {
+      setBookingLoading(false);
+    }
+  };
 
   return (
     <div className="w-full md:w-auto p-6 md:p-8 rounded-3xl outline outline-1 outline-slate-700 flex flex-col gap-6">
-
       {/* Header */}
       <div className="flex items-center gap-3">
         <Shield className="w-5 h-5 text-neutral-50" />
@@ -385,25 +354,24 @@ if (designerId) {
                             }
                             className={commonInputClasses}
                           />
-                          
                         );
-                        case "color":
-  return (
-    <div className="flex items-center gap-3">
-      <input
-        type="color"
-        required={field.is_required}
-        value={value || "#000000"}
-        onChange={(e) =>
-          handleChange(field.field_name, e.target.value)
-        }
-        className="w-14 h-10 p-1 rounded-lg bg-transparent border border-slate-700 cursor-pointer"
-      />
-      <span className="text-sm text-neutral-400">
-        {value || "#000000"}
-      </span>
-    </div>
-  );
+                      case "color":
+                        return (
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="color"
+                              required={field.is_required}
+                              value={value || "#000000"}
+                              onChange={(e) =>
+                                handleChange(field.field_name, e.target.value)
+                              }
+                              className="w-14 h-10 p-1 rounded-lg bg-transparent border border-slate-700 cursor-pointer"
+                            />
+                            <span className="text-sm text-neutral-400">
+                              {value || "#000000"}
+                            </span>
+                          </div>
+                        );
                       case "textarea":
                         return (
                           <textarea
@@ -426,7 +394,7 @@ if (designerId) {
                             onChange={(e) =>
                               handleChange(
                                 field.field_name,
-                                e.target.files?.[0] || null
+                                e.target.files?.[0] || null,
                               )
                             }
                             className={`${commonInputClasses} file:mr-3 file:px-3 file:py-1 file:rounded-md file:border-0 file:bg-[#F262B5]/20 file:text-[#F262B5]`}
@@ -499,7 +467,7 @@ if (designerId) {
                                         updated.push(opt.key);
                                       } else {
                                         updated = updated.filter(
-                                          (v) => v !== opt.key
+                                          (v) => v !== opt.key,
                                         );
                                       }
                                       handleChange(field.field_name, updated);
@@ -526,19 +494,19 @@ if (designerId) {
                         );
                     }
                   })()}
-                {formErrors[field.field_name] && (
-  <p className="text-xs text-red-400">
-    {formErrors[field.field_name]}
-  </p>
-)}
+                  {formErrors[field.field_name] && (
+                    <p className="text-xs text-red-400">
+                      {formErrors[field.field_name]}
+                    </p>
+                  )}
                 </div>
-               
               );
             })}
           </div>
-          
         )}
-             <div className={`w-full  p-4 rounded-lg outline outline-1 flex flex-col gap-2.5 ${summaryBg}`}>
+      <div
+        className={`w-full  p-4 rounded-lg outline outline-1 flex flex-col gap-2.5 ${summaryBg}`}
+      >
         <div className="text-xs font-bold font-hk text-[#F262B5]">
           Configuration Summary
         </div>
@@ -548,13 +516,13 @@ if (designerId) {
         </div>
 
         <button
-  onClick={handleCreateBooking}
-  disabled={bookingLoading || authLoading}
-  className={`w-full px-4 py-3 rounded-lg flex justify-center items-center gap-2.5 cursor-pointer hover:opacity-90 transition ${activeBg}`}
->
-         <div className="text-neutral-50 text-xs font-bold font-hk">
-  {bookingLoading ? "Creating Booking..." : "Get Quote"}
-</div>
+          onClick={handleCreateBooking}
+          disabled={bookingLoading || authLoading}
+          className={`w-full px-4 py-3 rounded-lg flex justify-center items-center gap-2.5 cursor-pointer hover:opacity-90 transition ${activeBg}`}
+        >
+          <div className="text-neutral-50 text-xs font-bold font-hk">
+            {bookingLoading ? "Creating Booking..." : "Get Quote"}
+          </div>
           <ArrowRight className="w-4 h-4 text-neutral-50" />
         </button>
       </div>

@@ -73,7 +73,8 @@ export default function RegistrationForm() {
     -------------------------- */
 
       // Save session token
-      localStorage.setItem("sessionToken", data.sessionToken);
+      if (data.sessionToken)
+        localStorage.setItem("sessionToken", data.sessionToken);
 
       // Build full user object
       const userObject = {
