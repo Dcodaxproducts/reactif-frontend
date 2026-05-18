@@ -1,4 +1,4 @@
-import { catalogData } from "@/constants/catalog";
+import { catalogData } from "@/data/catalog";
 import type { CatalogItem } from "@/models/catalog";
 
 export const catalogService = {

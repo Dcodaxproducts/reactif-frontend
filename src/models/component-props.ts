@@ -165,3 +165,22 @@ export type LoadMoreSpecialistsButtonProps = {
 export type CarrierBadgeProps = {
   carrier: string;
 };
+
+export type CatalogCardProps = {
+  item: import("@/models/catalog").CatalogItem;
+};
+
+export type CatalogSectionProps = {
+  title: string;
+  items: import("@/models/catalog").CatalogItem[];
+};
+
+export type CatalogScrollerProps = {
+  items: import("@/models/catalog").CatalogItem[];
+};
+
+export type CatalogCategoryButtonProps = {
+  category: string;
+  active: boolean;
+  onSelect: (category: string) => void;
+};

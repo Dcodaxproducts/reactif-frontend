@@ -56,3 +56,18 @@ export const catalogData = [
     image: "/assets/catalog/bikeTwo.png",
   },
 ];
+
+export const catalogFilterCategories = [
+  "All Products",
+  "Vehicle Wraps",
+  "Signage",
+  "Apparel",
+  "Accessories",
+];
+
+export const catalogBackgroundStyle = {
+  backgroundImage: `
+      linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+      url('/assets/AllVendorServices/background.png')
+    `,
+};

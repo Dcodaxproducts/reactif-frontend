@@ -1,0 +1,11 @@
+import type { CatalogSectionProps } from "@/models/component-props";
+import CatalogScroller from "./CatalogScroller";
+
+export default function CatalogSection({ title, items }: CatalogSectionProps) {
+  return (
+    <div className="space-y-6">
+      <h2 className="text-white text-2xl md:text-3xl font-bold">{title}</h2>
+      <CatalogScroller items={items} />
+    </div>
+  );
+}
