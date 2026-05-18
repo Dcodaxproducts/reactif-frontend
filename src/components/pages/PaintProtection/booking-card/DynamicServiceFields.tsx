@@ -15,7 +15,7 @@ import type {
   Service,
   ServiceFormErrors,
   ServiceFormValues,
-} from "./types";
+} from "@/models/component-props";
 
 const commonInputClasses =
   "w-full px-4 py-3 rounded-xl outline outline-1 outline-slate-700 text-sm text-neutral-50 bg-black/20 focus:outline-[#F262B5] focus:ring-1 focus:ring-[#F262B5] transition";

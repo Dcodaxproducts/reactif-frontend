@@ -1,5 +1,11 @@
 import { Lock, Pencil, Settings, Shield, Truck, User } from "lucide-react";
-import type { HelpCardData } from "./types";
+import type { FAQItemData, HelpCardData } from "@/models/component-props";
+
+export const popularHelpLinks = [
+  "Shipping rates",
+  "Vinyl care",
+  "Bulk discounts",
+];
 
 export const helpCards: HelpCardData[] = [
   {
@@ -43,5 +49,26 @@ export const helpCards: HelpCardData[] = [
       "Information on data security, terms of service for installation, and our quality guarantee policies.",
     icon: Shield,
     color: "bg-purple-500/20 text-purple-400",
+  },
+];
+
+export const featuredFAQs: FAQItemData[] = [
+  {
+    value: "turnaround-time",
+    question: "What is the typical turnaround time for a full vehicle wrap?",
+    answer:
+      "Turnaround time typically ranges from 3–7 business days depending on design complexity, printing, and installation scheduling.",
+  },
+  {
+    value: "onsite-installation",
+    question: "Do you provide on-site installation services?",
+    answer:
+      "Yes, we offer on-site installation services depending on your location and project size.",
+  },
+  {
+    value: "vinyl-uv-life",
+    question: "How long do the vinyl materials last under UV exposure?",
+    answer:
+      "High-quality vinyl materials typically last 5–7 years with proper care, even under strong UV exposure.",
   },
 ];

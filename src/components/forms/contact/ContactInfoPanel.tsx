@@ -1,4 +1,4 @@
-import { contactItems } from "./contact-data";
+import { contactItems } from "@/data/contact";
 import { ContactInfoItem } from "./ContactInfoItem";
 import { TrustedByCard } from "./TrustedByCard";
 

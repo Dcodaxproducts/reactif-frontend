@@ -1,5 +1,5 @@
 import { Accordion } from "@/components/ui/accordion";
-import { featuredFAQs } from "./data";
+import { featuredFAQs } from "@/data/help-center";
 import { FAQAccordionItem } from "./FAQAccordionItem";
 
 export function FAQAccordion() {

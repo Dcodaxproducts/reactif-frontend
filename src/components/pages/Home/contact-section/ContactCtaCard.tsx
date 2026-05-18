@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { QuoteButton } from "./QuoteButton";
-import type { QuoteButtonProps } from "./types";
+import type { QuoteButtonProps } from "@/models/component-props";
 
 export function ContactCtaCard({ loading, onRequestQuote }: QuoteButtonProps) {
   return (

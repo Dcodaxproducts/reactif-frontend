@@ -1,6 +1,6 @@
 import { FaLightbulb } from "react-icons/fa";
 import { ServiceCard } from "./ServiceCard";
-import type { TailoredServicesGridProps } from "./types";
+import type { TailoredServicesGridProps } from "@/models/component-props";
 
 export function TailoredServicesGrid({
   categories,

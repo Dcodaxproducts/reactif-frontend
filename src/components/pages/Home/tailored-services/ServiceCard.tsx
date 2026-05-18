@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { keyServices } from "./data";
-import type { ServiceCardProps } from "./types";
+import { keyServices } from "@/data/home";
+import type { ServiceCardProps } from "@/models/component-props";
 
 export function ServiceCard({
   id,

@@ -9,7 +9,7 @@ import { DesktopNavLinks } from "./nav/DesktopNavLinks";
 import { MobileSidebar } from "./nav/MobileSidebar";
 import { NavbarActions } from "./nav/NavbarActions";
 import { NavbarLogo } from "./nav/NavbarLogo";
-import type { NavbarUser } from "./nav/types";
+import type { NavbarUser } from "@/models/component-props";
 
 const Navbar = () => {
   const router = useRouter();

@@ -1,4 +1,4 @@
-import { technicalSpecs } from "./details-data";
+import { technicalSpecs } from "@/data/order";
 import { SpecItem } from "./SpecItem";
 
 export function TechnicalSpecsSection() {

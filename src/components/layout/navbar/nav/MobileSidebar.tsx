@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { X } from "lucide-react";
-import type { MobileSidebarProps } from "./types";
+import type { MobileSidebarProps } from "@/models/component-props";
 
 export function MobileSidebar({
   isOpen,

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { authenticatedNavItems, publicNavItems } from "@/config/navigation";
-import type { DesktopNavLinksProps } from "./types";
+import type { DesktopNavLinksProps } from "@/models/component-props";
 
 export function DesktopNavLinks({ user }: DesktopNavLinksProps) {
   return (

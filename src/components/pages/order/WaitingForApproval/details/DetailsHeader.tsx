@@ -1,4 +1,4 @@
-import { projectSummary } from "./details-data";
+import { projectSummary } from "@/data/order";
 
 export function DetailsHeader() {
   return (

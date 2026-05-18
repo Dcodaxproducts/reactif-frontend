@@ -1,5 +1,5 @@
 import { Info } from "lucide-react";
-import { installationNote } from "./details-data";
+import { installationNote } from "@/data/order";
 
 export function InstallationNote() {
   return (

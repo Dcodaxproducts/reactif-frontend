@@ -1,4 +1,4 @@
-import { vehicleDetails } from "./details-data";
+import { vehicleDetails } from "@/data/order";
 import { DetailRow } from "./DetailRow";
 import { InstallationNote } from "./InstallationNote";
 

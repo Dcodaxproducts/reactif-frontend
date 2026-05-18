@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import type { PopularHelpLinkProps } from "./types";
+import type { PopularHelpLinkProps } from "@/models/component-props";
 
 export function PopularHelpLink({ label }: PopularHelpLinkProps) {
   return (

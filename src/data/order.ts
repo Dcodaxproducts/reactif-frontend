@@ -1,4 +1,8 @@
-import type { DetailPair, InstallationNoteData, SpecItemData } from "./types";
+import type {
+  DetailPair,
+  InstallationNoteData,
+  SpecItemData,
+} from "@/models/component-props";
 
 export const projectSummary = {
   title: "Fleet Vehicle Wraps (5 Units)",

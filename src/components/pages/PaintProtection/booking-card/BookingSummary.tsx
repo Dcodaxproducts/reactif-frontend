@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { Service } from "./types";
+import type { Service } from "@/models/component-props";
 
 export function BookingSummary({
   activeCategory,

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { FiLogOut, FiSettings, FiUser } from "react-icons/fi";
 import { getInitials } from "./utils";
-import type { UserDropdownProps } from "./types";
+import type { UserDropdownProps } from "@/models/component-props";
 
 export function UserDropdown({
   user,

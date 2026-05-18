@@ -6,7 +6,14 @@ import {
   FaUsers,
 } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
-import type { WhyCardData } from "./types";
+import type { WhyCardData } from "@/models/component-props";
+
+export const keyServices = [
+  "Full & Partial Wraps",
+  "Paint Protection",
+  "Fleet Branding",
+  "Window Graphics",
+];
 
 export const whyChooseUsData: WhyCardData[] = [
   {

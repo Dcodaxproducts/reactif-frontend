@@ -5,7 +5,7 @@ import { SpecialistActions } from "./specialist-card/SpecialistActions";
 import { SpecialistHeader } from "./specialist-card/SpecialistHeader";
 import { SpecialistStats } from "./specialist-card/SpecialistStats";
 import { SpecialistTags } from "./specialist-card/SpecialistTags";
-import type { SpecialistCardProps } from "./specialist-card/types";
+import type { SpecialistCardProps } from "@/models/component-props";
 
 export default function SpecialistCard({
   name,

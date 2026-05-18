@@ -1,4 +1,4 @@
-import type { DetailPair } from "./types";
+import type { DetailPair } from "@/models/component-props";
 
 export function DetailRow({ left, right }: DetailPair) {
   return (

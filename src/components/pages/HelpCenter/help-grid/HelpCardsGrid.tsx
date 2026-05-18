@@ -1,4 +1,4 @@
-import { helpCards } from "./data";
+import { helpCards } from "@/data/help-center";
 import { HelpCard } from "./HelpCard";
 
 export function HelpCardsGrid() {

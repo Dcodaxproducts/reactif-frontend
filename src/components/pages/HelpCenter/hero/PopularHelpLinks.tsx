@@ -1,4 +1,4 @@
-import { popularHelpLinks } from "./data";
+import { popularHelpLinks } from "@/data/help-center";
 import { PopularHelpLink } from "./PopularHelpLink";
 
 export function PopularHelpLinks() {

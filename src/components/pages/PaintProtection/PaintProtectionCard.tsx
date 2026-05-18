@@ -19,7 +19,7 @@ import type {
   Service,
   ServiceFormErrors,
   ServiceFormValues,
-} from "./booking-card/types";
+} from "@/models/component-props";
 
 interface PaintProtectionCardProps {
   activeItem: string | null;

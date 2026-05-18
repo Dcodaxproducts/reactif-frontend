@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { contactFields } from "./contact-data";
+import { contactFields } from "@/data/contact";
 import { FormField } from "./FormField";
 
 export function ContactMessageForm() {

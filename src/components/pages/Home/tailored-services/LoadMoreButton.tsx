@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import type { LoadMoreButtonProps } from "./types";
+import type { LoadMoreButtonProps } from "@/models/component-props";
 
 export function LoadMoreButton({ loading, onClick }: LoadMoreButtonProps) {
   return (

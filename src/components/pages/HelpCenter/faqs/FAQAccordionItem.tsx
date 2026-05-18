@@ -3,7 +3,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import type { FAQItemData } from "./types";
+import type { FAQItemData } from "@/models/component-props";
 
 export function FAQAccordionItem({ value, question, answer }: FAQItemData) {
   return (

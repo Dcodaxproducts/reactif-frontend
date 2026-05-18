@@ -1,4 +1,4 @@
-import { whyChooseUsData } from "./data";
+import { whyChooseUsData } from "@/data/home";
 import { WhyCard } from "./WhyCard";
 
 export function WhyCardsGrid() {
