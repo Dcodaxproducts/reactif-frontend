@@ -25,7 +25,8 @@ export default function CustomRadioButton({
           active ? "border-red-700 bg-red-700" : "border-red-700 bg-white"
         }`}
       >
-        {active && <div className="h-2 w-2 rounded-full bg-white" />} {/* Inner circle */}
+        {active && <div className="h-2 w-2 rounded-full bg-white" />}{" "}
+        {/* Inner circle */}
       </div>
 
       <span className="text-sm">{label}</span>

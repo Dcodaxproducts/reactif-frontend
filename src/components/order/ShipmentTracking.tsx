@@ -1,7 +1,7 @@
-"use client"
-import { Button } from "@/components/ui/button"
-import { CheckCircle, Store, Truck } from "lucide-react"
-import Link from "next/link"
+"use client";
+import { Button } from "@/components/ui/button";
+import { CheckCircle, Store, Truck } from "lucide-react";
+import Link from "next/link";
 
 export default function ShipmentTracking() {
   return (
@@ -17,7 +17,6 @@ export default function ShipmentTracking() {
         flex flex-col gap-10
       "
       >
-
         {/* Header */}
         <div className="flex flex-col gap-2">
           <h1 className="text-2xl md:text-3xl font-semibold text-white font-hk">
@@ -103,7 +102,8 @@ export default function ShipmentTracking() {
           gap-4
         "
         >
-          <Link href="/order/management"
+          <Link
+            href="/order/management"
             className="
               h-11
               px-6
@@ -131,10 +131,9 @@ export default function ShipmentTracking() {
             Contact Support
           </Button>
         </div>
-
       </div>
     </section>
-  )
+  );
 }
 
 ///////////////////////////////////////////
@@ -149,15 +148,11 @@ function StatusCard({ title, value }: any) {
       flex flex-col gap-2
     "
     >
-      <span className="text-white/60 text-sm">
-        {title}
-      </span>
+      <span className="text-white/60 text-sm">{title}</span>
 
-      <span className="text-white font-semibold text-lg">
-        {value}
-      </span>
+      <span className="text-white font-semibold text-lg">{value}</span>
     </div>
-  )
+  );
 }
 
 ///////////////////////////////////////////
@@ -171,23 +166,17 @@ function TimelineItem({ icon, title, date, last }: any) {
           {icon}
         </div>
 
-        {!last && (
-          <div className="w-[1.6px] flex-1 bg-gray-400 mt-1" />
-        )}
+        {!last && <div className="w-[1.6px] flex-1 bg-gray-400 mt-1" />}
       </div>
 
       {/* Content */}
       <div>
-        <div className="text-white font-[600] text-md">
-          {title}
-        </div>
+        <div className="text-white font-[600] text-md">{title}</div>
 
-        <div className="text-white/60 text-sm">
-          {date}
-        </div>
+        <div className="text-white/60 text-sm">{date}</div>
       </div>
     </div>
-  )
+  );
 }
 
 ///////////////////////////////////////////
@@ -201,13 +190,9 @@ function DetailItem({ title, value }: any) {
       flex flex-col gap-1
     "
     >
-      <span className="text-white text-sm font-semibold">
-        {title}
-      </span>
+      <span className="text-white text-sm font-semibold">{title}</span>
 
-      <span className="text-white/60 text-sm">
-        {value}
-      </span>
+      <span className="text-white/60 text-sm">{value}</span>
     </div>
-  )
+  );
 }

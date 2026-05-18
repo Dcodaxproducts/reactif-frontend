@@ -12,7 +12,7 @@ import {
   type GetCategoryParams,
   type GetServicesBySubcategoryParams,
 } from "@/services/categories";
-import type { Category } from "@/types/categories";
+import type { Category } from "@/models/categories";
 
 /**
  * ==============================
@@ -22,9 +22,12 @@ import type { Category } from "@/types/categories";
 
 export const categoryKeys = {
   all: ["categories"] as const,
-  list: (params?: GetCategoriesParams) => ["categories", "list", params || {}] as const,
-  detail: (categoryId?: string | number | null) => ["categories", "detail", categoryId || ""] as const,
-  services: (subcategoryId?: string | number | null) => ["categories", "services", subcategoryId || ""] as const,
+  list: (params?: GetCategoriesParams) =>
+    ["categories", "list", params || {}] as const,
+  detail: (categoryId?: string | number | null) =>
+    ["categories", "detail", categoryId || ""] as const,
+  services: (subcategoryId?: string | number | null) =>
+    ["categories", "services", subcategoryId || ""] as const,
 };
 
 /**
@@ -66,7 +69,9 @@ export const useCategories = (initialParams: GetCategoriesParams = {}) => {
   };
 };
 
-export const useCategoryDetail = (categoryId?: GetCategoryParams["categoryId"] | null) => {
+export const useCategoryDetail = (
+  categoryId?: GetCategoryParams["categoryId"] | null,
+) => {
   const query = useQuery({
     queryKey: categoryKeys.detail(categoryId),
     queryFn: () => getCategory({ categoryId: categoryId as string | number }),
@@ -77,15 +82,22 @@ export const useCategoryDetail = (categoryId?: GetCategoryParams["categoryId"] |
     ...query,
     category: query.data?.data ?? null,
     loading: query.isLoading,
-    error: query.error ? getErrorMessage(query.error, "Something went wrong.") : null,
+    error: query.error
+      ? getErrorMessage(query.error, "Something went wrong.")
+      : null,
     refetch: query.refetch,
   };
 };
 
-export const useServicesBySubcategory = (subcategoryId?: GetServicesBySubcategoryParams["subcategoryId"] | null) => {
+export const useServicesBySubcategory = (
+  subcategoryId?: GetServicesBySubcategoryParams["subcategoryId"] | null,
+) => {
   const query = useQuery({
     queryKey: categoryKeys.services(subcategoryId),
-    queryFn: () => getServicesBySubcategory({ subcategoryId: subcategoryId as string | number }),
+    queryFn: () =>
+      getServicesBySubcategory({
+        subcategoryId: subcategoryId as string | number,
+      }),
     enabled: Boolean(subcategoryId),
   });
 
@@ -93,7 +105,9 @@ export const useServicesBySubcategory = (subcategoryId?: GetServicesBySubcategor
     ...query,
     services: query.data?.data ?? [],
     loading: query.isLoading,
-    error: query.error ? getErrorMessage(query.error, "Failed to fetch services") : null,
+    error: query.error
+      ? getErrorMessage(query.error, "Failed to fetch services")
+      : null,
   };
 };
 
@@ -101,7 +115,8 @@ export const useRefreshCategories = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async () => queryClient.invalidateQueries({ queryKey: categoryKeys.all }),
+    mutationFn: async () =>
+      queryClient.invalidateQueries({ queryKey: categoryKeys.all }),
     onSuccess: () => {
       toast.success("Categories refreshed successfully");
     },

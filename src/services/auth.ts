@@ -1,5 +1,9 @@
 import api from "@/lib/axios";
-import type { AuthResponse, LoginPayload, RegisterPayload } from "@/types/auth";
+import type {
+  AuthResponse,
+  LoginPayload,
+  RegisterPayload,
+} from "@/models/auth";
 
 /**
  * ==============================
@@ -53,12 +57,16 @@ export const AUTH_ROUTES = {
  * ==============================
  */
 
-export const loginUser = async (payload: LoginPayload): Promise<AuthResponse> => {
+export const loginUser = async (
+  payload: LoginPayload,
+): Promise<AuthResponse> => {
   const { data } = await api.post<AuthResponse>(AUTH_ROUTES.login, payload);
   return data;
 };
 
-export const registerUser = async (payload: RegisterPayload): Promise<AuthResponse> => {
+export const registerUser = async (
+  payload: RegisterPayload,
+): Promise<AuthResponse> => {
   const { data } = await api.post<AuthResponse>(AUTH_ROUTES.signup, payload);
   return data;
 };
@@ -68,22 +76,42 @@ export const validateSession = async (): Promise<AuthMessageResponse> => {
   return data;
 };
 
-export const verifyOtp = async (payload: VerifyOtpPayload): Promise<AuthMessageResponse> => {
-  const { data } = await api.post<AuthMessageResponse>(AUTH_ROUTES.verifyOtp, payload);
+export const verifyOtp = async (
+  payload: VerifyOtpPayload,
+): Promise<AuthMessageResponse> => {
+  const { data } = await api.post<AuthMessageResponse>(
+    AUTH_ROUTES.verifyOtp,
+    payload,
+  );
   return data;
 };
 
-export const resendOtp = async (payload: ResendOtpPayload): Promise<AuthMessageResponse> => {
-  const { data } = await api.post<AuthMessageResponse>(AUTH_ROUTES.resendOtp, payload);
+export const resendOtp = async (
+  payload: ResendOtpPayload,
+): Promise<AuthMessageResponse> => {
+  const { data } = await api.post<AuthMessageResponse>(
+    AUTH_ROUTES.resendOtp,
+    payload,
+  );
   return data;
 };
 
-export const forgotPassword = async (payload: ForgotPasswordPayload): Promise<AuthMessageResponse> => {
-  const { data } = await api.post<AuthMessageResponse>(AUTH_ROUTES.forgotPassword, payload);
+export const forgotPassword = async (
+  payload: ForgotPasswordPayload,
+): Promise<AuthMessageResponse> => {
+  const { data } = await api.post<AuthMessageResponse>(
+    AUTH_ROUTES.forgotPassword,
+    payload,
+  );
   return data;
 };
 
-export const resetPassword = async (payload: ResetPasswordPayload): Promise<AuthMessageResponse> => {
-  const { data } = await api.post<AuthMessageResponse>(AUTH_ROUTES.resetPassword, payload);
+export const resetPassword = async (
+  payload: ResetPasswordPayload,
+): Promise<AuthMessageResponse> => {
+  const { data } = await api.post<AuthMessageResponse>(
+    AUTH_ROUTES.resetPassword,
+    payload,
+  );
   return data;
 };

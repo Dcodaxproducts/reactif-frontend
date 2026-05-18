@@ -4,8 +4,16 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/errors";
-import { deleteUserAccount, getUserProfile, updateUserProfile } from "@/services/profile";
-import type { BackendUserProfile, ProfileFormPayload, UserProfile } from "@/types/profile";
+import {
+  deleteUserAccount,
+  getUserProfile,
+  updateUserProfile,
+} from "@/services/profile";
+import type {
+  BackendUserProfile,
+  ProfileFormPayload,
+  UserProfile,
+} from "@/models/profile";
 
 /**
  * ==============================
@@ -24,7 +32,10 @@ export const profileKeys = {
  * ==============================
  */
 
-const mapProfile = (backendUser: BackendUserProfile, isVerified = false): UserProfile => ({
+const mapProfile = (
+  backendUser: BackendUserProfile,
+  isVerified = false,
+): UserProfile => ({
   id: backendUser.id,
   name: backendUser.name,
   email: backendUser.email,
@@ -49,14 +60,21 @@ export const useProfile = () => {
     queryFn: getUserProfile,
   });
 
-  const storedUser = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("current_user") || "{}") : {};
-  const mappedProfile = query.data?.data ? mapProfile(query.data.data, storedUser.isVerified ?? false) : null;
+  const storedUser =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("current_user") || "{}")
+      : {};
+  const mappedProfile = query.data?.data
+    ? mapProfile(query.data.data, storedUser.isVerified ?? false)
+    : null;
 
   return {
     ...query,
     user: mappedProfile,
     loading: query.isLoading,
-    error: query.error ? getErrorMessage(query.error, "Something went wrong.") : null,
+    error: query.error
+      ? getErrorMessage(query.error, "Something went wrong.")
+      : null,
     refetch: query.refetch,
   };
 };
@@ -68,8 +86,13 @@ export const useUpdateProfile = () => {
   return useMutation({
     mutationFn: (payload: ProfileFormPayload) => updateUserProfile(payload),
     onSuccess: (result) => {
-      const storedUser = JSON.parse(localStorage.getItem("current_user") || "{}");
-      localStorage.setItem("current_user", JSON.stringify({ ...storedUser, ...result.data }));
+      const storedUser = JSON.parse(
+        localStorage.getItem("current_user") || "{}",
+      );
+      localStorage.setItem(
+        "current_user",
+        JSON.stringify({ ...storedUser, ...result.data }),
+      );
       queryClient.invalidateQueries({ queryKey: profileKeys.all });
       toast.success("Profile updated successfully.");
       router.push("/profile");

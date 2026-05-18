@@ -8,7 +8,6 @@ interface Props {
   status: number;
 }
 
-
 export default function PaintDetailsHeader({ name, status }: Props) {
   return (
     <div className="flex flex-col gap-14 w-full">

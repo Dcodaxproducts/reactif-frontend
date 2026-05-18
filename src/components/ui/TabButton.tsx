@@ -6,7 +6,11 @@ type TabButtonProps = {
   onClick: () => void;
 };
 
-export default function TabButton({ active, children, onClick }: TabButtonProps) {
+export default function TabButton({
+  active,
+  children,
+  onClick,
+}: TabButtonProps) {
   return (
     <Button
       onClick={onClick}

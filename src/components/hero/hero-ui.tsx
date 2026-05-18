@@ -16,7 +16,7 @@ export function HeroTitle({
     <h1
       className={cn(
         "font-mulish text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight",
-        className
+        className,
       )}
       style={{
         background:
@@ -43,7 +43,7 @@ export function HeroText({
     <p
       className={cn(
         "text-[#F5F5F5] text-sm sm:text-base md:text-lg leading-relaxed",
-        className
+        className,
       )}
     >
       {children}
@@ -68,7 +68,7 @@ export function PrimaryButton({
       href={href}
       className={cn(
         "font-sans px-6 md:px-8 py-3 rounded-full text-white font-medium flex items-center gap-2 relative",
-        className
+        className,
       )}
       style={{
         background:

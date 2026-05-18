@@ -1,56 +1,14 @@
-import { z } from "zod";
 import type { Service, ServiceFormValues } from "./types";
 
-export const buildInitialServiceValues = (service?: Service | null): ServiceFormValues => {
+export const buildInitialServiceValues = (
+  service?: Service | null,
+): ServiceFormValues => {
   if (!service?.fields) return {};
 
   return service.fields.reduce<ServiceFormValues>((values, field) => {
     values[field.field_name] = field.default_value || "";
     return values;
   }, {});
-};
-
-export const buildServiceValidationSchema = (service?: Service | null) => {
-  if (!service?.fields) return null;
-
-  const schemaFields: Record<string, z.ZodTypeAny> = {};
-
-  service.fields.forEach((field) => {
-    let validator: z.ZodTypeAny;
-
-    switch (field.input_type) {
-      case "email":
-        validator = z.string().email(`${field.label} must be a valid email`);
-        break;
-      case "number":
-        validator = z.coerce.number().min(0, `${field.label} must be a valid number`);
-        break;
-      case "tel":
-        validator = z.string().min(6, `${field.label} must be a valid phone number`);
-        break;
-      case "file":
-        validator = z.any();
-        break;
-      case "checkbox":
-        validator = z.array(z.string());
-        break;
-      default:
-        validator = z.string();
-    }
-
-    schemaFields[field.field_name] = field.is_required
-      ? validator.refine(
-          (value) =>
-            value !== undefined &&
-            value !== null &&
-            value !== "" &&
-            !(Array.isArray(value) && value.length === 0),
-          `${field.label} is required`,
-        )
-      : validator.optional();
-  });
-
-  return z.object(schemaFields);
 };
 
 export const buildBookingFormData = ({
@@ -83,7 +41,8 @@ export const buildBookingFormData = ({
   formData.append("booking_type", "without_bidding");
 
   if (designerId) formData.append("designer_id", designerId);
-  if (isSchedule) formData.append("schedule_datetime", new Date().toISOString());
+  if (isSchedule)
+    formData.append("schedule_datetime", new Date().toISOString());
 
   formData.append(
     "service_data",

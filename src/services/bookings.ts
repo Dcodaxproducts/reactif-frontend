@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
-import type { Booking } from "@/types/bookings";
-import type { ApiListResponse } from "@/types/categories";
+import type { Booking } from "@/models/bookings";
+import type { ApiListResponse } from "@/models/api";
 
 /**
  * ==============================
@@ -38,12 +38,18 @@ export const getBookings = async (): Promise<ApiListResponse<Booking>> => {
   return data;
 };
 
-export const createBooking = async (payload: CreateBookingPayload): Promise<CreateBookingResponse> => {
-  const { data } = await api.post<CreateBookingResponse>(BOOKING_ROUTES.create, payload, {
-    headers: {
-      "Content-Type": "multipart/form-data",
+export const createBooking = async (
+  payload: CreateBookingPayload,
+): Promise<CreateBookingResponse> => {
+  const { data } = await api.post<CreateBookingResponse>(
+    BOOKING_ROUTES.create,
+    payload,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     },
-  });
+  );
 
   return data;
 };

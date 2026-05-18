@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import Link from "next/link";
+import {
+  getSchemaValidationMessage,
+  resetPasswordSchema,
+} from "@/validations/auth";
 
 const VerifyOtpForm = () => {
   const router = useRouter();
@@ -46,23 +50,12 @@ const VerifyOtpForm = () => {
     return () => clearTimeout(timer);
   }, [countdown]);
 
-  // -------------------------
-  // Validation
-  // -------------------------
-  const validateForm = () => {
-    if (!email.trim()) return "Email is required.";
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) return "Invalid email format.";
-
-    if (!otp.trim()) return "Please enter the OTP.";
-    if (!/^\d{5}$/.test(otp)) return "OTP must be exactly 5 digits.";
-
-    if (!newPassword.trim()) return "New password is required.";
-    if (newPassword.length < 8)
-      return "Password must be at least 8 characters.";
-
-    return null;
-  };
+  const validateForm = () =>
+    getSchemaValidationMessage(resetPasswordSchema, {
+      email,
+      otp,
+      newPassword,
+    });
 
   // -------------------------
   // Submit Handler

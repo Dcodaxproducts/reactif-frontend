@@ -83,7 +83,6 @@ export default function PrivacyPolicy({
   return (
     <section className="w-full px-4 md:px-8 lg:px-20 py-16">
       <div className="max-w-4xl mx-auto space-y-12">
-
         {/* HEADER */}
         <div className="text-center space-y-3">
           <HeroTitle className="uppercase text-3xl md:text-4xl">
@@ -103,11 +102,11 @@ export default function PrivacyPolicy({
         </div>
 
         {/* CTA */}
-       <LegalCTA
-  title="Have questions about your privacy?"
-  description="Our team is here to help you understand how your data is collected, used, and protected."
-  buttonText="Contact Us"
-/>
+        <LegalCTA
+          title="Have questions about your privacy?"
+          description="Our team is here to help you understand how your data is collected, used, and protected."
+          buttonText="Contact Us"
+        />
       </div>
     </section>
   );

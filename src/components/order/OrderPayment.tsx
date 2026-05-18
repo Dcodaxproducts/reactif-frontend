@@ -1,15 +1,14 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import Link from "next/link"
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 const OrderPayment = () => {
   return (
     <section className="w-full flex justify-center px-4 py-8">
       <div className="w-full max-w-6xl flex flex-col gap-6">
-
         {/* Header */}
         <div className="flex flex-col gap-2 max-w-md">
           <h1 className="text-neutral-50 text-3xl md:text-4xl font-semibold font-['HK_Grotesk']">
@@ -21,11 +20,9 @@ const OrderPayment = () => {
         </div>
 
         <div className="flex flex-col gap-8">
-
           {/* ================= Order Summary ================= */}
           <Card className="bg-neutral-800 rounded-3xl border border-neutral-50/30">
             <CardContent className="p-6 md:px-10 md:py-6 flex flex-col gap-6">
-
               <h2 className="text-neutral-50 text-2xl font-semibold font-['HK_Grotesk']">
                 Order Summary
               </h2>
@@ -68,14 +65,12 @@ const OrderPayment = () => {
                   $1250.00
                 </span>
               </div>
-
             </CardContent>
           </Card>
 
           {/* ================= Payment Details ================= */}
           <Card className="bg-neutral-800 rounded-3xl border border-neutral-50/30">
             <CardContent className="p-6 md:px-10 md:py-8 flex flex-col gap-6">
-
               <h2 className="text-neutral-50 text-2xl font-semibold font-['HK_Grotesk']">
                 Payment Details
               </h2>
@@ -90,7 +85,10 @@ const OrderPayment = () => {
               {/* Form Fields */}
               <div className="flex flex-col gap-4">
                 <InputField label="Name on Card" placeholder="John Smith" />
-                <InputField label="Card Number" placeholder="0000 0000 0000 0000" />
+                <InputField
+                  label="Card Number"
+                  placeholder="0000 0000 0000 0000"
+                />
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <InputField label="Expiry Date" placeholder="MM / YY" />
@@ -100,9 +98,9 @@ const OrderPayment = () => {
               </div>
 
               {/* Pay Button */}
-             <Link
-  href="/order/success"
-  className="
+              <Link
+                href="/order/success"
+                className="
     w-full
     h-12
     bg-pink-400
@@ -116,24 +114,21 @@ const OrderPayment = () => {
     items-center
     justify-center
   "
->
-  Pay $1250.00
-</Link>
+              >
+                Pay $1250.00
+              </Link>
               <p className="text-center text-neutral-50/60 text-sm md:text-base font-medium font-['HK_Grotesk']">
                 Your Payment is securely processed by Stripe
               </p>
-
             </CardContent>
           </Card>
-
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default OrderPayment
-
+export default OrderPayment;
 
 /* ================= Reusable Components ================= */
 
@@ -143,7 +138,7 @@ function PriceRow({ label, value }: any) {
       <span>{label}</span>
       <span>{value}</span>
     </div>
-  )
+  );
 }
 
 function PaymentTab({ label, active }: any) {
@@ -165,7 +160,7 @@ function PaymentTab({ label, active }: any) {
     >
       {label}
     </div>
-  )
+  );
 }
 
 function InputField({ label, placeholder }: any) {
@@ -190,5 +185,5 @@ function InputField({ label, placeholder }: any) {
         "
       />
     </div>
-  )
+  );
 }

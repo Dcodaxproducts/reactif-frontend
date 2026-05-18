@@ -60,21 +60,21 @@ export function SectionHeader({
         {title}
       </h2>
 
-     {/* Description */}
-{description && (
-  <p
-    className={`
+      {/* Description */}
+      {description && (
+        <p
+          className={`
       text-gray-400 max-w-4xl mx-auto
       ${
         size === "sm"
-          ? "text-xs sm:text-sm md:text-base -mt-2"   // 👈 smaller for compact sections (FAQ etc.)
+          ? "text-xs sm:text-sm md:text-base -mt-2" // 👈 smaller for compact sections (FAQ etc.)
           : "text-sm sm:text-base md:text-[20px]"
       }
     `}
-  >
-    {description}
-  </p>
-)}
+        >
+          {description}
+        </p>
+      )}
     </div>
   );
 }

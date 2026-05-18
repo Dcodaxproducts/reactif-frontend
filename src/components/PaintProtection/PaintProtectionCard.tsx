@@ -13,9 +13,13 @@ import { ServiceEmptyState } from "./booking-card/ServiceEmptyState";
 import {
   buildBookingFormData,
   buildInitialServiceValues,
-  buildServiceValidationSchema,
 } from "./booking-card/booking-form-utils";
-import type { Service, ServiceFormErrors, ServiceFormValues } from "./booking-card/types";
+import { buildServiceValidationSchema } from "@/validations/bookings";
+import type {
+  Service,
+  ServiceFormErrors,
+  ServiceFormValues,
+} from "./booking-card/types";
 
 interface PaintProtectionCardProps {
   activeItem: string | null;
@@ -41,7 +45,9 @@ export default function PaintProtectionCard({
   const [formValues, setFormValues] = useState<ServiceFormValues>({});
 
   const designerId = searchParams.get("designerId");
-  const currentService = services.find((service) => service.id.toString() === activeItem);
+  const currentService = services.find(
+    (service) => service.id.toString() === activeItem,
+  );
   const bookingLoading = createBookingMutation.isPending;
 
   useEffect(() => {
@@ -124,26 +130,35 @@ export default function PaintProtectionCard({
 
       {!isLoading && (
         <div className="text-neutral-400 text-sm md:text-base font-medium font-hk leading-relaxed">
-          {currentService?.description || "Please select a service to configure your request."}
+          {currentService?.description ||
+            "Please select a service to configure your request."}
         </div>
       )}
 
       {!isLoading && services.length === 0 && (
-        <ServiceEmptyState>No services available under this category.</ServiceEmptyState>
+        <ServiceEmptyState>
+          No services available under this category.
+        </ServiceEmptyState>
       )}
 
-      {!isLoading && currentService && (!currentService.fields || currentService.fields.length === 0) && (
-        <ServiceEmptyState>This service does not require additional configuration.</ServiceEmptyState>
-      )}
+      {!isLoading &&
+        currentService &&
+        (!currentService.fields || currentService.fields.length === 0) && (
+          <ServiceEmptyState>
+            This service does not require additional configuration.
+          </ServiceEmptyState>
+        )}
 
-      {!isLoading && currentService?.fields && currentService.fields.length > 0 && (
-        <DynamicServiceFields
-          service={currentService}
-          formValues={formValues}
-          formErrors={formErrors}
-          onChange={handleChange}
-        />
-      )}
+      {!isLoading &&
+        currentService?.fields &&
+        currentService.fields.length > 0 && (
+          <DynamicServiceFields
+            service={currentService}
+            formValues={formValues}
+            formErrors={formErrors}
+            onChange={handleChange}
+          />
+        )}
 
       <BookingSummary
         activeCategory={activeCategory}

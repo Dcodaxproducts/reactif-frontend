@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -6,11 +6,7 @@ interface ContainerProps {
 }
 
 const Container: React.FC<ContainerProps> = ({ children, className }) => {
-  return (
-    <div className={`w-full ${className || ''}`}>
-      {children}
-    </div>
-  );
+  return <div className={`w-full ${className || ""}`}>{children}</div>;
 };
 
 export default Container;

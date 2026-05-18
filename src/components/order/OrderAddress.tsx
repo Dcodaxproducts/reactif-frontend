@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import PersonalInfo from "./OrderAddress/PersonalInfo"
-import WhyProtection from "./OrderAddress/WhyProtection"
-import Configuration from "./OrderAddress/Configuration"
+import PersonalInfo from "./OrderAddress/PersonalInfo";
+import WhyProtection from "./OrderAddress/WhyProtection";
+import Configuration from "./OrderAddress/Configuration";
 
 const OrderAddress = () => {
   return (
@@ -11,7 +11,7 @@ const OrderAddress = () => {
       <WhyProtection />
       <Configuration route="/order/payment" />
     </section>
-  )
-}
+  );
+};
 
-export default OrderAddress
+export default OrderAddress;

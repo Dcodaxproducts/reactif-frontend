@@ -3,7 +3,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/errors";
-import { createBooking, getBookings, type CreateBookingPayload } from "@/services/bookings";
+import {
+  createBooking,
+  getBookings,
+  type CreateBookingPayload,
+} from "@/services/bookings";
 
 /**
  * ==============================
@@ -32,7 +36,9 @@ export const useBookings = () => {
     ...query,
     bookings: query.data?.data ?? [],
     loading: query.isLoading,
-    error: query.error ? getErrorMessage(query.error, "Something went wrong") : null,
+    error: query.error
+      ? getErrorMessage(query.error, "Something went wrong")
+      : null,
   };
 };
 

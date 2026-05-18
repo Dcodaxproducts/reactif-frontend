@@ -1,54 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Manrope:wght@200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Manrope:wght@200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200..900&display=swap");
 
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* 'tw-animate-css' agar aap use nahi kar rahe toh ise remove bhi kar sakte hain */
-@import 'tw-animate-css';
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 /* Font Face Import for HK Grotesk Fonts */
 @font-face {
-  font-family: 'HK Grotesk';
-  src: url('/fonts/hk-grotesk/HKGrotesk-Regular.ttf') format('truetype');
+  font-family: "HK Grotesk";
+  src: url("/fonts/hk-grotesk/HKGrotesk-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'HK Grotesk';
-  src: url('/fonts/hk-grotesk/HKGrotesk-Bold.ttf') format('truetype');
+  font-family: "HK Grotesk";
+  src: url("/fonts/hk-grotesk/HKGrotesk-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'HK Grotesk';
-  src: url('/fonts/hk-grotesk/HKGrotesk-Italic.ttf') format('truetype');
+  font-family: "HK Grotesk";
+  src: url("/fonts/hk-grotesk/HKGrotesk-Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'HK Grotesk';
-  src: url('/fonts/hk-grotesk/HKGrotesk-BoldItalic.ttf') format('truetype');
+  font-family: "HK Grotesk";
+  src: url("/fonts/hk-grotesk/HKGrotesk-BoldItalic.ttf") format("truetype");
   font-weight: bold;
   font-style: italic;
 }
 
 /* Add other weights and styles as needed (Light, Medium, etc.) */
 
-
 :root {
   /* Primary Color: #CE181B converted to OKLCH */
   --primary: oklch(0.505 0.213 27.23);
   --primary-foreground: oklch(0.985 0 0);
   --gray: #909090;
-  --gray2: #BBBBBB;
+  --gray2: #bbbbbb;
   --dark: #030401;
-  --green: #00A63E;
+  --green: #00a63e;
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -95,13 +94,13 @@
 }
 
 @theme inline {
- --font-sans: 'Inter', sans-serif;      /* default body font */
---font-heading: 'Manrope', sans-serif; /* headings */
---font-mono: 'Geist Mono', 'Geist Mono Fallback';
---font-google: 'Roboto', sans-serif;
---font-mulish: 'Mulish', sans-serif;
+  --font-sans: "Inter", sans-serif; /* default body font */
+  --font-heading: "Manrope", sans-serif; /* headings */
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-google: "Roboto", sans-serif;
+  --font-mulish: "Mulish", sans-serif;
 
-  --font-hk: 'HK Grotesk', 'Inter',sans-serif;
+  --font-hk: "HK Grotesk", "Inter", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -152,19 +151,18 @@
   * {
     @apply border-border outline-ring/50;
   }
- body {
-  @apply bg-background text-foreground font-sans;
-}
-
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
 }
 
 .scroll-hidden {
-  scrollbar-width: none;      /* Firefox */
-  -ms-overflow-style: none;   /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
 }
 
 .scroll-hidden::-webkit-scrollbar {
-  display: none;              /* Chrome, Safari */
+  display: none; /* Chrome, Safari */
 }
 
 .dark {
@@ -177,7 +175,7 @@
   --sidebar-border: hsl(240 3.7% 15.9%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
-button{
+button {
   cursor: pointer;
 }
 
@@ -213,8 +211,6 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
-
 
 html {
   scroll-behavior: smooth !important;

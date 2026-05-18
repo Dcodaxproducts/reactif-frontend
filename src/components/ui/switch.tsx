@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as SwitchPrimitive from "@radix-ui/react-switch"
+import * as React from "react";
+import * as SwitchPrimitive from "@radix-ui/react-switch";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 function Switch({
   className,
@@ -17,7 +17,7 @@ function Switch({
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         "disabled:cursor-not-allowed disabled:opacity-50",
         "data-[state=checked]:bg-primary data-[state=unchecked]:bg-[#BBBBBB]",
-        className
+        className,
       )}
       {...props}
     >
@@ -27,11 +27,11 @@ function Switch({
           "pointer-events-none block h-[17px] w-[17px] rounded-full bg-white",
           "shadow-sm transition-transform",
           "data-[state=checked]:translate-x-[22px]",
-          "data-[state=unchecked]:translate-x-[2px]"
+          "data-[state=unchecked]:translate-x-[2px]",
         )}
       />
     </SwitchPrimitive.Root>
-  )
+  );
 }
 
-export { Switch }
+export { Switch };

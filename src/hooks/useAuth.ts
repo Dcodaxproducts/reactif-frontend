@@ -18,7 +18,7 @@ import {
   type ResetPasswordPayload,
   type VerifyOtpPayload,
 } from "@/services/auth";
-import type { AuthUser, LoginPayload, RegisterPayload } from "@/types/auth";
+import type { AuthUser, LoginPayload, RegisterPayload } from "@/models/auth";
 
 export type User = AuthUser;
 
@@ -112,7 +112,8 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: (payload: LoginPayload) => loginUser(payload),
     onSuccess: (data) => {
-      if (data.sessionToken) localStorage.setItem("sessionToken", data.sessionToken);
+      if (data.sessionToken)
+        localStorage.setItem("sessionToken", data.sessionToken);
 
       const userObject = {
         userId: data.userId,
@@ -123,7 +124,11 @@ export const useLogin = () => {
 
       localStorage.setItem("current_user", JSON.stringify(userObject));
       queryClient.setQueryData(authKeys.currentUser(), userObject);
-      toast.success(userObject.isVerified ? "Login Successful!" : "Account created, please verify OTP!");
+      toast.success(
+        userObject.isVerified
+          ? "Login Successful!"
+          : "Account created, please verify OTP!",
+      );
 
       if (!userObject.isVerified) {
         router.push("/verify-otp");
@@ -151,7 +156,8 @@ export const useRegister = () => {
   return useMutation({
     mutationFn: (payload: RegisterPayload) => registerUser(payload),
     onSuccess: (data) => {
-      if (data.sessionToken) localStorage.setItem("sessionToken", data.sessionToken);
+      if (data.sessionToken)
+        localStorage.setItem("sessionToken", data.sessionToken);
 
       const userObject = {
         userId: data.userId,
@@ -166,7 +172,9 @@ export const useRegister = () => {
       router.push("/register/enter-otp");
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Account creation failed. Try again."));
+      toast.error(
+        getErrorMessage(error, "Account creation failed. Try again."),
+      );
     },
   });
 };

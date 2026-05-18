@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useBookings } from "@/hooks/useBookings";
-import type { Booking, BookingFieldResponse } from "@/types/bookings";
+import type { Booking, BookingFieldResponse } from "@/models/bookings";
 import { toast } from "sonner";
 
 const getProgressFromStatus = (status: string) => {

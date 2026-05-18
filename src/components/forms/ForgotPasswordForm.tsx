@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { toast } from "sonner";
+import {
+  forgotPasswordSchema,
+  getSchemaValidationMessage,
+} from "@/validations/auth";
 
 const ForgotPasswordForm = () => {
   const router = useRouter();
@@ -17,15 +21,8 @@ const ForgotPasswordForm = () => {
   const forgotPasswordMutation = useForgotPassword();
   const loading = forgotPasswordMutation.isPending;
 
-  // -------------------------
-  // Form Validation
-  // -------------------------
-  const validateForm = () => {
-    if (!email.trim()) return "Email is required.";
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) return "Invalid email format.";
-    return null;
-  };
+  const validateForm = () =>
+    getSchemaValidationMessage(forgotPasswordSchema, { email });
 
   // -------------------------
   // Handle Submit

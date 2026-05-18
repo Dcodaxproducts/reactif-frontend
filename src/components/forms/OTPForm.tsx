@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 import Link from "next/link";
+import { getSchemaValidationMessage, otpSchema } from "@/validations/auth";
 
 const OTPForm = () => {
   const router = useRouter();
@@ -51,16 +52,7 @@ const OTPForm = () => {
     return () => clearTimeout(timer);
   }, [countdown]);
 
-  /* --------------------------
-     Validation
-  -------------------------- */
-  const validateForm = () => {
-    if (!otp.trim()) return "Please enter the full verification code.";
-
-    if (!/^\d{5}$/.test(otp)) return "OTP must be exactly 5 digits.";
-
-    return null;
-  };
+  const validateForm = () => getSchemaValidationMessage(otpSchema, { otp });
 
   /* --------------------------
      Submit Handler

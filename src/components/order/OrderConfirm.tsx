@@ -1,15 +1,16 @@
-"use client"
+"use client";
 
-import React from "react"
-import { CheckCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import React from "react";
+import { CheckCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function OrderConfirm() {
   return (
     <section className="w-full flex justify-center px-4 py-10">
       {/* Container */}
-      <div className="
+      <div
+        className="
         w-full
         max-w-5xl
         p-6 sm:p-8 md:p-10
@@ -17,8 +18,8 @@ export default function OrderConfirm() {
         rounded-3xl
         border border-neutral-50/10
         flex flex-col gap-10
-      ">
-
+      "
+      >
         {/* Header */}
         <div className="text-center flex flex-col items-center gap-4">
           <div className="p-4 bg-green-600/10 rounded-full">
@@ -30,19 +31,22 @@ export default function OrderConfirm() {
           </h1>
 
           <p className="max-w-2xl text-neutral-50/60 text-sm sm:text-base md:text-xl font-medium font-hk">
-            Your order #123-4567890 has been placed. A confirmation email has been sent to your registered email address.
+            Your order #123-4567890 has been placed. A confirmation email has
+            been sent to your registered email address.
           </p>
         </div>
 
         {/* Summary Card */}
-        <div className="
+        <div
+          className="
           w-full
           p-6 sm:p-8 md:p-10
           bg-neutral-800
           rounded-3xl
           border border-neutral-50/10
           flex flex-col gap-8
-        ">
+        "
+        >
           <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-neutral-50 font-hk">
             Order Summary
           </h2>
@@ -61,9 +65,9 @@ export default function OrderConfirm() {
 
           {/* Items Table */}
           <div className="border border-neutral-50/10 rounded-xl overflow-hidden">
-
             {/* Header */}
-            <div className="
+            <div
+              className="
               hidden md:grid
               grid-cols-3
               items-center
@@ -71,7 +75,8 @@ export default function OrderConfirm() {
               text-neutral-50
               font-medium
               bg-neutral-700/40
-            ">
+            "
+            >
               <div>Item</div>
               <div className="text-center">Quantity</div>
               <div className="text-right">Price</div>
@@ -79,8 +84,16 @@ export default function OrderConfirm() {
 
             {/* Items */}
             <OrderItem name="Premium Ergonomic Chair" qty="1" price="$499.00" />
-            <OrderItem name="Adjustable Standing Desk" qty="1" price="$499.00" />
-            <OrderItem name="Wireless Mechanical Keyboard" qty="1" price="$499.00" />
+            <OrderItem
+              name="Adjustable Standing Desk"
+              qty="1"
+              price="$499.00"
+            />
+            <OrderItem
+              name="Wireless Mechanical Keyboard"
+              qty="1"
+              price="$499.00"
+            />
           </div>
 
           {/* Totals */}
@@ -97,15 +110,19 @@ export default function OrderConfirm() {
         </div>
 
         {/* Actions */}
-        <div className="
+        <div
+          className="
           flex
           flex-col
           sm:flex-row
           gap-4
           justify-center
           items-center
-        ">
-          <Link href="/order/track" className="
+        "
+        >
+          <Link
+            href="/order/track"
+            className="
             h-12
             w-full sm:w-auto
             bg-pink-500
@@ -118,7 +135,8 @@ export default function OrderConfirm() {
     items-center
     justify-center
             rounded-[12px]
-          ">
+          "
+          >
             Track Order Status
           </Link>
 
@@ -139,10 +157,9 @@ export default function OrderConfirm() {
             Print Receipt
           </Button>
         </div>
-
       </div>
     </section>
-  )
+  );
 }
 
 /* Reusable Components */
@@ -150,19 +167,16 @@ export default function OrderConfirm() {
 function InfoItem({ title, value }: any) {
   return (
     <div className="flex flex-col gap-1">
-      <span className="text-neutral-50 font-semibold">
-        {title}
-      </span>
-      <span className="text-neutral-50/60">
-        {value}
-      </span>
+      <span className="text-neutral-50 font-semibold">{title}</span>
+      <span className="text-neutral-50/60">{value}</span>
     </div>
-  )
+  );
 }
 
 function OrderItem({ name, qty, price }: any) {
   return (
-    <div className="
+    <div
+      className="
       grid
       grid-cols-1
       md:grid-cols-3
@@ -171,18 +185,15 @@ function OrderItem({ name, qty, price }: any) {
       border-t border-neutral-50/10
       text-neutral-50/60
       gap-2
-    ">
+    "
+    >
       <span>{name}</span>
 
-      <span className="md:text-center">
-        Qty: {qty}
-      </span>
+      <span className="md:text-center">Qty: {qty}</span>
 
-      <span className="md:text-right">
-        {price}
-      </span>
+      <span className="md:text-right">{price}</span>
     </div>
-  )
+  );
 }
 
 function TotalItem({ title, value }: any) {
@@ -191,5 +202,5 @@ function TotalItem({ title, value }: any) {
       <span>{title}</span>
       <span>{value}</span>
     </div>
-  )
+  );
 }

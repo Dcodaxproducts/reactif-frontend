@@ -20,7 +20,11 @@ function ClientLayoutContent({ children }: { children: ReactNode }) {
   );
 }
 
-export default function ClientLayoutWrapper({ children }: { children: ReactNode }) {
+export default function ClientLayoutWrapper({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <QueryProvider>
       <ClientLayoutContent>{children}</ClientLayoutContent>

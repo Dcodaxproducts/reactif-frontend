@@ -38,9 +38,10 @@ const WhyProtection = () => {
 
         {/* Description */}
         <p className="text-neutral-400 text-sm md:text-base font-medium font-['HK_Grotesk']">
-          The &apos;Bloc Avant&apos; package offers essential protection for the most
-          vulnerable areas of your vehicle. It covers the entire hood, front bumper,
-          front fenders, and side mirrors with our premium Paint Protection Film.
+          The &apos;Bloc Avant&apos; package offers essential protection for the
+          most vulnerable areas of your vehicle. It covers the entire hood,
+          front bumper, front fenders, and side mirrors with our premium Paint
+          Protection Film.
         </p>
 
         {/* Features List */}
@@ -78,8 +79,12 @@ function FeatureItem({
     <div className="flex items-center gap-3 h-14 py-2.5 rounded-lg outline outline-1 outline-offset-[-1px] outline-neutral-50/10 px-3">
       <FiCheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
       <div className="flex flex-col justify-center">
-        <span className="text-stone-300 text-sm font-bold font-['HK_Grotesk']">{title}</span>
-        <span className="text-stone-500 text-xs font-medium font-['HK_Grotesk']">{description}</span>
+        <span className="text-stone-300 text-sm font-bold font-['HK_Grotesk']">
+          {title}
+        </span>
+        <span className="text-stone-500 text-xs font-medium font-['HK_Grotesk']">
+          {description}
+        </span>
       </div>
     </div>
   );

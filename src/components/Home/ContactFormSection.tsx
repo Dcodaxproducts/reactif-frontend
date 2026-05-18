@@ -12,7 +12,6 @@ function StartProjectContent() {
 
   return (
     <section className="relative py-16 md:py-28 overflow-hidden">
-      
       {/* Background */}
       {!isHelpCenter && (
         <Image
@@ -24,7 +23,6 @@ function StartProjectContent() {
       )}
 
       <div className="mx-auto px-4 sm:px-6 md:px-40">
-        
         <SectionHeader
           badgeText="Get in Touch"
           size={isHelpCenter ? "sm" : "default"} // 👈 clean control

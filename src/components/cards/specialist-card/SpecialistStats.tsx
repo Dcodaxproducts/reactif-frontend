@@ -5,7 +5,10 @@ type SpecialistStatsProps = {
   price: string;
 };
 
-export const SpecialistStats = ({ experience, price }: SpecialistStatsProps) => (
+export const SpecialistStats = ({
+  experience,
+  price,
+}: SpecialistStatsProps) => (
   <div className="flex justify-between items-start gap-4">
     <div>
       <p className="text-stone-300 text-xs mb-1">Experience</p>

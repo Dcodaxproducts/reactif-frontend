@@ -19,7 +19,7 @@ export default function ServicesRow({
   subcategories: Subcategory[];
   totalCount: number;
   activeCategory: string;
-setActiveCategory: (category: string, id: number) => void;
+  setActiveCategory: (category: string, id: number) => void;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +47,7 @@ setActiveCategory: (category: string, id: number) => void;
           return (
             <div
               key={service.id}
-             onClick={() => setActiveCategory(service.name, service.id)}
+              onClick={() => setActiveCategory(service.name, service.id)}
               className={`flex-shrink-0 inline-flex h-11 px-5 py-2.5 rounded-lg items-center gap-2 justify-center cursor-pointer transition-all duration-200
                 ${
                   isActive

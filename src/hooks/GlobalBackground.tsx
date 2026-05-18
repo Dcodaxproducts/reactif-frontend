@@ -20,7 +20,7 @@ const GlobalBackground: React.FC<GlobalBackgroundProps> = ({
     <div
       className={clsx(
         "fixed inset-0 -z-50 bg-cover bg-center bg-no-repeat",
-        className
+        className,
       )}
       style={{
         backgroundImage: `url('${imageUrl}')`,

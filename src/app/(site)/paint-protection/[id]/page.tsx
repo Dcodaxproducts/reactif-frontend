@@ -14,7 +14,7 @@ import {
   useCategoryDetail,
   useServicesBySubcategory,
 } from "@/hooks/useCategories";
-import type { Subcategory } from "@/types/categories";
+import type { Subcategory } from "@/models/categories";
 
 type ActiveItem = string | null;
 

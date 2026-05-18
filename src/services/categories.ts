@@ -1,5 +1,6 @@
 import api from "@/lib/axios";
-import type { ApiItemResponse, ApiListResponse, Category, Service } from "@/types/categories";
+import type { ApiItemResponse, ApiListResponse } from "@/models/api";
+import type { Category, Service } from "@/models/categories";
 
 /**
  * ==============================
@@ -27,7 +28,8 @@ export type GetServicesBySubcategoryParams = {
 
 export const CATEGORY_ROUTES = {
   list: "/categories",
-  detail: (categoryId: string | number) => `/categories/${encodeURIComponent(String(categoryId))}`,
+  detail: (categoryId: string | number) =>
+    `/categories/${encodeURIComponent(String(categoryId))}`,
   services: "/services",
 };
 
@@ -41,7 +43,9 @@ const cleanParams = <T extends Record<string, unknown>>(params?: T) => {
   if (!params) return undefined;
 
   const cleaned = Object.fromEntries(
-    Object.entries(params).filter(([, value]) => value !== undefined && value !== null && value !== ""),
+    Object.entries(params).filter(
+      ([, value]) => value !== undefined && value !== null && value !== "",
+    ),
   );
 
   return Object.keys(cleaned).length > 0 ? cleaned : undefined;
@@ -53,16 +57,25 @@ const cleanParams = <T extends Record<string, unknown>>(params?: T) => {
  * ==============================
  */
 
-export const getCategories = async (params: GetCategoriesParams = {}): Promise<ApiListResponse<Category>> => {
-  const { data } = await api.get<ApiListResponse<Category>>(CATEGORY_ROUTES.list, {
-    params: cleanParams(params),
-  });
+export const getCategories = async (
+  params: GetCategoriesParams = {},
+): Promise<ApiListResponse<Category>> => {
+  const { data } = await api.get<ApiListResponse<Category>>(
+    CATEGORY_ROUTES.list,
+    {
+      params: cleanParams(params),
+    },
+  );
 
   return data;
 };
 
-export const getCategory = async ({ categoryId }: GetCategoryParams): Promise<ApiItemResponse<Category>> => {
-  const { data } = await api.get<ApiItemResponse<Category>>(CATEGORY_ROUTES.detail(categoryId));
+export const getCategory = async ({
+  categoryId,
+}: GetCategoryParams): Promise<ApiItemResponse<Category>> => {
+  const { data } = await api.get<ApiItemResponse<Category>>(
+    CATEGORY_ROUTES.detail(categoryId),
+  );
 
   return data;
 };
@@ -70,9 +83,12 @@ export const getCategory = async ({ categoryId }: GetCategoryParams): Promise<Ap
 export const getServicesBySubcategory = async ({
   subcategoryId,
 }: GetServicesBySubcategoryParams): Promise<ApiListResponse<Service>> => {
-  const { data } = await api.get<ApiListResponse<Service>>(CATEGORY_ROUTES.services, {
-    params: cleanParams({ sub_category_id: subcategoryId }),
-  });
+  const { data } = await api.get<ApiListResponse<Service>>(
+    CATEGORY_ROUTES.services,
+    {
+      params: cleanParams({ sub_category_id: subcategoryId }),
+    },
+  );
 
   return data;
 };

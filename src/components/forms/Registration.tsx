@@ -4,7 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useRegister } from "@/hooks/useAuth";
-import { registrationSchema } from "@/validations/auth";
+import {
+  getSchemaValidationMessage,
+  registrationSchema,
+} from "@/validations/auth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -33,12 +36,8 @@ export default function RegistrationForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const validateForm = () => {
-    const result = registrationSchema.safeParse(formData);
-    return result.success
-      ? null
-      : (result.error.errors[0]?.message ?? "Validation failed.");
-  };
+  const validateForm = () =>
+    getSchemaValidationMessage(registrationSchema, formData);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

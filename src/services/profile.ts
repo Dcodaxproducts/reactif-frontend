@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
-import type { ApiItemResponse } from "@/types/categories";
-import type { BackendUserProfile, ProfileFormPayload } from "@/types/profile";
+import type { ApiItemResponse } from "@/models/api";
+import type { BackendUserProfile, ProfileFormPayload } from "@/models/profile";
 
 /**
  * ==============================
@@ -51,12 +51,17 @@ const createProfileFormData = (payload: ProfileFormPayload) => {
  * ==============================
  */
 
-export const getUserProfile = async (): Promise<ApiItemResponse<BackendUserProfile>> => {
-  const { data } = await api.get<ApiItemResponse<BackendUserProfile>>(PROFILE_ROUTES.detail, {
-    headers: {
-      Accept: "application/json",
+export const getUserProfile = async (): Promise<
+  ApiItemResponse<BackendUserProfile>
+> => {
+  const { data } = await api.get<ApiItemResponse<BackendUserProfile>>(
+    PROFILE_ROUTES.detail,
+    {
+      headers: {
+        Accept: "application/json",
+      },
     },
-  });
+  );
 
   return data;
 };
@@ -79,9 +84,12 @@ export const updateUserProfile = async (
 };
 
 export const deleteUserAccount = async (): Promise<DeleteAccountResponse> => {
-  const { data } = await api.post<DeleteAccountResponse>(PROFILE_ROUTES.deleteAccount, {
-    confirmation: "DELETE",
-  });
+  const { data } = await api.post<DeleteAccountResponse>(
+    PROFILE_ROUTES.deleteAccount,
+    {
+      confirmation: "DELETE",
+    },
+  );
 
   return data;
 };

@@ -1,12 +1,6 @@
 import { CheckCircle } from "lucide-react";
 
-function TermsBlock({
-  id,
-  title,
-  content,
-  list,
-  highlight,
-}: any) {
+function TermsBlock({ id, title, content, list, highlight }: any) {
   return (
     <div className="space-y-4">
       {/* TITLE ROW */}
@@ -15,9 +9,7 @@ function TermsBlock({
           {id}
         </div>
 
-        <h3 className="text-white text-lg md:text-xl font-semibold">
-          {title}
-        </h3>
+        <h3 className="text-white text-lg md:text-xl font-semibold">{title}</h3>
       </div>
 
       {/* CONTENT (aligned under title, not number) */}
@@ -41,9 +33,7 @@ function TermsBlock({
                   className="text-pink-500 mt-1 flex-shrink-0"
                   size={16}
                 />
-                <p className="text-slate-400 text-sm md:text-base">
-                  {item}
-                </p>
+                <p className="text-slate-400 text-sm md:text-base">{item}</p>
               </div>
             ))}
           </div>
@@ -59,4 +49,4 @@ function TermsBlock({
     </div>
   );
 }
-export default TermsBlock
+export default TermsBlock;

@@ -21,10 +21,7 @@ export default function CatalogGrid() {
                    hover:[&::-webkit-scrollbar-thumb]:bg-white/20"
         >
           {items.map((item, i) => (
-            <div
-              key={i}
-              className="shrink-0 w-[280px] sm:w-[300px] snap-start"
-            >
+            <div key={i} className="shrink-0 w-[280px] sm:w-[300px] snap-start">
               <CatalogCard item={item} />
             </div>
           ))}
@@ -46,10 +43,7 @@ export default function CatalogGrid() {
                    hover:[&::-webkit-scrollbar-thumb]:bg-white/20"
         >
           {items.slice(2).map((item, i) => (
-            <div
-              key={i}
-              className="shrink-0 w-[280px] sm:w-[300px] snap-start"
-            >
+            <div key={i} className="shrink-0 w-[280px] sm:w-[300px] snap-start">
               <CatalogCard item={item} />
             </div>
           ))}

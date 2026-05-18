@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 
 import Link from "next/link";
 import { useLogin } from "@/hooks/useAuth";
-import { loginSchema } from "@/validations/auth";
+import { getSchemaValidationMessage, loginSchema } from "@/validations/auth";
 import { toast } from "sonner";
 
 export default function LoginForm() {
@@ -17,12 +17,8 @@ export default function LoginForm() {
   const loginMutation = useLogin();
   const loading = loginMutation.isPending;
 
-  const validateForm = () => {
-    const result = loginSchema.safeParse({ email, password });
-    return result.success
-      ? null
-      : (result.error.errors[0]?.message ?? "Validation failed.");
-  };
+  const validateForm = () =>
+    getSchemaValidationMessage(loginSchema, { email, password });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
