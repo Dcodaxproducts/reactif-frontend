@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Navbar from "../navbar/navbar";
+import Navbar from "@/components/layout/navbar/navbar";
 import { HeroCarImage } from "./hero/HeroCarImage";
 import { HeroContent } from "./hero/HeroContent";
 

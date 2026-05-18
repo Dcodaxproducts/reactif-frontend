@@ -1,7 +1,7 @@
-import CatalogGrid from "@/components/Catalog/CatalogGrid";
-import Hero from "@/components/Catalog/Hero";
-import ProductFilterBar from "@/components/Catalog/ProductFilterBar";
-import Navbar from "@/components/navbar/navbar";
+import CatalogGrid from "@/components/pages/Catalog/CatalogGrid";
+import Hero from "@/components/pages/Catalog/Hero";
+import ProductFilterBar from "@/components/pages/Catalog/ProductFilterBar";
+import Navbar from "@/components/layout/navbar/navbar";
 import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {

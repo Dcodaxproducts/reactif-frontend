@@ -3,11 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import Navbar from "@/components/navbar/navbar";
-import PaintDetailsHeader from "@/components/PaintProtection/PaintDetailsHeader";
-import ServicesRow from "@/components/PaintProtection/ServicesRow";
-import CarPreviewSection from "@/components/PaintProtection/CarPreviewSection";
-import PaintProtectionCard from "@/components/PaintProtection/PaintProtectionCard";
+import Navbar from "@/components/layout/navbar/navbar";
+import PaintDetailsHeader from "@/components/pages/PaintProtection/PaintDetailsHeader";
+import ServicesRow from "@/components/pages/PaintProtection/ServicesRow";
+import CarPreviewSection from "@/components/pages/PaintProtection/CarPreviewSection";
+import PaintProtectionCard from "@/components/pages/PaintProtection/PaintProtectionCard";
 import { Loader2 } from "lucide-react";
 import GlobalBackground from "@/hooks/GlobalBackground";
 import {

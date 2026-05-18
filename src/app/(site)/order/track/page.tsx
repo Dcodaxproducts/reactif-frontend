@@ -1,5 +1,5 @@
-import Navbar from "@/components/navbar/navbar";
-import ShipmentTracking from "@/components/order/ShipmentTracking";
+import Navbar from "@/components/layout/navbar/navbar";
+import ShipmentTracking from "@/components/pages/order/ShipmentTracking";
 import GlobalBackground from "@/hooks/GlobalBackground";
 import Image from "next/image";
 

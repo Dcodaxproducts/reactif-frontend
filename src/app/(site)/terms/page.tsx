@@ -1,5 +1,5 @@
-import Navbar from "@/components/navbar/navbar";
-import TermsOfService from "@/components/Terms/TermsContent";
+import Navbar from "@/components/layout/navbar/navbar";
+import TermsOfService from "@/components/pages/Terms/TermsContent";
 import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {

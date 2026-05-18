@@ -1,5 +1,5 @@
 import { useCatalog } from "@/hooks/useCatalog";
-import CatalogCard from "../cards/CatalogCard";
+import CatalogCard from "@/components/cards/CatalogCard";
 
 export default function CatalogGrid() {
   const { items } = useCatalog();
@@ -54,7 +54,7 @@ export default function CatalogGrid() {
 }
 
 // import { catalogData } from "@/constants/catalog";
-// import CatalogCard from "../cards/CatalogCard";
+// import CatalogCard from "@/components/cards/CatalogCard";
 // export default function CatalogGrid() {
 //   return (
 //     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

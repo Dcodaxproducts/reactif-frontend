@@ -1,5 +1,5 @@
 import ForgotPasswordForm from "@/components/forms/ForgotPasswordForm";
-import Navbar from "@/components/navbar/navbar";
+import Navbar from "@/components/layout/navbar/navbar";
 import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {

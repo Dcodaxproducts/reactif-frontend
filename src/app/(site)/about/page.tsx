@@ -1,8 +1,8 @@
-import AboutContent from "@/components/About/AboutContent";
-import Hero from "@/components/About/Hero";
-import OurCommitment from "@/components/About/OurCommitment";
-import OurExpertise from "@/components/About/OurExpertise";
-import Navbar from "@/components/navbar/navbar";
+import AboutContent from "@/components/pages/About/AboutContent";
+import Hero from "@/components/pages/About/Hero";
+import OurCommitment from "@/components/pages/About/OurCommitment";
+import OurExpertise from "@/components/pages/About/OurExpertise";
+import Navbar from "@/components/layout/navbar/navbar";
 import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {

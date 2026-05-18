@@ -1,5 +1,5 @@
 import RegistrationForm from "@/components/forms/Registration";
-import Navbar from "@/components/navbar/navbar";
+import Navbar from "@/components/layout/navbar/navbar";
 import GlobalBackground from "@/hooks/GlobalBackground";
 import Image from "next/image";
 

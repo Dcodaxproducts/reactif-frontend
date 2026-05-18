@@ -1,5 +1,5 @@
-import Navbar from "@/components/navbar/navbar";
-import Management from "@/components/order/Management";
+import Navbar from "@/components/layout/navbar/navbar";
+import Management from "@/components/pages/order/Management";
 import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {

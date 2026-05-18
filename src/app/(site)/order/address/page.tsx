@@ -1,5 +1,5 @@
-import Navbar from "@/components/navbar/navbar";
-import OrderAddress from "@/components/order/OrderAddress";
+import Navbar from "@/components/layout/navbar/navbar";
+import OrderAddress from "@/components/pages/order/OrderAddress";
 
 export default function Page() {
   return (

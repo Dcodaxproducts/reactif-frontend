@@ -1,6 +1,6 @@
-import Navbar from "@/components/navbar/navbar";
-import Configuration from "@/components/order/OrderAddress/Configuration";
-import WhyProtection from "@/components/order/OrderAddress/WhyProtection";
+import Navbar from "@/components/layout/navbar/navbar";
+import Configuration from "@/components/pages/order/OrderAddress/Configuration";
+import WhyProtection from "@/components/pages/order/OrderAddress/WhyProtection";
 import GlobalBackground from "@/hooks/GlobalBackground";
 import Image from "next/image";
 

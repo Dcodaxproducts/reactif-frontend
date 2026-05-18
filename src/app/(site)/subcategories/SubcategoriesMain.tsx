@@ -1,9 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/navbar/navbar";
+import Navbar from "@/components/layout/navbar/navbar";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import SubCategories from "@/components/SubCategories/SubCategories";
+import SubCategories from "@/components/pages/SubCategories/SubCategories";
 import GlobalBackground from "@/hooks/GlobalBackground";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useCategoryDetail } from "@/hooks/useCategories";

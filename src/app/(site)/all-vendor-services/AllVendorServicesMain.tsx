@@ -3,9 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 
-import DeliveryService from "@/components/AllVendorServices/DeliveryService";
+import DeliveryService from "@/components/pages/AllVendorServices/DeliveryService";
 import SpecialistCard from "@/components/cards/SpecialistCard";
-import Navbar from "@/components/navbar/navbar";
+import Navbar from "@/components/layout/navbar/navbar";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import GlobalBackground from "@/hooks/GlobalBackground";
 

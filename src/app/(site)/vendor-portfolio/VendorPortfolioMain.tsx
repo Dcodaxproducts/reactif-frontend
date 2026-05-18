@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/navbar/navbar";
+import Navbar from "@/components/layout/navbar/navbar";
 import Image from "next/image";
 import ServiceCard from "@/components/cards/ServiceCard";
 import { MapPin, Star, CheckCircle } from "lucide-react";

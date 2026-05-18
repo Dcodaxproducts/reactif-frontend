@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { SectionHeader } from "../shared/SectionHeader";
-import ContactForm from "../forms/ContactForm";
+import { SectionHeader } from "@/components/shared/SectionHeader";
+import ContactForm from "@/components/forms/ContactForm";
 import { usePathname } from "next/navigation";
 import { Suspense } from "react";
 

@@ -1,8 +1,8 @@
 "use client";
 
 import { ReactNode } from "react";
-import Footer from "@/components/footer/Footer";
-import TopInfoBar from "@/components/navbar/TopInfoBar";
+import Footer from "@/components/layout/footer/Footer";
+import TopInfoBar from "@/components/layout/navbar/TopInfoBar";
 import { Toaster } from "sonner";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { useAuth } from "@/hooks/useAuth";

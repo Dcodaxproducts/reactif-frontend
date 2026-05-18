@@ -1,5 +1,5 @@
-import Navbar from "@/components/navbar/navbar";
-import OrderConfirm from "@/components/order/OrderConfirm";
+import Navbar from "@/components/layout/navbar/navbar";
+import OrderConfirm from "@/components/pages/order/OrderConfirm";
 import GlobalBackground from "@/hooks/GlobalBackground";
 import Image from "next/image";
 

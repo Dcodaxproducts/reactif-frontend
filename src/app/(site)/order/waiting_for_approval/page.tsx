@@ -1,5 +1,5 @@
-import Navbar from "@/components/navbar/navbar";
-import WaitingForApproval from "@/components/order/WaitingForApproval";
+import Navbar from "@/components/layout/navbar/navbar";
+import WaitingForApproval from "@/components/pages/order/WaitingForApproval";
 import GlobalBackground from "@/hooks/GlobalBackground";
 import Image from "next/image";
 

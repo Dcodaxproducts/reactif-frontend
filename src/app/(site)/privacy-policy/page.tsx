@@ -1,6 +1,6 @@
-import Navbar from "@/components/navbar/navbar";
-import PrivacyPolicy from "@/components/Terms/PrivacyPolicyContent";
-import TermsOfService from "@/components/Terms/TermsContent";
+import Navbar from "@/components/layout/navbar/navbar";
+import PrivacyPolicy from "@/components/pages/Terms/PrivacyPolicyContent";
+import TermsOfService from "@/components/pages/Terms/TermsContent";
 import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {
