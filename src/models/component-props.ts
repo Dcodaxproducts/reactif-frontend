@@ -184,3 +184,103 @@ export type CatalogCategoryButtonProps = {
   active: boolean;
   onSelect: (category: string) => void;
 };
+
+export type OrderInfoItemData = {
+  title: string;
+  value: string;
+};
+
+export type OrderItemData = {
+  name: string;
+  qty: string;
+  price: string;
+};
+
+export type OrderPriceRowData = {
+  label: string;
+  value: string;
+};
+
+export type OrderPaymentMethodData = {
+  label: string;
+  active?: boolean;
+};
+
+export type PaymentInputFieldProps = {
+  label: string;
+  placeholder: string;
+};
+
+export type EditableInputFieldProps = {
+  label: string;
+  defaultValue: string;
+  fullWidth?: boolean;
+};
+
+export type OrderConfigurationProps = {
+  buttonText?: string;
+  backgroundColor?: string;
+  textColor?: string;
+  basePrice?: number;
+  finalPrice?: number;
+  basePriceText?: string;
+  finalPriceText?: string;
+  basePriceColor?: string;
+  finalPriceColor?: string;
+  route?: string;
+};
+
+export type OptionGroupData = {
+  title: string;
+  options: string[];
+};
+
+export type ProtectionFeatureData = {
+  title: string;
+  description: string;
+};
+
+export type ShipmentStatusData = {
+  title: string;
+  value: string;
+};
+
+export type TrackingDetailData = {
+  title: string;
+  value: string;
+};
+
+export type TrackingTimelineIcon = "store" | "truck" | "check";
+
+export type TrackingTimelineItemData = {
+  icon: TrackingTimelineIcon;
+  title: string;
+  date: string;
+  last?: boolean;
+};
+
+export type BookingServiceData = {
+  service_name?: string;
+};
+
+export type BookingParsedData = {
+  serviceData: BookingServiceData | null;
+  fieldResponses: import("@/models/bookings").BookingFieldResponse[];
+};
+
+export type OrderCardMetaProps = {
+  title: string;
+  subtitle: string;
+  amount: string | number;
+  status: string;
+};
+
+export type OrderProgressProps = {
+  progress: number;
+};
+
+export type OrderInfoBoxProps = {
+  scheduledDate: string;
+  status: string;
+  trackingNumber?: string;
+};

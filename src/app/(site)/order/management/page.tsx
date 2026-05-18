@@ -1,14 +1,10 @@
-import Navbar from "@/components/layout/navbar/navbar";
+import OrderPageShell from "@/components/pages/order/OrderPageShell";
 import Management from "@/components/pages/order/Management";
-import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {
   return (
-    <section className="relative overflow-hidden">
-      <Navbar />
-      <GlobalBackground />
-
+    <OrderPageShell>
       <Management />
-    </section>
+    </OrderPageShell>
   );
 }
