@@ -145,3 +145,23 @@ export type { Service };
 export type ServiceFormValues = Record<string, unknown>;
 export type ServiceFormErrors = Record<string, string>;
 export type FieldChangeHandler = (fieldName: string, value: unknown) => void;
+
+export type SpecialistListStatusProps = {
+  loading: boolean;
+  error: string | null;
+  hasDesigners: boolean;
+};
+
+export type SpecialistGridProps = {
+  categoryId: string | null;
+  queryString: string;
+};
+
+export type LoadMoreSpecialistsButtonProps = {
+  loading: boolean;
+  onLoadMore: () => void;
+};
+
+export type CarrierBadgeProps = {
+  carrier: string;
+};

@@ -1,18 +1,12 @@
-import React, { Suspense } from "react";
-import AllVendorServicesMain from "./AllVendorServicesMain";
+import { Suspense } from "react";
+import AllVendorServicesPage from "@/components/pages/AllVendorServices/AllVendorServicesPage";
 
-const page = () => {
+export default function Page() {
   return (
-    <div>
-      <Suspense
-        fallback={
-          <div className="py-10 text-center">Loading subcategories...</div>
-        }
-      >
-        <AllVendorServicesMain />
-      </Suspense>
-    </div>
+    <Suspense
+      fallback={<div className="py-10 text-center">Loading specialists...</div>}
+    >
+      <AllVendorServicesPage />
+    </Suspense>
   );
-};
-
-export default page;
+}
