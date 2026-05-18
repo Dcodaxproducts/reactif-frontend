@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { getErrorMessage } from "@/lib/errors";
 import { getDesigners, type GetDesignersParams } from "@/services/designers";
-import type { Designer } from "@/models/designers";
+import type { Designer } from "@/types/designers";
 
 /**
  * ==============================

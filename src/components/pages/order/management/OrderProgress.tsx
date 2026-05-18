@@ -1,4 +1,4 @@
-import type { OrderProgressProps } from "@/models/component-props";
+import type { OrderProgressProps } from "@/types/component-props";
 
 export function OrderProgress({ progress }: OrderProgressProps) {
   return (

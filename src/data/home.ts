@@ -6,7 +6,7 @@ import {
   FaUsers,
 } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
-import type { WhyCardData } from "@/models/component-props";
+import type { WhyCardData } from "@/types/component-props";
 
 export const keyServices = [
   "Full & Partial Wraps",

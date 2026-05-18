@@ -2,7 +2,7 @@ import type { RefObject, ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import type { IconType } from "react-icons";
 import type { NavItem } from "@/config/navigation";
-import type { Service } from "@/models/categories";
+import type { Service } from "@/types/categories";
 
 export interface SpecialistCardProps {
   name: string;
@@ -167,16 +167,16 @@ export type CarrierBadgeProps = {
 };
 
 export type CatalogCardProps = {
-  item: import("@/models/catalog").CatalogItem;
+  item: import("@/types/catalog").CatalogItem;
 };
 
 export type CatalogSectionProps = {
   title: string;
-  items: import("@/models/catalog").CatalogItem[];
+  items: import("@/types/catalog").CatalogItem[];
 };
 
 export type CatalogScrollerProps = {
-  items: import("@/models/catalog").CatalogItem[];
+  items: import("@/types/catalog").CatalogItem[];
 };
 
 export type CatalogCategoryButtonProps = {
@@ -265,7 +265,7 @@ export type BookingServiceData = {
 
 export type BookingParsedData = {
   serviceData: BookingServiceData | null;
-  fieldResponses: import("@/models/bookings").BookingFieldResponse[];
+  fieldResponses: import("@/types/bookings").BookingFieldResponse[];
 };
 
 export type OrderCardMetaProps = {

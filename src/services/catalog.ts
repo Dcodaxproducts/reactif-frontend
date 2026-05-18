@@ -1,5 +1,5 @@
 import { catalogData } from "@/data/catalog";
-import type { CatalogItem } from "@/models/catalog";
+import type { CatalogItem } from "@/types/catalog";
 
 export const catalogService = {
   list(): CatalogItem[] {

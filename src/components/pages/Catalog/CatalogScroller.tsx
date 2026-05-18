@@ -1,5 +1,5 @@
 import CatalogCard from "@/components/cards/CatalogCard";
-import type { CatalogScrollerProps } from "@/models/component-props";
+import type { CatalogScrollerProps } from "@/types/component-props";
 
 export default function CatalogScroller({ items }: CatalogScrollerProps) {
   return (

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { QuoteButtonProps } from "@/models/component-props";
+import type { QuoteButtonProps } from "@/types/component-props";
 
 export function QuoteButton({ loading, onRequestQuote }: QuoteButtonProps) {
   return (

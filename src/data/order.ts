@@ -9,7 +9,7 @@ import type {
   SpecItemData,
   TrackingDetailData,
   TrackingTimelineItemData,
-} from "@/models/component-props";
+} from "@/types/component-props";
 
 export const orderBackgroundStyle = {
   backgroundImage: "url('/assets/AllVendorServices/background.png')",

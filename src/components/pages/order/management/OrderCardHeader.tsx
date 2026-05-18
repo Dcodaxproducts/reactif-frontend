@@ -1,5 +1,5 @@
 import { ShoppingCart } from "lucide-react";
-import type { OrderCardMetaProps } from "@/models/component-props";
+import type { OrderCardMetaProps } from "@/types/component-props";
 import { formatStatusLabel } from "./order-management-utils";
 
 export function OrderCardHeader({

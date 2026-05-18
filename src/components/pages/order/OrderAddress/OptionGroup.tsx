@@ -1,4 +1,4 @@
-import type { OptionGroupData } from "@/models/component-props";
+import type { OptionGroupData } from "@/types/component-props";
 
 export function OptionGroup({ title, options }: OptionGroupData) {
   return (

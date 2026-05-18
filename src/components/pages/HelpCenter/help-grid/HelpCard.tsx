@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import type { HelpCardProps } from "@/models/component-props";
+import type { HelpCardProps } from "@/types/component-props";
 
 export function HelpCard({ card }: HelpCardProps) {
   const Icon = card.icon;

@@ -1,4 +1,4 @@
-import type { Service, ServiceFormValues } from "@/models/component-props";
+import type { Service, ServiceFormValues } from "@/types/component-props";
 
 export const buildInitialServiceValues = (
   service?: Service | null,

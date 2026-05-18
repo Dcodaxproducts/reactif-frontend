@@ -1,5 +1,5 @@
 import { FiCheckCircle } from "react-icons/fi";
-import type { SpecItemData } from "@/models/component-props";
+import type { SpecItemData } from "@/types/component-props";
 
 export function SpecItem({ label, value, iconColorClass }: SpecItemData) {
   return (

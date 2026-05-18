@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import type { EditableInputFieldProps } from "@/models/component-props";
+import type { EditableInputFieldProps } from "@/types/component-props";
 
 export function EditableInputField({
   label,

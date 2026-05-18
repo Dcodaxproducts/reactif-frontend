@@ -1,4 +1,4 @@
-import type { ShipmentStatusData } from "@/models/component-props";
+import type { ShipmentStatusData } from "@/types/component-props";
 
 export function StatusCard({ title, value }: ShipmentStatusData) {
   return (

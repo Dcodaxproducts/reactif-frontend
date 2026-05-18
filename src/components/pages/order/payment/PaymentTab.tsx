@@ -1,4 +1,4 @@
-import type { OrderPaymentMethodData } from "@/models/component-props";
+import type { OrderPaymentMethodData } from "@/types/component-props";
 
 export function PaymentTab({ label, active }: OrderPaymentMethodData) {
   return (

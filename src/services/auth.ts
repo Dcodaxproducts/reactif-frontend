@@ -1,9 +1,5 @@
 import api from "@/lib/axios";
-import type {
-  AuthResponse,
-  LoginPayload,
-  RegisterPayload,
-} from "@/models/auth";
+import type { AuthResponse, LoginPayload, RegisterPayload } from "@/types/auth";
 
 /**
  * ==============================

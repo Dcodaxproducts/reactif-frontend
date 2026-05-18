@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import type { WhyCardProps } from "@/models/component-props";
+import type { WhyCardProps } from "@/types/component-props";
 
 export function WhyCard({
   title,

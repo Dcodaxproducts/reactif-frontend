@@ -18,7 +18,7 @@ import {
   type ResetPasswordPayload,
   type VerifyOtpPayload,
 } from "@/services/auth";
-import type { AuthUser, LoginPayload, RegisterPayload } from "@/models/auth";
+import type { AuthUser, LoginPayload, RegisterPayload } from "@/types/auth";
 
 export type User = AuthUser;
 

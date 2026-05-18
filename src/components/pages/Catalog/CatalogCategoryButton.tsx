@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import type { CatalogCategoryButtonProps } from "@/models/component-props";
+import type { CatalogCategoryButtonProps } from "@/types/component-props";
 import { cn } from "@/lib/utils";
 
 export default function CatalogCategoryButton({

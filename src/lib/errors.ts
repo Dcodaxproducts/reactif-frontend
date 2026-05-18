@@ -1,6 +1,10 @@
-export const getErrorMessage = (error: unknown, fallback = "Something went wrong.") => {
+export const getErrorMessage = (
+  error: unknown,
+  fallback = "Something went wrong.",
+) => {
   if (typeof error === "object" && error !== null && "response" in error) {
-    const response = (error as { response?: { data?: { message?: string } } }).response;
+    const response = (error as { response?: { data?: { message?: string } } })
+      .response;
     return response?.data?.message || fallback;
   }
 

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import type { LoadMoreSpecialistsButtonProps } from "@/models/component-props";
+import type { LoadMoreSpecialistsButtonProps } from "@/types/component-props";
 
 export default function LoadMoreSpecialistsButton({
   loading,

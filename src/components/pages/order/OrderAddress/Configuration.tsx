@@ -6,7 +6,7 @@ import { ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { configurationOptionGroups } from "@/data/order";
-import type { OrderConfigurationProps } from "@/models/component-props";
+import type { OrderConfigurationProps } from "@/types/component-props";
 import { Divider } from "./Divider";
 import { OptionGroup } from "./OptionGroup";
 

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import type { Booking } from "@/models/bookings";
+import type { Booking } from "@/types/bookings";
 import { OrderCardHeader } from "./OrderCardHeader";
 import { OrderInfoBox } from "./OrderInfoBox";
 import { OrderProgress } from "./OrderProgress";

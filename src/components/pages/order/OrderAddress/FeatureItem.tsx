@@ -1,5 +1,5 @@
 import { FiCheckCircle } from "react-icons/fi";
-import type { ProtectionFeatureData } from "@/models/component-props";
+import type { ProtectionFeatureData } from "@/types/component-props";
 
 export function FeatureItem({ title, description }: ProtectionFeatureData) {
   return (

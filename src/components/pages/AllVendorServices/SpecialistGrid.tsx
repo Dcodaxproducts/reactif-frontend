@@ -1,6 +1,6 @@
 import SpecialistCard from "@/components/cards/SpecialistCard";
 import { specialistAvatarColors } from "@/data/all-vendor-services";
-import type { Designer } from "@/models/designers";
+import type { Designer } from "@/types/designers";
 
 type SpecialistGridProps = {
   designers: Designer[];

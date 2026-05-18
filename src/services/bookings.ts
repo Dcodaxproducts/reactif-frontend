@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
-import type { Booking } from "@/models/bookings";
-import type { ApiListResponse } from "@/models/api";
+import type { Booking } from "@/types/bookings";
+import type { ApiListResponse } from "@/types/api";
 
 /**
  * ==============================

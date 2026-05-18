@@ -1,5 +1,5 @@
 import { CheckCircle, Store, Truck } from "lucide-react";
-import type { TrackingTimelineItemData } from "@/models/component-props";
+import type { TrackingTimelineItemData } from "@/types/component-props";
 
 const icons = {
   store: Store,

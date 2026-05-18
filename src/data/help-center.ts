@@ -1,5 +1,5 @@
 import { Lock, Pencil, Settings, Shield, Truck, User } from "lucide-react";
-import type { FAQItemData, HelpCardData } from "@/models/component-props";
+import type { FAQItemData, HelpCardData } from "@/types/component-props";
 
 export const popularHelpLinks = [
   "Shipping rates",

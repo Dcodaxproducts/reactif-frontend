@@ -1,4 +1,4 @@
-import type { CatalogSectionProps } from "@/models/component-props";
+import type { CatalogSectionProps } from "@/types/component-props";
 import CatalogScroller from "./CatalogScroller";
 
 export default function CatalogSection({ title, items }: CatalogSectionProps) {

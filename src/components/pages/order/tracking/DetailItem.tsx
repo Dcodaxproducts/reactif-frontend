@@ -1,4 +1,4 @@
-import type { TrackingDetailData } from "@/models/component-props";
+import type { TrackingDetailData } from "@/types/component-props";
 
 export function DetailItem({ title, value }: TrackingDetailData) {
   return (

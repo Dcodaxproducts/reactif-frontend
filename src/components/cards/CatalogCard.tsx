@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import type { CatalogCardProps } from "@/models/component-props";
+import type { CatalogCardProps } from "@/types/component-props";
 
 function CatalogCard({ item }: CatalogCardProps) {
   return (

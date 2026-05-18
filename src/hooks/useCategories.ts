@@ -12,7 +12,7 @@ import {
   type GetCategoryParams,
   type GetServicesBySubcategoryParams,
 } from "@/services/categories";
-import type { Category } from "@/models/categories";
+import type { Category } from "@/types/categories";
 
 /**
  * ==============================

@@ -1,5 +1,5 @@
 import { BadgeCheck } from "lucide-react";
-import type { CarrierBadgeProps } from "@/models/component-props";
+import type { CarrierBadgeProps } from "@/types/component-props";
 
 export default function CarrierBadge({ carrier }: CarrierBadgeProps) {
   return (

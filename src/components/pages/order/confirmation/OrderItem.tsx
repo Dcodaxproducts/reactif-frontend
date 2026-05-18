@@ -1,4 +1,4 @@
-import type { OrderItemData } from "@/models/component-props";
+import type { OrderItemData } from "@/types/component-props";
 
 export function OrderItem({ name, qty, price }: OrderItemData) {
   return (

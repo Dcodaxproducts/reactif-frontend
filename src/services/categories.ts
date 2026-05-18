@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
-import type { ApiItemResponse, ApiListResponse } from "@/models/api";
-import type { Category, Service } from "@/models/categories";
+import type { ApiItemResponse, ApiListResponse } from "@/types/api";
+import type { Category, Service } from "@/types/categories";
 
 /**
  * ==============================

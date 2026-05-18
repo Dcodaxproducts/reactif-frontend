@@ -13,7 +13,7 @@ import type {
   BackendUserProfile,
   ProfileFormPayload,
   UserProfile,
-} from "@/models/profile";
+} from "@/types/profile";
 
 /**
  * ==============================

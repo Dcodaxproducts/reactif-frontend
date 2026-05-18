@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { Service } from "@/models/categories";
+import type { Service } from "@/types/categories";
 
 export const buildServiceValidationSchema = (service?: Service | null) => {
   if (!service?.fields) return null;

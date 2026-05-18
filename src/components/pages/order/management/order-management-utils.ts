@@ -1,8 +1,8 @@
-import type { Booking, BookingFieldResponse } from "@/models/bookings";
+import type { Booking, BookingFieldResponse } from "@/types/bookings";
 import type {
   BookingParsedData,
   BookingServiceData,
-} from "@/models/component-props";
+} from "@/types/component-props";
 
 export const getProgressFromStatus = (status: string) => {
   switch (status) {

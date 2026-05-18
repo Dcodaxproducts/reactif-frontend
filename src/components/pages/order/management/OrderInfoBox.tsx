@@ -1,4 +1,4 @@
-import type { OrderInfoBoxProps } from "@/models/component-props";
+import type { OrderInfoBoxProps } from "@/types/component-props";
 import { formatStatusLabel } from "./order-management-utils";
 
 export function OrderInfoBox({

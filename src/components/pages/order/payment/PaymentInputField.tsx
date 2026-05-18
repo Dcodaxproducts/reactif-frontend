@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import type { PaymentInputFieldProps } from "@/models/component-props";
+import type { PaymentInputFieldProps } from "@/types/component-props";
 
 export function PaymentInputField({
   label,

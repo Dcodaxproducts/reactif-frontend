@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
-import type { ApiListResponse } from "@/models/api";
-import type { Designer } from "@/models/designers";
+import type { ApiListResponse } from "@/types/api";
+import type { Designer } from "@/types/designers";
 
 /**
  * ==============================

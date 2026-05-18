@@ -1,4 +1,4 @@
-import type { SpecialistListStatusProps } from "@/models/component-props";
+import type { SpecialistListStatusProps } from "@/types/component-props";
 
 export default function SpecialistListStatus({
   loading,

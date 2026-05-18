@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { UserDropdown } from "./UserDropdown";
-import type { NavbarActionsProps } from "@/models/component-props";
+import type { NavbarActionsProps } from "@/types/component-props";
 
 export function NavbarActions({
   user,

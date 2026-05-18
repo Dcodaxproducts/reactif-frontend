@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
-import type { ApiItemResponse } from "@/models/api";
-import type { BackendUserProfile, ProfileFormPayload } from "@/models/profile";
+import type { ApiItemResponse } from "@/types/api";
+import type { BackendUserProfile, ProfileFormPayload } from "@/types/profile";
 
 /**
  * ==============================
