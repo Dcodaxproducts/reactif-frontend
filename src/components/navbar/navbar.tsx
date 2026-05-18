@@ -5,12 +5,12 @@ import Link from "next/link";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { FiUser, FiSettings, FiLogOut } from "react-icons/fi";
 import {
-  FiUser,
-  FiSettings,
-  FiLogOut,
-  FiPackage,
-} from "react-icons/fi";
+  authenticatedNavItems,
+  mobileNavItems,
+  publicNavItems,
+} from "@/config/navigation";
 
 interface User {
   userId: number;
@@ -40,10 +40,6 @@ const Navbar = () => {
     router.push("/login");
   };
 
-  const handleContactClick = () => {
-    router.push("/#contact");
-  };
-
   const getInitials = (name?: string) => {
     if (!name) return ""; // handle undefined or empty string
 
@@ -66,8 +62,7 @@ const Navbar = () => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -75,10 +70,8 @@ const Navbar = () => {
       {/* OUTER BAR */}
       <nav className="w-full flex justify-center py-4 md:py-6 px-4 md:px-10">
         <div className="w-[95%] border border-[#FFFFFF3D] rounded-[14px] px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
-
           {/* LEFT SECTION */}
           <div className="flex items-center gap-3 md:gap-5">
-
             {/* MOBILE MENU BUTTON */}
             <button
               className="md:hidden text-white"
@@ -102,68 +95,60 @@ const Navbar = () => {
 
             {/* DESKTOP NAV LINKS */}
             <div className="hidden md:flex items-center gap-8 text-sm text-white">
-
-              {/* Services with ellipse */}
-              <div className="relative inline-block w-max">
-                <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-32 h-16 pointer-events-none">
-                  <Image
-                    src="/assets/elipse.png"
-                    alt="elipse background"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <Link
-                  href="/#categories"
-                  className="relative px-4 py-1.5 rounded-full bg-transparent text-gray-300 z-10"
+              {publicNavItems.map((item) => (
+                <div
+                  key={item.label}
+                  className={
+                    item.highlight
+                      ? "relative inline-block w-max"
+                      : "flex items-center gap-2"
+                  }
                 >
-                  Categories
-                </Link>
-              </div>
+                  {item.highlight && (
+                    <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-32 h-16 pointer-events-none">
+                      <Image
+                        src="/assets/elipse.png"
+                        alt="elipse background"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  )}
 
-              {/* Automotive + New badge */}
-              <div className="flex items-center gap-2">
-                <span
-                  onClick={() => router.push("/automotive")}
-                  className="hover:text-blue-400 transition cursor-pointer text-gray-300"
-                >
-                  Automotive
-                </span>
-                <span className="text-[12px] bg-[#E2E2E2] px-3 py-[3px] rounded-full text-black font-[400]">
-                  New
-                </span>
-              </div>
-
-              <Link
-                href="/catalog"
-                className="hover:text-blue-400 transition text-gray-300"
-              >
-                Catalog
-              </Link>
-
-              <span
-                onClick={handleContactClick}
-                className="hover:text-blue-400 transition text-gray-300 cursor-pointer"
-              >
-                Contact
-              </span>
-
-              {
-                user && (
-                  <span
-                    onClick={() => router.push("/order/management")}
-                    className="hover:text-blue-400 transition text-gray-300 cursor-pointer"
+                  <Link
+                    href={item.href}
+                    className={
+                      item.highlight
+                        ? "relative px-4 py-1.5 rounded-full bg-transparent text-gray-300 z-10"
+                        : "hover:text-blue-400 transition text-gray-300"
+                    }
                   >
-                    My Bookings
-                  </span>
-                )
-              }
+                    {item.label}
+                  </Link>
+
+                  {item.badge && (
+                    <span className="text-[12px] bg-[#E2E2E2] px-3 py-[3px] rounded-full text-black font-[400]">
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
+              ))}
+
+              {user &&
+                authenticatedNavItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="hover:text-blue-400 transition text-gray-300"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
             </div>
           </div>
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-3 md:gap-4 relative">
-
             {/* Cart only if logged in */}
             {user && (
               <button
@@ -244,7 +229,6 @@ const Navbar = () => {
             onClick={closeSidebar}
           />
           <div className="absolute left-0 top-0 w-[280px] h-full bg-white shadow-xl">
-
             <div className="flex justify-end p-4">
               <button onClick={closeSidebar}>
                 <X size={26} />
@@ -252,21 +236,11 @@ const Navbar = () => {
             </div>
 
             <div className="flex flex-col gap-5 px-6 text-[15px]">
-              <Link href="https://customer-dashboard-reactif.vercel.app" onClick={closeSidebar}>
-                Dashboard
-              </Link>
-              <Link href="/automotive" onClick={closeSidebar}>
-                Automotive
-              </Link>
-              <Link href="/#categories" onClick={closeSidebar}>
-                Categories
-              </Link>
-              <Link href="/catalog" onClick={closeSidebar}>
-                Catalog
-              </Link>
-              <Link href="/#contact" onClick={closeSidebar}>
-                Contact
-              </Link>
+              {mobileNavItems.map((item) => (
+                <Link key={item.label} href={item.href} onClick={closeSidebar}>
+                  {item.label}
+                </Link>
+              ))}
 
               {!user ? (
                 <button

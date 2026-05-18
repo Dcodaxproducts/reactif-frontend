@@ -1,6 +1,9 @@
-import { catalogData } from "@/constants/catalog";
+import { useCatalog } from "@/hooks/useCatalog";
 import CatalogCard from "../cards/CatalogCard";
+
 export default function CatalogGrid() {
+  const { items } = useCatalog();
+
   return (
     <div className="space-y-6">
       <div className="space-y-6">
@@ -17,7 +20,7 @@ export default function CatalogGrid() {
                    [&::-webkit-scrollbar-thumb]:rounded-full
                    hover:[&::-webkit-scrollbar-thumb]:bg-white/20"
         >
-          {catalogData.map((item, i) => (
+          {items.map((item, i) => (
             <div
               key={i}
               className="shrink-0 w-[280px] sm:w-[300px] snap-start"
@@ -42,7 +45,7 @@ export default function CatalogGrid() {
                    [&::-webkit-scrollbar-thumb]:rounded-full
                    hover:[&::-webkit-scrollbar-thumb]:bg-white/20"
         >
-          {catalogData.slice(2).map((item, i) => (
+          {items.slice(2).map((item, i) => (
             <div
               key={i}
               className="shrink-0 w-[280px] sm:w-[300px] snap-start"

@@ -1,18 +1,20 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-import { API_BASE_URL } from "@/lib/constants"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
+import { authService } from "@/services/auth";
+import { ApiError } from "@/services/api-client";
+import { registrationSchema } from "@/validations/auth";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
-import Link from "next/link"
-import { toast } from "sonner"
+import Link from "next/link";
+import { toast } from "sonner";
 
 export default function RegistrationForm() {
-  const router = useRouter()
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -21,146 +23,96 @@ export default function RegistrationForm() {
     email: "",
     password: "",
     confirmPassword: "",
-  })
+  });
 
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const validateForm = () => {
-    if (!formData.fullName.trim())
-      return "Full Name is required."
+    const result = registrationSchema.safeParse(formData);
+    return result.success
+      ? null
+      : (result.error.errors[0]?.message ?? "Validation failed.");
+  };
 
-    if (!formData.email.trim())
-      return "Email is required."
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(formData.email))
-      return "Invalid email format."
+    if (!navigator.onLine) {
+      setError("No internet connection.");
+      toast.error("No internet connection.");
+      return;
+    }
 
-    if (!formData.phone.trim())
-      return "Phone number is required."
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      toast.error(validationError);
+      return;
+    }
 
-    if (!formData.password)
-      return "Password is required."
+    try {
+      setLoading(true);
 
-    if (formData.password.length < 8)
-      return "Password must be at least 8 characters."
-
-    if (formData.password !== formData.confirmPassword)
-      return "Passwords do not match."
-
-    return null
-  }
-
-  
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  setError(null)
-  setSuccess(null)
-
-  if (!navigator.onLine) {
-    setError("No internet connection.")
-    toast.error("No internet connection.")
-    return
-  }
-
-  const validationError = validateForm()
-  if (validationError) {
-    setError(validationError)
-    toast.error(validationError)
-    return
-  }
-
-  try {
-    setLoading(true)
-
-    const response = await fetch(`${API_BASE_URL}/auth/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+      const data = await authService.register({
         fullName: formData.fullName,
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
-      }),
-    })
+      });
 
-    const data = await response.json()
-
-    /* -------------------------
-       Error Handling (C5.1 / C5.2)
-    -------------------------- */
-    if (!response.ok) {
-      let errorMessage = "Something went wrong."
-
-      if (response.status === 409) {
-        errorMessage = data?.message || "An account with this email already exists."
-      }
-
-      if (response.status === 422) {
-        // Extract the first field error from `errors` object
-        if (data?.errors) {
-          const fieldErrors = Object.values(data.errors)
-          if (fieldErrors.length > 0 && Array.isArray(fieldErrors[0])) {
-            errorMessage = fieldErrors[0][0] // first error message
-          }
-        } else {
-          errorMessage = data?.message || "Validation failed."
-        }
-      }
-
-      if (response.status === 500) {
-        errorMessage = data?.message || "Account creation failed. Try again."
-      }
-
-      setError(errorMessage)
-      toast.error(errorMessage)
-      return
-    }
-
-    /* -------------------------
+      /* -------------------------
        SUCCESS PATH (C5.3)
     -------------------------- */
 
-    // Save session token
-    localStorage.setItem("sessionToken", data.sessionToken)
+      // Save session token
+      localStorage.setItem("sessionToken", data.sessionToken);
 
-    // Build full user object
-    const userObject = {
-      userId: data.userId,
-      email: data.email,
-      displayName: data.displayName,
-      isVerified: data.isVerified ?? false,
-    }
+      // Build full user object
+      const userObject = {
+        userId: data.userId,
+        email: data.email,
+        displayName: data.displayName,
+        isVerified: data.isVerified ?? false,
+      };
 
-    // Store full user object
-    localStorage.setItem("current_user", JSON.stringify(userObject))
+      // Store full user object
+      localStorage.setItem("current_user", JSON.stringify(userObject));
 
-    setSuccess("Account created successfully! Please verify your email with the OTP sent.")
-    toast.success("Account created successfully! OTP sent to your email.")
+      setSuccess(
+        "Account created successfully! Please verify your email with the OTP sent.",
+      );
+      toast.success("Account created successfully! OTP sent to your email.");
 
-    /* -------------------------
+      /* -------------------------
        Navigate to OTP (C6)
     -------------------------- */
-    setTimeout(() => {
-      router.push("/register/enter-otp")
-    }, 1200)
-
-  } catch (err: any) {
-    const message = err.message || "Something went wrong."
-    setError(message)
-    toast.error(message)
-  } finally {
-    setLoading(false)
-  }
-}
+      setTimeout(() => {
+        router.push("/register/enter-otp");
+      }, 1200);
+    } catch (err: unknown) {
+      let message = "Something went wrong.";
+      if (err instanceof ApiError) {
+        message =
+          err.status === 409
+            ? "An account with this email already exists."
+            : err.message;
+      } else if (err instanceof Error) {
+        message = err.message;
+      }
+      setError(message);
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <section className="w-full min-h-screen flex items-center justify-center px-4 py-10">
       <div
@@ -177,12 +129,14 @@ const handleSubmit = async (e: React.FormEvent) => {
       >
         {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="
+          <h1
+            className="
           bg-gradient-to-r from-[#F262B5] to-[#9F73F1]
           bg-clip-text text-transparent
           text-2xl sm:text-3xl md:text-4xl
           font-bold font-hk uppercase
-          ">
+          "
+          >
             Create New Account
           </h1>
 
@@ -195,9 +149,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Full Name */}
           <div className="space-y-2">
-            <Label className="text-neutral-50 font-semibold">
-              Full Name
-            </Label>
+            <Label className="text-neutral-50 font-semibold">Full Name</Label>
             <Input
               name="fullName"
               value={formData.fullName}
@@ -238,9 +190,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
           {/* Email */}
           <div className="space-y-2">
-            <Label className="text-neutral-50 font-semibold">
-              Email
-            </Label>
+            <Label className="text-neutral-50 font-semibold">Email</Label>
             <Input
               type="email"
               name="email"
@@ -253,9 +203,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
           {/* Password */}
           <div className="space-y-2">
-            <Label className="text-neutral-50 font-semibold">
-              Password
-            </Label>
+            <Label className="text-neutral-50 font-semibold">Password</Label>
             <Input
               type="password"
               name="password"
@@ -293,9 +241,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           </div> */}
 
           {/* Error / Success Messages */}
-          {error && (
-            <p className="text-red-500 text-sm font-medium">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
 
           {success && (
             <p className="text-green-500 text-sm font-medium">{success}</p>
@@ -332,5 +278,5 @@ const handleSubmit = async (e: React.FormEvent) => {
         </form>
       </div>
     </section>
-  )
+  );
 }

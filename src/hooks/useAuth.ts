@@ -3,14 +3,11 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { API_BASE_URL } from "@/lib/constants";
+import { ApiError } from "@/services/api-client";
+import { authService } from "@/services/auth";
+import type { AuthUser } from "@/types/auth";
 
-export interface User {
-  userId: number;
-  email: string;
-  displayName: string;
-  isVerified: boolean;
-}
+export type User = AuthUser;
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -30,20 +27,7 @@ export const useAuth = () => {
       try {
         const parsedUser: User = JSON.parse(storedUser);
 
-        const res = await fetch(`${API_BASE_URL}/auth/validate`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-console.log(res);
-        if (res.status === 401) {
-          localStorage.removeItem("sessionToken");
-          localStorage.removeItem("current_user");
-          setUser(null);
-          router.push("/login");
-          setLoading(false);
-          return;
-        }
+        await authService.validateSession(token);
 
         if (!parsedUser.isVerified) {
           router.push("/register/enter-otp");
@@ -53,7 +37,14 @@ console.log(res);
 
         setUser(parsedUser);
       } catch (error) {
-        console.error("Auth validation error:", error);
+        if (error instanceof ApiError && error.status === 401) {
+          localStorage.removeItem("sessionToken");
+          localStorage.removeItem("current_user");
+          setUser(null);
+          router.push("/login");
+        } else {
+          console.error("Auth validation error:", error);
+        }
       } finally {
         setLoading(false);
       }

@@ -1,106 +1,100 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import { useRouter } from "next/navigation"
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
-import Link from "next/link"
-import { API_BASE_URL } from "@/lib/constants"
-import { toast } from "sonner"
+import Link from "next/link";
+import { authService } from "@/services/auth";
+import { ApiError } from "@/services/api-client";
+import { loginSchema } from "@/validations/auth";
+import { toast } from "sonner";
 
 export default function LoginForm() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [rememberMe, setRememberMe] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const validateForm = () => {
-    if (!email.trim()) return "Email is required."
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) return "Invalid email format."
-    if (!password.trim()) return "Password is required."
-    if (password.length < 8) return "Password must be at least 8 characters."
-    return null
-  }
+    const result = loginSchema.safeParse({ email, password });
+    return result.success
+      ? null
+      : (result.error.errors[0]?.message ?? "Validation failed.");
+  };
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  if (!navigator.onLine) {
-    toast.error("No internet connection.")
-    return
-  }
-
-  const validationError = validateForm()
-  if (validationError) {
-    toast.error(validationError)
-    return
-  }
-
-  try {
-    setLoading(true)
-
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    })
-
-    const data = await response.json()
-
-    if (!response.ok) {
-      let message = "Login failed. Try again."
-      if (response.status === 401) message = "Invalid email or password."
-      if (response.status === 422) message = data?.message || "Validation failed."
-
-      toast.error(message)
-      return
+    if (!navigator.onLine) {
+      toast.error("No internet connection.");
+      return;
     }
 
-    // Save session token
-    if (data.sessionToken) localStorage.setItem("sessionToken", data.sessionToken)
-
-    // Save user object
-    const userObject = {
-      userId: data.userId,
-      email: data.email,
-      displayName: data.displayName,
-      isVerified: data.isVerified ?? false,
+    const validationError = validateForm();
+    if (validationError) {
+      toast.error(validationError);
+      return;
     }
-    localStorage.setItem("current_user", JSON.stringify(userObject))
 
-    // Success toast
-    toast.success(userObject.isVerified ? "Login Successful!" : "Account created, please verify OTP!")
+    try {
+      setLoading(true);
 
-    // Redirect
-// Redirect
-if (!userObject.isVerified) {
-  router.push("/verify-otp");
-} else {
-  const redirectUrl = localStorage.getItem("redirectAfterLogin");
+      const data = await authService.login({ email, password });
 
-  if (redirectUrl) {
-    localStorage.removeItem("redirectAfterLogin");
-    router.push(redirectUrl);
-  } else {
-    router.push("/");
-  }
-}
+      // Save session token
+      if (data.sessionToken)
+        localStorage.setItem("sessionToken", data.sessionToken);
 
-  } catch (err: any) {
-    toast.error(err.message || "Something went wrong. Try again.")
-  } finally {
-    setLoading(false)
-  }
-}
-  
+      // Save user object
+      const userObject = {
+        userId: data.userId,
+        email: data.email,
+        displayName: data.displayName,
+        isVerified: data.isVerified ?? false,
+      };
+      localStorage.setItem("current_user", JSON.stringify(userObject));
+
+      // Success toast
+      toast.success(
+        userObject.isVerified
+          ? "Login Successful!"
+          : "Account created, please verify OTP!",
+      );
+
+      // Redirect
+      // Redirect
+      if (!userObject.isVerified) {
+        router.push("/verify-otp");
+      } else {
+        const redirectUrl = localStorage.getItem("redirectAfterLogin");
+
+        if (redirectUrl) {
+          localStorage.removeItem("redirectAfterLogin");
+          router.push(redirectUrl);
+        } else {
+          router.push("/");
+        }
+      }
+    } catch (err: unknown) {
+      let message = "Something went wrong. Try again.";
+      if (err instanceof ApiError) {
+        message =
+          err.status === 401 ? "Invalid email or password." : err.message;
+      } else if (err instanceof Error) {
+        message = err.message;
+      }
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="w-full min-h-screen flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-xl rounded-3xl border border-indigo-600 backdrop-blur-sm bg-black/10 p-6 sm:p-8 md:p-14 md:py-17 flex flex-col gap-8">
@@ -118,7 +112,9 @@ if (!userObject.isVerified) {
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Email */}
           <div className="space-y-2">
-            <Label className="text-neutral-50 text-base font-semibold">Email</Label>
+            <Label className="text-neutral-50 text-base font-semibold">
+              Email
+            </Label>
             <Input
               placeholder="Enter Your Email"
               type="email"
@@ -130,7 +126,9 @@ if (!userObject.isVerified) {
 
           {/* Password */}
           <div className="space-y-2">
-            <Label className="text-neutral-50 text-base font-semibold">Password</Label>
+            <Label className="text-neutral-50 text-base font-semibold">
+              Password
+            </Label>
             <Input
               placeholder="Enter Password"
               type="password"
@@ -139,7 +137,10 @@ if (!userObject.isVerified) {
               className="bg-transparent border-neutral-50/30 text-white focus:border-blue-600"
             />
             <div className="text-right mt-2">
-              <Link href="/forgot-password" className="text-blue-600 text-sm font-semibold">
+              <Link
+                href="/forgot-password"
+                className="text-blue-600 text-sm font-semibold"
+              >
                 Forgot Password?
               </Link>
             </div>
@@ -181,5 +182,5 @@ if (!userObject.isVerified) {
         </div>
       </div>
     </section>
-  )
+  );
 }
