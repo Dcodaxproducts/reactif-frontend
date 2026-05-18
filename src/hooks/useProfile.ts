@@ -1,51 +1,100 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { profileService } from "@/services/profile";
-import type { UserProfile } from "@/types/profile";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/errors";
+import { deleteUserAccount, getUserProfile, updateUserProfile } from "@/services/profile";
+import type { BackendUserProfile, ProfileFormPayload, UserProfile } from "@/types/profile";
 
-const mapProfile = (backendUser: any, isVerified = false): UserProfile => ({
+/**
+ * ==============================
+ * QUERY KEYS
+ * ==============================
+ */
+
+export const profileKeys = {
+  all: ["profile"] as const,
+  detail: () => ["profile", "detail"] as const,
+};
+
+/**
+ * ==============================
+ * HELPERS
+ * ==============================
+ */
+
+const mapProfile = (backendUser: BackendUserProfile, isVerified = false): UserProfile => ({
   id: backendUser.id,
   name: backendUser.name,
   email: backendUser.email,
-  phone: backendUser.contact_number,
-  avatar: backendUser.profile_image,
-  address: backendUser.address,
-  bio: backendUser.bio,
+  phone: backendUser.contact_number || "",
+  avatar: backendUser.profile_image || null,
+  address: backendUser.address || "",
+  bio: backendUser.bio || "",
   created_at: backendUser.created_at,
   updated_at: backendUser.updated_at,
   is_verified: isVerified,
 });
 
+/**
+ * ==============================
+ * PROFILE HOOKS
+ * ==============================
+ */
+
 export const useProfile = () => {
-  const [user, setUser] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const query = useQuery({
+    queryKey: profileKeys.detail(),
+    queryFn: getUserProfile,
+  });
 
-  const fetchProfile = useCallback(async () => {
-    const token = localStorage.getItem("sessionToken");
-    if (!token) {
-      setError("Session expired. Please login again.");
-      setLoading(false);
-      return;
-    }
+  const storedUser = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("current_user") || "{}") : {};
+  const mappedProfile = query.data?.data ? mapProfile(query.data.data, storedUser.isVerified ?? false) : null;
 
-    try {
-      const result = await profileService.detail(token);
+  return {
+    ...query,
+    user: mappedProfile,
+    loading: query.isLoading,
+    error: query.error ? getErrorMessage(query.error, "Something went wrong.") : null,
+    refetch: query.refetch,
+  };
+};
+
+export const useUpdateProfile = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (payload: ProfileFormPayload) => updateUserProfile(payload),
+    onSuccess: (result) => {
       const storedUser = JSON.parse(localStorage.getItem("current_user") || "{}");
-      const mergedUser = mapProfile(result.data, storedUser.isVerified ?? false);
-      localStorage.setItem("current_user", JSON.stringify({ ...storedUser, ...mergedUser }));
-      setUser(mergedUser);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+      localStorage.setItem("current_user", JSON.stringify({ ...storedUser, ...result.data }));
+      queryClient.invalidateQueries({ queryKey: profileKeys.all });
+      toast.success("Profile updated successfully.");
+      router.push("/profile");
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error, "Something went wrong."));
+    },
+  });
+};
 
-  useEffect(() => {
-    fetchProfile();
-  }, [fetchProfile]);
+export const useDeleteAccount = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
-  return { user, loading, error, refetch: fetchProfile };
+  return useMutation({
+    mutationFn: deleteUserAccount,
+    onSuccess: () => {
+      localStorage.removeItem("sessionToken");
+      localStorage.removeItem("current_user");
+      queryClient.clear();
+      toast.success("Account deleted successfully.");
+      router.push("/");
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error, "Something went wrong."));
+    },
+  });
 };

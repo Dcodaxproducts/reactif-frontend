@@ -1,19 +1,49 @@
-import { apiClient } from "@/services/api-client";
-import type { ApiListResponse } from "@/types/categories";
+import api from "@/lib/axios";
 import type { Booking } from "@/types/bookings";
+import type { ApiListResponse } from "@/types/categories";
 
-export const bookingService = {
-  list(token: string) {
-    return apiClient<ApiListResponse<Booking>>("/booking-list", {
-      token,
-    });
-  },
+/**
+ * ==============================
+ * TYPES
+ * ==============================
+ */
 
-  create(payload: FormData, token: string) {
-    return apiClient<{ data?: Booking; message?: string }>("/booking", {
-      method: "POST",
-      token,
-      body: payload,
-    });
-  },
+export type CreateBookingPayload = FormData;
+
+export type CreateBookingResponse = {
+  data?: Booking;
+  message?: string;
+};
+
+/**
+ * ==============================
+ * ROUTES
+ * ==============================
+ */
+
+export const BOOKING_ROUTES = {
+  list: "/booking-list",
+  create: "/booking",
+};
+
+/**
+ * ==============================
+ * BOOKING APIS
+ * ==============================
+ */
+
+export const getBookings = async (): Promise<ApiListResponse<Booking>> => {
+  const { data } = await api.get<ApiListResponse<Booking>>(BOOKING_ROUTES.list);
+
+  return data;
+};
+
+export const createBooking = async (payload: CreateBookingPayload): Promise<CreateBookingResponse> => {
+  const { data } = await api.post<CreateBookingResponse>(BOOKING_ROUTES.create, payload, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return data;
 };

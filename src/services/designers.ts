@@ -1,9 +1,53 @@
-import { apiClient } from "@/services/api-client";
+import api from "@/lib/axios";
 import type { ApiListResponse } from "@/types/categories";
 import type { Designer } from "@/types/designers";
 
-export const designerService = {
-  list(page = 1) {
-    return apiClient<ApiListResponse<Designer>>(`/designer-list?page=${page}`);
-  },
+/**
+ * ==============================
+ * TYPES
+ * ==============================
+ */
+
+export type GetDesignersParams = {
+  page?: number;
+};
+
+/**
+ * ==============================
+ * ROUTES
+ * ==============================
+ */
+
+export const DESIGNER_ROUTES = {
+  list: "/designer-list",
+};
+
+/**
+ * ==============================
+ * HELPERS
+ * ==============================
+ */
+
+const cleanParams = <T extends Record<string, unknown>>(params?: T) => {
+  if (!params) return undefined;
+
+  const cleaned = Object.fromEntries(
+    Object.entries(params).filter(([, value]) => value !== undefined && value !== null && value !== ""),
+  );
+
+  return Object.keys(cleaned).length > 0 ? cleaned : undefined;
+};
+
+/**
+ * ==============================
+ * DESIGNER APIS
+ * ==============================
+ */
+
+export const getDesigners = async (params: GetDesignersParams = {}): Promise<ApiListResponse<Designer>> => {
+  const { data } = await api.get<ApiListResponse<Designer>>(DESIGNER_ROUTES.list, {
+    params: cleanParams(params),
+  });
+
+  return data;
 };

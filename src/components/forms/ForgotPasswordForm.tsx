@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { ApiError } from "@/services/api-client";
-import { authService } from "@/services/auth";
+import { useForgotPassword } from "@/hooks/useAuth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -15,7 +14,8 @@ const ForgotPasswordForm = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
+  const forgotPasswordMutation = useForgotPassword();
+  const loading = forgotPasswordMutation.isPending;
 
   // -------------------------
   // Form Validation
@@ -40,26 +40,13 @@ const ForgotPasswordForm = () => {
     }
 
     try {
-      setLoading(true);
+      await forgotPasswordMutation.mutateAsync({ email });
 
-      await authService.forgotPassword({ email });
-
-      toast.success("OTP sent to your email. It is valid for 10 minutes.");
-
-      // Optionally redirect to Verify OTP page
       setTimeout(() => {
         router.push("/verify-otp");
       }, 1500);
-    } catch (err: unknown) {
-      const message =
-        err instanceof ApiError && err.status === 404
-          ? "No account found with this email."
-          : err instanceof Error
-            ? err.message
-            : "Failed to send OTP. Try again.";
-      toast.error(message);
-    } finally {
-      setLoading(false);
+    } catch {
+      // handled by mutation toast
     }
   };
 

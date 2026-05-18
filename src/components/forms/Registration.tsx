@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { authService } from "@/services/auth";
-import { ApiError } from "@/services/api-client";
+import { useRegister } from "@/hooks/useAuth";
 import { registrationSchema } from "@/validations/auth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -25,7 +24,8 @@ export default function RegistrationForm() {
     confirmPassword: "",
   });
 
-  const [loading, setLoading] = useState(false);
+  const registerMutation = useRegister();
+  const loading = registerMutation.isPending;
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -59,59 +59,19 @@ export default function RegistrationForm() {
     }
 
     try {
-      setLoading(true);
-
-      const data = await authService.register({
+      await registerMutation.mutateAsync({
         fullName: formData.fullName,
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
       });
-
-      /* -------------------------
-       SUCCESS PATH (C5.3)
-    -------------------------- */
-
-      // Save session token
-      if (data.sessionToken)
-        localStorage.setItem("sessionToken", data.sessionToken);
-
-      // Build full user object
-      const userObject = {
-        userId: data.userId,
-        email: data.email,
-        displayName: data.displayName,
-        isVerified: data.isVerified ?? false,
-      };
-
-      // Store full user object
-      localStorage.setItem("current_user", JSON.stringify(userObject));
-
       setSuccess(
         "Account created successfully! Please verify your email with the OTP sent.",
       );
-      toast.success("Account created successfully! OTP sent to your email.");
-
-      /* -------------------------
-       Navigate to OTP (C6)
-    -------------------------- */
-      setTimeout(() => {
-        router.push("/register/enter-otp");
-      }, 1200);
     } catch (err: unknown) {
-      let message = "Something went wrong.";
-      if (err instanceof ApiError) {
-        message =
-          err.status === 409
-            ? "An account with this email already exists."
-            : err.message;
-      } else if (err instanceof Error) {
-        message = err.message;
-      }
+      const message =
+        err instanceof Error ? err.message : "Something went wrong.";
       setError(message);
-      toast.error(message);
-    } finally {
-      setLoading(false);
     }
   };
   return (

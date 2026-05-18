@@ -1,34 +1,52 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { bookingService } from "@/services/bookings";
-import type { Booking } from "@/types/bookings";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/errors";
+import { createBooking, getBookings, type CreateBookingPayload } from "@/services/bookings";
+
+/**
+ * ==============================
+ * QUERY KEYS
+ * ==============================
+ */
+
+export const bookingKeys = {
+  all: ["bookings"] as const,
+  list: () => ["bookings", "list"] as const,
+};
+
+/**
+ * ==============================
+ * BOOKING HOOKS
+ * ==============================
+ */
 
 export const useBookings = () => {
-  const [bookings, setBookings] = useState<Booking[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const query = useQuery({
+    queryKey: bookingKeys.list(),
+    queryFn: getBookings,
+  });
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const token = localStorage.getItem("sessionToken");
-        if (!token) {
-          setBookings([]);
-          return;
-        }
+  return {
+    ...query,
+    bookings: query.data?.data ?? [],
+    loading: query.isLoading,
+    error: query.error ? getErrorMessage(query.error, "Something went wrong") : null,
+  };
+};
 
-        const data = await bookingService.list(token);
-        setBookings(data.data || []);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    };
+export const useCreateBooking = () => {
+  const queryClient = useQueryClient();
 
-    fetchBookings();
-  }, []);
-
-  return { bookings, loading, error };
+  return useMutation({
+    mutationFn: (payload: CreateBookingPayload) => createBooking(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: bookingKeys.all });
+      toast.success("Booking created successfully");
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error, "Failed to create booking"));
+    },
+  });
 };

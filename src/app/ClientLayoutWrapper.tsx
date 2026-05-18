@@ -4,19 +4,26 @@ import { ReactNode } from "react";
 import Footer from "@/components/footer/Footer";
 import TopInfoBar from "@/components/navbar/TopInfoBar";
 import { Toaster } from "sonner";
+import { QueryProvider } from "@/components/providers/query-provider";
 import { useAuth } from "@/hooks/useAuth";
-import { onest } from "@/lib/fonts";
 
-export default function ClientLayoutWrapper({ children }: { children: ReactNode }) {
-
+function ClientLayoutContent({ children }: { children: ReactNode }) {
   useAuth();
 
   return (
-    <body className={`${onest.className}`}>
+    <>
       <TopInfoBar />
       <Toaster position="top-right" richColors />
       <div>{children}</div>
       <Footer />
-    </body>
+    </>
+  );
+}
+
+export default function ClientLayoutWrapper({ children }: { children: ReactNode }) {
+  return (
+    <QueryProvider>
+      <ClientLayoutContent>{children}</ClientLayoutContent>
+    </QueryProvider>
   );
 }

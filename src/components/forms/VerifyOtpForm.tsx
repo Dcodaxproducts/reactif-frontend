@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { ApiError } from "@/services/api-client";
-import { authService } from "@/services/auth";
+import { useResendOtp, useResetPassword } from "@/hooks/useAuth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -17,7 +16,10 @@ const VerifyOtpForm = () => {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const resetPasswordMutation = useResetPassword();
+  const resendOtpMutation = useResendOtp();
+  const loading =
+    resetPasswordMutation.isPending || resendOtpMutation.isPending;
   const [countdown, setCountdown] = useState(60);
   const [canResend, setCanResend] = useState(false);
 
@@ -75,27 +77,10 @@ const VerifyOtpForm = () => {
     }
 
     try {
-      setLoading(true);
-
-      await authService.resetPassword({ email, otp, newPassword });
-
-      toast.success("Password reset successfully!");
-
+      await resetPasswordMutation.mutateAsync({ email, otp, newPassword });
       setTimeout(() => router.push("/login"), 1500);
-    } catch (err: unknown) {
-      const message =
-        err instanceof ApiError && err.status === 400
-          ? "Incorrect OTP."
-          : err instanceof ApiError && err.status === 410
-            ? "OTP expired. Request a new one."
-            : err instanceof ApiError && err.status === 404
-              ? "No account found with this email."
-              : err instanceof Error
-                ? err.message
-                : "Reset failed. Try again.";
-      toast.error(message);
-    } finally {
-      setLoading(false);
+    } catch {
+      // handled by mutation toast
     }
   };
 
@@ -109,18 +94,11 @@ const VerifyOtpForm = () => {
     }
 
     try {
-      setLoading(true);
-      await authService.resendOtp({ email });
-
-      toast.success("A new OTP has been sent to your email.");
+      await resendOtpMutation.mutateAsync({ email });
       setCountdown(60);
       setCanResend(false);
-    } catch (err: unknown) {
-      const message =
-        err instanceof Error ? err.message : "Failed to resend OTP.";
-      toast.error(message);
-    } finally {
-      setLoading(false);
+    } catch {
+      // handled by mutation toast
     }
   };
 

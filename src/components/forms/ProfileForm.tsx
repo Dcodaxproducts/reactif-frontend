@@ -8,13 +8,13 @@ import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { ApiError } from "@/services/api-client";
-import { profileService } from "@/services/profile";
+import { useUpdateProfile } from "@/hooks/useProfile";
 const ProfileForm = () => {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [loading, setLoading] = useState(false);
+  const updateProfileMutation = useUpdateProfile();
+  const loading = updateProfileMutation.isPending;
   const [preview, setPreview] = useState<string>("");
 
   const [formData, setFormData] = useState({
@@ -78,43 +78,9 @@ const ProfileForm = () => {
     }
 
     try {
-      setLoading(true);
-
-      const result = await profileService.update(
-        { ...formData, avatarFile },
-        token,
-      );
-
-      // ✅ Update localStorage
-      const storedUser = JSON.parse(
-        localStorage.getItem("current_user") || "{}",
-      );
-
-      const updatedUser = {
-        ...storedUser,
-        ...result.data,
-      };
-
-      localStorage.setItem("current_user", JSON.stringify(updatedUser));
-
-      toast.success("Profile updated successfully.");
-
-      router.push("/profile");
-    } catch (error: unknown) {
-      if (error instanceof ApiError && error.status === 401) {
-        localStorage.removeItem("sessionToken");
-        localStorage.removeItem("current_user");
-        toast.error("Session expired. Please login again.");
-        router.push("/login");
-      } else if (error instanceof ApiError && error.status === 409) {
-        toast.error(error.message || "Email already in use.");
-      } else {
-        toast.error(
-          error instanceof Error ? error.message : "Something went wrong.",
-        );
-      }
-    } finally {
-      setLoading(false);
+      await updateProfileMutation.mutateAsync({ ...formData, avatarFile });
+    } catch {
+      // handled by mutation toast
     }
   };
 

@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { ApiError } from "@/services/api-client";
-import { authService } from "@/services/auth";
+import { useResendOtp, useVerifyOtp } from "@/hooks/useAuth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -16,7 +15,9 @@ const OTPForm = () => {
 
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [loading, setLoading] = useState(false);
+  const verifyOtpMutation = useVerifyOtp();
+  const resendOtpMutation = useResendOtp();
+  const loading = verifyOtpMutation.isPending || resendOtpMutation.isPending;
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -81,49 +82,21 @@ const OTPForm = () => {
     }
 
     try {
-      setLoading(true);
-
       const token = localStorage.getItem("sessionToken");
       if (!token) {
         throw new Error("Session expired. Please sign up again.");
       }
 
-      await authService.verifyOtp({ email, otp }, token);
-
-      /* --------------------------
-         SUCCESS PATH (C8.2)
-      -------------------------- */
-
-      const storedUser = localStorage.getItem("current_user");
-
-      if (storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        parsedUser.isVerified = true;
-        localStorage.setItem("current_user", JSON.stringify(parsedUser));
-      }
-
+      await verifyOtpMutation.mutateAsync({ email, otp });
       setSuccess("Account verified successfully!");
 
-      /* --------------------------
-         Navigate to Home (C9)
-      -------------------------- */
       setTimeout(() => {
         router.push("/");
       }, 1200);
     } catch (err: unknown) {
       const message =
-        err instanceof ApiError && err.status === 400
-          ? "Incorrect OTP."
-          : err instanceof ApiError && err.status === 410
-            ? "OTP expired. Request a new one."
-            : err instanceof ApiError && err.status === 429
-              ? "Too many attempts. Request a new OTP."
-              : err instanceof Error
-                ? err.message
-                : "Verification failed. Try again.";
+        err instanceof Error ? err.message : "Verification failed. Try again.";
       setError(message);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -145,10 +118,7 @@ const OTPForm = () => {
     }
 
     try {
-      setLoading(true);
-      await authService.resendOtp({ email });
-
-      // Success
+      await resendOtpMutation.mutateAsync({ email });
       setSuccess("A new OTP has been sent to your email.");
       setCountdown(60);
       setCanResend(false);
@@ -156,8 +126,6 @@ const OTPForm = () => {
       const message =
         err instanceof Error ? err.message : "Failed to resend OTP. Try again.";
       setError(message);
-    } finally {
-      setLoading(false);
     }
   };
 

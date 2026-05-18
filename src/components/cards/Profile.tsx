@@ -4,16 +4,15 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Pencil, Share2, User, Check, X, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { ApiError } from "@/services/api-client";
-import { profileService } from "@/services/profile";
-import { useProfile } from "@/hooks/useProfile";
+import { useDeleteAccount, useProfile } from "@/hooks/useProfile";
 import { toast } from "sonner";
 
 const Profile = () => {
   const router = useRouter();
   const { user, loading, error } = useProfile();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [deleting, setDeleting] = useState(false);
+  const deleteAccountMutation = useDeleteAccount();
+  const deleting = deleteAccountMutation.isPending;
 
   const bio =
     "Passionate automotive designer with over 8 years of experience in visual communication and branding. Specializing in futuristic vehicle concepts and digital showrooms.";
@@ -32,35 +31,9 @@ const Profile = () => {
   };
 
   const confirmDelete = async () => {
-    const token = localStorage.getItem("sessionToken");
-    if (!token) {
-      toast.error("Session expired. Please login again.");
-      router.push("/login");
-      return;
-    }
-
     try {
-      setDeleting(true);
-
-      await profileService.deleteAccount(token);
-
-      localStorage.removeItem("sessionToken");
-      localStorage.removeItem("current_user");
-      toast.success("Account deleted successfully.");
-      router.push("/");
-    } catch (error: unknown) {
-      if (error instanceof ApiError && error.status === 401) {
-        localStorage.removeItem("sessionToken");
-        localStorage.removeItem("current_user");
-        toast.error("Session expired. Please login again.");
-        router.push("/login");
-      } else {
-        toast.error(
-          error instanceof Error ? error.message : "Something went wrong.",
-        );
-      }
+      await deleteAccountMutation.mutateAsync();
     } finally {
-      setDeleting(false);
       setShowDeleteDialog(false);
     }
   };

@@ -1,25 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 import Link from "next/link";
-import { authService } from "@/services/auth";
-import { ApiError } from "@/services/api-client";
+import { useLogin } from "@/hooks/useAuth";
 import { loginSchema } from "@/validations/auth";
 import { toast } from "sonner";
 
 export default function LoginForm() {
-  const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const loginMutation = useLogin();
+  const loading = loginMutation.isPending;
 
   const validateForm = () => {
     const result = loginSchema.safeParse({ email, password });
@@ -43,55 +39,9 @@ export default function LoginForm() {
     }
 
     try {
-      setLoading(true);
-
-      const data = await authService.login({ email, password });
-
-      // Save session token
-      if (data.sessionToken)
-        localStorage.setItem("sessionToken", data.sessionToken);
-
-      // Save user object
-      const userObject = {
-        userId: data.userId,
-        email: data.email,
-        displayName: data.displayName,
-        isVerified: data.isVerified ?? false,
-      };
-      localStorage.setItem("current_user", JSON.stringify(userObject));
-
-      // Success toast
-      toast.success(
-        userObject.isVerified
-          ? "Login Successful!"
-          : "Account created, please verify OTP!",
-      );
-
-      // Redirect
-      // Redirect
-      if (!userObject.isVerified) {
-        router.push("/verify-otp");
-      } else {
-        const redirectUrl = localStorage.getItem("redirectAfterLogin");
-
-        if (redirectUrl) {
-          localStorage.removeItem("redirectAfterLogin");
-          router.push(redirectUrl);
-        } else {
-          router.push("/");
-        }
-      }
-    } catch (err: unknown) {
-      let message = "Something went wrong. Try again.";
-      if (err instanceof ApiError) {
-        message =
-          err.status === 401 ? "Invalid email or password." : err.message;
-      } else if (err instanceof Error) {
-        message = err.message;
-      }
-      toast.error(message);
-    } finally {
-      setLoading(false);
+      await loginMutation.mutateAsync({ email, password });
+    } catch {
+      // handled by mutation toast
     }
   };
 
@@ -156,8 +106,6 @@ export default function LoginForm() {
           </div> */}
 
           {/* Error */}
-          {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
-
           {/* Submit Button */}
           <Button
             type="submit"

@@ -1,47 +1,87 @@
-import { apiClient } from "@/services/api-client";
+import api from "@/lib/axios";
 import type { ApiItemResponse } from "@/types/categories";
 import type { BackendUserProfile, ProfileFormPayload } from "@/types/profile";
 
-export const profileService = {
-  detail(token: string) {
-    return apiClient<ApiItemResponse<BackendUserProfile>>("/user-detail", {
-      token,
+/**
+ * ==============================
+ * TYPES
+ * ==============================
+ */
+
+export type DeleteAccountResponse = {
+  message?: string;
+};
+
+/**
+ * ==============================
+ * ROUTES
+ * ==============================
+ */
+
+export const PROFILE_ROUTES = {
+  detail: "/user-detail",
+  update: "/update-profile",
+  deleteAccount: "/delete-user-account",
+};
+
+/**
+ * ==============================
+ * HELPERS
+ * ==============================
+ */
+
+const createProfileFormData = (payload: ProfileFormPayload) => {
+  const body = new FormData();
+  body.append("name", payload.name);
+  body.append("email", payload.email);
+  body.append("phone", payload.phone);
+  body.append("bio", payload.bio);
+  body.append("address", payload.address);
+
+  if (payload.avatarFile) {
+    body.append("profile_image", payload.avatarFile);
+  }
+
+  return body;
+};
+
+/**
+ * ==============================
+ * PROFILE APIS
+ * ==============================
+ */
+
+export const getUserProfile = async (): Promise<ApiItemResponse<BackendUserProfile>> => {
+  const { data } = await api.get<ApiItemResponse<BackendUserProfile>>(PROFILE_ROUTES.detail, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  return data;
+};
+
+export const updateUserProfile = async (
+  payload: ProfileFormPayload,
+): Promise<ApiItemResponse<BackendUserProfile>> => {
+  const { data } = await api.post<ApiItemResponse<BackendUserProfile>>(
+    PROFILE_ROUTES.update,
+    createProfileFormData(payload),
+    {
       headers: {
         Accept: "application/json",
+        "Content-Type": "multipart/form-data",
       },
-    });
-  },
+    },
+  );
 
-  update(payload: ProfileFormPayload, token: string) {
-    const body = new FormData();
-    body.append("name", payload.name);
-    body.append("email", payload.email);
-    body.append("phone", payload.phone);
-    body.append("bio", payload.bio);
-    body.append("address", payload.address);
+  return data;
+};
 
-    if (payload.avatarFile) {
-      body.append("profile_image", payload.avatarFile);
-    }
+export const deleteUserAccount = async (): Promise<DeleteAccountResponse> => {
+  const { data } = await api.post<DeleteAccountResponse>(PROFILE_ROUTES.deleteAccount, {
+    confirmation: "DELETE",
+  });
 
-    return apiClient<ApiItemResponse<BackendUserProfile>>("/update-profile", {
-      method: "POST",
-      token,
-      headers: {
-        Accept: "application/json",
-      },
-      body,
-    });
-  },
-
-  deleteAccount(token: string) {
-    return apiClient<{ message?: string }>("/delete-user-account", {
-      method: "POST",
-      token,
-      headers: {
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ confirmation: "DELETE" }),
-    });
-  },
+  return data;
 };

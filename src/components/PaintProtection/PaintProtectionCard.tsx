@@ -12,7 +12,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import Link from "next/link";
-import { bookingService } from "@/services/bookings";
+import { useCreateBooking } from "@/hooks/useBookings";
 import { useRouter, useSearchParams } from "next/navigation";
 interface FieldOption {
   key: string;
@@ -53,6 +53,7 @@ export default function PaintProtectionCard({
   services = [],
   isLoading = false,
 }: PaintProtectionCardProps) {
+  const createBookingMutation = useCreateBooking();
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [formValues, setFormValues] = useState<Record<string, any>>({});
   const { user, loading: authLoading } = useAuth();
@@ -259,7 +260,7 @@ export default function PaintProtectionCard({
         JSON.stringify(formattedFieldResponses),
       );
 
-      await bookingService.create(formData, token);
+      await createBookingMutation.mutateAsync(formData);
 
       toast.success("Booking created successfully 🎉");
       router.push("/order/management");

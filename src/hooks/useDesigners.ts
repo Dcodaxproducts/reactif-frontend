@@ -1,36 +1,58 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { designerService } from "@/services/designers";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { getErrorMessage } from "@/lib/errors";
+import { getDesigners, type GetDesignersParams } from "@/services/designers";
 import type { Designer } from "@/types/designers";
 
-export const useDesigners = (initialPage = 1) => {
-  const [designers, setDesigners] = useState<Designer[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [page, setPage] = useState(initialPage);
-  const [totalPages, setTotalPages] = useState(1);
+/**
+ * ==============================
+ * QUERY KEYS
+ * ==============================
+ */
 
-  const fetchDesigners = useCallback(async (pageNumber = 1) => {
-    setLoading(true);
-    setError("");
-    try {
-      const json = await designerService.list(pageNumber);
-      const newDesigners = (json?.data || []).filter(
-        (designer) => designer.is_verified_user === 1 && designer.status === "active",
-      );
-      setDesigners((prev) => (pageNumber === 1 ? newDesigners : [...prev, ...newDesigners]));
-      setTotalPages(json?.pagination?.totalPages || 1);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+export const designerKeys = {
+  all: ["designers"] as const,
+  list: (params?: GetDesignersParams) => ["designers", "list", params || {}] as const,
+};
+
+/**
+ * ==============================
+ * DESIGNER HOOKS
+ * ==============================
+ */
+
+export const useDesigners = (initialParams: GetDesignersParams = {}) => {
+  const [page, setPage] = useState(initialParams.page ?? 1);
+  const [designers, setDesigners] = useState<Designer[]>([]);
+
+  const params = { ...initialParams, page };
+  const query = useQuery({
+    queryKey: designerKeys.list(params),
+    queryFn: () => getDesigners(params),
+  });
 
   useEffect(() => {
-    fetchDesigners(page);
-  }, [fetchDesigners, page]);
+    const filtered = (query.data?.data || []).filter(
+      (designer) => designer.is_verified_user === 1 && designer.status === "active",
+    );
 
-  return { designers, loading, error, page, totalPages, setPage };
+    if (page === 1) {
+      setDesigners(filtered);
+      return;
+    }
+
+    setDesigners((prev) => [...prev, ...filtered]);
+  }, [page, query.data]);
+
+  return {
+    ...query,
+    designers,
+    loading: query.isLoading || query.isFetching,
+    error: query.error ? getErrorMessage(query.error, "Something went wrong") : "",
+    page,
+    totalPages: query.data?.pagination?.totalPages || 1,
+    setPage,
+  };
 };

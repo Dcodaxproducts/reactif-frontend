@@ -1,100 +1,112 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { categoryService } from "@/services/categories";
-import type { Category, Service } from "@/types/categories";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/errors";
+import {
+  getCategories,
+  getCategory,
+  getServicesBySubcategory,
+  type GetCategoriesParams,
+  type GetCategoryParams,
+  type GetServicesBySubcategoryParams,
+} from "@/services/categories";
+import type { Category } from "@/types/categories";
 
-export const useCategories = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+/**
+ * ==============================
+ * QUERY KEYS
+ * ==============================
+ */
 
-  const fetchCategories = useCallback(async (pageNumber = 1) => {
-    setLoading(true);
-    try {
-      const data = await categoryService.list(pageNumber);
-      const active = (data.data || []).filter((item) => item.status === 1);
-      setCategories((prev) => (pageNumber === 1 ? active : [...prev, ...active]));
-      setHasMore(Boolean(data.pagination && data.pagination.currentPage < data.pagination.totalPages));
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchCategories(1);
-  }, [fetchCategories]);
-
-  const loadMore = async () => {
-    const nextPage = page + 1;
-    setPage(nextPage);
-    await fetchCategories(nextPage);
-  };
-
-  return { categories, loading, hasMore, loadMore };
+export const categoryKeys = {
+  all: ["categories"] as const,
+  list: (params?: GetCategoriesParams) => ["categories", "list", params || {}] as const,
+  detail: (categoryId?: string | number | null) => ["categories", "detail", categoryId || ""] as const,
+  services: (subcategoryId?: string | number | null) => ["categories", "services", subcategoryId || ""] as const,
 };
 
-export const useCategoryDetail = (categoryId?: string | number | null) => {
-  const [category, setCategory] = useState<Category | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+/**
+ * ==============================
+ * CATEGORY HOOKS
+ * ==============================
+ */
 
-  const refetch = useCallback(async () => {
-    if (!categoryId) {
-      setError("No category selected.");
-      setLoading(false);
+export const useCategories = (initialParams: GetCategoriesParams = {}) => {
+  const [page, setPage] = useState(initialParams.page ?? 1);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  const params = { ...initialParams, page };
+  const query = useQuery({
+    queryKey: categoryKeys.list(params),
+    queryFn: () => getCategories(params),
+  });
+
+  useEffect(() => {
+    const active = (query.data?.data || []).filter((item) => item.status === 1);
+
+    if (page === 1) {
+      setCategories(active);
       return;
     }
 
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await categoryService.detail(categoryId);
-      if (!data?.data) throw new Error("Category not found.");
-      setCategory(data.data);
-    } catch (err) {
-      setCategory(null);
-      setError(err instanceof Error ? err.message : "Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
-  }, [categoryId]);
+    setCategories((prev) => [...prev, ...active]);
+  }, [page, query.data]);
 
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
+  const currentPage = query.data?.pagination?.currentPage ?? page;
+  const totalPages = query.data?.pagination?.totalPages ?? 1;
 
-  return { category, loading, error, refetch };
+  return {
+    ...query,
+    categories,
+    loading: query.isLoading || query.isFetching,
+    hasMore: currentPage < totalPages,
+    loadMore: async () => setPage((prev) => prev + 1),
+  };
 };
 
-export const useServicesBySubcategory = (subcategoryId?: string | number | null) => {
-  const [services, setServices] = useState<Service[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+export const useCategoryDetail = (categoryId?: GetCategoryParams["categoryId"] | null) => {
+  const query = useQuery({
+    queryKey: categoryKeys.detail(categoryId),
+    queryFn: () => getCategory({ categoryId: categoryId as string | number }),
+    enabled: Boolean(categoryId),
+  });
 
-  useEffect(() => {
-    const fetchServices = async () => {
-      if (!subcategoryId) {
-        setServices([]);
-        return;
-      }
+  return {
+    ...query,
+    category: query.data?.data ?? null,
+    loading: query.isLoading,
+    error: query.error ? getErrorMessage(query.error, "Something went wrong.") : null,
+    refetch: query.refetch,
+  };
+};
 
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await categoryService.servicesBySubcategory(subcategoryId);
-        setServices(data?.data || []);
-      } catch (err) {
-        setServices([]);
-        setError(err instanceof Error ? err.message : "Failed to fetch services");
-      } finally {
-        setLoading(false);
-      }
-    };
+export const useServicesBySubcategory = (subcategoryId?: GetServicesBySubcategoryParams["subcategoryId"] | null) => {
+  const query = useQuery({
+    queryKey: categoryKeys.services(subcategoryId),
+    queryFn: () => getServicesBySubcategory({ subcategoryId: subcategoryId as string | number }),
+    enabled: Boolean(subcategoryId),
+  });
 
-    fetchServices();
-  }, [subcategoryId]);
+  return {
+    ...query,
+    services: query.data?.data ?? [],
+    loading: query.isLoading,
+    error: query.error ? getErrorMessage(query.error, "Failed to fetch services") : null,
+  };
+};
 
-  return { services, loading, error };
+export const useRefreshCategories = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => queryClient.invalidateQueries({ queryKey: categoryKeys.all }),
+    onSuccess: () => {
+      toast.success("Categories refreshed successfully");
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error, "Failed to refresh categories"));
+    },
+  });
 };
