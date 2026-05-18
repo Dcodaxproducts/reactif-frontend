@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { FiLogOut, FiSettings, FiUser } from "react-icons/fi";
 import { getInitials } from "./utils";
@@ -14,12 +15,12 @@ export function UserDropdown({
 
   return (
     <div ref={dropdownRef} className="relative">
-      <button
+      <Button
         onClick={onToggle}
         className="w-10 h-10 rounded-full bg-neutral-800 text-[#E2E2E2] flex items-center justify-center font-semibold"
       >
         {getInitials(user.displayName)}
-      </button>
+      </Button>
 
       {isOpen && (
         <div className="absolute right-0 mt-3 w-56 bg-white rounded-xl shadow-lg py-2 text-sm text-gray-700 z-50">
@@ -27,29 +28,29 @@ export function UserDropdown({
             {user.email}
           </div>
 
-          <button
+          <Button
             onClick={() => router.push("/profile")}
             className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100"
           >
             <FiUser size={16} />
             Profile
-          </button>
+          </Button>
 
-          <button
+          <Button
             onClick={() => router.push("/settings")}
             className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100"
           >
             <FiSettings size={16} />
             Settings
-          </button>
+          </Button>
 
-          <button
+          <Button
             onClick={onLogout}
             className="flex items-center gap-3 w-full px-4 py-2 hover:bg-red-50 text-red-600"
           >
             <FiLogOut size={16} />
             Logout
-          </button>
+          </Button>
         </div>
       )}
     </div>

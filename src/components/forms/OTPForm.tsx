@@ -216,13 +216,13 @@ const OTPForm = () => {
           {/* Resend */}
           <div className="text-center text-sm text-neutral-50/60">
             {canResend ? (
-              <button
+              <Button
                 type="button"
                 onClick={handleResend}
                 className="text-blue-600 font-semibold"
               >
                 Resend OTP
-              </button>
+              </Button>
             ) : (
               <span>Resend OTP in {countdown}s</span>
             )}

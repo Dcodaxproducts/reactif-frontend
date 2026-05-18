@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 
 import DeliveryService from "@/components/AllVendorServices/DeliveryService";
@@ -105,7 +106,7 @@ const AllVendorServicesMain = () => {
           {/* Load More */}
           {page < totalPages && (
             <div className="flex justify-center mt-12">
-              <button
+              <Button
                 onClick={() => setPage((prev) => prev + 1)}
                 disabled={loading}
                 className="
@@ -121,7 +122,7 @@ const AllVendorServicesMain = () => {
                 "
               >
                 {loading ? "Loading..." : "Load More"}
-              </button>
+              </Button>
             </div>
           )}
         </div>

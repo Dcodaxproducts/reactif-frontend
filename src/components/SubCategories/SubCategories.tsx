@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ArrowRight, CircleCheck } from "lucide-react";
@@ -32,13 +33,11 @@ const SubCategories: React.FC<Props> = ({ subcategories }) => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedSub, setSelectedSub] = useState<SubCategory | null>(null);
 
-  const slugify = (text: string) =>
-    text.toLowerCase().replace(/\s+/g, "-");
+  const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, "-");
 
   return (
     <section className="w-full py-10 pt-0">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-
         {subcategories.map((service, index) => (
           <div
             key={service.id}
@@ -87,7 +86,7 @@ const SubCategories: React.FC<Props> = ({ subcategories }) => {
                 </div>
               </div>
 
-              <button
+              <Button
                 onClick={() => {
                   setSelectedSub(service);
                   setOpenModal(true);
@@ -96,7 +95,7 @@ const SubCategories: React.FC<Props> = ({ subcategories }) => {
               >
                 Select Service
                 <ArrowRight size={18} />
-              </button>
+              </Button>
             </div>
           </div>
         ))}

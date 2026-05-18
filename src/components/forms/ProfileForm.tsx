@@ -113,7 +113,7 @@ const ProfileForm = () => {
             </div>
           </div>
 
-          <input
+          <Input
             type="file"
             accept="image/png, image/jpeg"
             ref={fileInputRef}

@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Navbar from "@/components/navbar/navbar";
@@ -82,12 +83,12 @@ export default function Page() {
         <div className="bg-red-900/80 border border-red-700 rounded-xl p-6 w-full max-w-md text-center flex flex-col items-center gap-4">
           <p className="text-red-400 font-bold text-lg">Category Not Found</p>
           <p className="text-red-300 text-sm">{categoryError}</p>
-          <button
+          <Button
             className="mt-2 px-4 py-2 bg-transparent border border-red-400 text-red-400 rounded-lg hover:bg-red-400 hover:text-black transition"
             onClick={handleRetry}
           >
             Retry
-          </button>
+          </Button>
         </div>
       ) : null}
     </div>

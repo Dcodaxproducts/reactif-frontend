@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -48,12 +49,12 @@ const Navbar = () => {
       <nav className="w-full flex justify-center py-4 md:py-6 px-4 md:px-10">
         <div className="w-[95%] border border-[#FFFFFF3D] rounded-[14px] px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 md:gap-5">
-            <button
+            <Button
               className="md:hidden text-white"
               onClick={() => setIsSidebarOpen(true)}
             >
               <Menu size={26} />
-            </button>
+            </Button>
 
             <NavbarLogo />
             <DesktopNavLinks user={user} />

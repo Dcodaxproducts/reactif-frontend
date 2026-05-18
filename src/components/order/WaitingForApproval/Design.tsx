@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import React from "react"
-import { FiCheckCircle, FiXCircle } from "react-icons/fi"
+import { Button } from "@/components/ui/button";
+import React from "react";
+import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 
 const Design = () => {
-  const sampleImages = Array(7).fill("/assets/design.png") // 7 placeholder images
+  const sampleImages = Array(7).fill("/assets/design.png"); // 7 placeholder images
 
   return (
     <section className="w-full max-w-6xl flex flex-col gap-6 px-4 md:px-6">
       <div className="w-full p-9 bg-zinc-900/80 rounded-[12px] border border-neutral-50/30 flex flex-col gap-5">
-
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start gap-4">
           <div className="flex flex-col gap-1">
@@ -41,18 +41,17 @@ const Design = () => {
 
         {/* Action Buttons */}
         <div className="w-full flex flex-col md:flex-row justify-start gap-3">
-          <button className="flex items-center justify-center gap-2 w-full md:w-56 px-3 py-2 bg-blue-600 rounded-lg text-white text-sm md:text-base font-semibold font-['HK_Grotesk'] hover:bg-blue-700">
+          <Button className="flex items-center justify-center gap-2 w-full md:w-56 px-3 py-2 bg-blue-600 rounded-lg text-white text-sm md:text-base font-semibold font-['HK_Grotesk'] hover:bg-blue-700">
             Accept Request
-          </button>
+          </Button>
 
-          <button className="flex items-center justify-center gap-2 w-full md:w-56 px-3 py-2 rounded-lg border border-neutral-50/30 text-neutral-50 text-sm md:text-base font-semibold font-['HK_Grotesk'] hover:bg-neutral-50/10">
+          <Button className="flex items-center justify-center gap-2 w-full md:w-56 px-3 py-2 rounded-lg border border-neutral-50/30 text-neutral-50 text-sm md:text-base font-semibold font-['HK_Grotesk'] hover:bg-neutral-50/10">
             Reject
-          </button>
+          </Button>
         </div>
-
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Design
+export default Design;

@@ -1,3 +1,13 @@
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { contactFields } from "./contact-data";
 import { FormField } from "./FormField";
 
@@ -22,24 +32,29 @@ export function ContactMessageForm() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-[#F5F5F580] text-xs md:text-sm font-medium">
+          <Label className="text-[#F5F5F580] text-xs md:text-sm font-medium">
             Service Interested In
-          </label>
-          <select className="h-11 md:h-12 rounded-xl bg-zinc-800/25 border border-blue-600 px-4 text-white outline-none">
-            <option>Select a service</option>
-          </select>
+          </Label>
+          <Select>
+            <SelectTrigger className="h-11 md:h-12 rounded-xl bg-zinc-800/25 border border-blue-600 px-4 text-white outline-none">
+              <SelectValue placeholder="Select a service" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="vehicle-wraps">Select a service</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-[#F5F5F580] text-xs md:text-sm font-medium">
+          <Label className="text-[#F5F5F580] text-xs md:text-sm font-medium">
             Message
-          </label>
-          <textarea className="h-32 md:h-40 rounded-2xl bg-zinc-800/25 border border-white/10 px-4 py-3 text-white outline-none resize-none focus:border-blue-500 transition" />
+          </Label>
+          <Textarea className="h-32 md:h-40 rounded-2xl bg-zinc-800/25 border border-white/10 px-4 py-3 text-white outline-none resize-none focus:border-blue-500 transition" />
         </div>
 
-        <button className="h-11 md:h-12 bg-white rounded-xl text-zinc-800 text-base md:text-lg font-semibold flex justify-center items-center gap-2 hover:scale-[1.02] transition">
+        <Button className="h-11 md:h-12 bg-white rounded-xl text-zinc-800 text-base md:text-lg font-semibold flex justify-center items-center gap-2 hover:scale-[1.02] transition hover:bg-white">
           Send Message →
-        </button>
+        </Button>
       </div>
     </div>
   );

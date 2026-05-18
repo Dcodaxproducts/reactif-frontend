@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import Navbar from "@/components/navbar/navbar";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import SubCategories from "@/components/SubCategories/SubCategories";
@@ -33,12 +34,12 @@ const Subcategories = () => {
         <div className="bg-neutral-900 border border-neutral-700 rounded-3xl p-10 text-center max-w-md shadow-2xl">
           <h2 className="text-2xl font-bold text-white mb-4">Oops!</h2>
           <p className="text-neutral-400 mb-6">{errorState}</p>
-          <button
+          <Button
             onClick={() => router.push("/")}
             className="px-6 py-3 rounded-full bg-white text-black font-semibold"
           >
             Go Back Home
-          </button>
+          </Button>
         </div>
       </div>
     );

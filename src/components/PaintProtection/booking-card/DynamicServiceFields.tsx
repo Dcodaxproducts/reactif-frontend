@@ -1,3 +1,8 @@
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -5,7 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { FieldChangeHandler, Service, ServiceFormErrors, ServiceFormValues } from "./types";
+import type {
+  FieldChangeHandler,
+  Service,
+  ServiceFormErrors,
+  ServiceFormValues,
+} from "./types";
 
 const commonInputClasses =
   "w-full px-4 py-3 rounded-xl outline outline-1 outline-slate-700 text-sm text-neutral-50 bg-black/20 focus:outline-[#F262B5] focus:ring-1 focus:ring-[#F262B5] transition";
@@ -30,15 +40,19 @@ export function DynamicServiceFields({
 
         return (
           <div key={field.id} className="flex flex-col gap-2">
-            <label className="text-sm text-neutral-300 font-medium">
+            <Label className="text-sm text-neutral-300 font-medium">
               {field.label}
-              {field.is_required && <span className="text-[#F262B5] ml-1">*</span>}
-            </label>
+              {field.is_required && (
+                <span className="text-[#F262B5] ml-1">*</span>
+              )}
+            </Label>
 
             {renderField({ field, value, onChange })}
 
             {formErrors[field.field_name] && (
-              <p className="text-xs text-red-400">{formErrors[field.field_name]}</p>
+              <p className="text-xs text-red-400">
+                {formErrors[field.field_name]}
+              </p>
             )}
           </div>
         );
@@ -65,7 +79,7 @@ function renderField({
     case "number":
     case "date":
       return (
-        <input
+        <Input
           type={field.input_type}
           placeholder={field.placeholder}
           required={field.is_required}
@@ -78,20 +92,22 @@ function renderField({
     case "color":
       return (
         <div className="flex items-center gap-3">
-          <input
+          <Input
             type="color"
             required={field.is_required}
             value={stringValue || "#000000"}
             onChange={(event) => onChange(field.field_name, event.target.value)}
             className="w-14 h-10 p-1 rounded-lg bg-transparent border border-slate-700 cursor-pointer"
           />
-          <span className="text-sm text-neutral-400">{stringValue || "#000000"}</span>
+          <span className="text-sm text-neutral-400">
+            {stringValue || "#000000"}
+          </span>
         </div>
       );
 
     case "textarea":
       return (
-        <textarea
+        <Textarea
           placeholder={field.placeholder}
           required={field.is_required}
           value={stringValue}
@@ -103,17 +119,22 @@ function renderField({
 
     case "file":
       return (
-        <input
+        <Input
           type="file"
           required={field.is_required}
-          onChange={(event) => onChange(field.field_name, event.target.files?.[0] || null)}
+          onChange={(event) =>
+            onChange(field.field_name, event.target.files?.[0] || null)
+          }
           className={`${commonInputClasses} file:mr-3 file:px-3 file:py-1 file:rounded-md file:border-0 file:bg-[#F262B5]/20 file:text-[#F262B5]`}
         />
       );
 
     case "select":
       return (
-        <Select onValueChange={(nextValue) => onChange(field.field_name, nextValue)} value={stringValue}>
+        <Select
+          onValueChange={(nextValue) => onChange(field.field_name, nextValue)}
+          value={stringValue}
+        >
           <SelectTrigger className="w-full h-12 rounded-xl text-sm text-neutral-50 bg-black/20 border border-slate-700 focus:border-[#F262B5] focus:ring-1 focus:ring-[#F262B5]">
             <SelectValue placeholder={field.placeholder || "Select"} />
           </SelectTrigger>
@@ -129,42 +150,47 @@ function renderField({
 
     case "radio":
       return (
-        <div className="flex flex-col gap-3 mt-1">
+        <RadioGroup
+          className="flex flex-col gap-3 mt-1"
+          value={stringValue}
+          onValueChange={(nextValue) => onChange(field.field_name, nextValue)}
+        >
           {field.options?.map((option) => (
-            <label key={option.key} className="flex items-center gap-3 cursor-pointer text-sm text-neutral-50">
-              <input
-                type="radio"
-                name={field.field_name}
-                value={option.key}
-                checked={stringValue === option.key}
-                onChange={() => onChange(field.field_name, option.key)}
-              />
+            <Label
+              key={option.key}
+              className="flex items-center gap-3 cursor-pointer text-sm text-neutral-50"
+            >
+              <RadioGroupItem value={option.key} className="size-4" />
               {option.display}
-            </label>
+            </Label>
           ))}
-        </div>
+        </RadioGroup>
       );
 
     case "checkbox":
       return (
         <div className="flex flex-col gap-3 mt-1">
           {field.options?.map((option) => {
-            const checkedValues = Array.isArray(value) ? (value as string[]) : [];
+            const checkedValues = Array.isArray(value)
+              ? (value as string[])
+              : [];
             return (
-              <label key={option.key} className="flex items-center gap-3 cursor-pointer text-sm text-neutral-50">
-                <input
-                  type="checkbox"
+              <Label
+                key={option.key}
+                className="flex items-center gap-3 cursor-pointer text-sm text-neutral-50"
+              >
+                <Checkbox
                   value={option.key}
                   checked={checkedValues.includes(option.key)}
-                  onChange={(event) => {
-                    const nextValues = event.target.checked
+                  onCheckedChange={(checked) => {
+                    const nextValues = checked
                       ? [...checkedValues, option.key]
                       : checkedValues.filter((item) => item !== option.key);
                     onChange(field.field_name, nextValues);
                   }}
                 />
                 {option.display}
-              </label>
+              </Label>
             );
           })}
         </div>
@@ -172,7 +198,7 @@ function renderField({
 
     default:
       return (
-        <input
+        <Input
           type="text"
           placeholder={field.placeholder}
           value={stringValue}

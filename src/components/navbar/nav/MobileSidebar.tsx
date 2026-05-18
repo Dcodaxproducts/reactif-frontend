@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { X } from "lucide-react";
 import type { MobileSidebarProps } from "./types";
@@ -17,9 +18,9 @@ export function MobileSidebar({
       <div className="absolute inset-0 bg-black/60" onClick={onClose} />
       <div className="absolute left-0 top-0 w-[280px] h-full bg-white shadow-xl">
         <div className="flex justify-end p-4">
-          <button onClick={onClose}>
+          <Button onClick={onClose}>
             <X size={26} />
-          </button>
+          </Button>
         </div>
 
         <div className="flex flex-col gap-5 px-6 text-[15px]">
@@ -30,19 +31,19 @@ export function MobileSidebar({
           ))}
 
           {!user ? (
-            <button
+            <Button
               onClick={onLogin}
               className="mt-4 bg-black text-white py-2 rounded-full"
             >
               Get Started
-            </button>
+            </Button>
           ) : (
-            <button
+            <Button
               onClick={onLogout}
               className="mt-4 bg-red-600 text-white py-2 rounded-full"
             >
               Logout
-            </button>
+            </Button>
           )}
         </div>
       </div>
