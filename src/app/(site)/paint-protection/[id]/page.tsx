@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Navbar from "@/components/layout/navbar/navbar";
 import PaintDetailsHeader from "@/components/pages/PaintProtection/PaintDetailsHeader";
@@ -43,7 +43,10 @@ export default function Page() {
 
   const categoryName = category?.name || "";
   const status = category?.status ?? 1;
-  const subcategories = (category?.subcategories || []) as Subcategory[];
+  const subcategories = useMemo(
+    () => (category?.subcategories || []) as Subcategory[],
+    [category?.subcategories],
+  );
 
   useEffect(() => {
     if (!subcategories.length) return;

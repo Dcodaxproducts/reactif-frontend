@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -103,10 +104,12 @@ const ProfileForm = () => {
             onClick={handleAvatarClick}
             className="relative w-24 h-24 rounded-full outline outline-2 outline-gray-700 cursor-pointer"
           >
-            <img
+            <Image
               src={preview}
               alt="Avatar"
-              className="w-full h-full object-cover rounded-full border-2 border-indigo-600"
+              fill
+              sizes="96px"
+              className="object-cover rounded-full border-2 border-indigo-600"
             />
             <div className="absolute bottom-0 right-0 w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center">
               <Check size={14} className="text-white" />

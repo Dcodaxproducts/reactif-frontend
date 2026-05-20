@@ -1,7 +1,6 @@
 import ProfileForm from "@/components/forms/ProfileForm";
 import Navbar from "@/components/layout/navbar/navbar";
 import GlobalBackground from "@/hooks/GlobalBackground";
-import Image from "next/image";
 
 export default function Page() {
   return (

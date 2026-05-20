@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Pencil, Share2, User, Check, X, Loader2 } from "lucide-react";
@@ -98,10 +99,12 @@ const Profile = () => {
               {/* Avatar */}
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-pink-500 p-[3px]">
-                  <img
+                  <Image
                     src={user.avatar || "https://i.pravatar.cc/150?img=32"}
                     alt="Profile"
-                    className="w-full h-full object-cover rounded-full border-4 border-slate-900"
+                    fill
+                    sizes="112px"
+                    className="object-cover rounded-full border-4 border-slate-900"
                   />
                 </div>
 

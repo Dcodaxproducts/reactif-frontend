@@ -3,7 +3,6 @@
 import { Star, Check, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { FaArrowRight } from "react-icons/fa";
 
 interface ServiceCardProps {
   category: string;

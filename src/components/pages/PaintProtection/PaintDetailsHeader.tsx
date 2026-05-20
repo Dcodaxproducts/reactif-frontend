@@ -1,6 +1,6 @@
 "use client";
 
-import { MapPin, Star, Circle } from "lucide-react";
+import { MapPin, Circle } from "lucide-react";
 import { RxStarFilled } from "react-icons/rx";
 
 interface Props {

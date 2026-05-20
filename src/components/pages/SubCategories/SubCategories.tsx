@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { ArrowRight, CircleCheck } from "lucide-react";
 import DesignPathModal from "./DesignPathModal";
 
@@ -27,9 +27,6 @@ interface Props {
 ========================= */
 
 const SubCategories: React.FC<Props> = ({ subcategories }) => {
-  const searchParams = useSearchParams();
-  const categoryId = searchParams.get("id");
-
   const [openModal, setOpenModal] = useState(false);
   const [selectedSub, setSelectedSub] = useState<SubCategory | null>(null);
 
@@ -46,10 +43,12 @@ const SubCategories: React.FC<Props> = ({ subcategories }) => {
           >
             {/* Image */}
             <div className="relative h-64 w-full overflow-hidden">
-              <img
+              <Image
                 src={service.category_image}
                 alt={service.name}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-l from-black/70 to-transparent" />
             </div>

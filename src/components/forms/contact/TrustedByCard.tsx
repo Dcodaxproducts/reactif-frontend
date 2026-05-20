@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function TrustedByCard() {
   return (
     <div className="relative mt-6 md:mt-10 rounded-xl border border-white/50 p-4 md:p-6 overflow-hidden">
@@ -18,12 +20,14 @@ export function TrustedByCard() {
           {[...Array(6)].map((_, index) => (
             <div
               key={index}
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-zinc-700 bg-zinc-800 -ml-2 first:ml-0"
+              className="relative w-8 h-8 md:w-10 md:h-10 rounded-full border border-zinc-700 bg-zinc-800 -ml-2 first:ml-0"
             >
-              <img
+              <Image
                 src="/assets/hero/user.png"
                 alt={`user ${index + 1}`}
-                className="w-full h-full object-cover rounded-full"
+                fill
+                sizes="40px"
+                className="object-cover rounded-full"
               />
             </div>
           ))}

@@ -3,31 +3,30 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { useResendOtp, useVerifyOtp } from "@/hooks/useAuth";
-import { Input } from "@/components/ui/input";
+import {
+  AuthFormShell,
+  AuthInlineLink,
+  AuthSubmitButton,
+  AuthTextField,
+} from "@/components/forms/AuthFormShell";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-
-import Link from "next/link";
+import { useResendOtp, useVerifyOtp } from "@/hooks/useAuth";
 import { getSchemaValidationMessage, otpSchema } from "@/validations/auth";
+
+const OTP_INPUT_CLASS = "text-center tracking-widest text-lg";
 
 const OTPForm = () => {
   const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [countdown, setCountdown] = useState(60);
+  const [canResend, setCanResend] = useState(false);
   const verifyOtpMutation = useVerifyOtp();
   const resendOtpMutation = useResendOtp();
   const loading = verifyOtpMutation.isPending || resendOtpMutation.isPending;
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
 
-  const [countdown, setCountdown] = useState(60);
-  const [canResend, setCanResend] = useState(false);
-
-  /* --------------------------
-     Load stored user on mount
-  -------------------------- */
   useEffect(() => {
     const storedUser = localStorage.getItem("current_user");
     if (storedUser) {
@@ -36,27 +35,18 @@ const OTPForm = () => {
     }
   }, []);
 
-  /* --------------------------
-     Countdown Timer
-  -------------------------- */
   useEffect(() => {
     if (countdown <= 0) {
       setCanResend(true);
       return;
     }
 
-    const timer = setTimeout(() => {
-      setCountdown((prev) => prev - 1);
-    }, 1000);
-
+    const timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
     return () => clearTimeout(timer);
   }, [countdown]);
 
   const validateForm = () => getSchemaValidationMessage(otpSchema, { otp });
 
-  /* --------------------------
-     Submit Handler
-  -------------------------- */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -81,24 +71,13 @@ const OTPForm = () => {
 
       await verifyOtpMutation.mutateAsync({ email, otp });
       setSuccess("Account verified successfully!");
-
-      setTimeout(() => {
-        router.push("/");
-      }, 1200);
+      setTimeout(() => router.push("/"), 1200);
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "Verification failed. Try again.";
       setError(message);
     }
   };
-
-  /* --------------------------
-     Resend OTP (UI only trigger)
-     Backend already sends on signup
-  -------------------------- */
-  /* --------------------------
-   Resend OTP (backend integrated)
--------------------------- */
 
   const handleResend = async () => {
     setError(null);
@@ -122,114 +101,49 @@ const OTPForm = () => {
   };
 
   return (
-    <section className="w-full min-h-screen flex items-center justify-center px-4 py-10">
-      <div
-        className="
-        w-full
-        max-w-xl
-        rounded-3xl
-        border border-indigo-600
-        backdrop-blur-sm
-        bg-black/10
-        p-6 sm:p-8 md:p-14 md:py-17
-        flex flex-col gap-8
-        "
-      >
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <h1
-            className="
-            bg-gradient-to-r from-[#F262B5] to-[#9F73F1]
-            bg-clip-text text-transparent
-            text-2xl sm:text-3xl md:text-4xl
-            font-bold font-hk uppercase
-            "
-          >
-            Verify Your Account
-          </h1>
+    <AuthFormShell
+      title="Verify Your Account"
+      description="Enter the 5-digit code sent to your email"
+    >
+      <form className="space-y-6" onSubmit={handleSubmit}>
+        <AuthTextField label="Email" value={email} readOnly />
+        <AuthTextField
+          label="Verification Code"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
+          maxLength={5}
+          placeholder="12345"
+          className={OTP_INPUT_CLASS}
+        />
 
-          <p className="text-neutral-50/60 text-sm sm:text-base font-semibold font-hk">
-            Enter the 5-digit code sent to your email
-          </p>
+        {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
+        {success && (
+          <p className="text-green-500 text-sm font-medium">{success}</p>
+        )}
+
+        <AuthSubmitButton type="submit" disabled={loading}>
+          {loading ? "Verifying..." : "Verify"}
+        </AuthSubmitButton>
+
+        <div className="text-center text-sm text-neutral-50/60">
+          {canResend ? (
+            <Button
+              type="button"
+              onClick={handleResend}
+              className="text-blue-600 font-semibold"
+            >
+              Resend OTP
+            </Button>
+          ) : (
+            <span>Resend OTP in {countdown}s</span>
+          )}
         </div>
 
-        {/* Form */}
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          {/* Email (readonly, auto-filled) */}
-          <div className="space-y-2">
-            <Label className="text-neutral-50 font-semibold">Email</Label>
-            <Input
-              value={email}
-              readOnly
-              className="bg-transparent border-neutral-50/30 text-white"
-            />
-          </div>
-
-          {/* OTP */}
-          <div className="space-y-2">
-            <Label className="text-neutral-50 font-semibold">
-              Verification Code
-            </Label>
-            <Input
-              value={otp}
-              onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-              maxLength={5}
-              placeholder="12345"
-              className="bg-transparent border-neutral-50/30 text-white text-center tracking-widest text-lg focus:border-blue-600"
-            />
-          </div>
-
-          {/* Error / Success */}
-          {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
-          {success && (
-            <p className="text-green-500 text-sm font-medium">{success}</p>
-          )}
-
-          {/* Verify Button */}
-          <Button
-            type="submit"
-            disabled={loading}
-            className="
-            w-full
-            bg-gradient-to-l
-            from-blue-600
-            via-cyan-600
-            to-blue-700
-            text-white
-            text-base sm:text-lg
-            font-semibold
-            hover:opacity-90
-            py-3
-            "
-          >
-            {loading ? "Verifying..." : "Verify"}
-          </Button>
-
-          {/* Resend */}
-          <div className="text-center text-sm text-neutral-50/60">
-            {canResend ? (
-              <Button
-                type="button"
-                onClick={handleResend}
-                className="text-blue-600 font-semibold"
-              >
-                Resend OTP
-              </Button>
-            ) : (
-              <span>Resend OTP in {countdown}s</span>
-            )}
-          </div>
-
-          {/* Back */}
-          <p className="text-center text-sm sm:text-base font-semibold text-neutral-50/60">
-            Back to{" "}
-            <Link href="/login" className="text-blue-600">
-              Login
-            </Link>
-          </p>
-        </form>
-      </div>
-    </section>
+        <AuthInlineLink href="/login" label="Login">
+          Back to
+        </AuthInlineLink>
+      </form>
+    </AuthFormShell>
   );
 };
 

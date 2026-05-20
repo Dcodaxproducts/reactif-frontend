@@ -75,7 +75,7 @@ export const useAuth = () => {
         }
 
         setUser(parsedUser);
-      } catch (error) {
+      } catch {
         localStorage.removeItem("sessionToken");
         localStorage.removeItem("current_user");
         setUser(null);
