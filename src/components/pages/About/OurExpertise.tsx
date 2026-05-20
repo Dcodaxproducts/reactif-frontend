@@ -1,6 +1,7 @@
 "use client";
 
 import { Car, PenTool, Factory } from "lucide-react";
+import Container from "@/components/Container";
 
 /* ================= DATA ================= */
 const expertiseData = [
@@ -24,7 +25,7 @@ const expertiseData = [
 export default function OurExpertise() {
   return (
     <section className="w-full px-4 md:px-8 lg:px-20 py-16">
-      <div className="max-w-7xl mx-auto space-y-12">
+      <Container width="7xl" className="space-y-12">
         {/* HEADER */}
         <div className="flex flex-col items-center gap-3 text-center">
           <h2 className="text-2xl md:text-3xl font-semibold text-white">
@@ -45,7 +46,7 @@ export default function OurExpertise() {
             <ExpertiseCard key={i} {...item} />
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

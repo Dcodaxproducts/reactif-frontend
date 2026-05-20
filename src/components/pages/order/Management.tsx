@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { toast } from "sonner";
+import Container from "@/components/Container";
 import { useBookings } from "@/hooks/useBookings";
 import { OrderCard } from "./management/OrderCard";
 
@@ -14,7 +15,7 @@ const Management = () => {
 
   return (
     <div className="w-full min-h-screen">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 flex flex-col gap-8">
+      <Container width="7xl" gutter="management" className="py-8 flex flex-col gap-8">
         <div className="flex flex-col gap-2">
           <h1 className="text-neutral-50 text-3xl sm:text-4xl font-semibold font-hk">
             Booking Management
@@ -35,7 +36,7 @@ const Management = () => {
             <OrderCard key={booking.id} booking={booking} />
           ))}
         </div>
-      </div>
+      </Container>
     </div>
   );
 };

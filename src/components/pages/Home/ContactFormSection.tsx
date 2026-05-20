@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Container from "@/components/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import ContactForm from "@/components/forms/ContactForm";
 import { usePathname } from "next/navigation";
@@ -22,7 +23,7 @@ function StartProjectContent() {
         />
       )}
 
-      <div className="mx-auto px-4 sm:px-6 md:px-40">
+      <Container gutter="narrow">
         <SectionHeader
           badgeText="Get in Touch"
           size={isHelpCenter ? "sm" : "default"} // 👈 clean control
@@ -46,7 +47,7 @@ function StartProjectContent() {
         />
 
         <ContactForm />
-      </div>
+      </Container>
     </section>
   );
 }

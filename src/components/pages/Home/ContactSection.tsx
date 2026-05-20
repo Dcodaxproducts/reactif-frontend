@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import Container from "@/components/Container";
 import { ContactCtaCard } from "./contact-section/ContactCtaCard";
 
 export default function ContactSection() {
@@ -21,9 +22,9 @@ export default function ContactSection() {
         className="object-cover -z-10"
       />
 
-      <div className="mx-auto px-4 sm:px-6 md:px-30">
+      <Container gutter="page">
         <ContactCtaCard loading={loading} onRequestQuote={handleRequestQuote} />
-      </div>
+      </Container>
     </section>
   );
 }

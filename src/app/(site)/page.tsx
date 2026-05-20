@@ -1,4 +1,4 @@
-import Container from "@/components/container";
+import Container from "@/components/Container";
 import ContactFormSection from "@/components/pages/Home/ContactFormSection";
 import ContactSection from "@/components/pages/Home/ContactSection";
 import Hero from "@/components/pages/Home/Hero";

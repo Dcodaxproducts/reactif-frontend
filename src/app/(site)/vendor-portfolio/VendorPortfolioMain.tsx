@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Container from "@/components/Container";
 import ServiceCard from "@/components/cards/ServiceCard";
 import { MapPin, Star, CheckCircle } from "lucide-react";
 import GlobalBackground from "@/hooks/GlobalBackground";
@@ -39,7 +40,7 @@ export default function VendorPortfolio() {
 
       <GlobalBackground />
 
-      <div className="w-full mx-auto px-4 sm:px-6 md:px-35 py-12 md:py-20 flex flex-col gap-10 md:gap-14">
+      <Container gutter="xl" className="py-12 md:py-20 flex flex-col gap-10 md:gap-14">
         {/* ================= Vendor Header ================= */}
 
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6">
@@ -112,7 +113,7 @@ export default function VendorPortfolio() {
             <ServiceCard key={index} {...service} />
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

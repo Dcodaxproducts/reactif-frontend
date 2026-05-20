@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Container from "@/components/Container";
 import { Button } from "@/components/ui/button";
 import { Twitter, Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";
@@ -36,7 +37,7 @@ export default function Footer() {
         className="object-cover -z-10"
       />
 
-      <div className="max-w-7xl mx-auto px-8 py-12">
+      <Container width="7xl" gutter="compact" className="py-12">
         {/* ================= TOP GRID ================= */}
         <div className="grid lg:grid-cols-2 gap-16">
           {/* LEFT */}
@@ -138,7 +139,7 @@ export default function Footer() {
             </Button>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

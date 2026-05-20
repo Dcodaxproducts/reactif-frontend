@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Container from "@/components/Container";
 import { useCategories } from "@/hooks/useCategories";
 import { LoadMoreButton } from "./tailored-services/LoadMoreButton";
 import { SkeletonGrid } from "./tailored-services/SkeletonGrid";
@@ -35,7 +36,7 @@ export default function TailoredServices() {
         className="object-cover -z-10"
       />
 
-      <div className="mx-auto px-4 sm:px-6 md:px-20">
+      <Container gutter="topbar">
         <TailoredServicesHeader />
 
         {loading && categories.length === 0 ? (
@@ -48,7 +49,7 @@ export default function TailoredServices() {
             )}
           </>
         )}
-      </div>
+      </Container>
     </section>
   );
 }

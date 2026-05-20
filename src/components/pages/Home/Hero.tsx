@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Container from "@/components/Container";
 import { HeroCarImage } from "./hero/HeroCarImage";
 import { HeroContent } from "./hero/HeroContent";
 
@@ -15,10 +16,13 @@ export default function Hero() {
         className="object-cover -z-10"
       />
 
-      <div className="mx-auto w-full px-4 sm:px-6 md:pl-20 md:pr-12 pt-10 md:pt-15 pb-10 md:pb-15 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center md:items-start">
+      <Container
+        gutter="hero"
+        className="pt-10 md:pt-15 pb-10 md:pb-15 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center md:items-start"
+      >
         <HeroContent />
         <HeroCarImage />
-      </div>
+      </Container>
     </section>
   );
 }

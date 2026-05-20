@@ -1,4 +1,5 @@
 import GlobalBackground from "@/hooks/GlobalBackground";
+import Container from "@/components/Container";
 import DeliveryService from "./DeliveryService";
 import SpecialistsSection from "./SpecialistsSection";
 
@@ -10,9 +11,9 @@ export default function AllVendorServicesPage() {
         <SpecialistsSection />
       </section>
 
-      <div className="bg-[#010304] px-4 sm:px-6 md:px-30 pb-16 md:pb-30">
+      <Container gutter="page" className="bg-[#010304] pb-16 md:pb-30">
         <DeliveryService />
-      </div>
+      </Container>
     </>
   );
 }

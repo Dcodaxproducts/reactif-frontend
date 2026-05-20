@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import Container from "@/components/Container";
 
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { useDesigners } from "@/hooks/useDesigners";
@@ -18,7 +19,7 @@ export default function SpecialistsSection() {
   const hasDesigners = designers.length > 0;
 
   return (
-    <div className="mx-auto px-4 sm:px-6 md:px-30 py-12 md:py-20">
+    <Container gutter="page" className="py-12 md:py-20">
       <SectionHeader
         badgeText="Our Commitment"
         title={
@@ -58,6 +59,6 @@ export default function SpecialistsSection() {
           onLoadMore={() => setPage((prev) => prev + 1)}
         />
       )}
-    </div>
+    </Container>
   );
 }

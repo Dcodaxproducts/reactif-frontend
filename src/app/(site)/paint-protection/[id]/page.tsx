@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import Container from "@/components/Container";
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import PaintDetailsHeader from "@/components/pages/PaintProtection/PaintDetailsHeader";
@@ -103,7 +104,7 @@ export default function Page() {
       {(isFetchingCategory || categoryError) && <Overlay />}
 
       {!categoryError && !isFetchingCategory && categoryName && (
-        <div className="w-full mx-auto px-4 sm:px-6 md:px-30 pb-12 md:pb-20 pt-6 md:pt-10 flex flex-col">
+        <Container gutter="page" className="pb-12 md:pb-20 pt-6 md:pt-10 flex flex-col">
           <PaintDetailsHeader name={categoryName} status={status} />
 
           <ServicesRow
@@ -149,7 +150,7 @@ export default function Page() {
               />
             </div>
           </div>
-        </div>
+        </Container>
       )}
     </section>
   );

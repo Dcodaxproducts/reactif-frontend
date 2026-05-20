@@ -1,6 +1,7 @@
 "use client";
 
 import { Phone, Mail } from "lucide-react";
+import Container from "@/components/Container";
 
 export default function TopInfoBar() {
   return (
@@ -34,19 +35,9 @@ export default function TopInfoBar() {
 
       {/* ===== Content ===== */}
 
-      <div
-        className="
-          relative mx-auto
-          px-4 sm:px-6 md:px-20
-          py-2 md:py-0
-          md:h-[40px]
-          flex
-          flex-col md:flex-row
-          items-center
-          justify-center md:justify-between
-          gap-2 md:gap-0
-          text-center md:text-left
-        "
+      <Container
+        gutter="topbar"
+        className="relative py-2 md:py-0 md:h-[40px] flex flex-col md:flex-row items-center justify-center md:justify-between gap-2 md:gap-0 text-center md:text-left"
       >
         {/* LEFT */}
         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-[#F5F5F5]">
@@ -66,7 +57,7 @@ export default function TopInfoBar() {
         <p className="text-[#F5F5F5] whitespace-nowrap">
           Automotive Visual Communication Expert
         </p>
-      </div>
+      </Container>
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { CheckCircle } from "lucide-react";
+import Container from "@/components/Container";
 
 const commitments = [
   "Uncompromising quality in every square inch.",
@@ -13,7 +14,7 @@ const commitments = [
 export default function OurCommitment() {
   return (
     <section className="w-full px-4 md:px-8 lg:px-20 pb-24">
-      <div className="max-w-7xl mx-auto border border-white/20 rounded-2xl p-6 md:p-10 grid md:grid-cols-2 gap-10 items-center bg-[#010304]">
+      <Container width="7xl" className="border border-white/20 rounded-2xl p-6 md:p-10 grid md:grid-cols-2 gap-10 items-center bg-[#010304]">
         {/* LEFT */}
         <div className="space-y-6">
           <h2 className="text-xl md:text-2xl font-semibold text-white">
@@ -43,7 +44,7 @@ export default function OurCommitment() {
             />
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

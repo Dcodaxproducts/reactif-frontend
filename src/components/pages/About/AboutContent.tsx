@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Container from "@/components/Container";
 
 export default function AboutContent() {
   return (
     <section className="w-full px-4 md:px-8 lg:px-20 py-12 md:pb-16 flex items-center min-h-[70vh]">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center w-full">
+      <Container width="7xl" className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
         {/* LEFT CONTENT */}
         <div className="space-y-5 flex flex-col justify-center h-full">
           {/* SMALL LABEL */}
@@ -56,7 +57,7 @@ export default function AboutContent() {
             />
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

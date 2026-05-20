@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import Container from "@/components/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import SubCategories from "@/components/pages/SubCategories/SubCategories";
 import GlobalBackground from "@/hooks/GlobalBackground";
@@ -48,7 +49,7 @@ const Subcategories = () => {
     <section className="relative overflow-hidden">
       <GlobalBackground />
 
-      <div className="mx-auto px-4 sm:px-6 md:px-30 py-12 md:py-20">
+      <Container gutter="page" className="py-12 md:py-20">
         <SectionHeader
           title={
             <span style={{ color: "#F5F5F5" }}>
@@ -69,7 +70,7 @@ const Subcategories = () => {
         ) : (
           <SubCategories subcategories={subcategories} />
         )}
-      </div>
+      </Container>
     </section>
   );
 };
