@@ -34,37 +34,6 @@ export const authKeys = {
   currentUser: () => ["auth", "current-user"] as const,
 };
 
-const getAuthToken = () => {
-  if (typeof window === "undefined") return null;
-  return window.localStorage.getItem(AUTH_TOKEN_KEY);
-};
-
-const getAuthTokenFromResponse = (data: AuthResponse) => data.sessionToken || null;
-
-const clearAuthToken = () => {
-  localStorage.removeItem(AUTH_TOKEN_KEY);
-};
-
-const saveAuthToken = (data: AuthResponse) => {
-  const token = getAuthTokenFromResponse(data);
-
-  if (token) {
-    localStorage.setItem(AUTH_TOKEN_KEY, token);
-  }
-};
-
-const saveVerificationEmail = (email: string) => {
-  localStorage.setItem(VERIFICATION_EMAIL_KEY, email);
-};
-
-const clearVerificationEmail = () => {
-  localStorage.removeItem(VERIFICATION_EMAIL_KEY);
-};
-
-const saveResetEmail = (email: string) => {
-  localStorage.setItem(RESET_EMAIL_KEY, email);
-};
-
 const getAuthUserFromResponse = (data: AuthResponse): AuthUser | null => {
   if (data.user) return data.user;
   if (!data.email) return null;
@@ -83,7 +52,7 @@ export const useCurrentUser = () => {
   return useQuery({
     queryKey: authKeys.currentUser(),
     queryFn: getCurrentUser,
-    enabled: typeof window !== "undefined" && Boolean(getAuthToken()),
+    enabled: Boolean(globalThis.localStorage?.getItem(AUTH_TOKEN_KEY)),
     retry: false,
   });
 };
@@ -94,8 +63,8 @@ export const useAuth = () => {
   const currentUserQuery = useCurrentUser();
 
   const logout = () => {
-    clearAuthToken();
-    clearVerificationEmail();
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(VERIFICATION_EMAIL_KEY);
     localStorage.removeItem(RESET_EMAIL_KEY);
     queryClient.clear();
     toast.success("Logged out successfully");
@@ -116,7 +85,9 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: (payload: LoginPayload) => loginUser(payload),
     onSuccess: (data) => {
-      saveAuthToken(data);
+      if (data.sessionToken) {
+        localStorage.setItem(AUTH_TOKEN_KEY, data.sessionToken);
+      }
 
       const user = getAuthUserFromResponse(data);
       if (user) queryClient.setQueryData(authKeys.currentUser(), user);
@@ -128,7 +99,9 @@ export const useLogin = () => {
       );
 
       if (user?.isVerified === false) {
-        if (user.email) saveVerificationEmail(user.email);
+        if (user.email) {
+          localStorage.setItem(VERIFICATION_EMAIL_KEY, user.email);
+        }
         router.push(getVerificationRoute());
         return;
       }
@@ -155,7 +128,7 @@ export const useRegister = () => {
   return useMutation({
     mutationFn: (payload: RegisterPayload) => registerUser(payload),
     onSuccess: (_, payload) => {
-      saveVerificationEmail(payload.email);
+      localStorage.setItem(VERIFICATION_EMAIL_KEY, payload.email);
       queryClient.removeQueries({ queryKey: authKeys.currentUser() });
       toast.success("Account created successfully! OTP sent to your email.");
       router.push(getVerificationRoute());
@@ -174,7 +147,7 @@ export const useVerifyAuth = () => {
   return useMutation<AuthMessageResponse, Error, VerifyAuthPayload>({
     mutationFn: verifyAuth,
     onSuccess: () => {
-      clearVerificationEmail();
+      localStorage.removeItem(VERIFICATION_EMAIL_KEY);
       queryClient.invalidateQueries({ queryKey: authKeys.currentUser() });
     },
     onError: (error) => {
@@ -205,7 +178,7 @@ export const useForgotPassword = () => {
   return useMutation<AuthMessageResponse, Error, ForgotPasswordPayload>({
     mutationFn: forgotPassword,
     onSuccess: (_, payload) => {
-      saveResetEmail(payload.email);
+      localStorage.setItem(RESET_EMAIL_KEY, payload.email);
       toast.success("Password reset instructions sent. Please check your email.");
       router.push("/verify-otp");
     },
