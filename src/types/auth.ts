@@ -17,6 +17,11 @@ export type RegisterPayload = {
   password: string;
 };
 
-export type AuthResponse = AuthUser & {
+export type AuthResponse = Partial<AuthUser> & {
+  id?: number;
+  name?: string;
+  token?: string;
+  accessToken?: string;
   sessionToken?: string;
+  user?: AuthUser;
 };

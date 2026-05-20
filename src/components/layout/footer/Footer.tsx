@@ -6,25 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Twitter, Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-
-interface User {
-  userId: number;
-  email: string;
-  displayName: string;
-  isVerified: boolean;
-}
+import { useCurrentUser } from "@/hooks/useAuth";
 
 export default function Footer() {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("current_user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  const { data: user } = useCurrentUser();
 
   return (
     <footer className="relative text-white overflow-hidden">

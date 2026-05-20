@@ -9,19 +9,14 @@ import { DesktopNavLinks } from "./nav/DesktopNavLinks";
 import { MobileSidebar } from "./nav/MobileSidebar";
 import { NavbarActions } from "./nav/NavbarActions";
 import { NavbarLogo } from "./nav/NavbarLogo";
-import type { NavbarUser } from "@/types/component-props";
+import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [user, setUser] = useState<NavbarUser | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("current_user");
-    if (storedUser) setUser(JSON.parse(storedUser));
-  }, []);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -38,10 +33,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("sessionToken");
-    localStorage.removeItem("current_user");
-    setUser(null);
-    router.push("/login");
+    logout();
   };
 
   return (

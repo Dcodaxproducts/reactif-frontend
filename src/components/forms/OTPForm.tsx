@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import {
   AuthFormShell,
@@ -10,30 +10,27 @@ import {
   AuthTextField,
 } from "@/components/forms/AuthFormShell";
 import { Button } from "@/components/ui/button";
-import { useResendOtp, useVerifyOtp } from "@/hooks/useAuth";
+import { useResendAuthCode, useVerifyAuth } from "@/hooks/useAuth";
 import { getSchemaValidationMessage, otpSchema } from "@/validations/auth";
 
 const OTP_INPUT_CLASS = "text-center tracking-widest text-lg";
 
 const OTPForm = () => {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const searchParams = useSearchParams();
+  const [email, setEmail] = useState(searchParams.get("email") || "");
   const [otp, setOtp] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [countdown, setCountdown] = useState(60);
   const [canResend, setCanResend] = useState(false);
-  const verifyOtpMutation = useVerifyOtp();
-  const resendOtpMutation = useResendOtp();
+  const verifyOtpMutation = useVerifyAuth();
+  const resendOtpMutation = useResendAuthCode();
   const loading = verifyOtpMutation.isPending || resendOtpMutation.isPending;
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("current_user");
-    if (storedUser) {
-      const parsed = JSON.parse(storedUser);
-      setEmail(parsed.email || "");
-    }
-  }, []);
+    setEmail(searchParams.get("email") || "");
+  }, [searchParams]);
 
   useEffect(() => {
     if (countdown <= 0) {
@@ -64,7 +61,7 @@ const OTPForm = () => {
     }
 
     try {
-      const token = localStorage.getItem("sessionToken");
+      const token = localStorage.getItem("token");
       if (!token) {
         throw new Error("Session expired. Please sign up again.");
       }

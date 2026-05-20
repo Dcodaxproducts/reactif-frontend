@@ -12,7 +12,9 @@ api.interceptors.request.use((config) => {
     return config;
   }
 
-  const token = window.localStorage.getItem("sessionToken");
+  const token =
+    window.localStorage.getItem("token") ||
+    window.localStorage.getItem("sessionToken");
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

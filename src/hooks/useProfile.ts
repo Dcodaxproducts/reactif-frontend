@@ -60,13 +60,7 @@ export const useProfile = () => {
     queryFn: getUserProfile,
   });
 
-  const storedUser =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("current_user") || "{}")
-      : {};
-  const mappedProfile = query.data?.data
-    ? mapProfile(query.data.data, storedUser.isVerified ?? false)
-    : null;
+  const mappedProfile = query.data?.data ? mapProfile(query.data.data, true) : null;
 
   return {
     ...query,
@@ -85,14 +79,7 @@ export const useUpdateProfile = () => {
 
   return useMutation({
     mutationFn: (payload: ProfileFormPayload) => updateUserProfile(payload),
-    onSuccess: (result) => {
-      const storedUser = JSON.parse(
-        localStorage.getItem("current_user") || "{}",
-      );
-      localStorage.setItem(
-        "current_user",
-        JSON.stringify({ ...storedUser, ...result.data }),
-      );
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: profileKeys.all });
       toast.success("Profile updated successfully.");
       router.push("/profile");
@@ -110,8 +97,8 @@ export const useDeleteAccount = () => {
   return useMutation({
     mutationFn: deleteUserAccount,
     onSuccess: () => {
+      localStorage.removeItem("token");
       localStorage.removeItem("sessionToken");
-      localStorage.removeItem("current_user");
       queryClient.clear();
       toast.success("Account deleted successfully.");
       router.push("/");

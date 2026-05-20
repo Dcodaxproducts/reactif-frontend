@@ -1,109 +1,107 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+
 import { getErrorMessage } from "@/lib/errors";
 import {
+  changePassword,
   forgotPassword,
+  getCurrentUser,
   loginUser,
   registerUser,
-  resendOtp,
+  resendAuthCode,
   resetPassword,
-  validateSession,
-  verifyOtp,
+  verifyAuth,
+  type AuthMessageResponse,
+  type ChangePasswordPayload,
   type ForgotPasswordPayload,
-  type ResendOtpPayload,
+  type ResendAuthCodePayload,
   type ResetPasswordPayload,
-  type VerifyOtpPayload,
+  type VerifyAuthPayload,
 } from "@/services/auth";
-import type { AuthUser, LoginPayload, RegisterPayload } from "@/types/auth";
+import type { AuthResponse, AuthUser, LoginPayload, RegisterPayload } from "@/types/auth";
 
 export type User = AuthUser;
 
-/**
- * ==============================
- * QUERY KEYS
- * ==============================
- */
+export const AUTH_TOKEN_KEY = "token";
+export const LEGACY_AUTH_TOKEN_KEY = "sessionToken";
 
 export const authKeys = {
   all: ["auth"] as const,
   currentUser: () => ["auth", "current-user"] as const,
-  session: () => ["auth", "session"] as const,
 };
 
-/**
- * ==============================
- * SESSION HOOKS
- * ==============================
- */
+const getAuthToken = () => {
+  if (typeof window === "undefined") return null;
+  return (
+    window.localStorage.getItem(AUTH_TOKEN_KEY) ||
+    window.localStorage.getItem(LEGACY_AUTH_TOKEN_KEY)
+  );
+};
 
-export const useValidateSession = (enabled = false) => {
+const getAuthTokenFromResponse = (data: AuthResponse) =>
+  data.accessToken || data.token || data.sessionToken || null;
+
+const clearAuthToken = () => {
+  localStorage.removeItem(AUTH_TOKEN_KEY);
+  localStorage.removeItem(LEGACY_AUTH_TOKEN_KEY);
+};
+
+const saveAuthToken = (data: AuthResponse) => {
+  const token = getAuthTokenFromResponse(data);
+
+  if (token) {
+    localStorage.setItem(AUTH_TOKEN_KEY, token);
+    localStorage.removeItem(LEGACY_AUTH_TOKEN_KEY);
+  }
+};
+
+const getAuthUserFromResponse = (data: AuthResponse): AuthUser | null => {
+  if (data.user) return data.user;
+  if (!data.email) return null;
+
+  return {
+    userId: data.userId ?? data.id ?? 0,
+    email: data.email,
+    displayName: data.displayName ?? data.name ?? data.email,
+    isVerified: data.isVerified ?? true,
+  };
+};
+
+const getVerificationRoute = (email?: string | null) =>
+  email
+    ? `/register/enter-otp?email=${encodeURIComponent(email)}`
+    : "/register/enter-otp";
+
+export const useCurrentUser = () => {
   return useQuery({
-    queryKey: authKeys.session(),
-    queryFn: validateSession,
-    enabled,
+    queryKey: authKeys.currentUser(),
+    queryFn: getCurrentUser,
+    enabled: typeof window !== "undefined" && Boolean(getAuthToken()),
+    retry: false,
   });
 };
 
 export const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
-
-  useEffect(() => {
-    const validateStoredSession = async () => {
-      const token = localStorage.getItem("sessionToken");
-      const storedUser = localStorage.getItem("current_user");
-
-      if (!token || !storedUser) {
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const parsedUser: User = JSON.parse(storedUser);
-
-        await validateSession();
-
-        if (!parsedUser.isVerified) {
-          router.push("/register/enter-otp");
-          setLoading(false);
-          return;
-        }
-
-        setUser(parsedUser);
-      } catch {
-        localStorage.removeItem("sessionToken");
-        localStorage.removeItem("current_user");
-        setUser(null);
-        router.push("/login");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    validateStoredSession();
-  }, [router]);
+  const queryClient = useQueryClient();
+  const currentUserQuery = useCurrentUser();
 
   const logout = () => {
-    localStorage.removeItem("sessionToken");
-    localStorage.removeItem("current_user");
-    setUser(null);
+    clearAuthToken();
+    queryClient.clear();
     toast.success("Logged out successfully");
     router.push("/login");
   };
 
-  return { user, loading, logout };
+  return {
+    user: currentUserQuery.data ?? null,
+    loading: currentUserQuery.isLoading,
+    logout,
+  };
 };
-
-/**
- * ==============================
- * AUTH MUTATION HOOKS
- * ==============================
- */
 
 export const useLogin = () => {
   const router = useRouter();
@@ -112,26 +110,19 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: (payload: LoginPayload) => loginUser(payload),
     onSuccess: (data) => {
-      if (data.sessionToken)
-        localStorage.setItem("sessionToken", data.sessionToken);
+      saveAuthToken(data);
 
-      const userObject = {
-        userId: data.userId,
-        email: data.email,
-        displayName: data.displayName,
-        isVerified: data.isVerified ?? false,
-      };
+      const user = getAuthUserFromResponse(data);
+      if (user) queryClient.setQueryData(authKeys.currentUser(), user);
 
-      localStorage.setItem("current_user", JSON.stringify(userObject));
-      queryClient.setQueryData(authKeys.currentUser(), userObject);
       toast.success(
-        userObject.isVerified
-          ? "Login Successful!"
-          : "Account created, please verify OTP!",
+        user?.isVerified === false
+          ? "Account created, please verify OTP!"
+          : "Login successful",
       );
 
-      if (!userObject.isVerified) {
-        router.push("/verify-otp");
+      if (user?.isVerified === false) {
+        router.push(getVerificationRoute(user.email));
         return;
       }
 
@@ -142,9 +133,10 @@ export const useLogin = () => {
       } else {
         router.push("/");
       }
+      router.refresh();
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Invalid email or password."));
+      toast.error(getErrorMessage(error, "Login failed. Please try again."));
     },
   });
 };
@@ -155,21 +147,14 @@ export const useRegister = () => {
 
   return useMutation({
     mutationFn: (payload: RegisterPayload) => registerUser(payload),
-    onSuccess: (data) => {
-      if (data.sessionToken)
-        localStorage.setItem("sessionToken", data.sessionToken);
+    onSuccess: (data, payload) => {
+      saveAuthToken(data);
 
-      const userObject = {
-        userId: data.userId,
-        email: data.email,
-        displayName: data.displayName,
-        isVerified: data.isVerified ?? false,
-      };
+      const user = getAuthUserFromResponse(data);
+      if (user) queryClient.setQueryData(authKeys.currentUser(), user);
 
-      localStorage.setItem("current_user", JSON.stringify(userObject));
-      queryClient.setQueryData(authKeys.currentUser(), userObject);
       toast.success("Account created successfully! OTP sent to your email.");
-      router.push("/register/enter-otp");
+      router.push(getVerificationRoute(user?.email ?? payload.email));
     },
     onError: (error) => {
       toast.error(
@@ -179,58 +164,80 @@ export const useRegister = () => {
   });
 };
 
-export const useVerifyOtp = () => {
+export const useVerifyAuth = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: (payload: VerifyOtpPayload) => verifyOtp(payload),
+  return useMutation<AuthMessageResponse, Error, VerifyAuthPayload>({
+    mutationFn: verifyAuth,
     onSuccess: () => {
-      const storedUser = localStorage.getItem("current_user");
-      if (storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        parsedUser.isVerified = true;
-        localStorage.setItem("current_user", JSON.stringify(parsedUser));
-        queryClient.setQueryData(authKeys.currentUser(), parsedUser);
-      }
+      queryClient.invalidateQueries({ queryKey: authKeys.currentUser() });
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Verification failed. Try again."));
+      toast.error(
+        getErrorMessage(error, "Verification failed. Please try again."),
+      );
     },
   });
 };
 
-export const useResendOtp = () => {
-  return useMutation({
-    mutationFn: (payload: ResendOtpPayload) => resendOtp(payload),
+export const useResendAuthCode = () => {
+  return useMutation<AuthMessageResponse, Error, ResendAuthCodePayload>({
+    mutationFn: resendAuthCode,
     onSuccess: () => {
       toast.success("A new OTP has been sent to your email.");
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Failed to resend OTP."));
+      toast.error(
+        getErrorMessage(error, "Unable to resend code. Please try again."),
+      );
     },
   });
 };
 
 export const useForgotPassword = () => {
-  return useMutation({
-    mutationFn: (payload: ForgotPasswordPayload) => forgotPassword(payload),
-    onSuccess: () => {
-      toast.success("OTP sent to your email. It is valid for 10 minutes.");
+  const router = useRouter();
+
+  return useMutation<AuthMessageResponse, Error, ForgotPasswordPayload>({
+    mutationFn: forgotPassword,
+    onSuccess: (_, payload) => {
+      toast.success("Password reset instructions sent. Please check your email.");
+      router.push(`/verify-otp?email=${encodeURIComponent(payload.email)}`);
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Failed to send OTP. Try again."));
+      toast.error(
+        getErrorMessage(
+          error,
+          "Unable to send reset instructions. Please try again.",
+        ),
+      );
     },
   });
 };
 
 export const useResetPassword = () => {
-  return useMutation({
-    mutationFn: (payload: ResetPasswordPayload) => resetPassword(payload),
+  return useMutation<AuthMessageResponse, Error, ResetPasswordPayload>({
+    mutationFn: resetPassword,
     onSuccess: () => {
       toast.success("Password reset successfully!");
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Reset failed. Try again."));
+      toast.error(
+        getErrorMessage(error, "Unable to reset password. Please try again."),
+      );
     },
   });
 };
+
+export const useChangePassword = () => {
+  return useMutation<AuthMessageResponse, Error, ChangePasswordPayload>({
+    mutationFn: changePassword,
+    onError: (error) => {
+      toast.error(
+        getErrorMessage(error, "Unable to change password. Please try again."),
+      );
+    },
+  });
+};
+
+export const useVerifyOtp = useVerifyAuth;
+export const useResendOtp = useResendAuthCode;

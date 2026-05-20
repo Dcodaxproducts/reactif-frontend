@@ -1,18 +1,14 @@
 import api from "@/lib/axios";
-import type { AuthResponse, LoginPayload, RegisterPayload } from "@/types/auth";
+import type { AuthResponse, AuthUser, LoginPayload, RegisterPayload } from "@/types/auth";
+import type { ApiItemResponse } from "@/types/api";
+import type { BackendUserProfile } from "@/types/profile";
 
-/**
- * ==============================
- * TYPES
- * ==============================
- */
-
-export type VerifyOtpPayload = {
+export type VerifyAuthPayload = {
   email: string;
   otp: string;
 };
 
-export type ResendOtpPayload = {
+export type ResendAuthCodePayload = {
   email: string;
 };
 
@@ -26,32 +22,46 @@ export type ResetPasswordPayload = {
   newPassword: string;
 };
 
+export type ChangePasswordPayload = {
+  currentPassword: string;
+  newPassword: string;
+};
+
 export type AuthMessageResponse = {
   message?: string;
   success?: boolean;
 };
 
-/**
- * ==============================
- * ROUTES
- * ==============================
- */
-
 export const AUTH_ROUTES = {
   login: "/auth/login",
   signup: "/auth/signup",
-  validate: "/auth/validate",
-  verifyOtp: "/auth/verify-otp",
-  resendOtp: "/auth/resend-otp",
+  currentUser: "/user-detail",
+  verifyAuth: "/auth/verify-otp",
+  resendAuthCode: "/auth/resend-otp",
   forgotPassword: "/auth/forgot-password",
   resetPassword: "/auth/reset-password",
+  changePassword: "/auth/change-password",
 };
 
-/**
- * ==============================
- * AUTH APIS
- * ==============================
- */
+const mapCurrentUser = (user: BackendUserProfile): AuthUser => ({
+  userId: user.id,
+  email: user.email,
+  displayName: user.name || user.email,
+  isVerified: true,
+});
+
+export const getCurrentUser = async (): Promise<AuthUser> => {
+  const { data } = await api.get<ApiItemResponse<BackendUserProfile>>(
+    AUTH_ROUTES.currentUser,
+    {
+      headers: {
+        Accept: "application/json",
+      },
+    },
+  );
+
+  return mapCurrentUser(data.data ?? (data as unknown as BackendUserProfile));
+};
 
 export const loginUser = async (
   payload: LoginPayload,
@@ -67,26 +77,21 @@ export const registerUser = async (
   return data;
 };
 
-export const validateSession = async (): Promise<AuthMessageResponse> => {
-  const { data } = await api.get<AuthMessageResponse>(AUTH_ROUTES.validate);
-  return data;
-};
-
-export const verifyOtp = async (
-  payload: VerifyOtpPayload,
+export const verifyAuth = async (
+  payload: VerifyAuthPayload,
 ): Promise<AuthMessageResponse> => {
   const { data } = await api.post<AuthMessageResponse>(
-    AUTH_ROUTES.verifyOtp,
+    AUTH_ROUTES.verifyAuth,
     payload,
   );
   return data;
 };
 
-export const resendOtp = async (
-  payload: ResendOtpPayload,
+export const resendAuthCode = async (
+  payload: ResendAuthCodePayload,
 ): Promise<AuthMessageResponse> => {
   const { data } = await api.post<AuthMessageResponse>(
-    AUTH_ROUTES.resendOtp,
+    AUTH_ROUTES.resendAuthCode,
     payload,
   );
   return data;
@@ -111,3 +116,18 @@ export const resetPassword = async (
   );
   return data;
 };
+
+export const changePassword = async (
+  payload: ChangePasswordPayload,
+): Promise<AuthMessageResponse> => {
+  const { data } = await api.post<AuthMessageResponse>(
+    AUTH_ROUTES.changePassword,
+    payload,
+  );
+  return data;
+};
+
+export type VerifyOtpPayload = VerifyAuthPayload;
+export type ResendOtpPayload = ResendAuthCodePayload;
+export const verifyOtp = verifyAuth;
+export const resendOtp = resendAuthCode;

@@ -9,11 +9,12 @@ import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useUpdateProfile } from "@/hooks/useProfile";
+import { useProfile, useUpdateProfile } from "@/hooks/useProfile";
 const ProfileForm = () => {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  const { user } = useProfile();
   const updateProfileMutation = useUpdateProfile();
   const loading = updateProfileMutation.isPending;
   const [preview, setPreview] = useState<string>("");
@@ -28,24 +29,18 @@ const ProfileForm = () => {
 
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
-  // ✅ Load user from localStorage
   useEffect(() => {
-    const storedUser = localStorage.getItem("current_user");
+    if (!user) return;
 
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-
-      setFormData({
-        name: user.name || "",
-        email: user.email || "",
-        phone: user.phone || "",
-        bio: user.bio || "",
-        address: user.address || "",
-      });
-
-      setPreview(user.avatar || "https://placehold.co/96x96");
-    }
-  }, []);
+    setFormData({
+      name: user.name || "",
+      email: user.email || "",
+      phone: user.phone || "",
+      bio: user.bio || "",
+      address: user.address || "",
+    });
+    setPreview(user.avatar || "https://placehold.co/96x96");
+  }, [user]);
 
   // ✅ Handle input change
   const handleChange = (
@@ -70,7 +65,7 @@ const ProfileForm = () => {
 
   // ✅ Submit handler
   const handleSubmit = async () => {
-    const token = localStorage.getItem("sessionToken");
+    const token = localStorage.getItem("token");
 
     if (!token) {
       toast.error("Session expired. Please login again.");

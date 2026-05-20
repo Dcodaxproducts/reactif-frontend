@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import {
@@ -17,7 +16,6 @@ import {
 } from "@/validations/auth";
 
 const ForgotPasswordForm = () => {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const forgotPasswordMutation = useForgotPassword();
   const loading = forgotPasswordMutation.isPending;
@@ -36,7 +34,6 @@ const ForgotPasswordForm = () => {
 
     try {
       await forgotPasswordMutation.mutateAsync({ email });
-      setTimeout(() => router.push("/verify-otp"), 1500);
     } catch {
       // handled by mutation toast
     }
