@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import {
@@ -11,7 +11,11 @@ import {
   AuthTextField,
 } from "@/components/forms/AuthFormShell";
 import { Button } from "@/components/ui/button";
-import { useResendAuthCode, useResetPassword } from "@/hooks/useAuth";
+import {
+  RESET_EMAIL_KEY,
+  useResendAuthCode,
+  useResetPassword,
+} from "@/hooks/useAuth";
 import {
   getSchemaValidationMessage,
   resetPasswordSchema,
@@ -21,8 +25,7 @@ const OTP_INPUT_CLASS = "text-center tracking-widest text-lg";
 
 const VerifyOtpForm = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [email, setEmail] = useState(searchParams.get("email") || "");
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [countdown, setCountdown] = useState(60);
@@ -33,8 +36,8 @@ const VerifyOtpForm = () => {
     resetPasswordMutation.isPending || resendOtpMutation.isPending;
 
   useEffect(() => {
-    setEmail(searchParams.get("email") || "");
-  }, [searchParams]);
+    setEmail(localStorage.getItem(RESET_EMAIL_KEY) || "");
+  }, []);
 
   useEffect(() => {
     if (countdown <= 0) {
@@ -92,11 +95,6 @@ const VerifyOtpForm = () => {
       footer
     >
       <form className="space-y-6" onSubmit={handleSubmit}>
-        <AuthTextField
-          label="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
         <AuthTextField
           label="OTP"
           value={otp}

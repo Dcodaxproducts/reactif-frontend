@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import {
   AuthFormShell,
@@ -10,15 +10,18 @@ import {
   AuthTextField,
 } from "@/components/forms/AuthFormShell";
 import { Button } from "@/components/ui/button";
-import { useResendAuthCode, useVerifyAuth } from "@/hooks/useAuth";
+import {
+  useResendAuthCode,
+  useVerifyAuth,
+  VERIFICATION_EMAIL_KEY,
+} from "@/hooks/useAuth";
 import { getSchemaValidationMessage, otpSchema } from "@/validations/auth";
 
 const OTP_INPUT_CLASS = "text-center tracking-widest text-lg";
 
 const OTPForm = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [email, setEmail] = useState(searchParams.get("email") || "");
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -29,8 +32,8 @@ const OTPForm = () => {
   const loading = verifyOtpMutation.isPending || resendOtpMutation.isPending;
 
   useEffect(() => {
-    setEmail(searchParams.get("email") || "");
-  }, [searchParams]);
+    setEmail(localStorage.getItem(VERIFICATION_EMAIL_KEY) || "");
+  }, []);
 
   useEffect(() => {
     if (countdown <= 0) {
@@ -61,9 +64,8 @@ const OTPForm = () => {
     }
 
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        throw new Error("Session expired. Please sign up again.");
+      if (!email) {
+        throw new Error("Verification email not found. Please sign up again.");
       }
 
       await verifyOtpMutation.mutateAsync({ email, otp });
@@ -103,7 +105,6 @@ const OTPForm = () => {
       description="Enter the 5-digit code sent to your email"
     >
       <form className="space-y-6" onSubmit={handleSubmit}>
-        <AuthTextField label="Email" value={email} readOnly />
         <AuthTextField
           label="Verification Code"
           value={otp}

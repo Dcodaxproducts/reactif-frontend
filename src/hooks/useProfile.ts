@@ -97,7 +97,6 @@ export const useDeleteAccount = () => {
   return useMutation({
     mutationFn: deleteUserAccount,
     onSuccess: () => {
-      localStorage.removeItem("token");
       localStorage.removeItem("sessionToken");
       queryClient.clear();
       toast.success("Account deleted successfully.");
