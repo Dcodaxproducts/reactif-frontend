@@ -10,7 +10,8 @@ export default function LoadMoreSpecialistsButton({
       <Button
         onClick={onLoadMore}
         disabled={loading}
-        className="px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:opacity-90 transition disabled:opacity-50"
+        variant="brandSolid"
+        className="px-6 py-3 transition disabled:opacity-50"
       >
         {loading ? "Loading..." : "Load More"}
       </Button>

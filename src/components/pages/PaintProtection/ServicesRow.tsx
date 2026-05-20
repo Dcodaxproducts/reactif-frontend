@@ -52,7 +52,7 @@ export default function ServicesRow({
                 ${
                   isActive
                     ? "bg-[#f262b5] text-white"
-                    : "outline outline-1 outline-stone-500 text-stone-500 hover:bg-stone-800"
+                    : "outline-1 outline-stone-500 text-stone-500 hover:bg-stone-800"
                 }`}
             >
               <div
@@ -69,7 +69,7 @@ export default function ServicesRow({
 
       {/* Navigation Buttons (Only if 9 or more items) */}
       {showNavButtons && (
-        <div className="absolute right-0 top-0 px-3 py-1.5 rounded-full outline outline-1 outline-offset-[-1px] outline-stone-500 hidden md:inline-flex items-center justify-center gap-6">
+        <div className="absolute right-0 top-0 px-3 py-1.5 rounded-full outline-1 outline-offset-[-1px] outline-stone-500 hidden md:inline-flex items-center justify-center gap-6">
           <ChevronLeft
             className="w-4 h-4 text-neutral-50 cursor-pointer"
             onClick={() => scroll("left")}

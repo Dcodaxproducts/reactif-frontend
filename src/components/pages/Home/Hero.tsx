@@ -1,15 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Navbar from "@/components/layout/navbar/navbar";
 import { HeroCarImage } from "./hero/HeroCarImage";
 import { HeroContent } from "./hero/HeroContent";
 
 export default function Hero() {
   return (
     <section className="relative w-full min-h-screen flex items-center flex-col overflow-hidden">
-      <Navbar />
-
       <Image
         src="/assets/hero/gradient.png"
         alt="Background"

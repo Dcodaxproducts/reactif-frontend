@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/layout/navbar/navbar";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import SubCategories from "@/components/pages/SubCategories/SubCategories";
 import GlobalBackground from "@/hooks/GlobalBackground";
@@ -47,7 +46,6 @@ const Subcategories = () => {
 
   return (
     <section className="relative overflow-hidden">
-      <Navbar />
       <GlobalBackground />
 
       <div className="mx-auto px-4 sm:px-6 md:px-30 py-12 md:py-20">

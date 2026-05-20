@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/layout/navbar/navbar";
 import ServiceCard from "@/components/cards/ServiceCard";
 import { MapPin, Star, CheckCircle } from "lucide-react";
 import GlobalBackground from "@/hooks/GlobalBackground";
@@ -35,7 +34,6 @@ const services = [
 export default function VendorPortfolio() {
   return (
     <section className="relative overflow-hidden">
-      <Navbar />
 
       {/* Background */}
 

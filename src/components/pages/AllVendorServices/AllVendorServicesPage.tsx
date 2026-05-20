@@ -1,4 +1,3 @@
-import Navbar from "@/components/layout/navbar/navbar";
 import GlobalBackground from "@/hooks/GlobalBackground";
 import DeliveryService from "./DeliveryService";
 import SpecialistsSection from "./SpecialistsSection";
@@ -7,7 +6,6 @@ export default function AllVendorServicesPage() {
   return (
     <>
       <section className="relative overflow-hidden">
-        <Navbar />
         <GlobalBackground />
         <SpecialistsSection />
       </section>

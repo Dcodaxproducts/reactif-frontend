@@ -87,7 +87,7 @@ const ProfileForm = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4 md:p-12">
-      <div className="relative rounded-2xl outline outline-1 outline-offset-[-1px] outline-indigo-600 backdrop-blur-md overflow-hidden px-15 py-18">
+      <div className="relative rounded-2xl outline-1 outline-offset-[-1px] outline-indigo-600 backdrop-blur-md overflow-hidden px-15 py-18">
         {/* Header */}
         <div className="flex flex-col items-center gap-2 mb-10">
           <h1 className="bg-gradient-to-r from-[#F262B5] to-[#9F73F1] bg-clip-text text-transparent text-2xl sm:text-3xl md:text-4xl font-bold uppercase">
@@ -102,7 +102,7 @@ const ProfileForm = () => {
         <div className="flex flex-col items-center gap-2 mb-10 relative">
           <div
             onClick={handleAvatarClick}
-            className="relative w-24 h-24 rounded-full outline outline-2 outline-gray-700 cursor-pointer"
+            className="relative w-24 h-24 rounded-full outline-2 outline-gray-700 cursor-pointer"
           >
             <Image
               src={preview}

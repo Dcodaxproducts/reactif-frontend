@@ -13,8 +13,8 @@ export function OrderSummaryCard() {
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 p-4 bg-pink-400/10 rounded-lg flex items-center justify-center">
             <div className="w-6 h-6 relative">
-              <div className="w-3.5 h-5 left-[8.75px] top-[0.75px] absolute outline outline-[1.5px] outline-pink-400" />
-              <div className="w-4 h-6 left-[0.75px] top-[0.75px] absolute outline outline-[1.5px] outline-pink-400" />
+              <div className="w-3.5 h-5 left-[8.75px] top-[0.75px] absolute outline-[1.5px] outline-pink-400" />
+              <div className="w-4 h-6 left-[0.75px] top-[0.75px] absolute outline-[1.5px] outline-pink-400" />
             </div>
           </div>
 

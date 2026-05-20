@@ -1,11 +1,9 @@
-import Navbar from "@/components/layout/navbar/navbar";
 import TermsOfService from "@/components/pages/Terms/TermsContent";
 import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {
   return (
     <section className="relative overflow-hidden">
-      <Navbar />
       <GlobalBackground
         style={{
           backgroundImage: `

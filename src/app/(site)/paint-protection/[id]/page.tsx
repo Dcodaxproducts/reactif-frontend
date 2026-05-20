@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import Navbar from "@/components/layout/navbar/navbar";
 import PaintDetailsHeader from "@/components/pages/PaintProtection/PaintDetailsHeader";
 import ServicesRow from "@/components/pages/PaintProtection/ServicesRow";
 import CarPreviewSection from "@/components/pages/PaintProtection/CarPreviewSection";
@@ -99,7 +98,6 @@ export default function Page() {
 
   return (
     <section className="relative overflow-hidden min-h-screen">
-      <Navbar />
       <GlobalBackground />
 
       {(isFetchingCategory || categoryError) && <Overlay />}

@@ -40,11 +40,11 @@ const Design = () => {
         </div>
 
         <div className="w-full flex flex-col md:flex-row justify-start gap-3">
-          <Button className="flex items-center justify-center gap-2 w-full md:w-56 px-3 py-2 bg-blue-600 rounded-lg text-white text-sm md:text-base font-semibold font-['HK_Grotesk'] hover:bg-blue-700">
+          <Button variant="brandSolid" className="flex items-center justify-center gap-2 w-full md:w-56 px-3 py-2 text-sm md:text-base font-semibold font-['HK_Grotesk']">
             Accept Request
           </Button>
 
-          <Button className="flex items-center justify-center gap-2 w-full md:w-56 px-3 py-2 rounded-lg border border-neutral-50/30 text-neutral-50 text-sm md:text-base font-semibold font-['HK_Grotesk'] hover:bg-neutral-50/10">
+          <Button variant="neutralOutline" className="flex items-center justify-center gap-2 w-full md:w-56 px-3 py-2 text-sm md:text-base font-semibold font-['HK_Grotesk']">
             Reject
           </Button>
         </div>

@@ -18,7 +18,7 @@ import type {
 } from "@/types/component-props";
 
 const commonInputClasses =
-  "w-full px-4 py-3 rounded-xl outline outline-1 outline-slate-700 text-sm text-neutral-50 bg-black/20 focus:outline-[#F262B5] focus:ring-1 focus:ring-[#F262B5] transition";
+  "w-full px-4 py-3 rounded-xl outline-1 outline-slate-700 text-sm text-neutral-50 bg-black/20 focus:outline-[#F262B5] focus:ring-1 focus:ring-[#F262B5] transition";
 
 export function DynamicServiceFields({
   service,

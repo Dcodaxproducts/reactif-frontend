@@ -2,6 +2,7 @@
 
 import { ReactNode } from "react";
 import Footer from "@/components/layout/footer/Footer";
+import Navbar from "@/components/layout/navbar/navbar";
 import TopInfoBar from "@/components/layout/navbar/TopInfoBar";
 import { Toaster } from "sonner";
 import { QueryProvider } from "@/components/providers/query-provider";
@@ -13,6 +14,7 @@ function ClientLayoutContent({ children }: { children: ReactNode }) {
   return (
     <>
       <TopInfoBar />
+      <Navbar />
       <Toaster position="top-right" richColors />
       <div>{children}</div>
       <Footer />

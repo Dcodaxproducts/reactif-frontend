@@ -123,7 +123,7 @@ export default function PaintProtectionCard({
   };
 
   return (
-    <div className="w-full md:w-auto p-6 md:p-8 rounded-3xl outline outline-1 outline-slate-700 flex flex-col gap-6">
+    <div className="w-full md:w-auto p-6 md:p-8 rounded-3xl outline-1 outline-slate-700 flex flex-col gap-6">
       <BookingCardHeader activeCategory={activeCategory} />
 
       {isLoading && <BookingCardSkeleton />}

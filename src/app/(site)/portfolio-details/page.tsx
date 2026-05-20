@@ -1,4 +1,3 @@
-import Navbar from "@/components/layout/navbar/navbar";
 import Configuration from "@/components/pages/order/OrderAddress/Configuration";
 import WhyProtection from "@/components/pages/order/OrderAddress/WhyProtection";
 import GlobalBackground from "@/hooks/GlobalBackground";
@@ -6,7 +5,6 @@ import GlobalBackground from "@/hooks/GlobalBackground";
 const page = () => {
   return (
     <section className="relative overflow-hidden pb-10">
-      <Navbar />
       <GlobalBackground />
 
       <section className="w-full flex flex-col items-center gap-10 py-8 px-5 md:px-0">

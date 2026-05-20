@@ -10,6 +10,24 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        authGradient:
+          "w-full bg-gradient-to-l from-blue-600 via-cyan-600 to-blue-700 text-white text-base sm:text-lg font-semibold hover:opacity-90 py-3",
+        brandGlow:
+          "rounded-full px-6 md:px-8 py-3 text-white font-medium bg-[conic-gradient(from_98deg_at_62.65%_113.44%,#5FC5FF_0deg,#FFAC89_135deg,#8155FF_213deg,#789DFF_286deg,#9F73F1_357deg)] shadow-[0px_0px_80px_#D43077]",
+        whitePill:
+          "rounded-full bg-white text-black font-medium hover:bg-white/90",
+        whiteGlow:
+          "rounded-full bg-white text-black font-bold hover:bg-white/90 shadow-[0px_0px_85px_0px_#FFFFFF]",
+        darkPill:
+          "rounded-full bg-white/5 text-slate-300 hover:bg-white/10",
+        brandSolid:
+          "rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700",
+        neutralOutline:
+          "rounded-lg border border-neutral-50/30 bg-transparent text-neutral-50 font-semibold hover:bg-neutral-50/10",
+        navDark:
+          "rounded-full bg-neutral-800 text-[#E2E2E2] hover:bg-neutral-700",
+        navOutline:
+          "rounded-full border border-white bg-transparent text-white hover:bg-white/10",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:

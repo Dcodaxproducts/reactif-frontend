@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-import Navbar from "@/components/layout/navbar/navbar";
 import GlobalBackground from "@/hooks/GlobalBackground";
 
 type OrderPageShellProps = {
@@ -14,7 +13,6 @@ export default function OrderPageShell({
 }: OrderPageShellProps) {
   return (
     <section className="relative overflow-hidden">
-      <Navbar />
       <GlobalBackground style={backgroundStyle} />
       {children}
     </section>

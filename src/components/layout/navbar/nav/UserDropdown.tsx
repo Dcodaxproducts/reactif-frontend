@@ -16,8 +16,9 @@ export function UserDropdown({
   return (
     <div ref={dropdownRef} className="relative">
       <Button
+        variant="navDark"
         onClick={onToggle}
-        className="w-10 h-10 rounded-full bg-neutral-800 text-[#E2E2E2] flex items-center justify-center font-semibold"
+        className="w-10 h-10 font-semibold"
       >
         {getInitials(user.displayName)}
       </Button>

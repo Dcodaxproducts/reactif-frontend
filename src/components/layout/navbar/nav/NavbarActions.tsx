@@ -18,8 +18,9 @@ export function NavbarActions({
     <div className="flex items-center gap-3 md:gap-4 relative">
       {user && (
         <Button
+          variant="navOutline"
           onClick={() => router.push("/order/management")}
-          className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-white flex items-center justify-center text-white hover:bg-white/10 transition"
+          className="w-9 h-9 md:w-10 md:h-10"
         >
           <ShoppingCart size={19} />
         </Button>
@@ -34,12 +35,9 @@ export function NavbarActions({
           onLogout={onLogout}
         />
       ) : (
-        <Link
-          href="/login"
-          className="hidden md:block bg-neutral-800 text-[#E2E2E2] px-5 py-2 rounded-full transition text-[15px]"
-        >
-          Get Started
-        </Link>
+        <Button asChild variant="navDark" className="hidden md:inline-flex px-5 py-2 text-[15px]">
+          <Link href="/login">Get Started</Link>
+        </Button>
       )}
     </div>
   );

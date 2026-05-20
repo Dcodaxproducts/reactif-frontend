@@ -50,14 +50,9 @@ export default function Footer() {
               design solutions.
             </p>
 
-            <div className="h-11 px-5 py-2.5 bg-white rounded-[100px] shadow-[0px_0px_85px_0px_rgba(255,255,255,1.00)] outline outline-1 outline-offset-[-1px] outline-white inline-flex justify-center items-center gap-2.5">
-              <Link
-                href="/login"
-                className="text-center justify-start text-zinc-800 font-bold font-hk text-[14px]"
-              >
-                GET STARTED
-              </Link>
-            </div>
+            <Button asChild variant="whiteGlow" className="h-11 px-5 py-2.5 rounded-[100px] outline-1 outline-offset-[-1px] outline-white text-[14px] font-hk">
+              <Link href="/login">GET STARTED</Link>
+            </Button>
           </div>
 
           {/* RIGHT LINKS */}

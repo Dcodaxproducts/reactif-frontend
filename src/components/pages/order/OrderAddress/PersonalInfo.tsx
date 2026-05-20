@@ -32,11 +32,11 @@ const PersonalInfo = () => {
         </div>
 
         <div className="flex gap-4">
-          <Button className="px-5 h-10 bg-blue-600 hover:bg-blue-700 rounded-lg text-neutral-50 text-base md:text-lg font-semibold font-['HK_Grotesk']">
+          <Button variant="brandSolid" className="px-5 h-10 text-neutral-50 text-base md:text-lg font-semibold font-['HK_Grotesk']">
             Save
           </Button>
 
-          <Button className="px-5 h-10 rounded-lg bg-transparent border border-neutral-50/30 text-neutral-50 hover:bg-neutral-50/10 text-base md:text-lg font-semibold font-['HK_Grotesk']">
+          <Button variant="neutralOutline" className="px-5 h-10 text-base md:text-lg font-semibold font-['HK_Grotesk']">
             Cancel
           </Button>
         </div>

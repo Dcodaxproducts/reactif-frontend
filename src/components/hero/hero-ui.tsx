@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils"; // if you have it (shadcn). If not, tell me.
 
 // ================= TITLE =================
@@ -64,20 +65,11 @@ export function PrimaryButton({
   showIcon?: boolean;
 }) {
   return (
-    <Link
-      href={href}
-      className={cn(
-        "font-sans px-6 md:px-8 py-3 rounded-full text-white font-medium flex items-center gap-2 relative",
-        className,
-      )}
-      style={{
-        background:
-          "conic-gradient(from 98deg at 62.65% 113.44%, #5FC5FF 0deg, #FFAC89 135deg, #8155FF 213deg, #789DFF 286deg, #9F73F1 357deg)",
-        boxShadow: "0px 0px 80px #D43077",
-      }}
-    >
-      {children}
-      {showIcon && <ArrowRight size={18} />}
-    </Link>
+    <Button asChild variant="brandGlow" className={cn("font-sans", className)}>
+      <Link href={href}>
+        {children}
+        {showIcon && <ArrowRight size={18} />}
+      </Link>
+    </Button>
   );
 }

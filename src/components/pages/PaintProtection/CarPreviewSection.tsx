@@ -81,7 +81,7 @@ export default function CarPreviewSection({
               {/* Top Labels */}
               <div className="px-2 md:px-3 py-1.5 flex flex-col gap-2">
                 <div
-                  className={`w-fit px-2.5 py-1.5 rounded outline outline-1 outline-offset-[-1px] ${outlineColor} flex justify-center items-center`}
+                  className={`w-fit px-2.5 py-1.5 rounded outline-1 outline-offset-[-1px] ${outlineColor} flex justify-center items-center`}
                 >
                   <div
                     className={`${textColor} text-xs sm:text-sm md:text-base font-medium`}
