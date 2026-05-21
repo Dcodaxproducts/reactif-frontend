@@ -20,6 +20,25 @@ import { cn } from "@/lib/utils";
 import { profileSchema, type ProfileFormValues } from "@/validations/profile";
 
 const FIELD_ERROR_CLASS = "text-sm font-medium text-red-500";
+const PROFILE_FIELD_WRAPPER_CLASS = "flex flex-col gap-2";
+const PROFILE_LABEL_CLASS = "text-white text-xl";
+const PROFILE_LABEL_WEIGHT_CLASS = "font-semibold";
+const PROFILE_INPUT_CLASS = "bg-transparent text-gray-200 border";
+const PROFILE_INPUT_SURFACE_CLASS = "border-neutral-50/30 rounded-md p-3";
+const PROFILE_TEXTAREA_CLASS = `${PROFILE_INPUT_CLASS} ${PROFILE_INPUT_SURFACE_CLASS} h-40 resize-none`;
+const PROFILE_SUBMIT_CLASS =
+  "w-full py-3 font-semibold text-xl text-white bg-gradient-to-l from-blue-600 via-cyan-600 to-blue-700 hover:opacity-90 transition";
+
+const profileFields: Array<{
+  name: "name" | "phone" | "email" | "address";
+  label: string;
+  type?: "email";
+}> = [
+  { name: "name", label: "Full Name" },
+  { name: "phone", label: "Phone" },
+  { name: "email", label: "Email", type: "email" },
+  { name: "address", label: "Address" },
+];
 
 const ProfileForm = () => {
   const router = useRouter();
@@ -139,66 +158,34 @@ const ProfileForm = () => {
 
           {/* Fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mb-8">
-            <div className="flex flex-col gap-2">
-              <label className="text-white text-xl font-semibold">
-                Full Name
-              </label>
-              <Input
-                aria-invalid={Boolean(errors.name)}
-                className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
-                {...register("name")}
-              />
-              {errors.name?.message && (
-                <p className={FIELD_ERROR_CLASS}>{errors.name.message}</p>
-              )}
-            </div>
+            {profileFields.map((field) => {
+              const { label, name, type } = field;
+              const error = errors[name]?.message;
 
-            <div className="flex flex-col gap-2">
-              <label className="text-white text-xl font-semibold">Phone</label>
-              <Input
-                aria-invalid={Boolean(errors.phone)}
-                className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
-                {...register("phone")}
-              />
-              {errors.phone?.message && (
-                <p className={FIELD_ERROR_CLASS}>{errors.phone.message}</p>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-white text-xl font-semibold">Email</label>
-              <Input
-                type="email"
-                aria-invalid={Boolean(errors.email)}
-                className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
-                {...register("email")}
-              />
-              {errors.email?.message && (
-                <p className={FIELD_ERROR_CLASS}>{errors.email.message}</p>
-              )}
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-white text-xl font-semibold">Address</label>
-              <Input
-                aria-invalid={Boolean(errors.address)}
-                className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
-                {...register("address")}
-              />
-              {errors.address?.message && (
-                <p className={FIELD_ERROR_CLASS}>{errors.address.message}</p>
-              )}
-            </div>
+              return (
+                <div key={name} className={PROFILE_FIELD_WRAPPER_CLASS}>
+                  <label className={cn(PROFILE_LABEL_CLASS, PROFILE_LABEL_WEIGHT_CLASS)}>
+                    {label}
+                  </label>
+                  <Input
+                    type={type}
+                    aria-invalid={Boolean(error)}
+                    className={cn(PROFILE_INPUT_CLASS, PROFILE_INPUT_SURFACE_CLASS)}
+                    {...register(name)}
+                  />
+                  {error && <p className={FIELD_ERROR_CLASS}>{error}</p>}
+                </div>
+              );
+            })}
           </div>
 
-          <div className="flex flex-col gap-2 mb-8">
-            <label className="text-white text-xl font-semibold">
+          <div className={`${PROFILE_FIELD_WRAPPER_CLASS} mb-8`}>
+            <label className={cn(PROFILE_LABEL_CLASS, PROFILE_LABEL_WEIGHT_CLASS)}>
               Bio (Optional)
             </label>
             <Textarea
               aria-invalid={Boolean(errors.bio)}
-              className={cn(
-                "h-40 bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3 resize-none",
-              )}
+              className={cn(PROFILE_TEXTAREA_CLASS)}
               {...register("bio")}
             />
             {errors.bio?.message && (
@@ -210,7 +197,7 @@ const ProfileForm = () => {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full py-3 text-white text-xl font-semibold bg-gradient-to-l from-blue-600 via-cyan-600 to-blue-700 hover:opacity-90 transition"
+              className={PROFILE_SUBMIT_CLASS}
             >
               {loading ? "Saving..." : "Save"}
             </Button>
