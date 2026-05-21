@@ -1,16 +1,26 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Check } from "lucide-react";
+import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { PROFILE_EDIT_AVATAR_FALLBACK, getImageSource } from "@/lib/image-source";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { useProfile, useUpdateProfile } from "@/hooks/useProfile";
+import {
+  PROFILE_EDIT_AVATAR_FALLBACK,
+  getImageSource,
+} from "@/lib/image-source";
+import { cn } from "@/lib/utils";
+import { profileSchema, type ProfileFormValues } from "@/validations/profile";
+
+const FIELD_ERROR_CLASS = "text-sm font-medium text-red-500";
+
 const ProfileForm = () => {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -19,59 +29,55 @@ const ProfileForm = () => {
   const updateProfileMutation = useUpdateProfile();
   const loading = updateProfileMutation.isPending;
   const [preview, setPreview] = useState<string>(PROFILE_EDIT_AVATAR_FALLBACK);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    bio: "",
-    address: "",
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    reset,
+    setValue,
+  } = useForm<ProfileFormValues>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      bio: "",
+      address: "",
+      avatarFile: null,
+    },
   });
-
-  const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
   useEffect(() => {
     if (!user) return;
 
     const { address, avatar, bio, email, name, phone } = user;
 
-    setFormData({
+    reset({
       name: name || "",
       email: email || "",
       phone: phone || "",
       bio: bio || "",
       address: address || "",
+      avatarFile: null,
     });
     setPreview(getImageSource(avatar, PROFILE_EDIT_AVATAR_FALLBACK));
-  }, [user]);
+  }, [reset, user]);
 
-  // ✅ Handle input change
-  const handleChange = ({
-    target,
-  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = target;
-
-    setFormData((current) => ({ ...current, [name]: value }));
-  };
-
-  // ✅ Handle avatar click
   const handleAvatarClick = () => {
     fileInputRef.current?.click();
   };
 
-  // ✅ Handle file select + preview
   const handleFileChange = ({
     target,
   }: React.ChangeEvent<HTMLInputElement>) => {
     const file = target.files?.[0];
     if (!file) return;
 
-    setAvatarFile(file);
+    setValue("avatarFile", file, { shouldDirty: true });
     setPreview(URL.createObjectURL(file));
   };
 
-  // ✅ Submit handler
-  const handleSubmit = async () => {
+  const onSubmit = async (values: ProfileFormValues) => {
     if (!user) {
       toast.error("Session expired. Please login again.");
       router.push("/login");
@@ -79,7 +85,7 @@ const ProfileForm = () => {
     }
 
     try {
-      await updateProfileMutation.mutateAsync({ ...formData, avatarFile });
+      await updateProfileMutation.mutateAsync(values);
     } catch {
       // handled by mutation toast
     }
@@ -98,104 +104,118 @@ const ProfileForm = () => {
           </p>
         </div>
 
-        {/* Avatar */}
-        <div className="flex flex-col items-center gap-2 mb-10 relative">
-          <div
-            onClick={handleAvatarClick}
-            className="relative w-24 h-24 rounded-full outline-2 outline-gray-700 cursor-pointer"
-          >
-            <Image
-              src={preview}
-              alt="Avatar"
-              fill
-              sizes="96px"
-              className="object-cover rounded-full border-2 border-indigo-600"
+        <form noValidate onSubmit={handleSubmit(onSubmit)}>
+          {/* Avatar */}
+          <div className="flex flex-col items-center gap-2 mb-10 relative">
+            <button
+              type="button"
+              onClick={handleAvatarClick}
+              className="relative w-24 h-24 rounded-full outline-2 outline-gray-700 cursor-pointer"
+            >
+              <Image
+                src={preview}
+                alt="Avatar"
+                fill
+                sizes="96px"
+                className="object-cover rounded-full border-2 border-indigo-600"
+              />
+              <div className="absolute bottom-0 right-0 w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center">
+                <Check size={14} className="text-white" />
+              </div>
+            </button>
+
+            <Input
+              type="file"
+              accept="image/png, image/jpeg"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className="hidden"
             />
-            <div className="absolute bottom-0 right-0 w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center">
-              <Check size={14} className="text-white" />
+
+            <span className="text-gray-500 text-xs">
+              Allowed *.jpeg, *.jpg, *.png
+            </span>
+          </div>
+
+          {/* Fields */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mb-8">
+            <div className="flex flex-col gap-2">
+              <label className="text-white text-xl font-semibold">
+                Full Name
+              </label>
+              <Input
+                aria-invalid={Boolean(errors.name)}
+                className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
+                {...register("name")}
+              />
+              {errors.name?.message && (
+                <p className={FIELD_ERROR_CLASS}>{errors.name.message}</p>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-white text-xl font-semibold">Phone</label>
+              <Input
+                aria-invalid={Boolean(errors.phone)}
+                className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
+                {...register("phone")}
+              />
+              {errors.phone?.message && (
+                <p className={FIELD_ERROR_CLASS}>{errors.phone.message}</p>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-white text-xl font-semibold">Email</label>
+              <Input
+                type="email"
+                aria-invalid={Boolean(errors.email)}
+                className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
+                {...register("email")}
+              />
+              {errors.email?.message && (
+                <p className={FIELD_ERROR_CLASS}>{errors.email.message}</p>
+              )}
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-white text-xl font-semibold">Address</label>
+              <Input
+                aria-invalid={Boolean(errors.address)}
+                className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
+                {...register("address")}
+              />
+              {errors.address?.message && (
+                <p className={FIELD_ERROR_CLASS}>{errors.address.message}</p>
+              )}
             </div>
           </div>
 
-          <Input
-            type="file"
-            accept="image/png, image/jpeg"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-            className="hidden"
-          />
-
-          <span className="text-gray-500 text-xs">
-            Allowed *.jpeg, *.jpg, *.png
-          </span>
-        </div>
-
-        {/* Fields */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mb-8">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 mb-8">
             <label className="text-white text-xl font-semibold">
-              Full Name
+              Bio (Optional)
             </label>
-            <Input
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
+            <Textarea
+              aria-invalid={Boolean(errors.bio)}
+              className={cn(
+                "h-40 bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3 resize-none",
+              )}
+              {...register("bio")}
             />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className="text-white text-xl font-semibold">Phone</label>
-            <Input
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label className="text-white text-xl font-semibold">Email</label>
-            <Input
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-white text-xl font-semibold">Address</label>
-            <Input
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              className="bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3"
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-2 mb-8">
-          <label className="text-white text-xl font-semibold">
-            Bio (Optional)
-          </label>
-          <Textarea
-            name="bio"
-            value={formData.bio}
-            onChange={handleChange}
-            className={cn(
-              "h-40 bg-transparent text-gray-200 border border-neutral-50/30 rounded-md p-3 resize-none",
+            {errors.bio?.message && (
+              <p className={FIELD_ERROR_CLASS}>{errors.bio.message}</p>
             )}
-          />
-        </div>
+          </div>
 
-        <div className="flex justify-center">
-          <Button
-            onClick={handleSubmit}
-            disabled={loading}
-            className="w-full py-3 text-white text-xl font-semibold bg-gradient-to-l from-blue-600 via-cyan-600 to-blue-700 hover:opacity-90 transition"
-          >
-            {loading ? "Saving..." : "Save"}
-          </Button>
-        </div>
+          <div className="flex justify-center">
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 text-white text-xl font-semibold bg-gradient-to-l from-blue-600 via-cyan-600 to-blue-700 hover:opacity-90 transition"
+            >
+              {loading ? "Saving..." : "Save"}
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   );
