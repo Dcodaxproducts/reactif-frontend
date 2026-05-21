@@ -1,6 +1,6 @@
 "use client";
 
-import { HeroTitle, HeroText, PrimaryButton } from "@/components/hero/hero-ui";
+import { HeroTitle, HeroText, PrimaryButton } from "@/components/common/HeroUi";
 
 export default function Hero() {
   return (

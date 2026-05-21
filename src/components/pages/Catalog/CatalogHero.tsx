@@ -1,4 +1,4 @@
-import { HeroText, HeroTitle } from "@/components/hero/hero-ui";
+import { HeroText, HeroTitle } from "@/components/common/HeroUi";
 
 export default function CatalogHero() {
   return (

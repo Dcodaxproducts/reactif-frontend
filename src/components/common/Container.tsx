@@ -38,7 +38,7 @@ type ContainerProps = {
   as?: ElementType;
 } & VariantProps<typeof containerVariants>;
 
-export default function Container({
+export function Container({
   children,
   className,
   as: Component = "div",

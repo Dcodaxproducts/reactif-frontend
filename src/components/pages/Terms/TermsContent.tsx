@@ -1,6 +1,6 @@
 "use client";
 
-import { HeroTitle, HeroText } from "@/components/hero/hero-ui";
+import { HeroTitle, HeroText } from "@/components/common/HeroUi";
 import TermsBlock from "./TermsBlock";
 import LegalCTA from "./LegalCTA";
 

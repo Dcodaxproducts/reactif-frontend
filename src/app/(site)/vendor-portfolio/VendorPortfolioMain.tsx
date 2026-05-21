@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Container from "@/components/Container";
+import { Container } from "@/components/common/Container";
 import ServiceCard from "@/components/cards/ServiceCard";
 import { MapPin, Star, CheckCircle } from "lucide-react";
 import GlobalBackground from "@/hooks/GlobalBackground";

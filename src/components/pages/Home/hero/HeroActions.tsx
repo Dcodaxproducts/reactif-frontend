@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { PrimaryButton } from "@/components/hero/hero-ui";
+import { PrimaryButton } from "@/components/common/HeroUi";
 
 export function HeroActions() {
   return (

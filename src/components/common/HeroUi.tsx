@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils"; // if you have it (shadcn). If not, tell me.
+import { cn } from "@/lib/utils";
 
 // ================= TITLE =================
 export function HeroTitle({

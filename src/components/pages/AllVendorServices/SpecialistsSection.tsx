@@ -1,9 +1,9 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import Container from "@/components/Container";
+import { Container } from "@/components/common/Container";
 
-import { SectionHeader } from "@/components/shared/SectionHeader";
+import { SectionHeader } from "@/components/common/SectionHeader";
 import { useDesigners } from "@/hooks/useDesigners";
 import LoadMoreSpecialistsButton from "./LoadMoreSpecialistsButton";
 import SpecialistGrid from "./SpecialistGrid";

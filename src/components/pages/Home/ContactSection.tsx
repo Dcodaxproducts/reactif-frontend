@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import Container from "@/components/Container";
+import { Container } from "@/components/common/Container";
 import { ContactCtaCard } from "./contact-section/ContactCtaCard";
 
 export default function ContactSection() {

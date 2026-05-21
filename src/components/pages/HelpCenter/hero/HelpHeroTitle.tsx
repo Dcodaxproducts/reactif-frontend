@@ -1,4 +1,4 @@
-import { HeroTitle } from "@/components/hero/hero-ui";
+import { HeroTitle } from "@/components/common/HeroUi";
 
 export function HelpHeroTitle() {
   return (

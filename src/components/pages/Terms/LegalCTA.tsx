@@ -1,6 +1,6 @@
 "use client";
 
-import { PrimaryButton } from "@/components/hero/hero-ui";
+import { PrimaryButton } from "@/components/common/HeroUi";
 
 interface LegalCTAProps {
   title?: string;

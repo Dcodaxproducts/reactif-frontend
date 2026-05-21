@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Container from "@/components/Container";
+import { Container } from "@/components/common/Container";
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import PaintDetailsHeader from "@/components/pages/PaintProtection/PaintDetailsHeader";

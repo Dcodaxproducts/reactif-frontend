@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { toast } from "sonner";
-import Container from "@/components/Container";
+import { Container } from "@/components/common/Container";
 import { useBookings } from "@/hooks/useBookings";
 import { OrderCard } from "./management/OrderCard";
 

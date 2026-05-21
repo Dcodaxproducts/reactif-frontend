@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Container from "@/components/Container";
+import { Container } from "@/components/common/Container";
 
 export default function AboutContent() {
   return (

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { CheckCircle } from "lucide-react";
-import Container from "@/components/Container";
+import { Container } from "@/components/common/Container";
 
 const commitments = [
   "Uncompromising quality in every square inch.",

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Container from "@/components/Container";
+import { Container } from "@/components/common/Container";
 import { Button } from "@/components/ui/button";
 import { Twitter, Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";

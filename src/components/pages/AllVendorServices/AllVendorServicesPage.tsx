@@ -1,5 +1,5 @@
 import GlobalBackground from "@/hooks/GlobalBackground";
-import Container from "@/components/Container";
+import { Container } from "@/components/common/Container";
 import DeliveryService from "./DeliveryService";
 import SpecialistsSection from "./SpecialistsSection";
 

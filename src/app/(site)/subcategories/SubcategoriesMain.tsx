@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Container from "@/components/Container";
-import { SectionHeader } from "@/components/shared/SectionHeader";
+import { Container } from "@/components/common/Container";
+import { SectionHeader } from "@/components/common/SectionHeader";
 import SubCategories from "@/components/pages/SubCategories/SubCategories";
 import GlobalBackground from "@/hooks/GlobalBackground";
 import { useSearchParams, useRouter } from "next/navigation";

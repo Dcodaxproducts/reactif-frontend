@@ -1,7 +1,7 @@
 "use client";
 
 import { Car, PenTool, Factory } from "lucide-react";
-import Container from "@/components/Container";
+import { Container } from "@/components/common/Container";
 
 /* ================= DATA ================= */
 const expertiseData = [

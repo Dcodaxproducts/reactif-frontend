@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import Container from "@/components/Container";
+import { Container } from "@/components/common/Container";
 import { useCategories } from "@/hooks/useCategories";
 import { LoadMoreButton } from "./tailored-services/LoadMoreButton";
 import { SkeletonGrid } from "./tailored-services/SkeletonGrid";
