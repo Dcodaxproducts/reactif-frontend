@@ -13,7 +13,7 @@ interface CarPreviewSectionProps {
   activeItem: string | null;
   activeCategory: string | null;
   services: Service[];
-  isLoading?: boolean; // ✅ NEW
+  isLoading?: boolean;
 }
 
 export default function CarPreviewSection({
@@ -53,7 +53,6 @@ export default function CarPreviewSection({
 
   return (
     <div className="relative flex-1 rounded-3xl border border-slate-700 overflow-hidden min-h-[300px] md:min-h-[490px] flex items-center justify-center">
-      {/* 🔥 Loading Skeleton */}
       {isLoading ? (
         <div className="w-full h-full flex items-center justify-center animate-pulse p-4">
           <div className="w-[93%] h-48 md:h-100 bg-slate-800 rounded-xl" />

@@ -9,14 +9,14 @@ const page = () => {
         <WhyProtection />
         <Configuration
           buttonText="Get quote"
-          backgroundColor="bg-green-500" // Dynamic green background
-          textColor="text-white" // White text color
-          basePrice={150.0} // Dynamic base price
-          finalPrice={200.0} // Dynamic final price
-          basePriceText="Gtechhalo" // Dynamic base price text
-          finalPriceText="Gtechhalo" // Dynamic final price text
-          basePriceColor="text-green-500" // Dynamic color for Base Price text
-          finalPriceColor="text-green-500" // Dynamic color for Final Price text
+          backgroundColor="bg-green-500"
+          textColor="text-white"
+          basePrice={150.0}
+          finalPrice={200.0}
+          basePriceText="Gtechhalo"
+          finalPriceText="Gtechhalo"
+          basePriceColor="text-green-500"
+          finalPriceColor="text-green-500"
           route="/paint-protection/5"
         />
       </section>

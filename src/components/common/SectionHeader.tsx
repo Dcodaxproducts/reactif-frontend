@@ -3,7 +3,7 @@ interface SectionHeaderProps {
   title: React.ReactNode;
   description?: string;
   align?: "left" | "center";
-  size?: "default" | "sm"; // 👈 NEW
+  size?: "default" | "sm";
 }
 
 export function SectionHeader({
@@ -52,7 +52,7 @@ export function SectionHeader({
           font-semibold text-white font-hk mb-4 md:mb-5
           ${
             size === "sm"
-              ? "text-2xl md:text-4xl" // 👈 FAQ style
+              ? "text-2xl md:text-4xl"
               : "text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
           }
         `}
@@ -67,7 +67,7 @@ export function SectionHeader({
       text-gray-400 max-w-4xl mx-auto
       ${
         size === "sm"
-          ? "text-xs sm:text-sm md:text-base -mt-2" // 👈 smaller for compact sections (FAQ etc.)
+          ? "text-xs sm:text-sm md:text-base -mt-2"
           : "text-sm sm:text-base md:text-[20px]"
       }
     `}

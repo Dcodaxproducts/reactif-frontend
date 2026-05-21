@@ -27,7 +27,7 @@ function StartProjectContent() {
       <Container gutter="narrow">
         <SectionHeader
           badgeText="Get in Touch"
-          size={isHelpCenter ? "sm" : "default"} // 👈 clean control
+          size={isHelpCenter ? "sm" : "default"}
           title={
             <>
               START YOUR{" "}
