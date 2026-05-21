@@ -1,14 +1,13 @@
 import { Suspense } from "react";
+import { AuthPageShell } from "@/components/forms/AuthFormShell";
 import OTPForm from "@/components/forms/OTPForm";
-import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {
   return (
-    <section className="relative overflow-hidden">
-      <GlobalBackground />
+    <AuthPageShell>
       <Suspense fallback={null}>
         <OTPForm />
       </Suspense>
-    </section>
+    </AuthPageShell>
   );
 }

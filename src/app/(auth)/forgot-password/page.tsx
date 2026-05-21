@@ -1,11 +1,10 @@
+import { AuthPageShell } from "@/components/forms/AuthFormShell";
 import ForgotPasswordForm from "@/components/forms/ForgotPasswordForm";
-import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {
   return (
-    <section className="relative overflow-hidden">
-      <GlobalBackground />
+    <AuthPageShell>
       <ForgotPasswordForm />
-    </section>
+    </AuthPageShell>
   );
 }

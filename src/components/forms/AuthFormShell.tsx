@@ -1,9 +1,10 @@
-import type { ReactNode } from "react";
+import type { ChangeEvent, ReactNode } from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import GlobalBackground from "@/hooks/GlobalBackground";
 import { cn } from "@/lib/utils";
 
 const AUTH_SECTION_CLASS =
@@ -27,6 +28,19 @@ export const AUTH_RESEND_BUTTON_CLASS = "text-blue-600 font-semibold";
 export const AUTH_OTP_INPUT_CLASS = "text-center tracking-widest text-lg";
 export const AUTH_FOOTER_TEXT =
   "© 2026 ReactIf Printing & Design. All rights reserved";
+
+export const sanitizeOtpInput = (event: ChangeEvent<HTMLInputElement>) => {
+  event.target.value = event.target.value.replace(/\D/g, "");
+};
+
+export function AuthPageShell({ children }: { children: ReactNode }) {
+  return (
+    <section className="relative overflow-hidden">
+      <GlobalBackground />
+      {children}
+    </section>
+  );
+}
 
 type AuthFormShellProps = {
   title: string;
@@ -118,5 +132,35 @@ export function AuthInlineLink({ children, href, label }: AuthInlineLinkProps) {
         {label}
       </Link>
     </p>
+  );
+}
+
+type AuthResendOtpControlProps = {
+  countdown: number;
+  disabled?: boolean;
+  onResend: () => void;
+};
+
+export function AuthResendOtpControl({
+  countdown,
+  disabled = false,
+  onResend,
+}: AuthResendOtpControlProps) {
+  return (
+    <div className={AUTH_RESEND_ROW_CLASS}>
+      {countdown <= 0 ? (
+        <Button
+          type="button"
+          variant="link"
+          onClick={onResend}
+          disabled={disabled}
+          className={AUTH_RESEND_BUTTON_CLASS}
+        >
+          Resend OTP
+        </Button>
+      ) : (
+        <span>Resend OTP in {countdown}s</span>
+      )}
+    </div>
   );
 }

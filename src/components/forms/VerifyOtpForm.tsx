@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
@@ -10,15 +9,15 @@ import {
   AUTH_ERROR_CLASS,
   AUTH_FORM_CLASS,
   AUTH_OTP_INPUT_CLASS,
-  AUTH_RESEND_BUTTON_CLASS,
-  AUTH_RESEND_ROW_CLASS,
   AuthFormShell,
   AuthInlineLink,
+  AuthResendOtpControl,
   AuthSubmitButton,
   AuthTextField,
+  sanitizeOtpInput,
 } from "@/components/forms/AuthFormShell";
-import { Button } from "@/components/ui/button";
 import { useResendAuthCode, useResetPassword } from "@/hooks/useAuth";
+import { useOtpCountdown } from "@/hooks/useOtpCountdown";
 import {
   resetPasswordSchema,
   type ResetPasswordFormValues,
@@ -28,7 +27,7 @@ const VerifyOtpForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") ?? "";
-  const [countdown, setCountdown] = useState(60);
+  const { countdown, restartCountdown } = useOtpCountdown();
   const resetPasswordMutation = useResetPassword();
   const resendOtpMutation = useResendAuthCode();
   const loading = resetPasswordMutation.isPending || resendOtpMutation.isPending;
@@ -44,13 +43,6 @@ const VerifyOtpForm = () => {
       newPassword: "",
     },
   });
-
-  useEffect(() => {
-    if (countdown <= 0) return;
-
-    const timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
-    return () => clearTimeout(timer);
-  }, [countdown]);
 
   const onSubmit = async ({ otp, newPassword }: ResetPasswordFormValues) => {
     try {
@@ -69,7 +61,7 @@ const VerifyOtpForm = () => {
 
     try {
       await resendOtpMutation.mutateAsync({ email });
-      setCountdown(60);
+      restartCountdown();
     } catch {
       // handled by mutation toast
     }
@@ -88,11 +80,7 @@ const VerifyOtpForm = () => {
           placeholder="12345"
           className={AUTH_OTP_INPUT_CLASS}
           error={errors.otp?.message}
-          {...register("otp", {
-            onChange: (event) => {
-              event.target.value = event.target.value.replace(/\D/g, "");
-            },
-          })}
+          {...register("otp", { onChange: sanitizeOtpInput })}
         />
         <AuthTextField
           label="New Password"
@@ -110,19 +98,11 @@ const VerifyOtpForm = () => {
           {loading ? "Resetting..." : "Reset Password"}
         </AuthSubmitButton>
 
-        <div className={AUTH_RESEND_ROW_CLASS}>
-          {countdown <= 0 ? (
-            <Button
-              type="button"
-              onClick={handleResend}
-              className={AUTH_RESEND_BUTTON_CLASS}
-            >
-              Resend OTP
-            </Button>
-          ) : (
-            <span>Resend OTP in {countdown}s</span>
-          )}
-        </div>
+        <AuthResendOtpControl
+          countdown={countdown}
+          disabled={loading}
+          onResend={handleResend}
+        />
 
         <AuthInlineLink href="/login" label="Login">
           Remembered your password?
