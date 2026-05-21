@@ -1,5 +1,7 @@
 "use client";
 
+import type { ReactNode } from "react";
+
 import Image from "next/image";
 import { Container } from "@/components/common/Container";
 import { Button } from "@/components/ui/button";
@@ -144,10 +146,10 @@ function FooterColumn({
       <h4 className="font-semibold">{title}</h4>
 
       <ul className="space-y-2 text-white/60">
-        {links.map((link) => (
-          <li key={link.label}>
-            <Link href={link.href} className="hover:text-white transition">
-              {link.label}
+        {links.map(({ label, href }) => (
+          <li key={label}>
+            <Link href={href} className="hover:text-white transition">
+              {label}
             </Link>
           </li>
         ))}
@@ -156,7 +158,7 @@ function FooterColumn({
   );
 }
 
-function SocialIcon({ children }: any) {
+function SocialIcon({ children }: { children: ReactNode }) {
   return (
     <div className="w-8 h-8 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition cursor-pointer">
       {children}

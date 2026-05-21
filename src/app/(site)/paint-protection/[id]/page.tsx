@@ -1,5 +1,6 @@
 "use client";
 
+import { PageShell } from "@/components/common/PageShell";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/common/Container";
 import { useEffect, useMemo, useState } from "react";
@@ -9,7 +10,6 @@ import ServicesRow from "@/components/pages/PaintProtection/ServicesRow";
 import CarPreviewSection from "@/components/pages/PaintProtection/CarPreviewSection";
 import PaintProtectionCard from "@/components/pages/PaintProtection/PaintProtectionCard";
 import { Loader2 } from "lucide-react";
-import GlobalBackground from "@/hooks/GlobalBackground";
 import {
   useCategoryDetail,
   useServicesBySubcategory,
@@ -98,9 +98,7 @@ export default function Page() {
   );
 
   return (
-    <section className="relative overflow-hidden min-h-screen">
-      <GlobalBackground />
-
+    <PageShell className="min-h-screen">
       {(isFetchingCategory || categoryError) && <Overlay />}
 
       {!categoryError && !isFetchingCategory && categoryName && (
@@ -152,6 +150,6 @@ export default function Page() {
           </div>
         </Container>
       )}
-    </section>
+    </PageShell>
   );
 }

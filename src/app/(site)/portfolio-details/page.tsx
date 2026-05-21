@@ -1,12 +1,10 @@
+import { PageShell } from "@/components/common/PageShell";
 import Configuration from "@/components/pages/order/OrderAddress/Configuration";
 import WhyProtection from "@/components/pages/order/OrderAddress/WhyProtection";
-import GlobalBackground from "@/hooks/GlobalBackground";
 
 const page = () => {
   return (
-    <section className="relative overflow-hidden pb-10">
-      <GlobalBackground />
-
+    <PageShell className="pb-10">
       <section className="w-full flex flex-col items-center gap-10 py-8 px-5 md:px-0">
         <WhyProtection />
         <Configuration
@@ -22,7 +20,7 @@ const page = () => {
           route="/paint-protection/5"
         />
       </section>
-    </section>
+    </PageShell>
   );
 };
 

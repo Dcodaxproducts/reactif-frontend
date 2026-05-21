@@ -43,6 +43,7 @@ const profileFields: Array<{
 const ProfileForm = () => {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const localAvatarPreviewUrlRef = useRef<string | null>(null);
 
   const { user } = useProfile();
   const updateProfileMutation = useUpdateProfile();
@@ -79,8 +80,22 @@ const ProfileForm = () => {
       address: address || "",
       avatarFile: null,
     });
+
+    if (localAvatarPreviewUrlRef.current) {
+      URL.revokeObjectURL(localAvatarPreviewUrlRef.current);
+      localAvatarPreviewUrlRef.current = null;
+    }
+
     setPreview(getImageSource(avatar, PROFILE_EDIT_AVATAR_FALLBACK));
   }, [reset, user]);
+
+  useEffect(() => {
+    return () => {
+      if (localAvatarPreviewUrlRef.current) {
+        URL.revokeObjectURL(localAvatarPreviewUrlRef.current);
+      }
+    };
+  }, []);
 
   const handleAvatarClick = () => {
     fileInputRef.current?.click();
@@ -92,8 +107,15 @@ const ProfileForm = () => {
     const file = target.files?.[0];
     if (!file) return;
 
+    if (localAvatarPreviewUrlRef.current) {
+      URL.revokeObjectURL(localAvatarPreviewUrlRef.current);
+    }
+
+    const previewUrl = URL.createObjectURL(file);
+    localAvatarPreviewUrlRef.current = previewUrl;
+
     setValue("avatarFile", file, { shouldDirty: true });
-    setPreview(URL.createObjectURL(file));
+    setPreview(previewUrl);
   };
 
   const onSubmit = async (values: ProfileFormValues) => {
@@ -164,10 +186,14 @@ const ProfileForm = () => {
 
               return (
                 <div key={name} className={PROFILE_FIELD_WRAPPER_CLASS}>
-                  <label className={cn(PROFILE_LABEL_CLASS, PROFILE_LABEL_WEIGHT_CLASS)}>
+                  <label
+                    htmlFor={`profile-${name}`}
+                    className={cn(PROFILE_LABEL_CLASS, PROFILE_LABEL_WEIGHT_CLASS)}
+                  >
                     {label}
                   </label>
                   <Input
+                    id={`profile-${name}`}
                     type={type}
                     aria-invalid={Boolean(error)}
                     className={cn(PROFILE_INPUT_CLASS, PROFILE_INPUT_SURFACE_CLASS)}
@@ -180,10 +206,14 @@ const ProfileForm = () => {
           </div>
 
           <div className={`${PROFILE_FIELD_WRAPPER_CLASS} mb-8`}>
-            <label className={cn(PROFILE_LABEL_CLASS, PROFILE_LABEL_WEIGHT_CLASS)}>
+            <label
+              htmlFor="profile-bio"
+              className={cn(PROFILE_LABEL_CLASS, PROFILE_LABEL_WEIGHT_CLASS)}
+            >
               Bio (Optional)
             </label>
             <Textarea
+              id="profile-bio"
               aria-invalid={Boolean(errors.bio)}
               className={cn(PROFILE_TEXTAREA_CLASS)}
               {...register("bio")}

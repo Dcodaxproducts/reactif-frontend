@@ -1,7 +1,7 @@
 "use client";
 
 import { HeroTitle, HeroText } from "@/components/common/HeroUi";
-import TermsBlock from "./TermsBlock";
+import TermsBlock, { type TermsBlockData } from "./TermsBlock";
 import LegalCTA from "./LegalCTA";
 
 /* ================= DEFAULT PRIVACY POLICY ================= */
@@ -68,11 +68,11 @@ const defaultPrivacySections = [
       "Any changes will be communicated through our platform or via email.",
     ],
   },
-];
+] satisfies TermsBlockData[];
 
 /* ================= COMPONENT ================= */
 interface PrivacyPolicyProps {
-  sections?: any[];
+  sections?: TermsBlockData[];
   lastUpdated?: string;
 }
 

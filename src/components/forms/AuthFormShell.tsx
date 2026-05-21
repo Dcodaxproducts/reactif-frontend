@@ -1,10 +1,10 @@
 import type { ChangeEvent, ReactNode } from "react";
 import Link from "next/link";
 
+import { PageShell } from "@/components/common/PageShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import GlobalBackground from "@/hooks/GlobalBackground";
 import { cn } from "@/lib/utils";
 
 const AUTH_SECTION_CLASS =
@@ -34,12 +34,7 @@ export const sanitizeOtpInput = (event: ChangeEvent<HTMLInputElement>) => {
 };
 
 export function AuthPageShell({ children }: { children: ReactNode }) {
-  return (
-    <section className="relative overflow-hidden">
-      <GlobalBackground />
-      {children}
-    </section>
-  );
+  return <PageShell>{children}</PageShell>;
 }
 
 type AuthFormShellProps = {

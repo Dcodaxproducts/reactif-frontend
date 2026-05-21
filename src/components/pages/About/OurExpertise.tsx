@@ -1,10 +1,17 @@
 "use client";
 
+import type { LucideIcon } from "lucide-react";
 import { Car, PenTool, Factory } from "lucide-react";
 import { Container } from "@/components/common/Container";
 
+export type ExpertiseItem = {
+  icon: LucideIcon;
+  title: string;
+  desc: string;
+};
+
 /* ================= DATA ================= */
-const expertiseData = [
+const expertiseData: ExpertiseItem[] = [
   {
     icon: Car,
     title: "Premium Vehicle Wraps",
@@ -42,8 +49,8 @@ export default function OurExpertise() {
 
         {/* CARDS */}
         <div className="grid md:grid-cols-3 gap-6">
-          {expertiseData.map((item, i) => (
-            <ExpertiseCard key={i} {...item} />
+          {expertiseData.map((item) => (
+            <ExpertiseCard key={item.title} {...item} />
           ))}
         </div>
       </Container>
@@ -52,7 +59,7 @@ export default function OurExpertise() {
 }
 
 /* ================= CARD ================= */
-function ExpertiseCard({ icon: Icon, title, desc }: any) {
+function ExpertiseCard({ icon: Icon, title, desc }: ExpertiseItem) {
   return (
     <div className="rounded-2xl border border-white/20 p-6 space-y-4 bg-[#010304] hover:border-white/40 transition">
       {/* ICON */}

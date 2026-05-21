@@ -1,6 +1,14 @@
 import { CheckCircle } from "lucide-react";
 
-function TermsBlock({ id, title, content, list, highlight }: any) {
+export type TermsBlockData = {
+  id: number | string;
+  title: string;
+  content?: string[];
+  list?: string[];
+  highlight?: string;
+};
+
+function TermsBlock({ id, title, content, list, highlight }: TermsBlockData) {
   return (
     <div className="space-y-4">
       {/* TITLE ROW */}
@@ -15,9 +23,9 @@ function TermsBlock({ id, title, content, list, highlight }: any) {
       {/* CONTENT (aligned under title, not number) */}
       <div className="pl-10 space-y-4">
         {/* PARAGRAPHS */}
-        {content?.map((text: string, i: number) => (
+        {content?.map((text) => (
           <p
-            key={i}
+            key={text}
             className="text-slate-400 text-sm md:text-base leading-relaxed"
           >
             {text}
@@ -27,8 +35,8 @@ function TermsBlock({ id, title, content, list, highlight }: any) {
         {/* LIST */}
         {list && (
           <div className="space-y-3">
-            {list.map((item: string, i: number) => (
-              <div key={i} className="flex items-start gap-3">
+            {list.map((item) => (
+              <div key={item} className="flex items-start gap-3">
                 <CheckCircle
                   className="text-pink-500 mt-1 flex-shrink-0"
                   size={16}

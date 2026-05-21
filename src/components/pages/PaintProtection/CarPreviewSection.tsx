@@ -7,17 +7,7 @@ import {
   PAINT_PROTECTION_FALLBACK_IMAGE,
   getImageSource,
 } from "@/lib/image-source";
-
-interface Service {
-  id: number;
-  name: string;
-  description: string;
-  category_id: number;
-  sub_category_id: number;
-  service_image: string;
-  price: number;
-  fields: any[];
-}
+import type { Service } from "@/types/categories";
 
 interface CarPreviewSectionProps {
   activeItem: string | null;
@@ -40,8 +30,8 @@ export default function CarPreviewSection({
       return;
     }
 
-    const service = services.find((s) => s.id.toString() === activeItem);
-    setCurrentService(service || null);
+    const service = services.find(({ id }) => id.toString() === activeItem);
+    setCurrentService(service ?? null);
   }, [activeItem, services]);
 
   const isPaint = activeCategory === "Paint Protection";
