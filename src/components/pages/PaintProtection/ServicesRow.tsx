@@ -41,13 +41,13 @@ export default function ServicesRow({
         ref={scrollRef}
         className="flex gap-4 whitespace-nowrap overflow-x-auto scroll-smooth px-4 md:px-1 no-scrollbar py-1"
       >
-        {subcategories?.map((service) => {
-          const isActive = activeCategory === service.name;
+        {subcategories?.map(({ id, name }) => {
+          const isActive = activeCategory === name;
 
           return (
             <div
-              key={service.id}
-              onClick={() => setActiveCategory(service.name, service.id)}
+              key={id}
+              onClick={() => setActiveCategory(name, id)}
               className={`flex-shrink-0 inline-flex h-11 px-5 py-2.5 rounded-lg items-center gap-2 justify-center cursor-pointer transition-all duration-200
                 ${
                   isActive
@@ -60,7 +60,7 @@ export default function ServicesRow({
                   isActive ? "text-white font-bold" : "text-stone-500"
                 }`}
               >
-                {service.name}
+                {name}
               </div>
             </div>
           );

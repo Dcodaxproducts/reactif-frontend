@@ -24,9 +24,9 @@ export function MobileSidebar({
         </div>
 
         <div className="flex flex-col gap-5 px-6 text-[15px]">
-          {navItems.map((item) => (
-            <Link key={item.label} href={item.href} onClick={onClose}>
-              {item.label}
+          {navItems.map(({ label, href }) => (
+            <Link key={label} href={href} onClick={onClose}>
+              {label}
             </Link>
           ))}
 

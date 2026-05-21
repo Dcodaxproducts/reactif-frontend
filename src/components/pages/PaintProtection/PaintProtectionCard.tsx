@@ -18,6 +18,7 @@ import {
 import type {
   Service,
   ServiceFormErrors,
+  ServiceFormValue,
   ServiceFormValues,
 } from "@/types/component-props";
 
@@ -60,7 +61,7 @@ export default function PaintProtectionCard({
     setFormValues(buildInitialServiceValues(currentService));
   }, [currentService]);
 
-  const handleChange = (fieldName: string, value: unknown) => {
+  const handleChange = (fieldName: string, value: ServiceFormValue) => {
     setFormValues((prev) => ({ ...prev, [fieldName]: value }));
     setFormErrors((prev) => {
       const updated = { ...prev };

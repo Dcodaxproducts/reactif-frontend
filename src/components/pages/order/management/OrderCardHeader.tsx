@@ -1,4 +1,6 @@
 import { ShoppingCart } from "lucide-react";
+
+import { ORDER_INFO_SECONDARY_TEXT_CLASS } from "@/components/pages/order/OrderInfoText";
 import type { OrderCardMetaProps } from "@/types/component-props";
 import { formatStatusLabel } from "./order-management-utils";
 
@@ -19,9 +21,7 @@ export function OrderCardHeader({
           <h3 className="text-neutral-50 text-lg sm:text-xl font-semibold font-hk">
             {title}
           </h3>
-          <p className="text-neutral-50/60 text-sm font-medium font-hk">
-            {subtitle}
-          </p>
+          <p className={ORDER_INFO_SECONDARY_TEXT_CLASS}>{subtitle}</p>
         </div>
       </div>
 

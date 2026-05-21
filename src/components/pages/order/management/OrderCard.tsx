@@ -14,33 +14,35 @@ import {
 
 export function OrderCard({ booking }: { booking: Booking }) {
   const router = useRouter();
+  const { id, status, created_at, schedule_datetime, total_amount, service } =
+    booking;
+  const { name: serviceName } = service ?? {};
   const { serviceData, fieldResponses } = parseBookingData(booking);
   const quantity =
-    fieldResponses.find((field) => field.field_name === "quantity")?.value ||
+    fieldResponses.find(({ field_name }) => field_name === "quantity")?.value ||
     null;
-  const progress = getProgressFromStatus(booking.status);
-  const showTracking =
-    booking.status === "accepted" || booking.status === "completed";
-  const title = `${String(serviceData?.service_name || booking.service?.name || "Booking")}${quantity ? ` (x${quantity})` : ""}`;
-  const scheduledDate = booking.schedule_datetime
-    ? new Date(booking.schedule_datetime).toLocaleDateString()
+  const progress = getProgressFromStatus(status);
+  const showTracking = status === "accepted" || status === "completed";
+  const title = `${String(serviceData?.service_name || serviceName || "Booking")}${quantity ? ` (x${quantity})` : ""}`;
+  const scheduledDate = schedule_datetime
+    ? new Date(schedule_datetime).toLocaleDateString()
     : "Not Scheduled";
 
   return (
     <Card className="w-full bg-neutral-800 border border-neutral-50/30 rounded-xl px-4 sm:px-6 py-6 flex flex-col gap-8">
       <OrderCardHeader
         title={title}
-        subtitle={`ORD-${booking.id} • Ordered on ${new Date(booking.created_at).toLocaleDateString()}`}
-        amount={booking.total_amount}
-        status={booking.status}
+        subtitle={`ORD-${id} • Ordered on ${new Date(created_at).toLocaleDateString()}`}
+        amount={total_amount}
+        status={status}
       />
 
       <OrderProgress progress={progress} />
 
       <OrderInfoBox
         scheduledDate={scheduledDate}
-        status={booking.status}
-        trackingNumber={showTracking ? `TRK-${booking.id}` : undefined}
+        status={status}
+        trackingNumber={showTracking ? `TRK-${id}` : undefined}
       />
 
       {showTracking && (

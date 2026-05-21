@@ -142,9 +142,13 @@ export type InstallationNoteData = {
 };
 
 export type { Service };
-export type ServiceFormValues = Record<string, unknown>;
+export type ServiceFormValue = string | string[] | File | null;
+export type ServiceFormValues = Record<string, ServiceFormValue>;
 export type ServiceFormErrors = Record<string, string>;
-export type FieldChangeHandler = (fieldName: string, value: unknown) => void;
+export type FieldChangeHandler = (
+  fieldName: string,
+  value: ServiceFormValue,
+) => void;
 
 export type SpecialistListStatusProps = {
   loading: boolean;
