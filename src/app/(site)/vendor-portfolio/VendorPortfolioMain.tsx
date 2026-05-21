@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/common/Container";
+import { PageShell } from "@/components/common/PageShell";
 import ServiceCard from "@/components/cards/ServiceCard";
 import { MapPin, Star, CheckCircle } from "lucide-react";
-import GlobalBackground from "@/hooks/GlobalBackground";
 
 const services = [
   {
@@ -34,12 +34,7 @@ const services = [
 
 export default function VendorPortfolio() {
   return (
-    <section className="relative overflow-hidden">
-
-      {/* Background */}
-
-      <GlobalBackground />
-
+    <PageShell>
       <Container gutter="xl" className="py-12 md:py-20 flex flex-col gap-10 md:gap-14">
         {/* ================= Vendor Header ================= */}
 
@@ -114,6 +109,6 @@ export default function VendorPortfolio() {
           ))}
         </div>
       </Container>
-    </section>
+    </PageShell>
   );
 }

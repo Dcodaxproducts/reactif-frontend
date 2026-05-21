@@ -1,15 +1,14 @@
-import GlobalBackground from "@/hooks/GlobalBackground";
 import { Container } from "@/components/common/Container";
+import { PageShell } from "@/components/common/PageShell";
 import DeliveryService from "./DeliveryService";
 import SpecialistsSection from "./SpecialistsSection";
 
 export default function AllVendorServicesPage() {
   return (
     <>
-      <section className="relative overflow-hidden">
-        <GlobalBackground />
+      <PageShell>
         <SpecialistsSection />
-      </section>
+      </PageShell>
 
       <Container gutter="page" className="bg-[#010304] pb-16 md:pb-30">
         <DeliveryService />

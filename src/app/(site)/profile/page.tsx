@@ -1,11 +1,10 @@
+import { PageShell } from "@/components/common/PageShell";
 import Profile from "@/components/cards/Profile";
-import GlobalBackground from "@/hooks/GlobalBackground";
 
 export default function Page() {
   return (
-    <section className="relative overflow-hidden">
-      <GlobalBackground />
+    <PageShell>
       <Profile />
-    </section>
+    </PageShell>
   );
 }

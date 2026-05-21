@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import GlobalBackground from "@/hooks/GlobalBackground";
+import { PageShell } from "@/components/common/PageShell";
 
 type OrderPageShellProps = {
   children: ReactNode;
@@ -11,10 +11,5 @@ export default function OrderPageShell({
   children,
   backgroundStyle,
 }: OrderPageShellProps) {
-  return (
-    <section className="relative overflow-hidden">
-      <GlobalBackground style={backgroundStyle} />
-      {children}
-    </section>
-  );
+  return <PageShell backgroundStyle={backgroundStyle}>{children}</PageShell>;
 }

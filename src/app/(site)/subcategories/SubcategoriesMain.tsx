@@ -2,9 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/common/Container";
+import { PageShell } from "@/components/common/PageShell";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import SubCategories from "@/components/pages/SubCategories/SubCategories";
-import GlobalBackground from "@/hooks/GlobalBackground";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useCategoryDetail } from "@/hooks/useCategories";
 
@@ -46,9 +46,7 @@ const Subcategories = () => {
   }
 
   return (
-    <section className="relative overflow-hidden">
-      <GlobalBackground />
-
+    <PageShell>
       <Container gutter="page" className="py-12 md:py-20">
         <SectionHeader
           title={
@@ -71,7 +69,7 @@ const Subcategories = () => {
           <SubCategories subcategories={subcategories} />
         )}
       </Container>
-    </section>
+    </PageShell>
   );
 };
 
