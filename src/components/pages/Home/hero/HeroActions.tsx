@@ -4,7 +4,7 @@ import { PrimaryButton } from "@/components/common/HeroUi";
 
 export function HeroActions() {
   return (
-    <div className="flex flex-col sm:flex-row items-center md:items-start gap-4 sm:gap-6 justify-center md:justify-start">
+    <div className="flex flex-col items-center justify-center gap-4 pt-2 sm:flex-row sm:gap-6 md:justify-start md:items-start">
       <PrimaryButton href="/all-vendor-services">Free Quote</PrimaryButton>
 
       <Button
