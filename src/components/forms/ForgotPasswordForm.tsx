@@ -49,6 +49,7 @@ const ForgotPasswordForm = () => {
         <AuthTextField
           label="Email"
           type="email"
+          autoComplete="email"
           placeholder="Enter your registered email"
           error={errors.email?.message}
           {...register("email")}

@@ -58,6 +58,7 @@ export default function LoginForm() {
           label="Email"
           placeholder="Enter Your Email"
           type="email"
+          autoComplete="email"
           error={errors.email?.message}
           {...register("email")}
         />
@@ -66,6 +67,7 @@ export default function LoginForm() {
           label="Password"
           placeholder="Enter Password"
           type="password"
+          autoComplete="current-password"
           error={errors.password?.message}
           {...register("password")}
         />

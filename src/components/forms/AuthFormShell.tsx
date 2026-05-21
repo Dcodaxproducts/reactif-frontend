@@ -1,4 +1,4 @@
-import type { ChangeEvent, ReactNode } from "react";
+import { useId, type ChangeEvent, type ReactNode } from "react";
 import Link from "next/link";
 
 import { PageShell } from "@/components/common/PageShell";
@@ -81,12 +81,19 @@ export function AuthTextField({
   label,
   className,
   error,
+  id,
   ...props
 }: AuthTextFieldProps) {
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
+
   return (
     <div className="space-y-2">
-      <Label className="text-neutral-50 font-semibold">{label}</Label>
+      <Label htmlFor={inputId} className="text-neutral-50 font-semibold">
+        {label}
+      </Label>
       <Input
+        id={inputId}
         aria-invalid={Boolean(error)}
         className={cn(AUTH_INPUT_CLASS, className)}
         {...props}

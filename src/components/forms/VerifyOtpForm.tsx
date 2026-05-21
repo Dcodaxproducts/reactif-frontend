@@ -85,6 +85,7 @@ const VerifyOtpForm = () => {
         <AuthTextField
           label="New Password"
           type="password"
+          autoComplete="new-password"
           placeholder="Enter new password"
           error={errors.newPassword?.message}
           {...register("newPassword")}

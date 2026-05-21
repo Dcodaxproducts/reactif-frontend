@@ -88,6 +88,7 @@ export default function RegistrationForm() {
         <AuthTextField
           label="Email"
           type="email"
+          autoComplete="email"
           placeholder="Enter Your Email"
           error={errors.email?.message}
           {...register("email")}
@@ -95,6 +96,7 @@ export default function RegistrationForm() {
         <AuthTextField
           label="Password"
           type="password"
+          autoComplete="new-password"
           placeholder="Enter Password"
           error={errors.password?.message}
           {...register("password")}
@@ -102,6 +104,7 @@ export default function RegistrationForm() {
         <AuthTextField
           label="Confirm Password"
           type="password"
+          autoComplete="new-password"
           placeholder="Enter Confirm Password"
           error={errors.confirmPassword?.message}
           {...register("confirmPassword")}
