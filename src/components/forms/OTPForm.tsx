@@ -65,6 +65,11 @@ const OTPForm = () => {
       return;
     }
 
+    if (!email) {
+      toast.error("No email available to resend OTP.");
+      return;
+    }
+
     try {
       await resendOtpMutation.mutateAsync({ email });
       restartCountdown();

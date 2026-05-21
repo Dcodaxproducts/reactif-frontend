@@ -5,7 +5,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import { buildLoginRoute, buildResetPasswordRoute, buildVerificationRoute } from "@/lib/auth-routes";
+import {
+  buildLoginRoute,
+  buildResetPasswordRoute,
+  buildVerificationRoute,
+  getSafeRedirectPath,
+} from "@/lib/auth-routes";
 import {
   clearStoredAuthToken,
   getStoredAuthToken,
@@ -128,7 +133,7 @@ export const useLogin = (redirectUrl?: string | null) => {
 
       toast.success("Login successful");
 
-      router.push(redirectUrl || "/");
+      router.push(getSafeRedirectPath(redirectUrl));
       router.refresh();
     },
     onError: (error) => {
