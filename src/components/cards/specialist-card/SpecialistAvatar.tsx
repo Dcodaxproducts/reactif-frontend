@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { getImageSource } from "@/lib/image-source";
+
 type SpecialistAvatarProps = {
   name: string;
   avatarColor: string;
@@ -12,6 +14,7 @@ export const SpecialistAvatar = ({
   avatarImage,
 }: SpecialistAvatarProps) => {
   const firstLetter = name?.charAt(0)?.toUpperCase() || "D";
+  const imageSource = getImageSource(avatarImage, "");
 
   return (
     <div
@@ -22,9 +25,9 @@ export const SpecialistAvatar = ({
           "inset 0px 2px 4px rgba(255,255,255,0.4), inset 0px -2px 4px rgba(0,0,0,0.2)",
       }}
     >
-      {avatarImage ? (
+      {imageSource ? (
         <Image
-          src={avatarImage}
+          src={imageSource}
           alt={name}
           width={56}
           height={56}

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { ArrowRight, CircleCheck } from "lucide-react";
+import { getImageSource } from "@/lib/image-source";
 import DesignPathModal from "./DesignPathModal";
 
 /* =========================
@@ -35,21 +36,28 @@ const SubCategories: React.FC<Props> = ({ subcategories }) => {
   return (
     <section className="w-full py-10 pt-0">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        {subcategories.map((service, index) => (
-          <div
-            key={service.id}
-            className="group rounded-3xl border border-neutral-700/60 backdrop-blur-sm bg-black/10 overflow-hidden hover:shadow-xl transition-all duration-500 opacity-0 translate-y-6 animate-[fadeUp_0.6s_ease_forwards]"
-            style={{ animationDelay: `${index * 0.1}s` }}
-          >
+        {subcategories.map((service, index) => {
+          const imageSource = getImageSource(service.category_image, "");
+
+          return (
+            <div
+              key={service.id}
+              className="group rounded-3xl border border-neutral-700/60 backdrop-blur-sm bg-black/10 overflow-hidden hover:shadow-xl transition-all duration-500 opacity-0 translate-y-6 animate-[fadeUp_0.6s_ease_forwards]"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
             {/* Image */}
             <div className="relative h-64 w-full overflow-hidden">
-              <Image
-                src={service.category_image}
-                alt={service.name}
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+              {imageSource ? (
+                <Image
+                  src={imageSource}
+                  alt={service.name}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-950" />
+              )}
               <div className="absolute inset-0 bg-gradient-to-l from-black/70 to-transparent" />
             </div>
 
@@ -96,8 +104,9 @@ const SubCategories: React.FC<Props> = ({ subcategories }) => {
                 <ArrowRight size={18} />
               </Button>
             </div>
-          </div>
-        ))}
+            </div>
+          );
+        })}
       </div>
 
       <style jsx>{`

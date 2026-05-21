@@ -10,9 +10,10 @@ export default function Hero() {
     <section className="relative flex w-full flex-col overflow-hidden ">
       <Image
         src="/assets/hero/gradient.png"
-        alt="Background"
+        alt=""
         fill
         priority
+        sizes="100vw"
         className="object-cover -z-10"
       />
 

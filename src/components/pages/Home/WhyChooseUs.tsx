@@ -10,8 +10,9 @@ export default function WhyChooseUs() {
     <section className="relative py-16 md:py-28 overflow-hidden">
       <Image
         src="/assets/hero/gradient.png"
-        alt="Background"
+        alt=""
         fill
+        sizes="100vw"
         className="object-cover -z-10"
       />
 

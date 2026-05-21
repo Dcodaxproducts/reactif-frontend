@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { useDeleteAccount, useProfile } from "@/hooks/useProfile";
+import { PROFILE_AVATAR_FALLBACK, getImageSource } from "@/lib/image-source";
 import { toast } from "sonner";
 
 const Profile = () => {
@@ -17,6 +18,7 @@ const Profile = () => {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const deleteAccountMutation = useDeleteAccount();
   const deleting = deleteAccountMutation.isPending;
+  const avatarSource = getImageSource(user?.avatar, PROFILE_AVATAR_FALLBACK);
 
   const bio =
     "Passionate automotive designer with over 8 years of experience in visual communication and branding. Specializing in futuristic vehicle concepts and digital showrooms.";
@@ -100,7 +102,7 @@ const Profile = () => {
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-pink-500 p-[3px]">
                   <Image
-                    src={user.avatar || "https://i.pravatar.cc/150?img=32"}
+                    src={avatarSource}
                     alt="Profile"
                     fill
                     sizes="112px"

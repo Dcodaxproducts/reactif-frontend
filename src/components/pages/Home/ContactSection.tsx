@@ -17,8 +17,9 @@ export default function ContactSection() {
     <section className="relative py-10 md:py-5 overflow-hidden">
       <Image
         src="/assets/hero/gradient.png"
-        alt="Background"
+        alt=""
         fill
+        sizes="100vw"
         className="object-cover -z-10"
       />
 

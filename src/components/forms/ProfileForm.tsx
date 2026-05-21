@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { PROFILE_EDIT_AVATAR_FALLBACK, getImageSource } from "@/lib/image-source";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useProfile, useUpdateProfile } from "@/hooks/useProfile";
@@ -17,7 +18,7 @@ const ProfileForm = () => {
   const { user } = useProfile();
   const updateProfileMutation = useUpdateProfile();
   const loading = updateProfileMutation.isPending;
-  const [preview, setPreview] = useState<string>("");
+  const [preview, setPreview] = useState<string>(PROFILE_EDIT_AVATAR_FALLBACK);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -41,11 +42,13 @@ const ProfileForm = () => {
       bio: bio || "",
       address: address || "",
     });
-    setPreview(avatar || "https://placehold.co/96x96");
+    setPreview(getImageSource(avatar, PROFILE_EDIT_AVATAR_FALLBACK));
   }, [user]);
 
   // ✅ Handle input change
-  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = target;
 
     setFormData((current) => ({ ...current, [name]: value }));
@@ -57,7 +60,9 @@ const ProfileForm = () => {
   };
 
   // ✅ Handle file select + preview
-  const handleFileChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
     const file = target.files?.[0];
     if (!file) return;
 

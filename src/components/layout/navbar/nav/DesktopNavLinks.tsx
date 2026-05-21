@@ -19,8 +19,9 @@ export function DesktopNavLinks({ user }: DesktopNavLinksProps) {
             <div className="pointer-events-none absolute -bottom-5 left-1/2 -z-10 h-16 w-32 -translate-x-1/2">
               <Image
                 src="/assets/elipse.png"
-                alt="elipse background"
+                alt=""
                 fill
+                sizes="48px"
                 className="object-contain"
               />
             </div>

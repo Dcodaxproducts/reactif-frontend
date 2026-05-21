@@ -31,8 +31,9 @@ export default function TailoredServices() {
 
       <Image
         src="/assets/hero/gradient.png"
-        alt="Background"
+        alt=""
         fill
+        sizes="100vw"
         className="object-cover -z-10"
       />
 

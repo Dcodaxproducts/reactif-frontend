@@ -17,9 +17,9 @@ export default function Footer() {
       {/* ================= BACKGROUND ================= */}
       <Image
         src="/assets/footer/background.png"
-        alt="footer bg"
+        alt=""
         fill
-        priority
+        sizes="100vw"
         className="object-cover -z-10"
       />
 

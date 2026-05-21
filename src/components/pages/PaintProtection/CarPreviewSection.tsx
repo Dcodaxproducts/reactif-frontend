@@ -3,6 +3,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import {
+  PAINT_PROTECTION_FALLBACK_IMAGE,
+  getImageSource,
+} from "@/lib/image-source";
+
 interface Service {
   id: number;
   name: string;
@@ -44,9 +49,10 @@ export default function CarPreviewSection({
   const textColor = isPaint ? "text-green-600" : "text-[#F262B5]";
   const dotColor = isPaint ? "bg-green-600" : "bg-[#F262B5]";
 
-  const carImage =
-    currentService?.service_image ||
-    "/assets/PaintProtection/paintProtection/carOne.png";
+  const carImage = getImageSource(
+    currentService?.service_image,
+    PAINT_PROTECTION_FALLBACK_IMAGE,
+  );
 
   const topLabel = isPaint ? "PPF Protection" : activeCategory;
   const topDetail = isPaint

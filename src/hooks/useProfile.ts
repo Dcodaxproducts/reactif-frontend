@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { clearStoredAuthToken } from "@/lib/auth-token";
 import { getErrorMessage } from "@/lib/errors";
+import { getImageSource } from "@/lib/image-source";
 import {
   deleteUserAccount,
   getUserProfile,
@@ -42,7 +43,9 @@ const mapProfile = (
   name: backendUser.name,
   email: backendUser.email,
   phone: backendUser.contact_number || "",
-  avatar: backendUser.profile_image || null,
+  avatar: backendUser.profile_image
+    ? getImageSource(backendUser.profile_image, "") || null
+    : null,
   address: backendUser.address || "",
   bio: backendUser.bio || "",
   created_at: backendUser.created_at,
