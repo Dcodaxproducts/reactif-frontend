@@ -38,20 +38,32 @@ export const profileKeys = {
 const mapProfile = (
   backendUser: BackendUserProfile,
   isVerified = false,
-): UserProfile => ({
-  id: backendUser.id,
-  name: backendUser.name,
-  email: backendUser.email,
-  phone: backendUser.contact_number || "",
-  avatar: backendUser.profile_image
-    ? getImageSource(backendUser.profile_image, "") || null
-    : null,
-  address: backendUser.address || "",
-  bio: backendUser.bio || "",
-  created_at: backendUser.created_at,
-  updated_at: backendUser.updated_at,
-  is_verified: isVerified,
-});
+): UserProfile => {
+  const {
+    id,
+    name,
+    email,
+    contact_number,
+    profile_image,
+    address,
+    bio,
+    created_at,
+    updated_at,
+  } = backendUser;
+
+  return {
+    id,
+    name,
+    email,
+    phone: contact_number ?? "",
+    avatar: profile_image ? getImageSource(profile_image, "") || null : null,
+    address: address ?? "",
+    bio: bio ?? "",
+    created_at,
+    updated_at,
+    is_verified: isVerified,
+  };
+};
 
 /**
  * ==============================

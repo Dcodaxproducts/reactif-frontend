@@ -73,11 +73,11 @@ const ProfileForm = () => {
     const { address, avatar, bio, email, name, phone } = user;
 
     reset({
-      name: name || "",
-      email: email || "",
-      phone: phone || "",
-      bio: bio || "",
-      address: address || "",
+      name: name ?? "",
+      email: email ?? "",
+      phone: phone ?? "",
+      bio: bio ?? "",
+      address: address ?? "",
       avatarFile: null,
     });
 
