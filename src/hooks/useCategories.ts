@@ -23,11 +23,11 @@ import type { Category } from "@/types/categories";
 export const categoryKeys = {
   all: ["categories"] as const,
   list: (params?: GetCategoriesParams) =>
-    ["categories", "list", params || {}] as const,
+    ["categories", "list", params ?? {}] as const,
   detail: (categoryId?: string | number | null) =>
-    ["categories", "detail", categoryId || ""] as const,
+    ["categories", "detail", categoryId ?? ""] as const,
   services: (subcategoryId?: string | number | null) =>
-    ["categories", "services", subcategoryId || ""] as const,
+    ["categories", "services", subcategoryId ?? ""] as const,
 };
 
 /**
@@ -47,7 +47,9 @@ export const useCategories = (initialParams: GetCategoriesParams = {}) => {
   });
 
   useEffect(() => {
-    const active = (query.data?.data || []).filter((item) => item.status === 1);
+    const active = (query.data?.data ?? []).filter(
+      ({ status }) => status === 1,
+    );
 
     if (page === 1) {
       setCategories(active);

@@ -15,7 +15,7 @@ import type { Designer } from "@/types/designers";
 export const designerKeys = {
   all: ["designers"] as const,
   list: (params?: GetDesignersParams) =>
-    ["designers", "list", params || {}] as const,
+    ["designers", "list", params ?? {}] as const,
 };
 
 /**
@@ -35,9 +35,9 @@ export const useDesigners = (initialParams: GetDesignersParams = {}) => {
   });
 
   useEffect(() => {
-    const filtered = (query.data?.data || []).filter(
-      (designer) =>
-        designer.is_verified_user === 1 && designer.status === "active",
+    const filtered = (query.data?.data ?? []).filter(
+      ({ is_verified_user, status }) =>
+        is_verified_user === 1 && status === "active",
     );
 
     if (page === 1) {
@@ -56,7 +56,7 @@ export const useDesigners = (initialParams: GetDesignersParams = {}) => {
       ? getErrorMessage(query.error, "Something went wrong")
       : "",
     page,
-    totalPages: query.data?.pagination?.totalPages || 1,
+    totalPages: query.data?.pagination?.totalPages ?? 1,
     setPage,
   };
 };

@@ -11,12 +11,12 @@ export function TailoredServicesGrid({
       ref={gridRef}
       className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10"
     >
-      {categories.map((category, index) => (
+      {categories.map(({ id, name, description }, index) => (
         <ServiceCard
-          key={category.id}
-          id={category.id}
-          title={category.name}
-          description={category.description || ""}
+          key={id}
+          id={id}
+          title={name}
+          description={description ?? ""}
           icon={FaLightbulb}
           index={index}
         />

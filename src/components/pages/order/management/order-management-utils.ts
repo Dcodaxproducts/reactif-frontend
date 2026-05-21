@@ -23,23 +23,24 @@ export const formatStatusLabel = (status: string) =>
   status.replace("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 
 export const parseBookingData = (booking: Booking): BookingParsedData => {
+  const { service_data, field_responses } = booking;
   let serviceData: BookingServiceData | null = null;
   let fieldResponses: BookingFieldResponse[] = [];
 
   try {
     serviceData =
-      typeof booking.service_data === "string"
-        ? (JSON.parse(booking.service_data) as BookingServiceData)
-        : (booking.service_data as BookingServiceData | null) || null;
+      typeof service_data === "string"
+        ? (JSON.parse(service_data) as BookingServiceData)
+        : ((service_data as BookingServiceData | null) ?? null);
   } catch {
     serviceData = null;
   }
 
   try {
     const parsed =
-      typeof booking.field_responses === "string"
-        ? JSON.parse(booking.field_responses)
-        : booking.field_responses;
+      typeof field_responses === "string"
+        ? JSON.parse(field_responses)
+        : field_responses;
 
     fieldResponses = Array.isArray(parsed) ? parsed : [];
   } catch {

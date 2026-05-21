@@ -5,22 +5,19 @@ import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { ArrowRight, CircleCheck } from "lucide-react";
 import { getImageSource } from "@/lib/image-source";
+import type { Subcategory } from "@/types/categories";
 import DesignPathModal from "./DesignPathModal";
 
-/* =========================
-   Types
-========================= */
+const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, "-");
 
-interface SubCategory {
-  id: number;
-  name: string;
-  description: string;
-  category_image: string;
-  status: number;
-}
+const benefits = [
+  "Premium Quality Materials",
+  "Expert Installation",
+  "Long-term Durability",
+];
 
 interface Props {
-  subcategories: SubCategory[];
+  subcategories: Subcategory[];
 }
 
 /* =========================
@@ -29,19 +26,18 @@ interface Props {
 
 const SubCategories: React.FC<Props> = ({ subcategories }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [selectedSub, setSelectedSub] = useState<SubCategory | null>(null);
-
-  const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, "-");
+  const [selectedSub, setSelectedSub] = useState<Subcategory | null>(null);
 
   return (
     <section className="w-full py-10 pt-0">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        {subcategories.map((service, index) => {
-          const imageSource = getImageSource(service.category_image, "");
+        {subcategories.map((subcategory, index) => {
+          const { id, name, description, category_image } = subcategory;
+          const imageSource = getImageSource(category_image, "");
 
           return (
             <div
-              key={service.id}
+              key={id}
               className="group rounded-3xl border border-neutral-700/60 backdrop-blur-sm bg-black/10 overflow-hidden hover:shadow-xl transition-all duration-500 opacity-0 translate-y-6 animate-[fadeUp_0.6s_ease_forwards]"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
@@ -50,7 +46,7 @@ const SubCategories: React.FC<Props> = ({ subcategories }) => {
               {imageSource ? (
                 <Image
                   src={imageSource}
-                  alt={service.name}
+                  alt={name}
                   fill
                   sizes="(min-width: 768px) 50vw, 100vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -65,10 +61,10 @@ const SubCategories: React.FC<Props> = ({ subcategories }) => {
             <div className="p-8 flex flex-col gap-6">
               <div>
                 <h3 className="text-xl sm:text-2xl font-bold text-white">
-                  {service.name}
+                  {name}
                 </h3>
                 <p className="mt-3 text-neutral-400 text-sm sm:text-base leading-relaxed">
-                  {service.description}
+                  {description}
                 </p>
               </div>
 
@@ -78,12 +74,8 @@ const SubCategories: React.FC<Props> = ({ subcategories }) => {
                   Benefits
                 </p>
                 <div className="flex flex-col gap-2">
-                  {[
-                    "Premium Quality Materials",
-                    "Expert Installation",
-                    "Long-term Durability",
-                  ].map((benefit, i) => (
-                    <div key={i} className="flex items-center gap-2">
+                  {benefits.map((benefit) => (
+                    <div key={benefit} className="flex items-center gap-2">
                       <CircleCheck size={18} className="text-pink-500" />
                       <span className="text-[15px] text-neutral-300">
                         {benefit}
@@ -95,7 +87,7 @@ const SubCategories: React.FC<Props> = ({ subcategories }) => {
 
               <Button
                 onClick={() => {
-                  setSelectedSub(service);
+                  setSelectedSub(subcategory);
                   setOpenModal(true);
                 }}
                 className="mt-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white text-black font-semibold hover:bg-neutral-200 transition"
