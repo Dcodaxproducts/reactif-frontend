@@ -18,10 +18,6 @@ const Profile = () => {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const deleteAccountMutation = useDeleteAccount();
   const deleting = deleteAccountMutation.isPending;
-  const avatarSource = getImageSource(user?.avatar, PROFILE_AVATAR_FALLBACK);
-
-  const bio =
-    "Passionate automotive designer with over 8 years of experience in visual communication and branding. Specializing in futuristic vehicle concepts and digital showrooms.";
 
   useEffect(() => {
     if (error) {
@@ -53,6 +49,16 @@ const Profile = () => {
   }
 
   if (!user) return null;
+
+  const { name, email, phone, address, avatar, bio, is_verified } = user;
+  const avatarSource = getImageSource(avatar, PROFILE_AVATAR_FALLBACK);
+  const profileInfoItems = [
+    { label: "Full Name", value: name },
+    { label: "Email Address", value: email },
+    { label: "Phone Number", value: phone ?? "Not provided" },
+    { label: "Address", value: address ?? "Not provided" },
+  ];
+  const bioText = bio?.trim() ? bio : "No bio provided";
 
   return (
     <div className="min-h-screen w-full px-4 sm:px-6 lg:px-12 py-12 flex justify-center relative">
@@ -111,7 +117,7 @@ const Profile = () => {
                 </div>
 
                 <div className="absolute bottom-1 right-1 w-7 h-7 rounded-full flex items-center justify-center border-2 border-slate-900 bg-indigo-600">
-                  {user.is_verified ? (
+                  {is_verified ? (
                     <Check size={14} className="text-white" />
                   ) : (
                     <X size={14} className="text-white" />
@@ -122,13 +128,13 @@ const Profile = () => {
               {/* Name & Role */}
               <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
                 <h2 className="text-xl sm:text-2xl font-semibold">
-                  {user.name}
+                  {name}
                 </h2>
                 <p className="text-sm text-gray-400 mt-1">
                   Senior Automotive Designer
                 </p>
                 <span className="inline-block mt-3 px-3 py-1 text-xs font-medium rounded-full bg-blue-600/20 text-blue-400 border border-blue-500/40">
-                  {user.is_verified ? "Active Member" : "Inactive Member"}
+                  {is_verified ? "Active Member" : "Inactive Member"}
                 </span>
               </div>
             </div>
@@ -159,13 +165,8 @@ const Profile = () => {
             </div>
 
             <div className="space-y-6 text-sm">
-              {[
-                { label: "Full Name", value: user.name },
-                { label: "Email Address", value: user.email },
-                { label: "Phone Number", value: user.phone || "Not provided" },
-                { label: "Address", value: user.address },
-              ].map((item, index) => (
-                <div key={index}>
+              {profileInfoItems.map((item) => (
+                <div key={item.label}>
                   <p className="text-gray-400 uppercase text-xs tracking-wide mb-1">
                     {item.label}
                   </p>
@@ -180,9 +181,10 @@ const Profile = () => {
                   Bio
                 </p>
                 <Textarea
+                  readOnly
                   className="w-full bg-slate-800/60 border border-pink-500/40 rounded-xl p-4 text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500/50 resize-none transition"
                   rows={4}
-                  defaultValue={bio}
+                  value={bioText}
                 />
               </div>
             </div>
