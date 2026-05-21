@@ -7,12 +7,14 @@ import TopInfoBar from "@/components/layout/navbar/TopInfoBar";
 import { Toaster } from "sonner";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { useAuth } from "@/hooks/useAuth";
+import GlobalBackground from "@/hooks/GlobalBackground";
 
 function ClientLayoutContent({ children }: { children: ReactNode }) {
   useAuth();
 
   return (
     <div className="min-h-screen bg-[#010304] text-white">
+      <GlobalBackground imageUrl="/assets/hero/gradient.png" overlayColor="#010304" />
       <TopInfoBar />
       <Navbar />
       <Toaster position="top-right" richColors />
