@@ -13,13 +13,15 @@ function ClientLayoutContent({ children }: { children: ReactNode }) {
   useAuth();
 
   return (
-    <div className="min-h-screen bg-[#010304] text-white">
+    <div className="relative isolate min-h-screen bg-transparent text-white">
       <GlobalBackground imageUrl="/assets/hero/gradient.png" overlayColor="#010304" />
-      <TopInfoBar />
-      <Navbar />
-      <Toaster position="top-right" richColors />
-      <div>{children}</div>
-      <Footer />
+      <div className="relative z-10">
+        <TopInfoBar />
+        <Navbar />
+        <Toaster position="top-right" richColors />
+        <div>{children}</div>
+        <Footer />
+      </div>
     </div>
   );
 }

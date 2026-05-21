@@ -19,7 +19,7 @@ const GlobalBackground: React.FC<GlobalBackgroundProps> = ({
   return (
     <div
       className={clsx(
-        "fixed inset-0 -z-50 bg-cover bg-center bg-no-repeat",
+        "pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat",
         className,
       )}
       style={{
