@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -61,7 +62,10 @@ export const useProfile = () => {
     queryFn: getUserProfile,
   });
 
-  const mappedProfile = query.data?.data ? mapProfile(query.data.data, true) : null;
+  const mappedProfile = useMemo(
+    () => (query.data?.data ? mapProfile(query.data.data, true) : null),
+    [query.data],
+  );
 
   return {
     ...query,

@@ -32,21 +32,23 @@ const ProfileForm = () => {
   useEffect(() => {
     if (!user) return;
 
+    const { address, avatar, bio, email, name, phone } = user;
+
     setFormData({
-      name: user.name || "",
-      email: user.email || "",
-      phone: user.phone || "",
-      bio: user.bio || "",
-      address: user.address || "",
+      name: name || "",
+      email: email || "",
+      phone: phone || "",
+      bio: bio || "",
+      address: address || "",
     });
-    setPreview(user.avatar || "https://placehold.co/96x96");
+    setPreview(avatar || "https://placehold.co/96x96");
   }, [user]);
 
   // ✅ Handle input change
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = target;
+
+    setFormData((current) => ({ ...current, [name]: value }));
   };
 
   // ✅ Handle avatar click
@@ -55,8 +57,8 @@ const ProfileForm = () => {
   };
 
   // ✅ Handle file select + preview
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleFileChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const file = target.files?.[0];
     if (!file) return;
 
     setAvatarFile(file);
