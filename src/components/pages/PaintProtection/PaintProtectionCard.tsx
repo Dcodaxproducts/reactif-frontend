@@ -13,8 +13,8 @@ import { ServiceEmptyState } from "./booking-card/ServiceEmptyState";
 import {
   buildBookingFormData,
   buildInitialServiceValues,
+  validateServiceForm,
 } from "./booking-card/booking-form-utils";
-import { buildServiceValidationSchema } from "@/validations/bookings";
 import type {
   Service,
   ServiceFormErrors,
@@ -70,24 +70,18 @@ export default function PaintProtectionCard({
   };
 
   const validateForm = () => {
-    const schema = buildServiceValidationSchema(currentService);
-    if (!schema) return true;
-
-    const result = schema.safeParse(formValues);
-    if (result.success) {
-      setFormErrors({});
-      return true;
-    }
-
-    const errors: ServiceFormErrors = {};
-    result.error.errors.forEach((error) => {
-      const field = error.path[0] as string;
-      errors[field] = error.message;
-    });
+    const { errors, isValid } = validateServiceForm(
+      currentService,
+      formValues,
+    );
 
     setFormErrors(errors);
-    toast.error("Please fill all required fields");
-    return false;
+
+    if (!isValid) {
+      toast.error("Please fill all required fields");
+    }
+
+    return isValid;
   };
 
   const handleCreateBooking = async () => {

@@ -1,4 +1,10 @@
-import type { Service, ServiceFormValues } from "@/types/component-props";
+import { getZodFieldErrors } from "@/lib/zod-errors";
+import type {
+  Service,
+  ServiceFormErrors,
+  ServiceFormValues,
+} from "@/types/component-props";
+import { buildServiceValidationSchema } from "@/validations/bookings";
 
 export const buildInitialServiceValues = (
   service?: Service | null,
@@ -9,6 +15,28 @@ export const buildInitialServiceValues = (
     values[field.field_name] = field.default_value || "";
     return values;
   }, {});
+};
+
+export const validateServiceForm = (
+  service: Service | null | undefined,
+  values: ServiceFormValues,
+): { isValid: boolean; errors: ServiceFormErrors } => {
+  const schema = buildServiceValidationSchema(service);
+
+  if (!schema) {
+    return { isValid: true, errors: {} };
+  }
+
+  const result = schema.safeParse(values);
+
+  if (result.success) {
+    return { isValid: true, errors: {} };
+  }
+
+  return {
+    isValid: false,
+    errors: getZodFieldErrors(result.error),
+  };
 };
 
 export const buildBookingFormData = ({
