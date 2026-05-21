@@ -18,33 +18,30 @@ const buildEmailValidator = (label: string, isRequired: boolean) => {
 };
 
 const buildNumberValidator = (label: string, isRequired: boolean) => {
-  const validator = z.preprocess(
-    (value) => (typeof value === "string" ? value.trim() : value),
-    z.coerce.number().min(0, `${label} must be a valid number`),
-  );
+  return z.unknown().superRefine((value, ctx) => {
+    const normalizedValue = typeof value === "string" ? value.trim() : value;
 
-  if (isRequired) {
-    return z.preprocess(
-      (value) => {
-        if (typeof value === "string") {
-          const trimmedValue = value.trim();
-          return trimmedValue === "" ? undefined : trimmedValue;
-        }
+    if (normalizedValue === "" || normalizedValue == null) {
+      if (isRequired) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `${label} is required`,
+        });
+      }
 
-        return value;
-      },
-      validator,
-    ).refine((value) => value !== undefined, `${label} is required`);
-  }
+      return;
+    }
 
-  return z.preprocess(
-    (value) => {
-      if (value == null) return undefined;
-      if (typeof value === "string" && value.trim() === "") return undefined;
-      return value;
-    },
-    validator.optional(),
-  );
+    const numericValue =
+      typeof normalizedValue === "number" ? normalizedValue : +normalizedValue;
+
+    if (!Number.isFinite(numericValue)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `${label} must be a valid number`,
+      });
+    }
+  });
 };
 
 const buildPhoneValidator = (label: string, isRequired: boolean) => {
@@ -63,15 +60,30 @@ const buildPhoneValidator = (label: string, isRequired: boolean) => {
   );
 };
 
-const buildFileValidator = (label: string, isRequired: boolean) => {
-  const validator = z.custom<File | null>(
-    (value) => value === null || value instanceof File,
-    `${label} must be a valid file`,
-  );
+const isFileValue = (value: unknown): value is File => {
+  return typeof File !== "undefined" && value instanceof File;
+};
 
-  return isRequired
-    ? validator.refine((value) => value instanceof File, `${label} is required`)
-    : validator.optional();
+const buildFileValidator = (label: string, isRequired: boolean) => {
+  return z.unknown().superRefine((value, ctx) => {
+    if (value == null) {
+      if (isRequired) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `${label} is required`,
+        });
+      }
+
+      return;
+    }
+
+    if (!isFileValue(value)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `${label} must be a valid file`,
+      });
+    }
+  });
 };
 
 const buildCheckboxValidator = (label: string, isRequired: boolean) => {

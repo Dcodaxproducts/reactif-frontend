@@ -23,7 +23,7 @@ const commonInputClasses =
 
 type ServiceFieldRenderProps = Pick<
   Service["fields"][number],
-  "input_type" | "field_name" | "is_required" | "placeholder" | "options"
+  "id" | "input_type" | "field_name" | "is_required" | "placeholder" | "options"
 >;
 
 export function DynamicServiceFields({
@@ -58,13 +58,17 @@ export function DynamicServiceFields({
 
         return (
           <div key={id} className="flex flex-col gap-2">
-            <Label className="text-sm text-neutral-300 font-medium">
+            <Label
+              htmlFor={`service-field-${id}`}
+              className="text-sm text-neutral-300 font-medium"
+            >
               {label}
               {is_required && <span className="text-[#F262B5] ml-1">*</span>}
             </Label>
 
             {renderField({
               field: {
+                id,
                 input_type,
                 field_name,
                 is_required,
@@ -84,7 +88,7 @@ export function DynamicServiceFields({
 }
 
 function renderField({
-  field: { input_type, field_name, is_required, placeholder, options },
+  field: { id, input_type, field_name, is_required, placeholder, options },
   value,
   onChange,
 }: {
@@ -102,6 +106,7 @@ function renderField({
     case "date":
       return (
         <Input
+          id={`service-field-${id}`}
           type={input_type}
           placeholder={placeholder}
           required={is_required}
@@ -119,6 +124,7 @@ function renderField({
       return (
         <div className="flex items-center gap-3">
           <Input
+            id={`service-field-${id}`}
             type="color"
             required={is_required}
             value={colorValue}
@@ -132,6 +138,7 @@ function renderField({
     case "textarea":
       return (
         <Textarea
+          id={`service-field-${id}`}
           placeholder={placeholder}
           required={is_required}
           value={stringValue}
@@ -146,6 +153,7 @@ function renderField({
     case "file":
       return (
         <Input
+          id={`service-field-${id}`}
           type="file"
           required={is_required}
           onChange={({ target }) => onChange(field_name, target.files?.[0] ?? null)}
@@ -159,7 +167,10 @@ function renderField({
           onValueChange={(nextValue) => onChange(field_name, nextValue)}
           value={stringValue}
         >
-          <SelectTrigger className="w-full h-12 rounded-xl text-sm text-neutral-50 bg-black/20 border border-slate-700 focus:border-[#F262B5] focus:ring-1 focus:ring-[#F262B5]">
+          <SelectTrigger
+            id={`service-field-${id}`}
+            className="w-full h-12 rounded-xl text-sm text-neutral-50 bg-black/20 border border-slate-700 focus:border-[#F262B5] focus:ring-1 focus:ring-[#F262B5]"
+          >
             <SelectValue placeholder={placeholder ?? "Select"} />
           </SelectTrigger>
           <SelectContent>
@@ -179,6 +190,7 @@ function renderField({
     case "radio":
       return (
         <RadioGroup
+          id={`service-field-${id}`}
           className="flex flex-col gap-3 mt-1"
           value={stringValue}
           onValueChange={(nextValue) => onChange(field_name, nextValue)}
@@ -186,12 +198,15 @@ function renderField({
           {options?.map((option) => {
             const { key, display } = option;
 
+            const optionId = `service-field-${id}-${key}`;
+
             return (
               <Label
                 key={key}
+                htmlFor={optionId}
                 className="flex items-center gap-3 cursor-pointer text-sm text-neutral-50"
               >
-                <RadioGroupItem value={key} className="size-4" />
+                <RadioGroupItem id={optionId} value={key} className="size-4" />
                 {display}
               </Label>
             );
@@ -205,18 +220,23 @@ function renderField({
           {options?.map((option) => {
             const { key, display } = option;
             const checkedValues = Array.isArray(value) ? value : [];
+            const optionId = `service-field-${id}-${key}`;
+
             return (
               <Label
                 key={key}
+                htmlFor={optionId}
                 className="flex items-center gap-3 cursor-pointer text-sm text-neutral-50"
               >
                 <Checkbox
+                  id={optionId}
                   value={key}
                   checked={checkedValues.includes(key)}
                   onCheckedChange={(checked) => {
-                    const nextValues = checked
-                      ? [...checkedValues, key]
-                      : checkedValues.filter((item) => item !== key);
+                    const nextValues =
+                      checked === true
+                        ? [...checkedValues, key]
+                        : checkedValues.filter((item) => item !== key);
                     onChange(field_name, nextValues);
                   }}
                 />
@@ -230,6 +250,7 @@ function renderField({
     default:
       return (
         <Input
+          id={`service-field-${id}`}
           type="text"
           placeholder={placeholder}
           value={stringValue}
