@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import type { CatalogCardProps } from "@/types/component-props";
 
 function CatalogCard({ item }: CatalogCardProps) {
@@ -34,14 +33,20 @@ function CatalogCard({ item }: CatalogCardProps) {
         </p>
 
         <div className="flex justify-between items-center pt-4">
-          <Button className="flex items-center gap-2 text-orange-500 font-semibold text-sm hover:gap-3 transition">
+          <button
+            type="button"
+            className="flex items-center gap-2 text-sm font-semibold text-orange-500 transition hover:gap-3"
+          >
             View Details
             <ArrowRight size={16} />
-          </Button>
+          </button>
 
-          <Button className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
+          <button
+            type="button"
+            className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 transition hover:bg-white/20"
+          >
             <ShoppingCart size={16} className="text-white" />
-          </Button>
+          </button>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { clearStoredAuthToken } from "@/lib/auth-token";
 import { getErrorMessage } from "@/lib/errors";
 import {
   deleteUserAccount,
@@ -97,7 +98,7 @@ export const useDeleteAccount = () => {
   return useMutation({
     mutationFn: deleteUserAccount,
     onSuccess: () => {
-      localStorage.removeItem("sessionToken");
+      clearStoredAuthToken();
       queryClient.clear();
       toast.success("Account deleted successfully.");
       router.push("/");

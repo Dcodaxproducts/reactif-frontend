@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
 import {
@@ -11,11 +11,7 @@ import {
   AuthTextField,
 } from "@/components/forms/AuthFormShell";
 import { Button } from "@/components/ui/button";
-import {
-  RESET_EMAIL_KEY,
-  useResendAuthCode,
-  useResetPassword,
-} from "@/hooks/useAuth";
+import { useResendAuthCode, useResetPassword } from "@/hooks/useAuth";
 import {
   getSchemaValidationMessage,
   resetPasswordSchema,
@@ -25,7 +21,8 @@ const OTP_INPUT_CLASS = "text-center tracking-widest text-lg";
 
 const VerifyOtpForm = () => {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email") ?? "";
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [countdown, setCountdown] = useState(60);
@@ -34,10 +31,6 @@ const VerifyOtpForm = () => {
   const resendOtpMutation = useResendAuthCode();
   const loading =
     resetPasswordMutation.isPending || resendOtpMutation.isPending;
-
-  useEffect(() => {
-    setEmail(localStorage.getItem(RESET_EMAIL_KEY) || "");
-  }, []);
 
   useEffect(() => {
     if (countdown <= 0) {

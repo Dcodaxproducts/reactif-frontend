@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import {
   AuthFormShell,
@@ -10,18 +10,15 @@ import {
   AuthTextField,
 } from "@/components/forms/AuthFormShell";
 import { Button } from "@/components/ui/button";
-import {
-  useResendAuthCode,
-  useVerifyAuth,
-  VERIFICATION_EMAIL_KEY,
-} from "@/hooks/useAuth";
+import { useResendAuthCode, useVerifyAuth } from "@/hooks/useAuth";
 import { getSchemaValidationMessage, otpSchema } from "@/validations/auth";
 
 const OTP_INPUT_CLASS = "text-center tracking-widest text-lg";
 
 const OTPForm = () => {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email") ?? "";
   const [otp, setOtp] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -30,10 +27,6 @@ const OTPForm = () => {
   const verifyOtpMutation = useVerifyAuth();
   const resendOtpMutation = useResendAuthCode();
   const loading = verifyOtpMutation.isPending || resendOtpMutation.isPending;
-
-  useEffect(() => {
-    setEmail(localStorage.getItem(VERIFICATION_EMAIL_KEY) || "");
-  }, []);
 
   useEffect(() => {
     if (countdown <= 0) {
@@ -70,7 +63,7 @@ const OTPForm = () => {
 
       await verifyOtpMutation.mutateAsync({ email, otp });
       setSuccess("Account verified successfully!");
-      setTimeout(() => router.push("/"), 1200);
+      setTimeout(() => router.push("/login"), 1200);
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "Verification failed. Try again.";

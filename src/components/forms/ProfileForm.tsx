@@ -65,9 +65,7 @@ const ProfileForm = () => {
 
   // ✅ Submit handler
   const handleSubmit = async () => {
-    const token = localStorage.getItem("sessionToken");
-
-    if (!token) {
+    if (!user) {
       toast.error("Session expired. Please login again.");
       router.push("/login");
       return;

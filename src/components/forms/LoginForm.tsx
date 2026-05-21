@@ -16,7 +16,11 @@ import { getSchemaValidationMessage, loginSchema } from "@/validations/auth";
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const loginMutation = useLogin();
+  const redirectUrl =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search).get("redirect")
+      : null;
+  const loginMutation = useLogin(redirectUrl);
   const loading = loginMutation.isPending;
 
   const validateForm = () =>

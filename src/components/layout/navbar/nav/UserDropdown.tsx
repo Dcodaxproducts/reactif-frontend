@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { FiLogOut, FiSettings, FiUser } from "react-icons/fi";
 import { getInitials } from "./utils";
 import type { UserDropdownProps } from "@/types/component-props";
+
+const menuItemClassName = cn(
+  "flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-gray-700 transition hover:bg-gray-100",
+);
 
 export function UserDropdown({
   user,
@@ -29,29 +34,32 @@ export function UserDropdown({
             {user.email}
           </div>
 
-          <Button
+          <button
+            type="button"
             onClick={() => router.push("/profile")}
-            className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100"
+            className={menuItemClassName}
           >
             <FiUser size={16} />
             Profile
-          </Button>
+          </button>
 
-          <Button
+          <button
+            type="button"
             onClick={() => router.push("/settings")}
-            className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100"
+            className={menuItemClassName}
           >
             <FiSettings size={16} />
             Settings
-          </Button>
+          </button>
 
-          <Button
+          <button
+            type="button"
             onClick={onLogout}
-            className="flex items-center gap-3 w-full px-4 py-2 hover:bg-red-50 text-red-600"
+            className={cn(menuItemClassName, "text-red-600 hover:bg-red-50")}
           >
             <FiLogOut size={16} />
             Logout
-          </Button>
+          </button>
         </div>
       )}
     </div>

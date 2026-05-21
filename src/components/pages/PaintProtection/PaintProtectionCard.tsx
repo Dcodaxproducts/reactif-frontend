@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import { useAuth } from "@/hooks/useAuth";
+import { buildLoginRoute, useAuth } from "@/hooks/useAuth";
 import { useCreateBooking } from "@/hooks/useBookings";
 import { BookingCardHeader } from "./booking-card/BookingCardHeader";
 import { BookingCardSkeleton } from "./booking-card/BookingCardSkeleton";
@@ -98,10 +98,9 @@ export default function PaintProtectionCard({
 
     if (!user) {
       toast.error("Please login first");
-      if (typeof window !== "undefined") {
-        localStorage.setItem("redirectAfterLogin", window.location.href);
-      }
-      router.push("/login");
+      const redirectUrl =
+        typeof window !== "undefined" ? window.location.href : null;
+      router.push(buildLoginRoute(redirectUrl));
       return;
     }
 
