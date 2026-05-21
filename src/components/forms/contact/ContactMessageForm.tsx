@@ -1,3 +1,5 @@
+import type { FormEvent } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -12,6 +14,10 @@ import { contactFields } from "@/data/contact";
 import { FormField } from "./FormField";
 
 export function ContactMessageForm() {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="relative flex-1 overflow-hidden">
       <div
@@ -22,21 +28,27 @@ export function ContactMessageForm() {
         }}
       />
 
-      <div className="relative z-10 flex flex-col gap-6 md:gap-8 bg-black/40 backdrop-blur-xl border-t md:border-t-0 md:border-l border-stone-500 p-6 sm:p-8 md:p-10">
-        <FormField label="Full Name" />
+      <form
+        onSubmit={handleSubmit}
+        className="relative z-10 flex flex-col gap-6 md:gap-8 bg-black/40 backdrop-blur-xl border-t md:border-t-0 md:border-l border-stone-500 p-6 sm:p-8 md:p-10"
+      >
+        <FormField label="Full Name" name="fullName" />
 
         <div className="flex flex-col sm:flex-row gap-4 md:gap-5">
-          {contactFields.map((field) => (
-            <FormField key={field.name} label={field.label} type={field.type} />
+          {contactFields.map(({ name, label, type }) => (
+            <FormField key={name} name={name} label={label} type={type} />
           ))}
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label className="text-[#F5F5F580] text-xs md:text-sm font-medium">
+          <Label htmlFor="contact-service" className="text-[#F5F5F580] text-xs md:text-sm font-medium">
             Service Interested In
           </Label>
           <Select>
-            <SelectTrigger className="h-11 md:h-12 rounded-xl bg-zinc-800/25 border border-blue-600 px-4 text-white outline-none">
+            <SelectTrigger
+              id="contact-service"
+              className="h-11 md:h-12 rounded-xl bg-zinc-800/25 border border-blue-600 px-4 text-white outline-none"
+            >
               <SelectValue placeholder="Select a service" />
             </SelectTrigger>
             <SelectContent>
@@ -46,16 +58,20 @@ export function ContactMessageForm() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label className="text-[#F5F5F580] text-xs md:text-sm font-medium">
+          <Label htmlFor="contact-message" className="text-[#F5F5F580] text-xs md:text-sm font-medium">
             Message
           </Label>
-          <Textarea className="h-32 md:h-40 rounded-2xl bg-zinc-800/25 border border-white/10 px-4 py-3 text-white outline-none resize-none focus:border-blue-500 transition" />
+          <Textarea
+            id="contact-message"
+            name="message"
+            className="h-32 md:h-40 rounded-2xl bg-zinc-800/25 border border-white/10 px-4 py-3 text-white outline-none resize-none focus:border-blue-500 transition"
+          />
         </div>
 
-        <Button className="h-11 md:h-12 bg-white rounded-xl text-zinc-800 text-base md:text-lg font-semibold flex justify-center items-center gap-2 hover:scale-[1.02] transition hover:bg-white">
+        <Button type="submit" className="h-11 md:h-12 bg-white rounded-xl text-zinc-800 text-base md:text-lg font-semibold flex justify-center items-center gap-2 hover:scale-[1.02] transition hover:bg-white">
           Send Message →
         </Button>
-      </div>
+      </form>
     </div>
   );
 }
