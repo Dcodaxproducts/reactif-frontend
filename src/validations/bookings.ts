@@ -1,27 +1,67 @@
 import { z } from "zod";
 import type { Service } from "@/types/categories";
 
-const buildEmailValidator = (label: string, isRequired: boolean) => {
-  const validator = z.string().email(`${label} must be a valid email`);
+export const isBlankValue = (value: unknown) => {
+  return typeof value === "string" ? value.trim() === "" : value == null;
+};
+
+export const normalizeOptionalStringInput = (value: unknown) => {
+  if (isBlankValue(value)) return undefined;
+  return typeof value === "string" ? value.trim() : value;
+};
+
+export const isValidNumberInput = (value: unknown) => {
+  if (typeof value === "number") return Number.isFinite(value);
+
+  if (typeof value !== "string") return false;
+
+  const trimmedValue = value.trim();
+  if (trimmedValue === "") return false;
+
+  return Number.isFinite(Number(trimmedValue));
+};
+
+export const isFileValue = (value: unknown): value is File => {
+  const FileConstructor = globalThis.File;
+
+  return (
+    typeof FileConstructor !== "undefined" &&
+    value !== null &&
+    value !== undefined &&
+    FileConstructor.prototype.isPrototypeOf(value)
+  );
+};
+
+const buildStringValidator = (label: string, isRequired: boolean) => {
+  const validator = z.string().trim().min(1, `${label} is required`);
 
   if (isRequired) {
-    return z
-      .string()
-      .min(1, `${label} is required`)
-      .pipe(validator);
+    return validator;
+  }
+
+  return z.preprocess(normalizeOptionalStringInput, z.string().optional());
+};
+
+const buildEmailValidator = (label: string, isRequired: boolean) => {
+  const validator = z
+    .string()
+    .trim()
+    .min(1, `${label} is required`)
+    .email(`${label} must be a valid email`);
+
+  if (isRequired) {
+    return validator;
   }
 
   return z.preprocess(
-    (value) => (value === "" || value == null ? undefined : value),
-    validator.optional(),
+    normalizeOptionalStringInput,
+    z.string().email(`${label} must be a valid email`).optional(),
   );
 };
 
 const buildNumberValidator = (label: string, isRequired: boolean) => {
   return z.unknown().superRefine((value, ctx) => {
-    const normalizedValue = typeof value === "string" ? value.trim() : value;
-
-    if (normalizedValue === "" || normalizedValue == null) {
+    if (isBlankValue(value)) {
       if (isRequired) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -32,10 +72,7 @@ const buildNumberValidator = (label: string, isRequired: boolean) => {
       return;
     }
 
-    const numericValue =
-      typeof normalizedValue === "number" ? normalizedValue : +normalizedValue;
-
-    if (!Number.isFinite(numericValue)) {
+    if (!isValidNumberInput(value)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: `${label} must be a valid number`,
@@ -45,23 +82,20 @@ const buildNumberValidator = (label: string, isRequired: boolean) => {
 };
 
 const buildPhoneValidator = (label: string, isRequired: boolean) => {
-  const validator = z.string().min(6, `${label} must be a valid phone number`);
+  const validator = z
+    .string()
+    .trim()
+    .min(1, `${label} is required`)
+    .min(6, `${label} must be a valid phone number`);
 
   if (isRequired) {
-    return z
-      .string()
-      .min(1, `${label} is required`)
-      .pipe(validator);
+    return validator;
   }
 
   return z.preprocess(
-    (value) => (value === "" || value == null ? undefined : value),
-    validator.optional(),
+    normalizeOptionalStringInput,
+    z.string().min(6, `${label} must be a valid phone number`).optional(),
   );
-};
-
-const isFileValue = (value: unknown): value is File => {
-  return typeof File !== "undefined" && value instanceof File;
 };
 
 const buildFileValidator = (label: string, isRequired: boolean) => {
@@ -122,12 +156,7 @@ export const buildServiceValidationSchema = (service?: Service | null) => {
         validator = buildCheckboxValidator(label, is_required);
         break;
       default:
-        validator = is_required
-          ? z.string().min(1, `${label} is required`)
-          : z.preprocess(
-              (value) => (value === "" || value == null ? undefined : value),
-              z.string().optional(),
-            );
+        validator = buildStringValidator(label, is_required);
     }
 
     schemaFields[field_name] = validator;

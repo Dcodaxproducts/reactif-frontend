@@ -5,7 +5,10 @@ import type {
   ServiceFormValue,
   ServiceFormValues,
 } from "@/types/component-props";
-import { buildServiceValidationSchema } from "@/validations/bookings";
+import {
+  buildServiceValidationSchema,
+  isFileValue,
+} from "@/validations/bookings";
 
 const buildInitialServiceValue = ({
   input_type,
@@ -107,8 +110,10 @@ export const buildBookingFormData = ({
     const fileKey = `file_${fieldId}`;
     const isFileInput = input_type === "file";
 
-    if (isFileInput && value instanceof File) {
-      formData.append(fileKey, value);
+    const fileValue = isFileValue(value) ? value : null;
+
+    if (isFileInput && fileValue) {
+      formData.append(fileKey, fileValue);
     }
 
     return {
@@ -117,7 +122,7 @@ export const buildBookingFormData = ({
       field_type: input_type,
       lable: label,
       value: isFileInput
-        ? value instanceof File
+        ? fileValue
           ? fileKey
           : null
         : Array.isArray(value)
