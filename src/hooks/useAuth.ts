@@ -39,14 +39,16 @@ export const authKeys = {
 };
 
 const getAuthUserFromResponse = (data: AuthResponse): AuthUser | null => {
-  if (data.user) return data.user;
-  if (!data.email) return null;
+  const { user, email, userId, id, displayName, name, isVerified } = data;
+
+  if (user) return user;
+  if (!email) return null;
 
   return {
-    userId: data.userId ?? data.id ?? 0,
-    email: data.email,
-    displayName: data.displayName ?? data.name ?? data.email,
-    isVerified: data.isVerified ?? true,
+    userId: userId ?? id ?? 0,
+    email,
+    displayName: displayName ?? name ?? email,
+    isVerified: isVerified ?? true,
   };
 };
 

@@ -1,10 +1,17 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
 import {
+  AUTH_ERROR_CLASS,
+  AUTH_FORM_CLASS,
+  AUTH_OTP_INPUT_CLASS,
+  AUTH_RESEND_BUTTON_CLASS,
+  AUTH_RESEND_ROW_CLASS,
   AuthFormShell,
   AuthInlineLink,
   AuthSubmitButton,
@@ -13,51 +20,39 @@ import {
 import { Button } from "@/components/ui/button";
 import { useResendAuthCode, useResetPassword } from "@/hooks/useAuth";
 import {
-  getSchemaValidationMessage,
   resetPasswordSchema,
+  type ResetPasswordFormValues,
 } from "@/validations/auth";
-
-const OTP_INPUT_CLASS = "text-center tracking-widest text-lg";
 
 const VerifyOtpForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") ?? "";
-  const [otp, setOtp] = useState("");
-  const [newPassword, setNewPassword] = useState("");
   const [countdown, setCountdown] = useState(60);
-  const [canResend, setCanResend] = useState(false);
   const resetPasswordMutation = useResetPassword();
   const resendOtpMutation = useResendAuthCode();
-  const loading =
-    resetPasswordMutation.isPending || resendOtpMutation.isPending;
+  const loading = resetPasswordMutation.isPending || resendOtpMutation.isPending;
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+  } = useForm<ResetPasswordFormValues>({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: {
+      email,
+      otp: "",
+      newPassword: "",
+    },
+  });
 
   useEffect(() => {
-    if (countdown <= 0) {
-      setCanResend(true);
-      return;
-    }
+    if (countdown <= 0) return;
 
     const timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
     return () => clearTimeout(timer);
   }, [countdown]);
 
-  const validateForm = () =>
-    getSchemaValidationMessage(resetPasswordSchema, {
-      email,
-      otp,
-      newPassword,
-    });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const validationError = validateForm();
-    if (validationError) {
-      toast.error(validationError);
-      return;
-    }
-
+  const onSubmit = async ({ otp, newPassword }: ResetPasswordFormValues) => {
     try {
       await resetPasswordMutation.mutateAsync({ email, otp, newPassword });
       setTimeout(() => router.push("/login"), 1500);
@@ -75,7 +70,6 @@ const VerifyOtpForm = () => {
     try {
       await resendOtpMutation.mutateAsync({ email });
       setCountdown(60);
-      setCanResend(false);
     } catch {
       // handled by mutation toast
     }
@@ -87,33 +81,41 @@ const VerifyOtpForm = () => {
       description="Enter OTP sent to your email and choose a new password"
       footer
     >
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
         <AuthTextField
           label="OTP"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
           maxLength={5}
           placeholder="12345"
-          className={OTP_INPUT_CLASS}
+          className={AUTH_OTP_INPUT_CLASS}
+          error={errors.otp?.message}
+          {...register("otp", {
+            onChange: (event) => {
+              event.target.value = event.target.value.replace(/\D/g, "");
+            },
+          })}
         />
         <AuthTextField
           label="New Password"
           type="password"
           placeholder="Enter new password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
+          error={errors.newPassword?.message}
+          {...register("newPassword")}
         />
+
+        {errors.email?.message && (
+          <p className={AUTH_ERROR_CLASS}>{errors.email.message}</p>
+        )}
 
         <AuthSubmitButton type="submit" disabled={loading}>
           {loading ? "Resetting..." : "Reset Password"}
         </AuthSubmitButton>
 
-        <div className="text-center text-sm text-neutral-50/60">
-          {canResend ? (
+        <div className={AUTH_RESEND_ROW_CLASS}>
+          {countdown <= 0 ? (
             <Button
               type="button"
               onClick={handleResend}
-              className="text-blue-600 font-semibold"
+              className={AUTH_RESEND_BUTTON_CLASS}
             >
               Resend OTP
             </Button>

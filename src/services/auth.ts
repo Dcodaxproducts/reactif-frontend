@@ -43,15 +43,19 @@ export const AUTH_ROUTES = {
   changePassword: "/auth/change-password",
 };
 
-const mapCurrentUser = (user: BackendUserProfile): AuthUser => ({
-  userId: user.id,
-  email: user.email,
-  displayName: user.name || user.email,
-  isVerified: true,
-});
+const mapCurrentUser = (user: BackendUserProfile): AuthUser => {
+  const { id, email, name } = user;
+
+  return {
+    userId: id,
+    email,
+    displayName: name || email,
+    isVerified: true,
+  };
+};
 
 export const getCurrentUser = async (): Promise<AuthUser> => {
-  const { data } = await api.get<ApiItemResponse<BackendUserProfile>>(
+  const { data: response } = await api.get<ApiItemResponse<BackendUserProfile>>(
     AUTH_ROUTES.currentUser,
     {
       headers: {
@@ -59,8 +63,9 @@ export const getCurrentUser = async (): Promise<AuthUser> => {
       },
     },
   );
+  const { data } = response;
 
-  return mapCurrentUser(data.data ?? (data as unknown as BackendUserProfile));
+  return mapCurrentUser(data ?? (response as unknown as BackendUserProfile));
 };
 
 export const loginUser = async (

@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import {
+  AUTH_ERROR_CLASS,
+  AUTH_FORM_CLASS,
+  AUTH_FORM_GRID_CLASS,
+  AUTH_SUCCESS_CLASS,
   AuthFormShell,
   AuthInlineLink,
   AuthSubmitButton,
@@ -11,65 +16,44 @@ import {
 } from "@/components/forms/AuthFormShell";
 import { useRegister } from "@/hooks/useAuth";
 import {
-  getSchemaValidationMessage,
   registrationSchema,
+  type RegistrationFormValues,
 } from "@/validations/auth";
 
-const REGISTER_FIELD_CLASS = "bg-transparent border-neutral-50/30 text-white focus:border-blue-600";
-
 export default function RegistrationForm() {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    username: "",
-    phone: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const registerMutation = useRegister();
   const loading = registerMutation.isPending;
+  const {
+    formState: { errors, isSubmitSuccessful },
+    handleSubmit,
+    register,
+  } = useForm<RegistrationFormValues>({
+    resolver: zodResolver(registrationSchema),
+    defaultValues: {
+      fullName: "",
+      username: "",
+      phone: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((current) => ({ ...current, [e.target.name]: e.target.value }));
-  };
-
-  const validateForm = () =>
-    getSchemaValidationMessage(registrationSchema, formData);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
-
+  const onSubmit = async ({
+    fullName,
+    email,
+    phone,
+    password,
+  }: RegistrationFormValues) => {
     if (!navigator.onLine) {
-      setError("No internet connection.");
       toast.error("No internet connection.");
       return;
     }
 
-    const validationError = validateForm();
-    if (validationError) {
-      setError(validationError);
-      toast.error(validationError);
-      return;
-    }
-
     try {
-      await registerMutation.mutateAsync({
-        fullName: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        password: formData.password,
-      });
-      setSuccess(
-        "Account created successfully! Please verify your email with the OTP sent.",
-      );
-    } catch (err: unknown) {
-      const message =
-        err instanceof Error ? err.message : "Something went wrong.";
-      setError(message);
+      await registerMutation.mutateAsync({ fullName, email, phone, password });
+    } catch {
+      // handled by mutation toast
     }
   };
 
@@ -78,66 +62,59 @@ export default function RegistrationForm() {
       title="Create New Account"
       description="Join ReactIf Printing and Design Today"
     >
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
         <AuthTextField
           label="Full Name"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleChange}
           placeholder="Enter Full Name"
-          className={REGISTER_FIELD_CLASS}
+          error={errors.fullName?.message}
+          {...register("fullName")}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className={AUTH_FORM_GRID_CLASS}>
           <AuthTextField
             label="Username (Optional)"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
             placeholder="Enter Username"
-            className={REGISTER_FIELD_CLASS}
+            error={errors.username?.message}
+            {...register("username")}
           />
           <AuthTextField
             label="Phone Number"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
             placeholder="Enter Phone Number"
-            className={REGISTER_FIELD_CLASS}
+            error={errors.phone?.message}
+            {...register("phone")}
           />
         </div>
 
         <AuthTextField
           label="Email"
           type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
           placeholder="Enter Your Email"
-          className={REGISTER_FIELD_CLASS}
+          error={errors.email?.message}
+          {...register("email")}
         />
         <AuthTextField
           label="Password"
           type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
           placeholder="Enter Password"
-          className={REGISTER_FIELD_CLASS}
+          error={errors.password?.message}
+          {...register("password")}
         />
         <AuthTextField
           label="Confirm Password"
           type="password"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
           placeholder="Enter Confirm Password"
-          className={REGISTER_FIELD_CLASS}
+          error={errors.confirmPassword?.message}
+          {...register("confirmPassword")}
         />
 
-        {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
-        {success && (
-          <p className="text-green-500 text-sm font-medium">{success}</p>
+        {registerMutation.isError && (
+          <p className={AUTH_ERROR_CLASS}>Something went wrong.</p>
+        )}
+        {isSubmitSuccessful && !registerMutation.isError && (
+          <p className={AUTH_SUCCESS_CLASS}>
+            Account created successfully! Please verify your email with the OTP
+            sent.
+          </p>
         )}
 
         <AuthSubmitButton type="submit" disabled={loading}>

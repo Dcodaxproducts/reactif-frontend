@@ -14,10 +14,17 @@ const AUTH_TITLE_CLASS =
   "bg-gradient-to-r from-[#F262B5] to-[#9F73F1] bg-clip-text text-transparent text-2xl sm:text-3xl md:text-4xl font-bold font-hk uppercase";
 const AUTH_DESCRIPTION_CLASS =
   "text-neutral-50/60 text-sm sm:text-base font-semibold font-hk";
+export const AUTH_FORM_CLASS = "space-y-6";
+export const AUTH_FORM_GRID_CLASS = "grid grid-cols-1 md:grid-cols-2 gap-6";
 export const AUTH_INPUT_CLASS =
   "bg-transparent border-neutral-50/30 text-white focus:border-blue-600";
 export const AUTH_LINK_TEXT_CLASS =
   "text-center text-sm sm:text-base font-semibold text-neutral-50/60";
+export const AUTH_ERROR_CLASS = "text-red-500 text-sm font-medium";
+export const AUTH_SUCCESS_CLASS = "text-green-500 text-sm font-medium";
+export const AUTH_RESEND_ROW_CLASS = "text-center text-sm text-neutral-50/60";
+export const AUTH_RESEND_BUTTON_CLASS = "text-blue-600 font-semibold";
+export const AUTH_OTP_INPUT_CLASS = "text-center tracking-widest text-lg";
 export const AUTH_FOOTER_TEXT =
   "© 2026 ReactIf Printing & Design. All rights reserved";
 
@@ -58,13 +65,24 @@ export function AuthFormShell({
 
 type AuthTextFieldProps = {
   label: string;
+  error?: string;
 } & React.ComponentProps<typeof Input>;
 
-export function AuthTextField({ label, className, ...props }: AuthTextFieldProps) {
+export function AuthTextField({
+  label,
+  className,
+  error,
+  ...props
+}: AuthTextFieldProps) {
   return (
     <div className="space-y-2">
       <Label className="text-neutral-50 font-semibold">{label}</Label>
-      <Input className={cn(AUTH_INPUT_CLASS, className)} {...props} />
+      <Input
+        aria-invalid={Boolean(error)}
+        className={cn(AUTH_INPUT_CLASS, className)}
+        {...props}
+      />
+      {error && <p className={AUTH_ERROR_CLASS}>{error}</p>}
     </div>
   );
 }

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 import {
+  AUTH_FORM_CLASS,
   AuthFormShell,
   AuthInlineLink,
   AuthSubmitButton,
@@ -12,28 +13,26 @@ import {
 import { useForgotPassword } from "@/hooks/useAuth";
 import {
   forgotPasswordSchema,
-  getSchemaValidationMessage,
+  type ForgotPasswordFormValues,
 } from "@/validations/auth";
 
 const ForgotPasswordForm = () => {
-  const [email, setEmail] = useState("");
   const forgotPasswordMutation = useForgotPassword();
   const loading = forgotPasswordMutation.isPending;
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+  } = useForm<ForgotPasswordFormValues>({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
 
-  const validateForm = () =>
-    getSchemaValidationMessage(forgotPasswordSchema, { email });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const validationError = validateForm();
-    if (validationError) {
-      toast.error(validationError);
-      return;
-    }
-
+  const onSubmit = async (values: ForgotPasswordFormValues) => {
     try {
-      await forgotPasswordMutation.mutateAsync({ email });
+      await forgotPasswordMutation.mutateAsync(values);
     } catch {
       // handled by mutation toast
     }
@@ -46,13 +45,13 @@ const ForgotPasswordForm = () => {
       descriptionClassName="mx-auto max-w-[400px]"
       footer
     >
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
         <AuthTextField
           label="Email"
           type="email"
           placeholder="Enter your registered email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          error={errors.email?.message}
+          {...register("email")}
         />
 
         <AuthSubmitButton type="submit" disabled={loading}>

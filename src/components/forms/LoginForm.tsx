@@ -1,47 +1,47 @@
 "use client";
 
-import React, { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import {
+  AUTH_FORM_CLASS,
   AuthFormShell,
   AuthInlineLink,
   AuthSubmitButton,
   AuthTextField,
 } from "@/components/forms/AuthFormShell";
 import { useLogin } from "@/hooks/useAuth";
-import { getSchemaValidationMessage, loginSchema } from "@/validations/auth";
+import { loginSchema, type LoginFormValues } from "@/validations/auth";
 
 export default function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const redirectUrl =
     typeof window !== "undefined"
       ? new URLSearchParams(window.location.search).get("redirect")
       : null;
   const loginMutation = useLogin(redirectUrl);
   const loading = loginMutation.isPending;
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  const validateForm = () =>
-    getSchemaValidationMessage(loginSchema, { email, password });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = async (values: LoginFormValues) => {
     if (!navigator.onLine) {
       toast.error("No internet connection.");
       return;
     }
 
-    const validationError = validateForm();
-    if (validationError) {
-      toast.error(validationError);
-      return;
-    }
-
     try {
-      await loginMutation.mutateAsync({ email, password });
+      await loginMutation.mutateAsync(values);
     } catch {
       // handled by mutation toast
     }
@@ -53,21 +53,21 @@ export default function LoginForm() {
       description="Join ReactIf Printing and Design Today"
       footer
     >
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
         <AuthTextField
           label="Email"
           placeholder="Enter Your Email"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          error={errors.email?.message}
+          {...register("email")}
         />
 
         <AuthTextField
           label="Password"
           placeholder="Enter Password"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          error={errors.password?.message}
+          {...register("password")}
         />
 
         <div className="text-right -mt-4">
