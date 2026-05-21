@@ -4,10 +4,10 @@ import { HeroBadge } from "./HeroBadge";
 
 export function HeroContent() {
   return (
-    <div className="space-y-5 text-center md:text-left md:max-w-[700px] xl:max-w-[760px]">
+    <div className="space-y-4 text-center md:text-left md:max-w-[680px] xl:max-w-[740px]">
       <HeroBadge />
 
-      <HeroTitle className="text-[clamp(3.2rem,7vw,6.25rem)] leading-[0.95] tracking-[-0.04em]">
+      <HeroTitle className="text-[clamp(2.65rem,6vw,5.75rem)] leading-[0.98] tracking-[-0.04em]">
         <span className="block whitespace-nowrap">TRANSFORM YOUR</span>
         <span className="block whitespace-nowrap">VEHICLES INTO</span>
         <span className="block whitespace-nowrap">ADVERTISING TOOLS</span>

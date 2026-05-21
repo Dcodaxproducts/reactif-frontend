@@ -9,7 +9,7 @@ export function HeroCarImage() {
         width={980}
         height={700}
         priority
-        className="object-contain w-full max-w-[520px] sm:max-w-[620px] md:max-w-[700px] lg:max-w-[760px] xl:max-w-[860px] 2xl:max-w-[940px] lg:translate-x-6 xl:translate-x-10"
+        className="object-contain w-full max-w-[500px] sm:max-w-[600px] md:max-w-[680px] lg:max-w-[780px] xl:max-w-[900px] 2xl:max-w-[980px] lg:translate-x-4 xl:translate-x-6"
       />
     </div>
   );

@@ -17,9 +17,7 @@ export default function Hero() {
       />
 
       <Container
-        width="7xl"
-        gutter="hero"
-        className="grid grid-cols-1 items-center gap-10 pt-10 pb-12 md:pt-14 md:pb-16 lg:min-h-[calc(100svh-140px)] lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.92fr)] lg:gap-8 lg:pt-10 lg:pb-10 xl:min-h-[720px] xl:gap-10 xl:pt-14 xl:pb-14 2xl:min-h-[780px]"
+        className="grid w-[95%] max-w-none grid-cols-1 items-center gap-8 pt-8 pb-10 md:pt-10 md:pb-12 lg:min-h-[calc(100svh-140px)] lg:grid-cols-[minmax(0,1fr)_minmax(400px,1fr)] lg:gap-6 lg:pt-6 lg:pb-8 xl:min-h-[700px] xl:gap-8 2xl:min-h-[760px]"
       >
         <HeroContent />
         <HeroCarImage />
