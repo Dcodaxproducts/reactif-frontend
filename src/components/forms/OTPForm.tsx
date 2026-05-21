@@ -80,7 +80,7 @@ const OTPForm = () => {
       title="Verify Your Account"
       description="Enter the 5-digit code sent to your email"
     >
-      <form className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
         <AuthTextField
           label="Verification Code"
           maxLength={5}

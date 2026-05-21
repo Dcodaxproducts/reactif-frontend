@@ -53,7 +53,7 @@ export default function LoginForm() {
       description="Join ReactIf Printing and Design Today"
       footer
     >
-      <form className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
         <AuthTextField
           label="Email"
           placeholder="Enter Your Email"

@@ -62,7 +62,7 @@ export default function RegistrationForm() {
       title="Create New Account"
       description="Join ReactIf Printing and Design Today"
     >
-      <form className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
         <AuthTextField
           label="Full Name"
           placeholder="Enter Full Name"

@@ -45,7 +45,7 @@ const ForgotPasswordForm = () => {
       descriptionClassName="mx-auto max-w-[400px]"
       footer
     >
-      <form className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
         <AuthTextField
           label="Email"
           type="email"

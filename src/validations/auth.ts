@@ -55,6 +55,7 @@ export const registrationSchema = z
 export type LoginFormValues = z.infer<typeof loginSchema>;
 export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
+export type ResetPasswordValues = ResetPasswordFormValues;
 export type OtpFormValues = z.infer<typeof otpSchema>;
 export type RegistrationFormValues = z.infer<typeof registrationSchema>;
 

@@ -20,7 +20,7 @@ import { useResendAuthCode, useResetPassword } from "@/hooks/useAuth";
 import { useOtpCountdown } from "@/hooks/useOtpCountdown";
 import {
   resetPasswordSchema,
-  type ResetPasswordFormValues,
+  type ResetPasswordValues,
 } from "@/validations/auth";
 
 const VerifyOtpForm = () => {
@@ -35,7 +35,7 @@ const VerifyOtpForm = () => {
     formState: { errors },
     handleSubmit,
     register,
-  } = useForm<ResetPasswordFormValues>({
+  } = useForm<ResetPasswordValues>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
       email,
@@ -44,7 +44,7 @@ const VerifyOtpForm = () => {
     },
   });
 
-  const onSubmit = async ({ otp, newPassword }: ResetPasswordFormValues) => {
+  const onSubmit = async ({ otp, newPassword }: ResetPasswordValues) => {
     try {
       await resetPasswordMutation.mutateAsync({ email, otp, newPassword });
       setTimeout(() => router.push("/login"), 1500);
@@ -73,7 +73,7 @@ const VerifyOtpForm = () => {
       description="Enter OTP sent to your email and choose a new password"
       footer
     >
-      <form className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
         <AuthTextField
           label="OTP"
           maxLength={5}
