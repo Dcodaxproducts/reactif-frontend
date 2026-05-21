@@ -39,8 +39,8 @@ const Navbar = () => {
   return (
     <>
       <nav className="w-full flex justify-center py-4 md:py-6 px-4 md:px-10">
-        <div className="w-[95%] border border-[#FFFFFF3D] rounded-[14px] px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3 md:gap-5">
+        <div className="flex w-[95%] items-center justify-between gap-4 rounded-[14px] border border-[#FFFFFF3D] px-4 py-3 md:px-6 md:py-4">
+          <div className="flex min-w-0 items-center gap-3 md:gap-5">
             <Button
               className="md:hidden text-white"
               onClick={() => setIsSidebarOpen(true)}
