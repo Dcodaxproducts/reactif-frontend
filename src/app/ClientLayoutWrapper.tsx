@@ -12,7 +12,7 @@ function ClientLayoutContent({ children }: { children: ReactNode }) {
   useAuth();
 
   return (
-    <div className="min-h-screen bg-[#010304] text-white">
+    <div className="min-h-screen bg-transparent text-white">
       <TopInfoBar />
       <Navbar />
       <Toaster position="top-right" richColors />
