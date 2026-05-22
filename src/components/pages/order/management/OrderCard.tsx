@@ -23,7 +23,7 @@ export function OrderCard({ booking }: { booking: Booking }) {
     null;
   const progress = getProgressFromStatus(status);
   const showTracking = status === "accepted" || status === "completed";
-  const title = `${String(serviceData?.service_name || serviceName || "Booking")}${quantity ? ` (x${quantity})` : ""}`;
+  const title = `${String(serviceData?.service_name ?? serviceName ?? "Booking")}${quantity ? ` (x${quantity})` : ""}`;
   const scheduledDate = schedule_datetime
     ? new Date(schedule_datetime).toLocaleDateString()
     : "Not Scheduled";

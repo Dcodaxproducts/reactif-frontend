@@ -14,9 +14,9 @@ const Subcategories = () => {
   const categoryId = searchParams.get("id");
 
   const { category, loading, error } = useCategoryDetail(categoryId);
-  const categoryName = category?.name || "";
-  const subcategories = (category?.subcategories || []).filter(
-    (item) => item.status === 1,
+  const categoryName = category?.name ?? "";
+  const subcategories = (category?.subcategories ?? []).filter(
+    ({ status }) => status === 1,
   );
   const errorState =
     error ||

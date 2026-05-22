@@ -12,6 +12,9 @@ import { useDeleteAccount, useProfile } from "@/hooks/useProfile";
 import { PROFILE_AVATAR_FALLBACK, getImageSource } from "@/lib/image-source";
 import { toast } from "sonner";
 
+const getDisplayValue = (value?: string | null, fallback = "Not provided") =>
+  value?.trim() ? value : fallback;
+
 const Profile = () => {
   const router = useRouter();
   const { user, loading, error } = useProfile();
@@ -55,8 +58,8 @@ const Profile = () => {
   const profileInfoItems = [
     { label: "Full Name", value: name },
     { label: "Email Address", value: email },
-    { label: "Phone Number", value: phone ?? "Not provided" },
-    { label: "Address", value: address ?? "Not provided" },
+    { label: "Phone Number", value: getDisplayValue(phone) },
+    { label: "Address", value: getDisplayValue(address) },
   ];
   const bioText = bio?.trim() ? bio : "No bio provided";
 

@@ -41,12 +41,15 @@ export default function Page() {
   const { services, loading: isLoading } =
     useServicesBySubcategory(activeSubcategoryId);
 
-  const categoryName = category?.name || "";
+  const categoryName = category?.name ?? "";
   const status = category?.status ?? 1;
   const subcategories = useMemo(
-    () => (category?.subcategories || []) as Subcategory[],
+    () => (category?.subcategories ?? []) as Subcategory[],
     [category?.subcategories],
   );
+  const displayCategoryName = activeCategory.trim()
+    ? activeCategory
+    : categoryName;
 
   useEffect(() => {
     if (!subcategories.length) return;
@@ -132,7 +135,7 @@ export default function Page() {
             <div className="w-full lg:flex-1">
               <CarPreviewSection
                 activeItem={activeItem}
-                activeCategory={activeCategory || categoryName}
+                activeCategory={displayCategoryName}
                 services={services}
                 isLoading={isLoading}
               />
@@ -142,7 +145,7 @@ export default function Page() {
               <PaintProtectionCard
                 activeItem={activeItem}
                 setActiveItem={setActiveItem}
-                activeCategory={activeCategory || categoryName}
+                activeCategory={displayCategoryName}
                 services={services}
                 isLoading={isLoading}
               />

@@ -30,17 +30,21 @@ export default function SpecialistGrid({
         ) => {
           const avatarColor =
             specialistAvatarColors[index % specialistAvatarColors.length];
+          const specialistName = name?.trim() ? name : "Unnamed Specialist";
+          const specialistAddress = address?.trim()
+            ? address
+            : "Location not specified";
 
           return (
             <SpecialistCard
               key={id}
-              name={name || "Unnamed Specialist"}
+              name={specialistName}
               role={
                 is_available ? "Available Designer" : "Currently Unavailable"
               }
               rating={rating ?? 0}
               reviews={0}
-              location={address || "Location not specified"}
+              location={specialistAddress}
               tags={[is_online ? "Online" : "Offline", "Professional Designer"]}
               experience="Professional"
               price="Contact for price"
