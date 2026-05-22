@@ -49,23 +49,46 @@ const mapCurrentUser = (user: BackendUserProfile): AuthUser => {
   return {
     userId: id,
     email,
-    displayName: name || email,
+    displayName: name ?? email,
     isVerified: true,
   };
 };
 
-export const getCurrentUser = async (): Promise<AuthUser> => {
-  const { data: response } = await api.get<ApiItemResponse<BackendUserProfile>>(
-    AUTH_ROUTES.currentUser,
-    {
-      headers: {
-        Accept: "application/json",
-      },
-    },
-  );
-  const { data } = response;
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null;
 
-  return mapCurrentUser(data ?? (response as unknown as BackendUserProfile));
+const isBackendUserProfile = (value: unknown): value is BackendUserProfile =>
+  isRecord(value) &&
+  typeof value.id === "number" &&
+  typeof value.email === "string" &&
+  typeof value.name === "string" &&
+  typeof value.created_at === "string" &&
+  typeof value.updated_at === "string";
+
+const resolveCurrentUserResponse = (
+  response: ApiItemResponse<BackendUserProfile> | BackendUserProfile,
+): BackendUserProfile => {
+  if (isBackendUserProfile(response)) {
+    return response;
+  }
+
+  if (isRecord(response) && isBackendUserProfile(response.data)) {
+    return response.data;
+  }
+
+  throw new Error("Invalid current user response");
+};
+
+export const getCurrentUser = async (): Promise<AuthUser> => {
+  const { data: response } = await api.get<
+    ApiItemResponse<BackendUserProfile> | BackendUserProfile
+  >(AUTH_ROUTES.currentUser, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  return mapCurrentUser(resolveCurrentUserResponse(response));
 };
 
 export const loginUser = async (
