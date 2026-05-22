@@ -1,24 +1,24 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { X, PencilRuler, Brush } from "lucide-react";
 
-interface Props {
+type DesignPathModalProps = {
   isOpen: boolean;
   onClose: () => void;
   subcategoryId: number;
   subcategoryName: string;
   subcategorySlug: string;
-}
+};
 
-const DesignPathModal: React.FC<Props> = ({
+export default function DesignPathModal({
   isOpen,
   onClose,
   subcategoryId,
   subcategoryName,
-}) => {
+  subcategorySlug,
+}: DesignPathModalProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -34,17 +34,16 @@ const DesignPathModal: React.FC<Props> = ({
       categoryId: categoryId,
       subcategoryId: String(subcategoryId),
       subcategoryName: subcategoryName,
-      categorySlug: searchParams.get("slug") || "",
+      subcategorySlug,
+      categorySlug: searchParams.get("slug") ?? "",
       from: "design-path-modal",
     };
 
     const query = new URLSearchParams(baseQuery).toString();
 
     if (pathType === "have-design") {
-      // User already has design → go to upload / product page
       router.push(`/paint-protection/${categoryId}?${query}`);
     } else {
-      // User needs designer → go to vendors listing
       router.push(`/all-vendor-services?${query}`);
     }
 
@@ -61,6 +60,8 @@ const DesignPathModal: React.FC<Props> = ({
       <div className="flex min-h-screen items-start md:items-center justify-center px-4 py-10">
         <div className="relative w-full max-w-4xl bg-[#0B0F19] rounded-3xl border border-gray-800 p-6 md:p-12 animate-scaleIn">
           <Button
+            type="button"
+            aria-label="Close design path modal"
             onClick={onClose}
             className="absolute top-5 right-5 bg-gray-800 rounded-full p-2 text-gray-400 hover:text-white transition"
           >
@@ -74,7 +75,6 @@ const DesignPathModal: React.FC<Props> = ({
           </div>
 
           <div className="flex flex-col md:flex-row gap-6">
-            {/* HAVE DESIGN */}
             <div className="flex-1 p-8 bg-black/50 rounded-3xl border border-gray-800 text-center">
               <div className="flex justify-center mb-6">
                 <div className="w-20 h-20 bg-gray-900 rounded-3xl border border-gray-800 flex items-center justify-center">
@@ -92,6 +92,7 @@ const DesignPathModal: React.FC<Props> = ({
               </p>
 
               <Button
+                type="button"
                 onClick={() => handleSelect("have-design")}
                 className="w-full h-11 bg-pink-400 rounded-full text-white font-semibold hover:opacity-90 transition"
               >
@@ -99,7 +100,6 @@ const DesignPathModal: React.FC<Props> = ({
               </Button>
             </div>
 
-            {/* NEED DESIGNER */}
             <div className="flex-1 p-8 bg-black/50 rounded-3xl border border-gray-800 text-center">
               <div className="flex justify-center mb-6">
                 <div className="w-20 h-20 bg-gray-900 rounded-3xl border border-gray-800 flex items-center justify-center">
@@ -117,6 +117,7 @@ const DesignPathModal: React.FC<Props> = ({
               </p>
 
               <Button
+                type="button"
                 onClick={() => handleSelect("need-designer")}
                 className="w-full h-11 bg-sky-300 rounded-full text-white font-semibold hover:opacity-90 transition"
               >
@@ -158,6 +159,4 @@ const DesignPathModal: React.FC<Props> = ({
       `}</style>
     </div>
   );
-};
-
-export default DesignPathModal;
+}

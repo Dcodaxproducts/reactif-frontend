@@ -1,24 +1,25 @@
 "use client";
 
-import React from "react";
-import clsx from "clsx";
+import type { CSSProperties } from "react";
 
-interface GlobalBackgroundProps {
+import { cn } from "@/lib/utils";
+
+type GlobalBackgroundProps = {
   imageUrl?: string;
   overlayColor?: string;
   className?: string;
-  style?: React.CSSProperties;
-}
+  style?: CSSProperties;
+};
 
-const GlobalBackground: React.FC<GlobalBackgroundProps> = ({
+export default function GlobalBackground({
   imageUrl = "/assets/AllVendorServices/background.png",
   overlayColor = "#010304",
   className,
   style,
-}) => {
+}: GlobalBackgroundProps) {
   return (
     <div
-      className={clsx(
+      className={cn(
         "pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat",
         className,
       )}
@@ -29,6 +30,4 @@ const GlobalBackground: React.FC<GlobalBackgroundProps> = ({
       }}
     />
   );
-};
-
-export default GlobalBackground;
+}
