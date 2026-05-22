@@ -37,6 +37,7 @@ function CatalogCard({ item }: CatalogCardProps) {
         <div className="flex justify-between items-center pt-4">
           <button
             type="button"
+            aria-label={`View details for ${title}`}
             className="flex items-center gap-2 text-sm font-semibold text-orange-500 transition hover:gap-3"
           >
             View Details
@@ -45,6 +46,7 @@ function CatalogCard({ item }: CatalogCardProps) {
 
           <button
             type="button"
+            aria-label={`Add ${title} to cart`}
             className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 transition hover:bg-white/20"
           >
             <ShoppingCart size={16} className="text-white" />

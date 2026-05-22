@@ -67,9 +67,17 @@ const Profile = () => {
     <div className="min-h-screen w-full px-4 sm:px-6 lg:px-12 py-12 flex justify-center relative">
       {showDeleteDialog && (
         <div className="fixed inset-0 z-[999] bg-black/70 flex items-center justify-center p-4">
-          <Card className="bg-neutral-900 border border-red-700 rounded-2xl max-w-md w-full p-0 flex flex-col gap-4">
+          <Card
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="delete-account-dialog-title"
+            className="bg-neutral-900 border border-red-700 rounded-2xl max-w-md w-full p-0 flex flex-col gap-4"
+          >
             <CardContent className="p-6 flex flex-col gap-4">
-              <h3 className="text-lg font-bold text-red-500">
+              <h3
+                id="delete-account-dialog-title"
+                className="text-lg font-bold text-red-500"
+              >
                 Confirm Account Deletion
               </h3>
               <p className="text-gray-400 text-sm">
@@ -79,6 +87,7 @@ const Profile = () => {
 
               <div className="mt-4 flex justify-end gap-3">
                 <Button
+                  type="button"
                   onClick={() => setShowDeleteDialog(false)}
                   className="px-4 py-2 bg-gray-700 text-gray-200 rounded-lg hover:bg-gray-600 transition"
                   disabled={deleting}
@@ -86,6 +95,7 @@ const Profile = () => {
                   Cancel
                 </Button>
                 <Button
+                  type="button"
                   onClick={confirmDelete}
                   disabled={deleting}
                   className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 flex items-center gap-2 transition disabled:opacity-50"
@@ -143,6 +153,7 @@ const Profile = () => {
               </Link>
 
               <Button
+                type="button"
                 aria-label="Share profile"
                 className="p-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition h-auto"
               >
@@ -196,6 +207,7 @@ const Profile = () => {
               </div>
 
               <Button
+                type="button"
                 onClick={handleDeleteAccount}
                 variant="ghost"
                 className="text-red-600 font-semibold hover:text-red-700 transition bg-transparent hover:bg-transparent h-auto p-0"

@@ -58,7 +58,12 @@ export default function DesignPathModal({
       />
 
       <div className="flex min-h-screen items-start md:items-center justify-center px-4 py-10">
-        <div className="relative w-full max-w-4xl bg-[#0B0F19] rounded-3xl border border-gray-800 p-6 md:p-12 animate-scaleIn">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="design-path-modal-title"
+          className="relative w-full max-w-4xl bg-[#0B0F19] rounded-3xl border border-gray-800 p-6 md:p-12 animate-scaleIn"
+        >
           <Button
             type="button"
             aria-label="Close design path modal"
@@ -69,7 +74,10 @@ export default function DesignPathModal({
           </Button>
 
           <div className="text-center mb-8">
-            <h2 className="text-white text-2xl md:text-3xl font-bold">
+            <h2
+              id="design-path-modal-title"
+              className="text-white text-2xl md:text-3xl font-bold"
+            >
               Choose Your Design Path
             </h2>
           </div>

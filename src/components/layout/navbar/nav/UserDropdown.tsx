@@ -21,6 +21,9 @@ export function UserDropdown({
   return (
     <div ref={dropdownRef} className="relative">
       <Button
+        type="button"
+        aria-label="Toggle user menu"
+        aria-expanded={isOpen}
         variant="navDark"
         onClick={onToggle}
         className="w-10 h-10 font-semibold"
