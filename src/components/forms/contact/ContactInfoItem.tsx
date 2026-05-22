@@ -1,5 +1,7 @@
 import type { IconType } from "react-icons";
 
+import { CONTACT_LABEL_CLASS } from "./contact-form-classes";
+
 export function ContactInfoItem({
   icon: Icon,
   label,
@@ -16,9 +18,7 @@ export function ContactInfoItem({
       </div>
 
       <div className="flex flex-col gap-1">
-        <span className="text-[#F5F5F580] text-xs md:text-sm font-medium">
-          {label}
-        </span>
+        <span className={CONTACT_LABEL_CLASS}>{label}</span>
         <span className="text-white text-sm md:text-md font-semibold">
           {value}
         </span>

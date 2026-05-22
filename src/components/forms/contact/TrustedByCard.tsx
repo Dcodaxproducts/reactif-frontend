@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { CONTACT_LABEL_CLASS } from "./contact-form-classes";
+
 const trustedAvatarItems = [
   "ReactIf client 1",
   "ReactIf client 2",
@@ -21,9 +23,7 @@ export function TrustedByCard() {
       />
 
       <div className="relative z-10 flex flex-col gap-4 md:gap-6">
-        <span className="text-[#F5F5F580] text-xs md:text-sm font-medium">
-          Trusted By
-        </span>
+        <span className={CONTACT_LABEL_CLASS}>Trusted By</span>
 
         <div className="flex items-center flex-wrap">
           {trustedAvatarItems.map((item) => (

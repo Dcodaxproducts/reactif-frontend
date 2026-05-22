@@ -2,6 +2,7 @@ import { useId } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { CONTACT_LABEL_CLASS } from "./contact-form-classes";
 
 type FormFieldProps = {
   label: string;
@@ -20,7 +21,7 @@ export function FormField({
 
   return (
     <div className="flex-1 flex flex-col gap-2">
-      <Label htmlFor={inputId} className="text-[#F5F5F580] text-xs md:text-sm font-medium">
+      <Label htmlFor={inputId} className={CONTACT_LABEL_CLASS}>
         {label}
       </Label>
       <Input

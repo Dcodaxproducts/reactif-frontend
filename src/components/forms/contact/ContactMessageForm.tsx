@@ -12,6 +12,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { contactFields } from "@/data/contact";
 import { FormField } from "./FormField";
+import { CONTACT_LABEL_CLASS } from "./contact-form-classes";
 
 export function ContactMessageForm() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -41,7 +42,7 @@ export function ContactMessageForm() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="contact-service" className="text-[#F5F5F580] text-xs md:text-sm font-medium">
+          <Label htmlFor="contact-service" className={CONTACT_LABEL_CLASS}>
             Service Interested In
           </Label>
           <Select>
@@ -58,7 +59,7 @@ export function ContactMessageForm() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="contact-message" className="text-[#F5F5F580] text-xs md:text-sm font-medium">
+          <Label htmlFor="contact-message" className={CONTACT_LABEL_CLASS}>
             Message
           </Label>
           <Textarea
