@@ -18,22 +18,10 @@ import type {
   UserProfile,
 } from "@/types/profile";
 
-/**
- * ==============================
- * QUERY KEYS
- * ==============================
- */
-
 export const profileKeys = {
   all: ["profile"] as const,
   detail: () => ["profile", "detail"] as const,
 };
-
-/**
- * ==============================
- * HELPERS
- * ==============================
- */
 
 const mapProfile = (
   backendUser: BackendUserProfile,
@@ -64,12 +52,6 @@ const mapProfile = (
     is_verified: isVerified,
   };
 };
-
-/**
- * ==============================
- * PROFILE HOOKS
- * ==============================
- */
 
 export const useProfile = () => {
   const query = useQuery({

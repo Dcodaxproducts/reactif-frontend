@@ -14,12 +14,6 @@ import {
 } from "@/services/categories";
 import type { Category } from "@/types/categories";
 
-/**
- * ==============================
- * QUERY KEYS
- * ==============================
- */
-
 export const categoryKeys = {
   all: ["categories"] as const,
   list: (params?: GetCategoriesParams) =>
@@ -29,12 +23,6 @@ export const categoryKeys = {
   services: (subcategoryId?: string | number | null) =>
     ["categories", "services", subcategoryId ?? ""] as const,
 };
-
-/**
- * ==============================
- * CATEGORY HOOKS
- * ==============================
- */
 
 export const useCategories = (initialParams: GetCategoriesParams = {}) => {
   const [page, setPage] = useState(initialParams.page ?? 1);

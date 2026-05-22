@@ -16,7 +16,6 @@ export default function Footer() {
 
   return (
     <footer className="relative text-white overflow-hidden">
-      {/* ================= BACKGROUND ================= */}
       <Image
         src="/assets/footer/background.png"
         alt=""
@@ -26,9 +25,7 @@ export default function Footer() {
       />
 
       <Container width="7xl" gutter="compact" className="py-12">
-        {/* ================= TOP GRID ================= */}
         <div className="grid lg:grid-cols-2 gap-16">
-          {/* LEFT */}
           <div className="space-y-6">
             <h2 className="text-4xl font-semibold leading-tight">
               Reactif Printing & Design <br /> Platform
@@ -43,8 +40,6 @@ export default function Footer() {
               <Link href="/login">GET STARTED</Link>
             </Button>
           </div>
-
-          {/* RIGHT LINKS */}
           <div className="grid grid-cols-3 gap-10 text-sm">
             <FooterColumn
               title="Services"
@@ -82,13 +77,8 @@ export default function Footer() {
             />
           </div>
         </div>
-
-        {/* ================= DIVIDER ================= */}
         <div className="my-8 border-t border-white/10" />
-
-        {/* ================= BOTTOM ROW ================= */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Social */}
           <div className="flex items-center gap-5">
             <span className="text-sm text-white/60">Follow us</span>
 
@@ -105,8 +95,6 @@ export default function Footer() {
               <Youtube size={16} />
             </SocialIcon>
           </div>
-
-          {/* Buttons */}
           <div className="flex gap-4">
             {!user && (
               <Button
@@ -131,8 +119,6 @@ export default function Footer() {
     </footer>
   );
 }
-
-/* ================= COMPONENTS ================= */
 
 function FooterColumn({
   title,

@@ -6,23 +6,11 @@ import { getErrorMessage } from "@/lib/errors";
 import { getDesigners, type GetDesignersParams } from "@/services/designers";
 import type { Designer } from "@/types/designers";
 
-/**
- * ==============================
- * QUERY KEYS
- * ==============================
- */
-
 export const designerKeys = {
   all: ["designers"] as const,
   list: (params?: GetDesignersParams) =>
     ["designers", "list", params ?? {}] as const,
 };
-
-/**
- * ==============================
- * DESIGNER HOOKS
- * ==============================
- */
 
 export const useDesigners = (initialParams: GetDesignersParams = {}) => {
   const [page, setPage] = useState(initialParams.page ?? 1);

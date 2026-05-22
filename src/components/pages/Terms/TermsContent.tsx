@@ -3,8 +3,6 @@
 import { HeroTitle, HeroText } from "@/components/common/HeroUi";
 import TermsBlock from "./TermsBlock";
 import LegalCTA from "./LegalCTA";
-
-/* ================= DATA ================= */
 const termsSections = [
   {
     id: 1,
@@ -49,13 +47,10 @@ const termsSections = [
     ],
   },
 ];
-
-/* ================= COMPONENT ================= */
 export default function TermsOfService() {
   return (
     <section className="w-full px-4 md:px-8 lg:px-20 py-16">
       <div className="max-w-4xl mx-auto space-y-12">
-        {/* HEADER */}
         <div className="text-center space-y-3">
           <HeroTitle className="uppercase text-3xl md:text-4xl">
             TERMS OF SERVICE
@@ -65,15 +60,11 @@ export default function TermsOfService() {
             Last Updated: October 24, 2023
           </HeroText>
         </div>
-
-        {/* SECTIONS */}
         <div className="space-y-12">
           {termsSections.map((section) => (
             <TermsBlock key={section.id} {...section} />
           ))}
         </div>
-
-        {/* CTA */}
         <LegalCTA />
       </div>
     </section>

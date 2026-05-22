@@ -11,7 +11,6 @@ export type TermsBlockData = {
 function TermsBlock({ id, title, content, list, highlight }: TermsBlockData) {
   return (
     <div className="space-y-4">
-      {/* TITLE ROW */}
       <div className="flex items-center gap-3">
         <div className="w-7 h-7 flex items-center justify-center rounded-md bg-pink-500/20 text-pink-400 text-sm font-bold">
           {id}
@@ -19,10 +18,7 @@ function TermsBlock({ id, title, content, list, highlight }: TermsBlockData) {
 
         <h3 className="text-white text-lg md:text-xl font-semibold">{title}</h3>
       </div>
-
-      {/* CONTENT (aligned under title, not number) */}
       <div className="pl-10 space-y-4">
-        {/* PARAGRAPHS */}
         {content?.map((text) => (
           <p
             key={text}
@@ -31,8 +27,6 @@ function TermsBlock({ id, title, content, list, highlight }: TermsBlockData) {
             {text}
           </p>
         ))}
-
-        {/* LIST */}
         {list && (
           <div className="space-y-3">
             {list.map((item) => (
@@ -46,8 +40,6 @@ function TermsBlock({ id, title, content, list, highlight }: TermsBlockData) {
             ))}
           </div>
         )}
-
-        {/* HIGHLIGHT */}
         {highlight && (
           <div className="border-l-2 border-pink-500 pl-4 py-3 bg-pink-500/5 rounded-md text-slate-300 text-sm">
             "{highlight}"

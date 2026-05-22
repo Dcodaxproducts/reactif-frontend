@@ -62,7 +62,6 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen w-full px-4 sm:px-6 lg:px-12 py-12 flex justify-center relative">
-      {/* ================= DELETE ACCOUNT DIALOG ================= */}
       {showDeleteDialog && (
         <div className="fixed inset-0 z-[999] bg-black/70 flex items-center justify-center p-4">
           <Card className="bg-neutral-900 border border-red-700 rounded-2xl max-w-md w-full p-0 flex flex-col gap-4">
@@ -96,15 +95,10 @@ const Profile = () => {
           </Card>
         </div>
       )}
-
-      {/* ================= MAIN PROFILE ================= */}
       <Card className="w-full max-w-4xl backdrop-blur-md border border-indigo-600/40 rounded-2xl shadow-xl p-0 text-white bg-transparent">
         <CardContent className="p-8 sm:p-8">
-          {/* ================= HEADER ================= */}
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            {/* Left Side */}
             <div className="flex flex-col items-center lg:flex-row lg:items-center lg:justify-start gap-5 w-full">
-              {/* Avatar */}
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-pink-500 p-[3px]">
                   <Image
@@ -124,8 +118,6 @@ const Profile = () => {
                   )}
                 </div>
               </div>
-
-              {/* Name & Role */}
               <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
                 <h2 className="text-xl sm:text-2xl font-semibold">
                   {name}
@@ -138,8 +130,6 @@ const Profile = () => {
                 </span>
               </div>
             </div>
-
-            {/* Right Buttons */}
             <div className="flex items-center justify-center lg:justify-end gap-3">
               <Link
                 href="/profile/edit"
@@ -149,15 +139,16 @@ const Profile = () => {
                 Edit Profile
               </Link>
 
-              <Button className="p-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition h-auto">
+              <Button
+                aria-label="Share profile"
+                className="p-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition h-auto"
+              >
                 <Share2 size={18} />
               </Button>
             </div>
           </div>
 
           <div className="my-8 border-t border-white/10" />
-
-          {/* ================= PERSONAL INFO ================= */}
           <div>
             <div className="flex items-center gap-2 mb-6">
               <User size={18} className="text-blue-400" />
@@ -174,8 +165,6 @@ const Profile = () => {
                   <div className="mt-3 border-t border-white/10" />
                 </div>
               ))}
-
-              {/* Bio */}
               <div>
                 <p className="text-gray-400 uppercase text-xs tracking-wide mb-3">
                   Bio
@@ -189,8 +178,6 @@ const Profile = () => {
               </div>
             </div>
           </div>
-
-          {/* ================= DANGER ZONE ================= */}
           <div className="mt-12">
             <p className="text-red-500 text-xs uppercase tracking-widest font-semibold mb-4">
               Danger Zone

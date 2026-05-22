@@ -24,10 +24,6 @@ const Subcategories = () => {
       ? "No subcategories available."
       : null);
 
-  /* =========================
-     Error Popup
-  ========================= */
-
   if (errorState) {
     return (
       <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50">

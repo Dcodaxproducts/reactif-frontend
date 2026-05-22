@@ -9,22 +9,10 @@ import {
   type CreateBookingPayload,
 } from "@/services/bookings";
 
-/**
- * ==============================
- * QUERY KEYS
- * ==============================
- */
-
 export const bookingKeys = {
   all: ["bookings"] as const,
   list: () => ["bookings", "list"] as const,
 };
-
-/**
- * ==============================
- * BOOKING HOOKS
- * ==============================
- */
 
 export const useBookings = () => {
   const query = useQuery({

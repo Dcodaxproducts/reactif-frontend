@@ -2,12 +2,6 @@ import api from "@/lib/axios";
 import type { Booking } from "@/types/bookings";
 import type { ApiListResponse } from "@/types/api";
 
-/**
- * ==============================
- * TYPES
- * ==============================
- */
-
 export type CreateBookingPayload = FormData;
 
 export type CreateBookingResponse = {
@@ -15,22 +9,10 @@ export type CreateBookingResponse = {
   message?: string;
 };
 
-/**
- * ==============================
- * ROUTES
- * ==============================
- */
-
 export const BOOKING_ROUTES = {
   list: "/booking-list",
   create: "/booking",
 };
-
-/**
- * ==============================
- * BOOKING APIS
- * ==============================
- */
 
 export const getBookings = async (): Promise<ApiListResponse<Booking>> => {
   const { data } = await api.get<ApiListResponse<Booking>>(BOOKING_ROUTES.list);
