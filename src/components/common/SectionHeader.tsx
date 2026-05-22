@@ -1,6 +1,8 @@
+import type { ReactNode } from "react";
+
 interface SectionHeaderProps {
   badgeText?: string;
-  title: React.ReactNode;
+  title: ReactNode;
   description?: string;
   align?: "left" | "center";
   size?: "default" | "sm";
@@ -21,7 +23,6 @@ export function SectionHeader({
         px-2 md:px-0
       `}
     >
-      {/* Badge */}
       {badgeText && (
         <div
           className="
@@ -46,7 +47,6 @@ export function SectionHeader({
         </div>
       )}
 
-      {/* Title */}
       <h2
         className={`
           font-semibold text-white font-hk mb-4 md:mb-5
@@ -60,7 +60,6 @@ export function SectionHeader({
         {title}
       </h2>
 
-      {/* Description */}
       {description && (
         <p
           className={`

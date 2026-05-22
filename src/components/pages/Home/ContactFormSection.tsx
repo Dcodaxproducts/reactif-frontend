@@ -13,7 +13,6 @@ function StartProjectContent() {
 
   return (
     <section className="relative py-16 md:py-28 overflow-hidden">
-      {/* Background */}
       {!isHelpCenter && (
         <Image
           src="/assets/hero/gradient.png"

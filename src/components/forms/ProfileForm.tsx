@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import { Check } from "lucide-react";
 import { toast } from "sonner";
@@ -103,7 +103,7 @@ const ProfileForm = () => {
 
   const handleFileChange = ({
     target,
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  }: ChangeEvent<HTMLInputElement>) => {
     const file = target.files?.[0];
     if (!file) return;
 
@@ -135,7 +135,6 @@ const ProfileForm = () => {
   return (
     <div className="w-full max-w-4xl mx-auto p-4 md:p-12">
       <div className="relative rounded-2xl outline-1 outline-offset-[-1px] outline-indigo-600 backdrop-blur-md overflow-hidden px-15 py-18">
-        {/* Header */}
         <div className="flex flex-col items-center gap-2 mb-10">
           <h1 className="bg-gradient-to-r from-[#F262B5] to-[#9F73F1] bg-clip-text text-transparent text-2xl sm:text-3xl md:text-4xl font-bold uppercase">
             Edit User Profile
@@ -146,7 +145,6 @@ const ProfileForm = () => {
         </div>
 
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
-          {/* Avatar */}
           <div className="flex flex-col items-center gap-2 mb-10 relative">
             <button
               type="button"
@@ -178,7 +176,6 @@ const ProfileForm = () => {
             </span>
           </div>
 
-          {/* Fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mb-8">
             {profileFields.map((field) => {
               const { label, name, type } = field;

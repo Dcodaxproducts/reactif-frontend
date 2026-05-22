@@ -1,10 +1,10 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import { PageShell } from "@/components/common/PageShell";
 
 type OrderPageShellProps = {
   children: ReactNode;
-  backgroundStyle?: React.CSSProperties;
+  backgroundStyle?: CSSProperties;
 };
 
 export default function OrderPageShell({

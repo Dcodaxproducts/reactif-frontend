@@ -1,16 +1,17 @@
 "use client";
 
+import type { ReactNode } from "react";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-// ================= TITLE =================
 export function HeroTitle({
   children,
   className,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }) {
   return (
@@ -32,12 +33,11 @@ export function HeroTitle({
   );
 }
 
-// ================= TEXT =================
 export function HeroText({
   children,
   className,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }) {
   return (
@@ -52,14 +52,13 @@ export function HeroText({
   );
 }
 
-// ================= PRIMARY BUTTON =================
 export function PrimaryButton({
   children,
   href,
   className,
   showIcon = true,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   href: string;
   className?: string;
   showIcon?: boolean;

@@ -60,7 +60,6 @@ export default function CarPreviewSection({
       ) : (
         <>
           <div className="pt-16 md:pt-24 pb-9 md:pb-14 px-1 md:px-6">
-            {/* Main Image */}
             <div className="w-full h-full  flex items-center justify-center p-4">
               <Image
                 src={carImage}
@@ -71,9 +70,7 @@ export default function CarPreviewSection({
               />
             </div>
 
-            {/* Side Info */}
             <div className="absolute left-3 sm:left-5 md:left-7 top-1/2 -translate-y-1/2 w-[230px] sm:w-[150px] md:w-90 h-full flex flex-col justify-between items-start py-3 md:py-5">
-              {/* Top Labels */}
               <div className="px-2 md:px-3 py-1.5 flex flex-col gap-2">
                 <div
                   className={`w-fit px-2.5 py-1.5 rounded outline-1 outline-offset-[-1px] ${outlineColor} flex justify-center items-center`}
@@ -90,7 +87,6 @@ export default function CarPreviewSection({
                 </div>
               </div>
 
-              {/* Bottom Labels */}
               <div className="px-2 md:px-3 py-1.5 rounded flex items-center gap-2">
                 <div
                   className={`w-2.5 h-2.5 md:w-3 md:h-3 ${dotColor} rounded-full`}
