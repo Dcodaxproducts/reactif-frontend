@@ -47,7 +47,7 @@ export default function PaintProtectionCard({
 
   const designerId = searchParams.get("designerId");
   const currentService = services.find(
-    (service) => service.id.toString() === activeItem,
+    ({ id }) => id.toString() === activeItem,
   );
   const bookingLoading = createBookingMutation.isPending;
 
@@ -94,7 +94,9 @@ export default function PaintProtectionCard({
     if (!user) {
       toast.error("Please login first");
       const redirectUrl =
-        typeof window !== "undefined" ? window.location.href : null;
+        typeof window !== "undefined"
+          ? `${window.location.pathname}${window.location.search}${window.location.hash}`
+          : null;
       router.push(buildLoginRoute(redirectUrl));
       return;
     }
@@ -111,8 +113,8 @@ export default function PaintProtectionCard({
 
       await createBookingMutation.mutateAsync(formData);
       router.push("/order/management");
-    } catch (error) {
-      console.error("Booking Error:", error);
+    } catch {
+      // Mutation errors are handled by useCreateBooking.
     }
   };
 
@@ -124,7 +126,7 @@ export default function PaintProtectionCard({
 
       {!isLoading && (
         <div className="text-neutral-400 text-sm md:text-base font-medium font-hk leading-relaxed">
-          {currentService?.description ||
+          {currentService?.description ??
             "Please select a service to configure your request."}
         </div>
       )}
