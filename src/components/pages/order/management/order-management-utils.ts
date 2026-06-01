@@ -1,26 +1,19 @@
 import type { Booking, BookingFieldResponse } from "@/types/bookings";
+import {
+  formatBookingStatusLabel,
+  getBookingStatusProgress,
+} from "@/lib/booking-status";
 import type {
   BookingParsedData,
   BookingServiceData,
 } from "@/types/component-props";
 
 export const getProgressFromStatus = (status: string) => {
-  switch (status) {
-    case "new_booking":
-      return 25;
-    case "accepted":
-      return 60;
-    case "completed":
-      return 100;
-    case "canceled":
-      return 0;
-    default:
-      return 10;
-  }
+  return getBookingStatusProgress(status);
 };
 
 export const formatStatusLabel = (status: string) =>
-  status.replace("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+  formatBookingStatusLabel(status);
 
 export const parseBookingData = (booking: Booking): BookingParsedData => {
   const { service_data, field_responses } = booking;

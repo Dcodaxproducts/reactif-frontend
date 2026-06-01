@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { canTrackBookingStatus } from "@/lib/booking-status";
 import type { Booking } from "@/types/bookings";
 import { OrderCardHeader } from "./OrderCardHeader";
 import { OrderInfoBox } from "./OrderInfoBox";
@@ -22,7 +23,7 @@ export function OrderCard({ booking }: { booking: Booking }) {
     fieldResponses.find(({ field_name }) => field_name === "quantity")?.value ||
     null;
   const progress = getProgressFromStatus(status);
-  const showTracking = status === "accepted" || status === "completed";
+  const showTracking = canTrackBookingStatus(status) || status === "completed";
   const title = `${String(serviceData?.service_name ?? serviceName ?? "Booking")}${quantity ? ` (x${quantity})` : ""}`;
   const scheduledDate = schedule_datetime
     ? new Date(schedule_datetime).toLocaleDateString()
@@ -45,16 +46,23 @@ export function OrderCard({ booking }: { booking: Booking }) {
         trackingNumber={showTracking ? `TRK-${id}` : undefined}
       />
 
-      {showTracking && (
-        <div className="pt-4 border-t border-neutral-50/10">
+      <div className="pt-4 border-t border-neutral-50/10 flex flex-col sm:flex-row gap-3">
+        <Button
+          onClick={() => router.push(`/order/management/${id}`)}
+          className="h-11 px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-neutral-50 rounded-lg font-hk font-semibold"
+        >
+          View Details
+        </Button>
+
+        {showTracking && (
           <Button
-            onClick={() => router.push("/order/track")}
+            onClick={() => router.push(`/order/track/${id}`)}
             className="h-11 px-4 py-2 bg-pink-400 hover:bg-pink-500 text-neutral-50 rounded-lg font-hk font-semibold"
           >
             Track Shipment
           </Button>
-        </div>
-      )}
+        )}
+      </div>
     </Card>
   );
 }

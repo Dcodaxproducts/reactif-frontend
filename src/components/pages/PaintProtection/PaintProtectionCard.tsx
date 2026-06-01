@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { buildLoginRoute, useAuth } from "@/hooks/useAuth";
-import { useCreateBooking } from "@/hooks/useBookings";
+import { writeBookingDraft } from "@/lib/booking-draft";
 import { BookingCardHeader } from "./booking-card/BookingCardHeader";
 import { BookingCardSkeleton } from "./booking-card/BookingCardSkeleton";
 import { BookingSummary } from "./booking-card/BookingSummary";
 import { DynamicServiceFields } from "./booking-card/DynamicServiceFields";
 import { ServiceEmptyState } from "./booking-card/ServiceEmptyState";
 import {
-  buildBookingFormData,
+  buildBookingDraft,
   buildInitialServiceValues,
   validateServiceForm,
 } from "./booking-card/booking-form-utils";
@@ -40,17 +40,15 @@ export default function PaintProtectionCard({
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user, loading: authLoading } = useAuth();
-  const createBookingMutation = useCreateBooking();
 
   const [formErrors, setFormErrors] = useState<ServiceFormErrors>({});
   const [formValues, setFormValues] = useState<ServiceFormValues>({});
+  const [bookingLoading, setBookingLoading] = useState(false);
 
   const designerId = searchParams.get("designerId");
   const currentService = services.find(
     ({ id }) => id.toString() === activeItem,
   );
-  const bookingLoading = createBookingMutation.isPending;
-
   useEffect(() => {
     if (!isLoading && services.length > 0) {
       setActiveItem(services[0].id.toString());
@@ -104,17 +102,20 @@ export default function PaintProtectionCard({
     if (!validateForm()) return;
 
     try {
-      const formData = buildBookingFormData({
+      setBookingLoading(true);
+      const draft = buildBookingDraft({
         service: currentService,
         activeCategory,
         formValues,
         designerId,
       });
 
-      await createBookingMutation.mutateAsync(formData);
-      router.push("/order/management");
+      writeBookingDraft(draft);
+      router.push("/order/address");
     } catch {
-      // Mutation errors are handled by useCreateBooking.
+      toast.error("Failed to save booking draft");
+    } finally {
+      setBookingLoading(false);
     }
   };
 

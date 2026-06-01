@@ -122,9 +122,9 @@ export const paymentSecondaryFields = [
 ];
 
 export const orderConfirmationInfo: OrderInfoItemData[] = [
-  { title: "Order Number", value: "123-4567890" },
-  { title: "Order Date", value: "October 26, 2023" },
-  { title: "Payment Method", value: "Visa ending in 1234" },
+  { title: "Order Number", value: "Pending booking" },
+  { title: "Order Date", value: "Recorded after booking" },
+  { title: "Payment Method", value: "Confirmed payment" },
 ];
 
 export const orderConfirmationItems: OrderItemData[] = [
@@ -146,20 +146,20 @@ export const shipmentStatuses: ShipmentStatusData[] = [
 ];
 
 export const shipmentTimeline: TrackingTimelineItemData[] = [
-  { icon: "store", title: "Shipment Created", date: "July 20, 2024, 10:00 AM" },
-  { icon: "truck", title: "Package Picked Up", date: "July 21, 2024, 2:00 PM" },
-  { icon: "truck", title: "In Transit", date: "July 22, 2024, 8:00 AM" },
+  { icon: "store", title: "Shipment Created", date: "Pending booking" },
+  { icon: "truck", title: "Package Picked Up", date: "Pending pickup" },
+  { icon: "truck", title: "In Transit", date: "Pending transit" },
   {
     icon: "check",
     title: "Delivered",
-    date: "July 26, 2024, 12:00 PM",
+    date: "Pending delivery",
     last: true,
   },
 ];
 
 export const shipmentDetails: TrackingDetailData[] = [
-  { title: "Tracking Number", value: "1Z999AA10123456789" },
-  { title: "Carrier", value: "Speedy Delivery" },
+  { title: "Tracking Number", value: "Pending booking" },
+  { title: "Carrier", value: "Assigned after booking" },
   { title: "Service Type", value: "Ground" },
   { title: "Weight", value: "5 lbs" },
   { title: "Dimensions", value: "12x10x8 inches" },

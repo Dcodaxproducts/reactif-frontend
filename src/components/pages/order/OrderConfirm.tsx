@@ -1,8 +1,14 @@
+"use client";
+
 import { CheckCircle } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { OrderConfirmationActions } from "./confirmation/OrderConfirmationActions";
 import { OrderConfirmationSummary } from "./confirmation/OrderConfirmationSummary";
 
 export default function OrderConfirm() {
+  const searchParams = useSearchParams();
+  const bookingId = searchParams.get("bookingId") ?? "pending";
+
   return (
     <section className="w-full flex justify-center px-4 py-10">
       <div className="w-full max-w-5xl p-6 sm:p-8 md:p-10 bg-neutral-800/80 rounded-3xl border border-neutral-50/10 flex flex-col gap-10">
@@ -16,7 +22,7 @@ export default function OrderConfirm() {
           </h1>
 
           <p className="max-w-2xl text-neutral-50/60 text-sm sm:text-base md:text-xl font-medium font-hk">
-            Your order #123-4567890 has been placed. A confirmation email has
+            Your booking #{bookingId} has been placed. A confirmation email has
             been sent to your registered email address.
           </p>
         </div>

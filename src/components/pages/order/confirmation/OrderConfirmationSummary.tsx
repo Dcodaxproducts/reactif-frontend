@@ -1,13 +1,22 @@
-import {
-  orderConfirmationInfo,
-  orderConfirmationItems,
-  orderConfirmationTotals,
-} from "@/data/order";
+"use client";
+
+import { useSearchParams } from "next/navigation";
 import { InfoItem } from "./InfoItem";
-import { OrderItem } from "./OrderItem";
 import { TotalItem } from "./TotalItem";
 
 export function OrderConfirmationSummary() {
+  const searchParams = useSearchParams();
+  const bookingId = searchParams.get("bookingId") ?? "pending";
+  const orderConfirmationInfo = [
+    { title: "Booking Number", value: String(bookingId) },
+    { title: "Order Date", value: new Date().toLocaleDateString() },
+    { title: "Payment Method", value: "Confirmed payment" },
+  ];
+  const orderConfirmationTotals = [
+    { label: "Subtotal", value: "Recorded on booking" },
+    { label: "Extra Charges", value: "Recorded on booking" },
+  ];
+
   return (
     <div className="w-full p-6 sm:p-8 md:p-10 bg-neutral-800 rounded-3xl border border-neutral-50/10 flex flex-col gap-8">
       <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-neutral-50 font-hk">
@@ -20,22 +29,7 @@ export function OrderConfirmationSummary() {
         ))}
       </div>
 
-      <InfoItem
-        title="Shipping Address"
-        value="123 Main Street, Anytown, USA 12345"
-      />
-
-      <div className="border border-neutral-50/10 rounded-xl overflow-hidden">
-        <div className="hidden md:grid grid-cols-3 items-center px-4 py-4 text-neutral-50 font-medium bg-neutral-700/40">
-          <div>Item</div>
-          <div className="text-center">Quantity</div>
-          <div className="text-right">Price</div>
-        </div>
-
-        {orderConfirmationItems.map((item) => (
-          <OrderItem key={item.name} {...item} />
-        ))}
-      </div>
+      <InfoItem title="Shipping Address" value="Saved with booking details" />
 
       <div className="w-full md:max-w-sm ml-auto flex flex-col gap-4">
         {orderConfirmationTotals.map((item) => (
@@ -44,7 +38,7 @@ export function OrderConfirmationSummary() {
 
         <div className="border-t border-neutral-50/10 pt-4 flex justify-between font-semibold text-neutral-50">
           <span>Total</span>
-          <span>$1,073.26</span>
+          <span>Recorded on booking</span>
         </div>
       </div>
     </div>

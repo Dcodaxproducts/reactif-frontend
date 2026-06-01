@@ -1,8 +1,22 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { paymentSummaryRows } from "@/data/order";
 import { PriceRow } from "./PriceRow";
 
-export function OrderSummaryCard() {
+export function OrderSummaryCard({
+  title,
+  subtotal,
+  extraCharges,
+  total,
+}: {
+  title: string;
+  subtotal: string;
+  extraCharges: string;
+  total: string;
+}) {
+  const paymentSummaryRows = [
+    { label: "Sub Total", value: `$${subtotal}` },
+    { label: "Extra Charges", value: `$${extraCharges}` },
+  ];
+
   return (
     <Card className="bg-neutral-800 rounded-3xl border border-neutral-50/30">
       <CardContent className="p-6 md:px-10 md:py-6 flex flex-col gap-6">
@@ -20,7 +34,7 @@ export function OrderSummaryCard() {
 
           <div className="flex flex-col gap-1">
             <div className="text-neutral-50/60 text-lg font-medium font-['HK_Grotesk']">
-              Quotation #12345
+              {title}
             </div>
             <div className="text-neutral-50/60 text-lg font-medium font-['HK_Grotesk']">
               A detailed summary of your purchase
@@ -43,7 +57,7 @@ export function OrderSummaryCard() {
             Total Payable Amount
           </span>
           <span className="text-pink-400 text-xl md:text-2xl font-semibold font-['HK_Grotesk']">
-            $1250.00
+            ${total}
           </span>
         </div>
       </CardContent>

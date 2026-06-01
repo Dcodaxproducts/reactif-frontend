@@ -1,4 +1,10 @@
 import { getZodFieldErrors } from "@/lib/zod-errors";
+import { rememberBookingDraftFile } from "@/lib/booking-draft";
+import { buildBookingFormDataFromDraft } from "@/lib/booking-payload";
+import type {
+  BookingDraft,
+  BookingDraftFileReference,
+} from "@/types/bookings";
 import type {
   Service,
   ServiceFormErrors,
@@ -60,7 +66,10 @@ export const validateServiceForm = (
   };
 };
 
-export const buildBookingFormData = ({
+export const buildBookingFormData = ({ draft }: { draft: BookingDraft }) =>
+  buildBookingFormDataFromDraft(draft);
+
+export const buildBookingDraft = ({
   service,
   activeCategory,
   formValues,
@@ -70,39 +79,11 @@ export const buildBookingFormData = ({
   activeCategory: string | null;
   formValues: ServiceFormValues;
   designerId?: string | null;
-}) => {
+}): BookingDraft => {
   const { id, price, name, fields } = service;
-  const formData = new FormData();
-  const isSchedule = true;
-  const baseFare = price ?? 10;
-  const subtotal = price ?? 50;
-
-  formData.append("service_id", String(id));
-  formData.append("address", "Rawalpindi, Pakistan");
-  formData.append("latitude", "33.5651");
-  formData.append("longitude", "73.0169");
-  formData.append("datetime", new Date().toISOString());
-  formData.append("status", "new_booking");
-  formData.append("is_schedule", isSchedule ? "1" : "0");
-  formData.append("distance", "5.5");
-  formData.append("base_fare", String(baseFare));
-  formData.append("subtotal", String(subtotal));
-  formData.append("extra_charges_amount", "5");
-  formData.append("total_amount", String(subtotal + 5));
-  formData.append("payment_type", "cash");
-  formData.append("booking_type", "without_bidding");
-
-  if (designerId) formData.append("designer_id", designerId);
-  if (isSchedule)
-    formData.append("schedule_datetime", new Date().toISOString());
-
-  formData.append(
-    "service_data",
-    JSON.stringify({
-      service_name: name,
-      category: activeCategory,
-    }),
-  );
+  const subtotal = price ?? 0;
+  const bookingDatetime = new Date().toISOString();
+  const uploadedFileReferences: BookingDraftFileReference[] = [];
 
   const formattedFieldResponses = fields.map((field) => {
     const { id: fieldId, field_name, input_type, label } = field;
@@ -113,7 +94,15 @@ export const buildBookingFormData = ({
     const fileValue = isFileValue(value) ? value : null;
 
     if (isFileInput && fileValue) {
-      formData.append(fileKey, fileValue);
+      rememberBookingDraftFile(fileKey, fileValue);
+      uploadedFileReferences.push({
+        fieldName: field_name,
+        fieldId,
+        key: fileKey,
+        name: fileValue.name,
+        type: fileValue.type,
+        size: fileValue.size,
+      });
     }
 
     return {
@@ -127,11 +116,36 @@ export const buildBookingFormData = ({
           : null
         : Array.isArray(value)
           ? value.join(", ")
-          : (value ?? ""),
+          : isFileValue(value)
+            ? value.name
+            : (value ?? ""),
     };
   });
 
-  formData.append("field_responses", JSON.stringify(formattedFieldResponses));
-
-  return formData;
+  return {
+    selected_service: {
+      id,
+      name,
+      price,
+    },
+    selected_category: activeCategory,
+    selected_subcategory: service.sub_category_id
+      ? { id: service.sub_category_id, name: activeCategory }
+      : null,
+    selected_design_path: activeCategory,
+    selected_designer_id: designerId ?? null,
+    dynamic_field_responses: formattedFieldResponses,
+    uploaded_file_references: uploadedFileReferences,
+    address: "",
+    latitude: "",
+    longitude: "",
+    booking_datetime: bookingDatetime,
+    schedule_datetime: bookingDatetime,
+    distance: "",
+    subtotal: String(subtotal),
+    extra_charges_amount: "0",
+    total_amount: String(subtotal),
+    payment_type: "pending",
+    booking_type: "direct",
+  };
 };
