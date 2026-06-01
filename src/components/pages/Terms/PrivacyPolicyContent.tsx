@@ -46,7 +46,7 @@ const defaultPrivacySections = [
     title: "Your Rights",
     content: [
       "You have the right to access, update, or delete your personal information.",
-      "You may opt out of marketing communications at any time.",
+      "You may opt out of marketing communications whenever needed.",
       "You can request a copy of your stored data.",
     ],
   },

@@ -82,26 +82,26 @@ export const configurationOptionGroups = [
 ];
 
 export const personalInfoFields = [
-  { label: "Full Name", defaultValue: "John Doe" },
-  { label: "Email Address", defaultValue: "john.doe@acme.com" },
-  { label: "Phone Number", defaultValue: "+1 (555) 123-4567" },
+  { label: "Full Name", defaultValue: "Customer Name" },
+  { label: "Email Address", defaultValue: "customer@example.com" },
+  { label: "Phone Number", defaultValue: "Phone number" },
 ];
 
 export const addressFields = [
   {
     label: "Street Address",
-    defaultValue: "123 Business St, Suite 100",
+    defaultValue: "Customer address",
     fullWidth: true,
   },
-  { label: "City", defaultValue: "San Francisco" },
-  { label: "State", defaultValue: "CA" },
-  { label: "Zip Code", defaultValue: "94567" },
+  { label: "City", defaultValue: "City" },
+  { label: "State", defaultValue: "State" },
+  { label: "Zip Code", defaultValue: "Zip code" },
 ];
 
 export const paymentSummaryRows: OrderPriceRowData[] = [
-  { label: "Sub Total", value: "$1100.00" },
-  { label: "Tax (10%)", value: "$110.00" },
-  { label: "Service Margin", value: "$40.00" },
+  { label: "Sub Total", value: "Pending booking" },
+  { label: "Tax", value: "Pending booking" },
+  { label: "Service Margin", value: "Pending booking" },
 ];
 
 export const paymentMethods: OrderPaymentMethodData[] = [

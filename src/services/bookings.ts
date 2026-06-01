@@ -19,8 +19,6 @@ export const BOOKING_ROUTES = {
   list: API_ENDPOINTS.bookingList,
   create: API_ENDPOINTS.booking,
   detail: API_ENDPOINTS.bookingDetail,
-  paymentGatewayList: API_ENDPOINTS.paymentGatewayList,
-  savePayment: API_ENDPOINTS.savePayment,
 };
 
 export const getBookings = async (): Promise<ApiListResponse<Booking>> => {

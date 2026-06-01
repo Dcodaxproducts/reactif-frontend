@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { FiLogOut, FiSettings, FiUser } from "react-icons/fi";
+import { FiBell, FiLogOut, FiSettings, FiUser } from "react-icons/fi";
 import { getInitials } from "./utils";
 import type { UserDropdownProps } from "@/types/component-props";
 
@@ -44,6 +44,15 @@ export function UserDropdown({
           >
             <FiUser size={16} />
             Profile
+          </button>
+
+          <button
+            type="button"
+            onClick={() => router.push("/notifications")}
+            className={menuItemClassName}
+          >
+            <FiBell size={16} />
+            Notifications
           </button>
 
           <button

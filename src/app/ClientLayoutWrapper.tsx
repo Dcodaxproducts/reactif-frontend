@@ -6,6 +6,7 @@ import Navbar from "@/components/layout/navbar/navbar";
 import TopInfoBar from "@/components/layout/navbar/TopInfoBar";
 import { Toaster } from "sonner";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { useAuth } from "@/hooks/useAuth";
 
 function ClientLayoutContent({ children }: { children: ReactNode }) {
@@ -29,7 +30,9 @@ export default function ClientLayoutWrapper({
 }) {
   return (
     <QueryProvider>
-      <ClientLayoutContent>{children}</ClientLayoutContent>
+      <ThemeProvider>
+        <ClientLayoutContent>{children}</ClientLayoutContent>
+      </ThemeProvider>
     </QueryProvider>
   );
 }
