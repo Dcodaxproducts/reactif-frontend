@@ -1,4 +1,5 @@
 import api from "@/lib/axios";
+import { API_ENDPOINTS } from "@/config/api-endpoints";
 import type { Booking } from "@/types/bookings";
 import type { ApiListResponse } from "@/types/api";
 
@@ -10,8 +11,11 @@ export type CreateBookingResponse = {
 };
 
 export const BOOKING_ROUTES = {
-  list: "/booking-list",
-  create: "/booking",
+  list: API_ENDPOINTS.bookingList,
+  create: API_ENDPOINTS.booking,
+  detail: API_ENDPOINTS.bookingDetail,
+  paymentGatewayList: API_ENDPOINTS.paymentGatewayList,
+  savePayment: API_ENDPOINTS.savePayment,
 };
 
 export const getBookings = async (): Promise<ApiListResponse<Booking>> => {

@@ -1,11 +1,11 @@
 import { Accordion } from "@/components/ui/accordion";
-import { featuredFAQs } from "@/data/help-center";
+import type { FAQItemData } from "@/types/component-props";
 import { FAQAccordionItem } from "./FAQAccordionItem";
 
-export function FAQAccordion() {
+export function FAQAccordion({ faqs }: { faqs: FAQItemData[] }) {
   return (
     <Accordion type="single" collapsible className="flex flex-col gap-4">
-      {featuredFAQs.map((faq) => (
+      {faqs.map((faq) => (
         <FAQAccordionItem key={faq.value} {...faq} />
       ))}
     </Accordion>

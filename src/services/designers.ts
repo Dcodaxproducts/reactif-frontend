@@ -1,4 +1,5 @@
 import api from "@/lib/axios";
+import { API_ENDPOINTS } from "@/config/api-endpoints";
 import type { ApiListResponse } from "@/types/api";
 import type { Designer } from "@/types/designers";
 
@@ -19,7 +20,7 @@ export type GetDesignersParams = {
  */
 
 export const DESIGNER_ROUTES = {
-  list: "/designer-list",
+  list: API_ENDPOINTS.designerList,
 };
 
 /**

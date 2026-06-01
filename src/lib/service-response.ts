@@ -1,0 +1,199 @@
+import type {
+  Service,
+  ServiceField,
+  ServiceFieldOption,
+} from "@/types/categories";
+import type { ApiListResponse } from "@/types/api";
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null;
+
+const getString = (record: Record<string, unknown>, key: string) => {
+  const value = record[key];
+  return typeof value === "string" ? value : null;
+};
+
+const getNumber = (record: Record<string, unknown>, key: string) => {
+  const value = record[key];
+
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value;
+  }
+
+  if (typeof value === "string" && value.trim() !== "") {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  return null;
+};
+
+const getBoolean = (record: Record<string, unknown>, key: string) => {
+  const value = record[key];
+
+  if (typeof value === "boolean") return value;
+  if (typeof value === "number") return value === 1;
+  if (typeof value === "string") {
+    const normalized = value.toLowerCase();
+    if (normalized === "true" || normalized === "1") return true;
+    if (normalized === "false" || normalized === "0") return false;
+  }
+
+  return null;
+};
+
+const getArray = (record: Record<string, unknown>, key: string) => {
+  const value = record[key];
+  return Array.isArray(value) ? value : [];
+};
+
+const parseJsonArray = (value: unknown): unknown[] => {
+  if (Array.isArray(value)) {
+    return value;
+  }
+
+  if (typeof value !== "string" || value.trim() === "") {
+    return [];
+  }
+
+  try {
+    const parsed: unknown = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
+
+const normalizeOption = (option: unknown, index: number): ServiceFieldOption | null => {
+  if (typeof option === "string") {
+    return {
+      key: option,
+      display: option,
+    };
+  }
+
+  if (!isRecord(option)) {
+    return null;
+  }
+
+  const display =
+    getString(option, "display") ??
+    getString(option, "label") ??
+    getString(option, "name") ??
+    getString(option, "value");
+  const key =
+    getString(option, "key") ??
+    getString(option, "value") ??
+    getString(option, "id") ??
+    display ??
+    String(index + 1);
+
+  if (!display) {
+    return null;
+  }
+
+  return {
+    key,
+    display,
+  };
+};
+
+const normalizeField = (field: unknown, index: number): ServiceField | null => {
+  if (!isRecord(field)) {
+    return null;
+  }
+
+  const label =
+    getString(field, "label") ??
+    getString(field, "lable") ??
+    getString(field, "name") ??
+    `Field ${index + 1}`;
+  const fieldName =
+    getString(field, "field_name") ??
+    getString(field, "name") ??
+    `field_${getNumber(field, "id") ?? index + 1}`;
+  const inputType =
+    getString(field, "input_type") ??
+    getString(field, "type") ??
+    "text";
+
+  return {
+    id: getNumber(field, "id") ?? index + 1,
+    label,
+    input_type: inputType,
+    field_name: fieldName,
+    is_required:
+      getBoolean(field, "is_required") ??
+      getBoolean(field, "required") ??
+      false,
+    placeholder: getString(field, "placeholder") ?? undefined,
+    options: parseJsonArray(field.options)
+      .map(normalizeOption)
+      .filter((option): option is ServiceFieldOption => option !== null),
+    default_value: getString(field, "default_value"),
+  };
+};
+
+const getServiceItems = (response: unknown): unknown[] => {
+  if (Array.isArray(response)) {
+    return response;
+  }
+
+  if (!isRecord(response)) {
+    return [];
+  }
+
+  if (Array.isArray(response.data)) {
+    return response.data;
+  }
+
+  if (Array.isArray(response.services)) {
+    return response.services;
+  }
+
+  return [];
+};
+
+export const normalizeService = (service: unknown): Service | null => {
+  if (!isRecord(service)) {
+    return null;
+  }
+
+  const id = getNumber(service, "id");
+  const name = getString(service, "name");
+
+  if (id === null || !name) {
+    return null;
+  }
+
+  return {
+    id,
+    name,
+    description: getString(service, "description") ?? "",
+    category_id: getNumber(service, "category_id") ?? 0,
+    sub_category_id: getNumber(service, "sub_category_id") ?? 0,
+    service_image: getString(service, "service_image") ?? "",
+    price: getNumber(service, "price") ?? 0,
+    fields: getArray(service, "fields")
+      .map(normalizeField)
+      .filter((field): field is ServiceField => field !== null),
+  };
+};
+
+export const normalizeServicesResponse = (
+  response: unknown,
+): ApiListResponse<Service> => {
+  const data = getServiceItems(response)
+    .map(normalizeService)
+    .filter((service): service is Service => service !== null);
+
+  return {
+    data,
+    pagination: isRecord(response) && isRecord(response.pagination)
+      ? {
+          currentPage: getNumber(response.pagination, "currentPage") ?? 1,
+          totalPages: getNumber(response.pagination, "totalPages") ?? 1,
+        }
+      : undefined,
+  };
+};

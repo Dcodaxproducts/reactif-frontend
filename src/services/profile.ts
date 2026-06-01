@@ -1,4 +1,5 @@
 import api from "@/lib/axios";
+import { API_ENDPOINTS } from "@/config/api-endpoints";
 import type { ApiItemResponse } from "@/types/api";
 import type { BackendUserProfile, ProfileFormPayload } from "@/types/profile";
 
@@ -7,9 +8,9 @@ export type DeleteAccountResponse = {
 };
 
 export const PROFILE_ROUTES = {
-  detail: "/user-detail",
-  update: "/update-profile",
-  deleteAccount: "/delete-user-account",
+  detail: API_ENDPOINTS.userDetail,
+  update: API_ENDPOINTS.updateProfile,
+  deleteAccount: API_ENDPOINTS.deleteUserAccount,
 };
 
 const createProfileFormData = (payload: ProfileFormPayload) => {

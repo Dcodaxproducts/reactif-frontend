@@ -1,4 +1,6 @@
 import api from "@/lib/axios";
+import { API_ENDPOINTS } from "@/config/api-endpoints";
+import { isAuthValidationResponseValid } from "@/lib/auth-response";
 import type { AuthResponse, AuthUser, LoginPayload, RegisterPayload } from "@/types/auth";
 import type { ApiItemResponse } from "@/types/api";
 import type { BackendUserProfile } from "@/types/profile";
@@ -33,14 +35,15 @@ export type AuthMessageResponse = {
 };
 
 export const AUTH_ROUTES = {
-  login: "/auth/login",
-  signup: "/auth/signup",
-  currentUser: "/user-detail",
-  verifyAuth: "/auth/verify-otp",
-  resendAuthCode: "/auth/resend-otp",
-  forgotPassword: "/auth/forgot-password",
-  resetPassword: "/auth/reset-password",
-  changePassword: "/auth/change-password",
+  login: API_ENDPOINTS.authLogin,
+  signup: API_ENDPOINTS.authSignup,
+  validate: API_ENDPOINTS.authValidate,
+  currentUser: API_ENDPOINTS.userDetail,
+  verifyAuth: API_ENDPOINTS.authVerifyOtp,
+  resendAuthCode: API_ENDPOINTS.authResendOtp,
+  forgotPassword: API_ENDPOINTS.authForgotPassword,
+  resetPassword: API_ENDPOINTS.authResetPassword,
+  changePassword: API_ENDPOINTS.authChangePassword,
 };
 
 const mapCurrentUser = (user: BackendUserProfile): AuthUser => {
@@ -96,6 +99,20 @@ export const loginUser = async (
 ): Promise<AuthResponse> => {
   const { data } = await api.post<AuthResponse>(AUTH_ROUTES.login, payload);
   return data;
+};
+
+export const validateAuthSession = async (): Promise<boolean> => {
+  try {
+    const { data } = await api.get<unknown>(AUTH_ROUTES.validate, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    return isAuthValidationResponseValid(data);
+  } catch {
+    return false;
+  }
 };
 
 export const registerUser = async (

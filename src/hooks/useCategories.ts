@@ -7,9 +7,11 @@ import { getErrorMessage } from "@/lib/errors";
 import {
   getCategories,
   getCategory,
+  getServices,
   getServicesBySubcategory,
   type GetCategoriesParams,
   type GetCategoryParams,
+  type GetServicesParams,
   type GetServicesBySubcategoryParams,
 } from "@/services/categories";
 import type { Category } from "@/types/categories";
@@ -22,6 +24,8 @@ export const categoryKeys = {
     ["categories", "detail", categoryId ?? ""] as const,
   services: (subcategoryId?: string | number | null) =>
     ["categories", "services", subcategoryId ?? ""] as const,
+  servicesList: (params?: GetServicesParams) =>
+    ["categories", "services", "list", params ?? {}] as const,
 };
 
 export const useCategories = (initialParams: GetCategoriesParams = {}) => {
@@ -89,6 +93,22 @@ export const useServicesBySubcategory = (
         subcategoryId: subcategoryId as string | number,
       }),
     enabled: Boolean(subcategoryId),
+  });
+
+  return {
+    ...query,
+    services: query.data?.data ?? [],
+    loading: query.isLoading,
+    error: query.error
+      ? getErrorMessage(query.error, "Failed to fetch services")
+      : null,
+  };
+};
+
+export const useServices = (params: GetServicesParams = {}) => {
+  const query = useQuery({
+    queryKey: categoryKeys.servicesList(params),
+    queryFn: () => getServices(params),
   });
 
   return {

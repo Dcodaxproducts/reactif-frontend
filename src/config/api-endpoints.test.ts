@@ -1,0 +1,18 @@
+import { describe, expect, it } from "vitest";
+
+import { API_ENDPOINTS, joinApiPath } from "./api-endpoints";
+
+describe("API_ENDPOINTS", () => {
+  it("keeps canonical endpoint names", () => {
+    expect(API_ENDPOINTS.category).toBe("category");
+    expect(API_ENDPOINTS.service).toBe("service");
+    expect(API_ENDPOINTS.bookingDetail).toBe("booking-detail");
+    expect(API_ENDPOINTS.paymentGatewayList).toBe("payment-gateway-list");
+    expect(API_ENDPOINTS.messageSend).toBe("messages/send");
+  });
+
+  it("joins API paths without leading slashes", () => {
+    expect(joinApiPath("/auth/login")).toBe("auth/login");
+    expect(joinApiPath("support/faqs")).toBe("support/faqs");
+  });
+});

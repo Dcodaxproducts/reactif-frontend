@@ -12,6 +12,11 @@ import {
   getSafeRedirectPath,
 } from "@/lib/auth-routes";
 import {
+  clearInvalidAuthSession,
+  extractAuthToken,
+  mapAuthUser,
+} from "@/lib/auth-response";
+import {
   clearStoredAuthToken,
   getStoredAuthToken,
   setStoredAuthToken,
@@ -26,6 +31,7 @@ import {
   registerUser,
   resendAuthCode,
   resetPassword,
+  validateAuthSession,
   verifyAuth,
   type AuthMessageResponse,
   type ChangePasswordPayload,
@@ -43,19 +49,8 @@ export const authKeys = {
   currentUser: () => ["auth", "current-user"] as const,
 };
 
-const getAuthUserFromResponse = (data: AuthResponse): AuthUser | null => {
-  const { user, email, userId, id, displayName, name, isVerified } = data;
-
-  if (user) return user;
-  if (!email) return null;
-
-  return {
-    userId: userId ?? id ?? 0,
-    email,
-    displayName: displayName ?? name ?? email,
-    isVerified: isVerified ?? true,
-  };
-};
+const getAuthUserFromResponse = (data: AuthResponse): AuthUser | null =>
+  mapAuthUser(data);
 
 function useAuthToken() {
   const [token, setToken] = useState<string | null>(() => getStoredAuthToken());
@@ -70,7 +65,16 @@ export const useCurrentUser = () => {
 
   return useQuery({
     queryKey: authKeys.currentUser(),
-    queryFn: getCurrentUser,
+    queryFn: async () => {
+      const isValid = await validateAuthSession();
+
+      if (!isValid) {
+        clearInvalidAuthSession();
+        throw new Error("Invalid auth session");
+      }
+
+      return getCurrentUser();
+    },
     enabled: Boolean(token),
     retry: false,
   });
@@ -123,8 +127,10 @@ export const useLogin = (redirectUrl?: string | null) => {
         return;
       }
 
-      if (data.sessionToken) {
-        setStoredAuthToken(data.sessionToken);
+      const token = extractAuthToken(data);
+
+      if (token) {
+        setStoredAuthToken(token);
         await queryClient.fetchQuery({
           queryKey: authKeys.currentUser(),
           queryFn: getCurrentUser,

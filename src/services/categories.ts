@@ -1,4 +1,6 @@
 import api from "@/lib/axios";
+import { API_ENDPOINTS } from "@/config/api-endpoints";
+import { normalizeServicesResponse } from "@/lib/service-response";
 import type { ApiItemResponse, ApiListResponse } from "@/types/api";
 import type { Category, Service } from "@/types/categories";
 
@@ -20,6 +22,16 @@ export type GetServicesBySubcategoryParams = {
   subcategoryId: string | number;
 };
 
+export type GetServicesParams = {
+  page?: number;
+  limit?: number;
+  offset?: number;
+  category_id?: string | number;
+  sub_category_id?: string | number;
+  service_id?: string | number;
+  search?: string;
+};
+
 /**
  * ==============================
  * ROUTES
@@ -27,10 +39,10 @@ export type GetServicesBySubcategoryParams = {
  */
 
 export const CATEGORY_ROUTES = {
-  list: "/categories",
+  list: API_ENDPOINTS.category,
   detail: (categoryId: string | number) =>
-    `/categories/${encodeURIComponent(String(categoryId))}`,
-  services: "/services",
+    `${API_ENDPOINTS.category}/${encodeURIComponent(String(categoryId))}`,
+  services: API_ENDPOINTS.service,
 };
 
 /**
@@ -83,12 +95,26 @@ export const getCategory = async ({
 export const getServicesBySubcategory = async ({
   subcategoryId,
 }: GetServicesBySubcategoryParams): Promise<ApiListResponse<Service>> => {
-  const { data } = await api.get<ApiListResponse<Service>>(
-    CATEGORY_ROUTES.services,
-    {
-      params: cleanParams({ sub_category_id: subcategoryId }),
-    },
-  );
-
-  return data;
+  return getServices({ sub_category_id: subcategoryId });
 };
+
+export const getServices = async (
+  params: GetServicesParams = {},
+): Promise<ApiListResponse<Service>> => {
+  const { data } = await api.get<unknown>(CATEGORY_ROUTES.services, {
+    params: cleanParams(params),
+  });
+
+  return normalizeServicesResponse(data);
+};
+
+export const getServiceDetail = async (
+  serviceId: string | number,
+): Promise<Service | null> => {
+  const { data } = await getServices({ service_id: serviceId, limit: 1 });
+  return data[0] ?? null;
+};
+
+export const searchServices = async (
+  search: string,
+): Promise<ApiListResponse<Service>> => getServices({ search });
