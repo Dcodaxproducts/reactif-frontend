@@ -118,16 +118,20 @@ export const useLogin = (redirectUrl?: string | null) => {
     mutationFn: (payload: LoginPayload) => loginUser(payload),
     onSuccess: async (data) => {
       const user = getAuthUserFromResponse(data);
+      const token = extractAuthToken(data);
 
       if (user?.isVerified === false) {
-        clearStoredAuthToken();
+        if (token) {
+          setStoredAuthToken(token);
+        } else {
+          clearStoredAuthToken();
+        }
+
         queryClient.removeQueries({ queryKey: authKeys.currentUser() });
         toast.success("Please verify your account to continue.");
         router.push(buildVerificationRoute(user.email));
         return;
       }
-
-      const token = extractAuthToken(data);
 
       if (token) {
         setStoredAuthToken(token);
