@@ -6,6 +6,7 @@ import {
   FiClock,
   FiCreditCard,
   FiLogOut,
+  FiMessageSquare,
   FiSettings,
   FiUser,
 } from "react-icons/fi";
@@ -71,6 +72,15 @@ export function UserDropdown({
           >
             <FiBell size={16} />
             Notifications
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleNavigate("/messages")}
+            className={menuItemClassName}
+          >
+            <FiMessageSquare size={16} />
+            Messages
           </button>
 
           <button
