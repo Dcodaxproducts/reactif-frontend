@@ -11,7 +11,7 @@ import { NavbarActions } from "./nav/NavbarActions";
 import { NavbarLogo } from "./nav/NavbarLogo";
 import { useAuth } from "@/hooks/useAuth";
 
-const Navbar = () => {
+export function Navbar() {
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -57,6 +57,7 @@ const Navbar = () => {
             dropdownOpen={dropdownOpen}
             dropdownRef={dropdownRef}
             onToggleDropdown={() => setDropdownOpen((isOpen) => !isOpen)}
+            onCloseDropdown={() => setDropdownOpen(false)}
             onLogout={handleLogout}
           />
         </div>
@@ -72,6 +73,4 @@ const Navbar = () => {
       />
     </>
   );
-};
-
-export default Navbar;
+}

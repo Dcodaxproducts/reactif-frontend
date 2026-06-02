@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { onest } from "@/lib/fonts";
-import ClientLayoutWrapper from "./ClientLayoutWrapper";
+import { ClientLayoutWrapper } from "./ClientLayoutWrapper";
 
 export const metadata: Metadata = {
   title: "Reactif | Automotive Visual Communication Expert",

@@ -36,6 +36,7 @@ export type NavbarActionsProps = {
   dropdownOpen: boolean;
   dropdownRef: RefObject<HTMLDivElement | null>;
   onToggleDropdown: () => void;
+  onCloseDropdown: () => void;
   onLogout: () => void;
 };
 
@@ -44,6 +45,7 @@ export type UserDropdownProps = {
   isOpen: boolean;
   dropdownRef: RefObject<HTMLDivElement | null>;
   onToggle: () => void;
+  onClose: () => void;
   onLogout: () => void;
 };
 

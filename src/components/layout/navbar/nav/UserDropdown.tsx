@@ -21,9 +21,20 @@ export function UserDropdown({
   isOpen,
   dropdownRef,
   onToggle,
+  onClose,
   onLogout,
 }: UserDropdownProps) {
   const router = useRouter();
+
+  const handleNavigate = (href: string) => {
+    onClose();
+    router.push(href);
+  };
+
+  const handleLogout = () => {
+    onClose();
+    onLogout();
+  };
 
   return (
     <div ref={dropdownRef} className="relative">
@@ -46,7 +57,7 @@ export function UserDropdown({
 
           <button
             type="button"
-            onClick={() => router.push("/profile")}
+            onClick={() => handleNavigate("/profile")}
             className={menuItemClassName}
           >
             <FiUser size={16} />
@@ -55,7 +66,7 @@ export function UserDropdown({
 
           <button
             type="button"
-            onClick={() => router.push("/notifications")}
+            onClick={() => handleNavigate("/notifications")}
             className={menuItemClassName}
           >
             <FiBell size={16} />
@@ -64,7 +75,7 @@ export function UserDropdown({
 
           <button
             type="button"
-            onClick={() => router.push("/order/wallet")}
+            onClick={() => handleNavigate("/order/wallet")}
             className={menuItemClassName}
           >
             <FiCreditCard size={16} />
@@ -73,7 +84,7 @@ export function UserDropdown({
 
           <button
             type="button"
-            onClick={() => router.push("/order/payment-history")}
+            onClick={() => handleNavigate("/order/payment-history")}
             className={menuItemClassName}
           >
             <FiClock size={16} />
@@ -82,7 +93,7 @@ export function UserDropdown({
 
           <button
             type="button"
-            onClick={() => router.push("/settings")}
+            onClick={() => handleNavigate("/settings")}
             className={menuItemClassName}
           >
             <FiSettings size={16} />
@@ -91,7 +102,7 @@ export function UserDropdown({
 
           <button
             type="button"
-            onClick={onLogout}
+            onClick={handleLogout}
             className={cn(menuItemClassName, "text-red-600 hover:bg-red-50")}
           >
             <FiLogOut size={16} />

@@ -10,6 +10,7 @@ export function NavbarActions({
   dropdownOpen,
   dropdownRef,
   onToggleDropdown,
+  onCloseDropdown,
   onLogout,
 }: NavbarActionsProps) {
   const router = useRouter();
@@ -32,6 +33,7 @@ export function NavbarActions({
           isOpen={dropdownOpen}
           dropdownRef={dropdownRef}
           onToggle={onToggleDropdown}
+          onClose={onCloseDropdown}
           onLogout={onLogout}
         />
       ) : (
