@@ -48,6 +48,11 @@ export const getPaymentHistory = async (): Promise<
 
 export const saveWallet = async (payload: SaveWalletPayload) => {
   const { data } = await api.post(PAYMENT_ROUTES.saveWallet, payload);
+  const walletError = getPaymentSaveError(data);
+
+  if (walletError) {
+    throw new Error(walletError);
+  }
 
   return data;
 };

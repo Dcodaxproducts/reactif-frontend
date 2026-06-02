@@ -25,8 +25,10 @@ export type PaymentHistoryItem = SavePaymentPayload & {
 };
 
 export type SaveWalletPayload = {
+  amount: number | string;
+  type: "credit" | "debit";
   gateway_id?: number | string;
-  payment_method: string;
+  payment_method?: string;
   token?: string;
   title?: string;
 };
@@ -34,8 +36,11 @@ export type SaveWalletPayload = {
 export type WalletItem = {
   id: number | string;
   gateway_id?: number | string | null;
-  title: string;
-  payment_method: string;
+  amount?: number | string | null;
+  balance?: number | string | null;
+  type?: string | null;
+  title?: string | null;
+  payment_method?: string | null;
   status?: string | number | boolean | null;
   created_at?: string | null;
 };

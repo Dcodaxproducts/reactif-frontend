@@ -2,8 +2,9 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { usePaymentHistory } from "@/hooks/usePayments";
+import { formatCurrency } from "@/lib/currency";
 
-export default function PaymentHistory() {
+export function PaymentHistory() {
   const { payments, loading, error } = usePaymentHistory();
 
   return (
@@ -13,6 +14,9 @@ export default function PaymentHistory() {
           <h1 className="text-neutral-50 text-3xl font-semibold font-hk">
             Payment History
           </h1>
+          <p className="text-neutral-50/60">
+            Review completed booking payments and transaction status.
+          </p>
           {loading && <p className="text-neutral-50/60">Loading...</p>}
           {error && <p className="text-red-400">{error}</p>}
           {!loading && payments.length === 0 && (
@@ -24,7 +28,8 @@ export default function PaymentHistory() {
               className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-t border-neutral-50/10 pt-4 text-neutral-50/70"
             >
               <span>Booking #{payment.booking_id}</span>
-              <span>${payment.amount}</span>
+              <span>{formatCurrency(payment.amount)}</span>
+              <span>{payment.payment_type}</span>
               <span>{payment.payment_status}</span>
             </div>
           ))}

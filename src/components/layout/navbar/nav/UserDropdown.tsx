@@ -1,7 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { FiBell, FiLogOut, FiSettings, FiUser } from "react-icons/fi";
+import {
+  FiBell,
+  FiClock,
+  FiCreditCard,
+  FiLogOut,
+  FiSettings,
+  FiUser,
+} from "react-icons/fi";
 import { getInitials } from "./utils";
 import type { UserDropdownProps } from "@/types/component-props";
 
@@ -53,6 +60,24 @@ export function UserDropdown({
           >
             <FiBell size={16} />
             Notifications
+          </button>
+
+          <button
+            type="button"
+            onClick={() => router.push("/order/wallet")}
+            className={menuItemClassName}
+          >
+            <FiCreditCard size={16} />
+            Wallet
+          </button>
+
+          <button
+            type="button"
+            onClick={() => router.push("/order/payment-history")}
+            className={menuItemClassName}
+          >
+            <FiClock size={16} />
+            Payment History
           </button>
 
           <button
