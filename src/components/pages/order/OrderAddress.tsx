@@ -12,6 +12,7 @@ import {
   buildPersonalInfoFields,
   getOrderTotalLabel,
 } from "@/lib/order-address-summary";
+import { reverseGeocodeLocation } from "@/lib/reverse-geocode";
 import type { BookingDraft } from "@/types/bookings";
 import { PersonalInfo } from "./OrderAddress/PersonalInfo";
 import { Configuration } from "./OrderAddress/Configuration";
@@ -121,14 +122,40 @@ export function OrderAddress() {
 
     setLocationLoading(true);
     navigator.geolocation.getCurrentPosition(
-      ({ coords }) => {
-        setAddressValues((current) => ({
-          ...current,
-          latitude: String(coords.latitude),
-          longitude: String(coords.longitude),
-        }));
-        setLocationLoading(false);
-        toast.success("Current latitude and longitude added");
+      async ({ coords }) => {
+        const latitude = String(coords.latitude);
+        const longitude = String(coords.longitude);
+
+        try {
+          const address = await reverseGeocodeLocation(
+            coords.latitude,
+            coords.longitude,
+          );
+
+          setAddressValues((current) => ({
+            ...current,
+            street: address?.street || current.street,
+            city: address?.city || current.city,
+            state: address?.state || current.state,
+            zip: address?.zip || current.zip,
+            latitude,
+            longitude,
+          }));
+          toast.success(
+            address
+              ? "Current location and address added"
+              : "Current latitude and longitude added",
+          );
+        } catch {
+          setAddressValues((current) => ({
+            ...current,
+            latitude,
+            longitude,
+          }));
+          toast.success("Current latitude and longitude added");
+        } finally {
+          setLocationLoading(false);
+        }
       },
       () => {
         setLocationLoading(false);
