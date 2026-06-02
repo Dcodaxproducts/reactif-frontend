@@ -19,8 +19,18 @@ export type SavePaymentPayload = {
   payment_status: string;
 };
 
-export type PaymentHistoryItem = SavePaymentPayload & {
+export type PaymentHistoryItem = {
   id: number | string;
+  booking_id: number | string;
+  amount?: number | string | null;
+  datetime?: string | null;
+  total_amount?: number | string | null;
+  txn_id?: string | null;
+  transaction_id?: string | null;
+  payment_type?: string | null;
+  payment_status?: string | null;
+  user_id?: number | string | null;
+  user_name?: string | null;
   created_at?: string | null;
 };
 

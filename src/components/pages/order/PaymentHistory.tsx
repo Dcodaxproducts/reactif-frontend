@@ -25,12 +25,20 @@ const formatStatusLabel = (status: string) =>
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ") || "Unknown";
 
-const getPaymentDate = (payment: PaymentHistoryItem) => {
-  if (!payment.created_at) return "Not recorded";
+const getPaymentAmount = (payment: PaymentHistoryItem) =>
+  payment.total_amount ?? payment.amount ?? 0;
 
-  const date = new Date(payment.created_at);
+const getPaymentDate = (payment: PaymentHistoryItem) => {
+  const rawDate = payment.datetime || payment.created_at;
+
+  if (!rawDate) return "Not recorded";
+
+  const date = new Date(rawDate);
   return Number.isNaN(date.getTime()) ? "Not recorded" : date.toLocaleDateString();
 };
+
+const getPaymentReference = (payment: PaymentHistoryItem) =>
+  payment.txn_id || payment.transaction_id || "No transaction reference";
 
 const getStatusClassName = (status: string) =>
   statusClassNames[status.toLowerCase()] ??
@@ -65,11 +73,14 @@ function PaymentHistoryMobileCard({ payment }: { payment: PaymentHistoryItem }) 
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <PaymentMeta label="Amount" value={formatCurrency(payment.amount)} />
-        <PaymentMeta label="Method" value={payment.payment_type || "Not recorded"} />
+        <PaymentMeta label="Amount" value={formatCurrency(getPaymentAmount(payment))} />
+        <PaymentMeta
+          label="Method"
+          value={formatStatusLabel(payment.payment_type || "Not recorded")}
+        />
         <PaymentMeta
           label="Transaction"
-          value={payment.transaction_id || `Payment #${payment.id}`}
+          value={getPaymentReference(payment)}
         />
         <PaymentMeta label="Date" value={getPaymentDate(payment)} />
       </div>
@@ -134,13 +145,13 @@ export function PaymentHistory() {
                         Booking #{payment.booking_id}
                       </span>
                       <span className="font-semibold text-neutral-50">
-                        {formatCurrency(payment.amount)}
+                        {formatCurrency(getPaymentAmount(payment))}
                       </span>
                       <span className="capitalize">
-                        {payment.payment_type || "Not recorded"}
+                        {formatStatusLabel(payment.payment_type || "Not recorded")}
                       </span>
                       <span className="break-words">
-                        {payment.transaction_id || `Payment #${payment.id}`}
+                        {getPaymentReference(payment)}
                       </span>
                       <span>{getPaymentDate(payment)}</span>
                       <PaymentStatusBadge status={status} />
