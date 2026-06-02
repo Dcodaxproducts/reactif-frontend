@@ -14,13 +14,15 @@ import {
   AuthSubmitButton,
   AuthTextField,
 } from "@/components/forms/AuthFormShell";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useRegister } from "@/hooks/useAuth";
 import {
-  registrationSchema,
+  createRegisterSchema,
   type RegistrationFormValues,
 } from "@/validations/auth";
 
 export default function RegistrationForm() {
+  const { t } = useAppTranslation();
   const registerMutation = useRegister();
   const loading = registerMutation.isPending;
   const {
@@ -28,7 +30,7 @@ export default function RegistrationForm() {
     handleSubmit,
     register,
   } = useForm<RegistrationFormValues>({
-    resolver: zodResolver(registrationSchema),
+    resolver: zodResolver(createRegisterSchema((key) => t(key))),
     defaultValues: {
       fullName: "",
       username: "",
@@ -46,7 +48,7 @@ export default function RegistrationForm() {
     password,
   }: RegistrationFormValues) => {
     if (!navigator.onLine) {
-      toast.error("No internet connection.");
+      toast.error(t("auth.noInternetConnection"));
       return;
     }
 
@@ -59,73 +61,76 @@ export default function RegistrationForm() {
 
   return (
     <AuthFormShell
-      title="Create New Account"
-      description="Join ReactIf Printing and Design Today"
+      title={t("auth.registerTitle")}
+      description={t("auth.authDescription")}
     >
-      <form noValidate className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        noValidate
+        className={AUTH_FORM_CLASS}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <AuthTextField
-          label="Full Name"
-          placeholder="Enter Full Name"
+          label={t("auth.fullName")}
+          placeholder={t("auth.enterFullName")}
           error={errors.fullName?.message}
           {...register("fullName")}
         />
 
         <div className={AUTH_FORM_GRID_CLASS}>
           <AuthTextField
-            label="Username (Optional)"
-            placeholder="Enter Username"
+            label={t("auth.usernameOptional")}
+            placeholder={t("auth.enterUsername")}
             error={errors.username?.message}
             {...register("username")}
           />
           <AuthTextField
-            label="Phone Number"
-            placeholder="Enter Phone Number"
+            label={t("auth.phoneNumber")}
+            placeholder={t("auth.enterPhoneNumber")}
             error={errors.phone?.message}
             {...register("phone")}
           />
         </div>
 
         <AuthTextField
-          label="Email"
+          label={t("auth.email")}
           type="email"
           autoComplete="email"
-          placeholder="Enter Your Email"
+          placeholder={t("auth.enterYourEmail")}
           error={errors.email?.message}
           {...register("email")}
         />
         <AuthTextField
-          label="Password"
+          label={t("auth.password")}
           type="password"
           autoComplete="new-password"
-          placeholder="Enter Password"
+          placeholder={t("auth.enterPassword")}
           error={errors.password?.message}
           {...register("password")}
         />
         <AuthTextField
-          label="Confirm Password"
+          label={t("auth.confirmPassword")}
           type="password"
           autoComplete="new-password"
-          placeholder="Enter Confirm Password"
+          placeholder={t("auth.enterConfirmPassword")}
           error={errors.confirmPassword?.message}
           {...register("confirmPassword")}
         />
 
         {registerMutation.isError && (
-          <p className={AUTH_ERROR_CLASS}>Something went wrong.</p>
+          <p className={AUTH_ERROR_CLASS}>{t("common.error")}</p>
         )}
         {isSubmitSuccessful && !registerMutation.isError && (
           <p className={AUTH_SUCCESS_CLASS}>
-            Account created successfully! Please verify your email with the OTP
-            sent.
+            {t("auth.accountCreatedVerify")}
           </p>
         )}
 
         <AuthSubmitButton type="submit" disabled={loading}>
-          {loading ? "Creating Account..." : "Register"}
+          {loading ? t("auth.creatingAccount") : t("auth.register")}
         </AuthSubmitButton>
 
-        <AuthInlineLink href="/login" label="Sign in">
-          Already Have an Account?
+        <AuthInlineLink href="/login" label={t("auth.signIn")}>
+          {t("auth.alreadyHaveAccount")}
         </AuthInlineLink>
       </form>
     </AuthFormShell>

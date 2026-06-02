@@ -8,7 +8,7 @@ import ProductSearchInput from "./ProductSearchInput";
 
 export default function ProductFilterBar() {
   const [activeCategory, setActiveCategory] = useState(
-    catalogFilterCategories[0],
+    catalogFilterCategories[0].value,
   );
 
   return (

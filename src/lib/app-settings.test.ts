@@ -39,7 +39,19 @@ describe("app settings helpers", () => {
 
   it("stores and reads settings from localStorage", () => {
     const localStorage = createStorage();
-    vi.stubGlobal("window", { localStorage });
+    const dispatchEvent = vi.fn();
+    vi.stubGlobal("window", { dispatchEvent, localStorage });
+    vi.stubGlobal(
+      "CustomEvent",
+      class CustomEvent<T> extends Event {
+        detail: T;
+
+        constructor(type: string, eventInitDict: CustomEventInit<T>) {
+          super(type);
+          this.detail = eventInitDict.detail as T;
+        }
+      },
+    );
 
     writeAppSettings({ themeMode: "light", language: "en" });
 
@@ -47,6 +59,7 @@ describe("app settings helpers", () => {
       APP_SETTINGS_STORAGE_KEY,
       JSON.stringify({ themeMode: "light", language: "en" }),
     );
+    expect(dispatchEvent).toHaveBeenCalledOnce();
     expect(readAppSettings()).toEqual({ themeMode: "light", language: "en" });
   });
 });

@@ -40,6 +40,7 @@ import {
   type ResetPasswordPayload,
   type VerifyAuthPayload,
 } from "@/services/auth";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import type { AuthResponse, AuthUser, LoginPayload, RegisterPayload } from "@/types/auth";
 
 export type User = AuthUser;
@@ -84,6 +85,7 @@ export const useAuth = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const currentUserQuery = useCurrentUser();
+  const { t } = useAppTranslation();
 
   useEffect(() => {
     if (currentUserQuery.isError) {
@@ -95,7 +97,7 @@ export const useAuth = () => {
   const logout = () => {
     clearStoredAuthToken();
     queryClient.clear();
-    toast.success("Logged out successfully");
+    toast.success(t("auth.loggedOutSuccessfully"));
     router.push("/login");
   };
 
@@ -113,6 +115,7 @@ export const useAuth = () => {
 export const useLogin = (redirectUrl?: string | null) => {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { t } = useAppTranslation();
 
   return useMutation({
     mutationFn: (payload: LoginPayload) => loginUser(payload),
@@ -128,7 +131,7 @@ export const useLogin = (redirectUrl?: string | null) => {
         }
 
         queryClient.removeQueries({ queryKey: authKeys.currentUser() });
-        toast.success("Please verify your account to continue.");
+        toast.success(t("auth.verifyAccountToContinue"));
         router.push(buildVerificationRoute(user.email));
         return;
       }
@@ -141,13 +144,13 @@ export const useLogin = (redirectUrl?: string | null) => {
         });
       }
 
-      toast.success("Login successful");
+      toast.success(t("auth.loginSuccessful"));
 
       router.push(getSafeRedirectPath(redirectUrl));
       router.refresh();
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Login failed. Please try again."));
+      toast.error(getErrorMessage(error, t("auth.loginFailed")));
     },
   });
 };
@@ -155,6 +158,7 @@ export const useLogin = (redirectUrl?: string | null) => {
 export const useRegister = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { t } = useAppTranslation();
 
   return useMutation({
     mutationFn: (payload: RegisterPayload) => registerUser(payload),
@@ -167,12 +171,12 @@ export const useRegister = () => {
       }
 
       queryClient.removeQueries({ queryKey: authKeys.currentUser() });
-      toast.success("Account created successfully! OTP sent to your email.");
+      toast.success(t("auth.accountCreatedOtpSent"));
       router.push(buildVerificationRoute(user?.email ?? payload.email));
     },
     onError: (error) => {
       toast.error(
-        getErrorMessage(error, "Account creation failed. Try again."),
+        getErrorMessage(error, t("auth.accountCreationFailed")),
       );
     },
   });
@@ -180,6 +184,7 @@ export const useRegister = () => {
 
 export const useVerifyAuth = () => {
   const queryClient = useQueryClient();
+  const { t } = useAppTranslation();
 
   return useMutation<AuthMessageResponse, Error, VerifyAuthPayload>({
     mutationFn: verifyAuth,
@@ -188,21 +193,23 @@ export const useVerifyAuth = () => {
     },
     onError: (error) => {
       toast.error(
-        getErrorMessage(error, "Verification failed. Please try again."),
+        getErrorMessage(error, t("auth.verificationFailedPleaseTryAgain")),
       );
     },
   });
 };
 
 export const useResendAuthCode = () => {
+  const { t } = useAppTranslation();
+
   return useMutation<AuthMessageResponse, Error, ResendAuthCodePayload>({
     mutationFn: resendAuthCode,
     onSuccess: () => {
-      toast.success("A new OTP has been sent to your email.");
+      toast.success(t("auth.newOtpSent"));
     },
     onError: (error) => {
       toast.error(
-        getErrorMessage(error, "Unable to resend code. Please try again."),
+        getErrorMessage(error, t("auth.unableToResendCode")),
       );
     },
   });
@@ -210,18 +217,19 @@ export const useResendAuthCode = () => {
 
 export const useForgotPassword = () => {
   const router = useRouter();
+  const { t } = useAppTranslation();
 
   return useMutation<AuthMessageResponse, Error, ForgotPasswordPayload>({
     mutationFn: forgotPassword,
     onSuccess: (_, payload) => {
-      toast.success("Password reset instructions sent. Please check your email.");
+      toast.success(t("auth.passwordResetInstructionsSent"));
       router.push(buildResetPasswordRoute(payload.email));
     },
     onError: (error) => {
       toast.error(
         getErrorMessage(
           error,
-          "Unable to send reset instructions. Please try again.",
+          t("auth.unableToSendResetInstructions"),
         ),
       );
     },
@@ -229,25 +237,29 @@ export const useForgotPassword = () => {
 };
 
 export const useResetPassword = () => {
+  const { t } = useAppTranslation();
+
   return useMutation<AuthMessageResponse, Error, ResetPasswordPayload>({
     mutationFn: resetPassword,
     onSuccess: () => {
-      toast.success("Password reset successfully!");
+      toast.success(t("auth.passwordResetSuccessfully"));
     },
     onError: (error) => {
       toast.error(
-        getErrorMessage(error, "Unable to reset password. Please try again."),
+        getErrorMessage(error, t("auth.unableToResetPassword")),
       );
     },
   });
 };
 
 export const useChangePassword = () => {
+  const { t } = useAppTranslation();
+
   return useMutation<AuthMessageResponse, Error, ChangePasswordPayload>({
     mutationFn: changePassword,
     onError: (error) => {
       toast.error(
-        getErrorMessage(error, "Unable to change password. Please try again."),
+        getErrorMessage(error, t("auth.unableToChangePassword")),
       );
     },
   });

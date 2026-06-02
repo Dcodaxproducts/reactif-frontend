@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import type { WhyCardProps } from "@/types/component-props";
 
 export function WhyCard({
@@ -6,7 +7,10 @@ export function WhyCard({
   description,
   icon: Icon,
   index,
+  titleKey,
+  descriptionKey,
 }: WhyCardProps) {
+  const { t } = useAppTranslation();
   const isPink = index === 0 || index === 3;
   const accentColor = isPink ? "#F262B5" : "#5FC5FF";
 
@@ -33,11 +37,11 @@ export function WhyCard({
         </div>
 
         <h3 className="text-white text-lg md:text-xl font-semibold mb-2 md:mb-3 font-hk">
-          {title}
+          {titleKey ? t(titleKey) : title}
         </h3>
 
         <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-4 md:mb-6">
-          {description}
+          {descriptionKey ? t(descriptionKey) : description}
         </p>
 
         <div className="flex items-center gap-2">

@@ -16,14 +16,16 @@ import {
   AuthTextField,
   sanitizeOtpInput,
 } from "@/components/forms/AuthFormShell";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useResendAuthCode, useResetPassword } from "@/hooks/useAuth";
 import { useOtpCountdown } from "@/hooks/useOtpCountdown";
 import {
-  resetPasswordSchema,
+  createResetPasswordSchema,
   type ResetPasswordValues,
 } from "@/validations/auth";
 
 const VerifyOtpForm = () => {
+  const { t } = useAppTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") ?? "";
@@ -36,7 +38,7 @@ const VerifyOtpForm = () => {
     handleSubmit,
     register,
   } = useForm<ResetPasswordValues>({
-    resolver: zodResolver(resetPasswordSchema),
+    resolver: zodResolver(createResetPasswordSchema((key) => t(key))),
     defaultValues: {
       email,
       otp: "",
@@ -55,7 +57,7 @@ const VerifyOtpForm = () => {
 
   const handleResend = async () => {
     if (!email) {
-      toast.error("No email available to resend OTP.");
+      toast.error(t("auth.noEmailToResendOtp"));
       return;
     }
 
@@ -69,13 +71,17 @@ const VerifyOtpForm = () => {
 
   return (
     <AuthFormShell
-      title="Reset Password"
-      description="Enter OTP sent to your email and choose a new password"
+      title={t("auth.resetPasswordTitle")}
+      description={t("auth.resetPasswordDescription")}
       footer
     >
-      <form noValidate className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        noValidate
+        className={AUTH_FORM_CLASS}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <AuthTextField
-          label="OTP"
+          label={t("auth.otp")}
           maxLength={5}
           placeholder="12345"
           className={AUTH_OTP_INPUT_CLASS}
@@ -83,10 +89,10 @@ const VerifyOtpForm = () => {
           {...register("otp", { onChange: sanitizeOtpInput })}
         />
         <AuthTextField
-          label="New Password"
+          label={t("auth.newPassword")}
           type="password"
           autoComplete="new-password"
-          placeholder="Enter new password"
+          placeholder={t("auth.enterNewPassword")}
           error={errors.newPassword?.message}
           {...register("newPassword")}
         />
@@ -96,7 +102,7 @@ const VerifyOtpForm = () => {
         )}
 
         <AuthSubmitButton type="submit" disabled={loading}>
-          {loading ? "Resetting..." : "Reset Password"}
+          {loading ? t("auth.resetting") : t("auth.resetPassword")}
         </AuthSubmitButton>
 
         <AuthResendOtpControl
@@ -105,8 +111,8 @@ const VerifyOtpForm = () => {
           onResend={handleResend}
         />
 
-        <AuthInlineLink href="/login" label="Login">
-          Remembered your password?
+        <AuthInlineLink href="/login" label={t("auth.login")}>
+          {t("auth.rememberedPassword")}
         </AuthInlineLink>
       </form>
     </AuthFormShell>

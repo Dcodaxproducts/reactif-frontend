@@ -15,11 +15,13 @@ import {
   AuthTextField,
   sanitizeOtpInput,
 } from "@/components/forms/AuthFormShell";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useResendAuthCode, useVerifyAuth } from "@/hooks/useAuth";
 import { useOtpCountdown } from "@/hooks/useOtpCountdown";
-import { otpSchema, type OtpFormValues } from "@/validations/auth";
+import { createOtpSchema, type OtpFormValues } from "@/validations/auth";
 
 const OTPForm = () => {
+  const { t } = useAppTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") ?? "";
@@ -32,7 +34,7 @@ const OTPForm = () => {
     handleSubmit,
     register,
   } = useForm<OtpFormValues>({
-    resolver: zodResolver(otpSchema),
+    resolver: zodResolver(createOtpSchema((key) => t(key))),
     defaultValues: {
       otp: "",
     },
@@ -40,33 +42,33 @@ const OTPForm = () => {
 
   const onSubmit = async ({ otp }: OtpFormValues) => {
     if (!navigator.onLine) {
-      toast.error("No internet connection.");
+      toast.error(t("auth.noInternetConnection"));
       return;
     }
 
     try {
       if (!email) {
-        throw new Error("Verification email not found. Please sign up again.");
+        throw new Error(t("auth.verificationEmailNotFound"));
       }
 
       await verifyOtpMutation.mutateAsync({ email, otp });
-      toast.success("Account verified successfully!");
+      toast.success(t("auth.accountVerified"));
       setTimeout(() => router.push("/login"), 1200);
     } catch (err: unknown) {
       const message =
-        err instanceof Error ? err.message : "Verification failed. Try again.";
+        err instanceof Error ? err.message : t("auth.verificationFailed");
       toast.error(message);
     }
   };
 
   const handleResend = async () => {
     if (!navigator.onLine) {
-      toast.error("No internet connection.");
+      toast.error(t("auth.noInternetConnection"));
       return;
     }
 
     if (!email) {
-      toast.error("No email available to resend OTP.");
+      toast.error(t("auth.noEmailToResendOtp"));
       return;
     }
 
@@ -75,19 +77,23 @@ const OTPForm = () => {
       restartCountdown();
     } catch (err: unknown) {
       const message =
-        err instanceof Error ? err.message : "Failed to resend OTP. Try again.";
+        err instanceof Error ? err.message : t("auth.failedToResendOtp");
       toast.error(message);
     }
   };
 
   return (
     <AuthFormShell
-      title="Verify Your Account"
-      description="Enter the 5-digit code sent to your email"
+      title={t("auth.verifyAccountTitle")}
+      description={t("auth.verifyAccountDescription")}
     >
-      <form noValidate className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        noValidate
+        className={AUTH_FORM_CLASS}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <AuthTextField
-          label="Verification Code"
+          label={t("auth.verificationCode")}
           maxLength={5}
           placeholder="12345"
           className={AUTH_OTP_INPUT_CLASS}
@@ -96,7 +102,7 @@ const OTPForm = () => {
         />
 
         <AuthSubmitButton type="submit" disabled={loading}>
-          {loading ? "Verifying..." : "Verify"}
+          {loading ? t("auth.verifying") : t("auth.verify")}
         </AuthSubmitButton>
 
         <AuthResendOtpControl
@@ -105,8 +111,8 @@ const OTPForm = () => {
           onResend={handleResend}
         />
 
-        <AuthInlineLink href="/login" label="Login">
-          Back to
+        <AuthInlineLink href="/login" label={t("auth.login")}>
+          {t("auth.backTo")}
         </AuthInlineLink>
       </form>
     </AuthFormShell>

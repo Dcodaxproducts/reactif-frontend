@@ -60,11 +60,14 @@ export type MobileSidebarProps = {
 
 export type PopularHelpLinkProps = {
   label: string;
+  labelKey?: string;
 };
 
 export type HelpCardData = {
   title: string;
+  titleKey?: string;
   description: string;
+  descriptionKey?: string;
   icon: LucideIcon;
   color: string;
 };
@@ -76,7 +79,9 @@ export type HelpCardProps = {
 export type FAQItemData = {
   value: string;
   question: string;
+  questionKey?: string;
   answer: string;
+  answerKey?: string;
 };
 
 export type QuoteButtonProps = {
@@ -113,7 +118,9 @@ export type LoadMoreButtonProps = {
 
 export type WhyCardData = {
   title: string;
+  titleKey?: string;
   description: string;
+  descriptionKey?: string;
   icon: IconType;
 };
 
@@ -187,6 +194,7 @@ export type CatalogScrollerProps = {
 
 export type CatalogCategoryButtonProps = {
   category: string;
+  label?: string;
   active: boolean;
   onSelect: (category: string) => void;
 };

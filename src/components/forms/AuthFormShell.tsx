@@ -5,6 +5,7 @@ import { PageShell } from "@/components/common/PageShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { cn } from "@/lib/utils";
 
 const AUTH_SECTION_CLASS =
@@ -26,9 +27,6 @@ export const AUTH_SUCCESS_CLASS = "text-green-500 text-sm font-medium";
 export const AUTH_RESEND_ROW_CLASS = "text-center text-sm text-neutral-50/60";
 export const AUTH_RESEND_BUTTON_CLASS = "text-blue-600 font-semibold";
 export const AUTH_OTP_INPUT_CLASS = "text-center tracking-widest text-lg";
-export const AUTH_FOOTER_TEXT =
-  "© 2026 ReactIf Printing & Design. All rights reserved";
-
 export const sanitizeOtpInput = (event: ChangeEvent<HTMLInputElement>) => {
   event.target.value = event.target.value.replace(/\D/g, "");
 };
@@ -52,6 +50,8 @@ export function AuthFormShell({
   footer = false,
   descriptionClassName,
 }: AuthFormShellProps) {
+  const { t } = useAppTranslation();
+
   return (
     <section className={AUTH_SECTION_CLASS}>
       <div className={AUTH_CARD_CLASS}>
@@ -64,7 +64,7 @@ export function AuthFormShell({
         {children}
         {footer && (
           <div className="text-center text-neutral-50/60 text-xs sm:text-sm">
-            {AUTH_FOOTER_TEXT}
+            {t("auth.footerCopyright")}
           </div>
         )}
       </div>
@@ -148,6 +148,8 @@ export function AuthResendOtpControl({
   disabled = false,
   onResend,
 }: AuthResendOtpControlProps) {
+  const { t } = useAppTranslation();
+
   return (
     <div className={AUTH_RESEND_ROW_CLASS}>
       {countdown <= 0 ? (
@@ -158,10 +160,10 @@ export function AuthResendOtpControl({
           disabled={disabled}
           className={AUTH_RESEND_BUTTON_CLASS}
         >
-          Resend OTP
+          {t("auth.resendOtp")}
         </Button>
       ) : (
-        <span>Resend OTP in {countdown}s</span>
+        <span>{t("auth.resendOtpIn", { seconds: countdown })}</span>
       )}
     </div>
   );

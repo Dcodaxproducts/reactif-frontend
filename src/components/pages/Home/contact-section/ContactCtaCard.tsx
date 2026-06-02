@@ -1,8 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { QuoteButton } from "./QuoteButton";
 import type { QuoteButtonProps } from "@/types/component-props";
 
 export function ContactCtaCard({ loading, onRequestQuote }: QuoteButtonProps) {
+  const { t } = useAppTranslation();
+
   return (
     <Card className="rounded-[12px] border border-[#F5F5F580] bg-transparent py-0 shadow-none">
       <CardContent className="py-12 md:py-20 px-6 sm:px-10 md:px-16 text-center">
@@ -15,12 +18,11 @@ export function ContactCtaCard({ loading, onRequestQuote }: QuoteButtonProps) {
             WebkitTextFillColor: "transparent",
           }}
         >
-          READY TO BRING YOUR PROJECT TO LIFE?
+          {t("home.contactCta.title")}
         </h2>
 
         <p className="text-white text-sm sm:text-base md:text-lg lg:text-xl max-w-4xl mx-auto mb-8 md:mb-10 font-hk">
-          Contact us today for a free personalized quote. Our team of experts is
-          available to advise you.
+          {t("home.contactCta.description")}
         </p>
 
         <div className="flex justify-center">

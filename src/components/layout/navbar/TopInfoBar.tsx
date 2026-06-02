@@ -2,8 +2,11 @@
 
 import { Phone, Mail } from "lucide-react";
 import { Container } from "@/components/common/Container";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 
 export default function TopInfoBar() {
+  const { t } = useAppTranslation();
+
   return (
     <div
       className="relative w-full text-white text-xs md:text-sm overflow-hidden"
@@ -46,7 +49,7 @@ export default function TopInfoBar() {
         </div>
 
         <p className="text-[#F5F5F5] whitespace-nowrap">
-          Automotive Visual Communication Expert
+          {t("topInfoBar.tagline")}
         </p>
       </Container>
     </div>

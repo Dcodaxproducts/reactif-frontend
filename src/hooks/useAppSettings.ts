@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import {
+  APP_SETTINGS_CHANGE_EVENT,
   DEFAULT_APP_SETTINGS,
   readAppSettings,
   writeAppSettings,
@@ -17,6 +18,21 @@ export const useAppSettings = () => {
     const storedSettings = readAppSettings();
     setSettings(storedSettings);
     setTheme(storedSettings.themeMode);
+
+    const handleSettingsChange = (event: Event) => {
+      const nextSettings =
+        event instanceof CustomEvent ? event.detail : readAppSettings();
+
+      setSettings(nextSettings);
+      setTheme(nextSettings.themeMode);
+    };
+
+    window.addEventListener(APP_SETTINGS_CHANGE_EVENT, handleSettingsChange);
+    return () =>
+      window.removeEventListener(
+        APP_SETTINGS_CHANGE_EVENT,
+        handleSettingsChange,
+      );
   }, [setTheme]);
 
   const updateSettings = (nextSettings: AppSettings) => {

@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { CONTACT_LABEL_CLASS } from "./contact-form-classes";
 
 const trustedAvatarItems = [
@@ -12,6 +13,8 @@ const trustedAvatarItems = [
 ];
 
 export function TrustedByCard() {
+  const { t } = useAppTranslation();
+
   return (
     <div className="relative mt-6 md:mt-10 rounded-xl border border-white/50 p-4 md:p-6 overflow-hidden">
       <div
@@ -23,7 +26,7 @@ export function TrustedByCard() {
       />
 
       <div className="relative z-10 flex flex-col gap-4 md:gap-6">
-        <span className={CONTACT_LABEL_CLASS}>Trusted By</span>
+        <span className={CONTACT_LABEL_CLASS}>{t("contact.trustedBy")}</span>
 
         <div className="flex items-center flex-wrap">
           {trustedAvatarItems.map((item) => (

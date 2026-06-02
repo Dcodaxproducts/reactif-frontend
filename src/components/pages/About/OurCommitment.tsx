@@ -3,21 +3,24 @@
 import Image from "next/image";
 import { CheckCircle } from "lucide-react";
 import { Container } from "@/components/common/Container";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 
 const commitments = [
-  "Uncompromising quality in every square inch.",
-  "Environmentally conscious printing processes.",
-  "24/7 Support for corporate fleet accounts.",
-  "Cutting-edge material sourcing.",
+  "about.commitments.quality",
+  "about.commitments.environment",
+  "about.commitments.support",
+  "about.commitments.materials",
 ];
 
 export default function OurCommitment() {
+  const { t } = useAppTranslation();
+
   return (
     <section className="w-full px-4 md:px-8 lg:px-20 pb-24">
       <Container width="7xl" className="border border-white/20 rounded-2xl p-6 md:p-10 grid md:grid-cols-2 gap-10 items-center bg-[#010304]">
         <div className="space-y-6">
           <h2 className="text-xl md:text-2xl font-semibold text-white">
-            Our Commitment
+            {t("about.commitmentTitle")}
           </h2>
 
           <div className="space-y-4">
@@ -25,7 +28,9 @@ export default function OurCommitment() {
               <div key={item} className="flex items-start gap-3">
                 <CheckCircle className="text-pink-500 mt-1" size={18} />
 
-                <p className="text-slate-300 text-sm md:text-base">{item}</p>
+                <p className="text-slate-300 text-sm md:text-base">
+                  {t(item)}
+                </p>
               </div>
             ))}
           </div>

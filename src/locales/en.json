@@ -27,7 +27,75 @@
     "languageEnglish": "English",
     "languageFrench": "Français"
   },
-  "auth": {},
+  "auth": {
+    "loginTitle": "Login Your Account",
+    "authDescription": "Join ReactIf Printing and Design Today",
+    "email": "Email",
+    "password": "Password",
+    "enterYourEmail": "Enter Your Email",
+    "enterPassword": "Enter Password",
+    "forgotPasswordLink": "Forgot Password?",
+    "loggingIn": "Logging in...",
+    "login": "Login",
+    "noAccount": "Don’t Have an Account?",
+    "signUp": "Sign up",
+    "registerTitle": "Create New Account",
+    "fullName": "Full Name",
+    "enterFullName": "Enter Full Name",
+    "usernameOptional": "Username (Optional)",
+    "enterUsername": "Enter Username",
+    "phoneNumber": "Phone Number",
+    "enterPhoneNumber": "Enter Phone Number",
+    "confirmPassword": "Confirm Password",
+    "enterConfirmPassword": "Enter Confirm Password",
+    "accountCreatedVerify": "Account created successfully! Please verify your email with the OTP sent.",
+    "creatingAccount": "Creating Account...",
+    "register": "Register",
+    "signIn": "Sign in",
+    "alreadyHaveAccount": "Already Have an Account?",
+    "forgotPasswordTitle": "Forgot Password",
+    "forgotPasswordDescription": "Enter your registered email to receive a password reset OTP",
+    "enterRegisteredEmail": "Enter your registered email",
+    "sendingOtp": "Sending OTP...",
+    "sendOtp": "Send OTP",
+    "rememberedPassword": "Remembered your password?",
+    "verifyAccountTitle": "Verify Your Account",
+    "verifyAccountDescription": "Enter the 5-digit code sent to your email",
+    "verificationCode": "Verification Code",
+    "verifying": "Verifying...",
+    "verify": "Verify",
+    "resendOtp": "Resend OTP",
+    "resendOtpIn": "Resend OTP in {seconds}s",
+    "backTo": "Back to",
+    "accountVerified": "Account verified successfully!",
+    "verificationFailed": "Verification failed. Try again.",
+    "failedToResendOtp": "Failed to resend OTP. Try again.",
+    "noInternetConnection": "No internet connection.",
+    "verificationEmailNotFound": "Verification email not found. Please sign up again.",
+    "noEmailToResendOtp": "No email available to resend OTP.",
+    "resetPasswordTitle": "Reset Password",
+    "resetPasswordDescription": "Enter OTP sent to your email and choose a new password",
+    "otp": "OTP",
+    "newPassword": "New Password",
+    "enterNewPassword": "Enter new password",
+    "resetting": "Resetting...",
+    "resetPassword": "Reset Password",
+    "footerCopyright": "© 2026 ReactIf Printing & Design. All rights reserved",
+    "loggedOutSuccessfully": "Logged out successfully",
+    "verifyAccountToContinue": "Please verify your account to continue.",
+    "loginSuccessful": "Login successful",
+    "loginFailed": "Login failed. Please try again.",
+    "accountCreatedOtpSent": "Account created successfully! OTP sent to your email.",
+    "accountCreationFailed": "Account creation failed. Try again.",
+    "verificationFailedPleaseTryAgain": "Verification failed. Please try again.",
+    "newOtpSent": "A new OTP has been sent to your email.",
+    "unableToResendCode": "Unable to resend code. Please try again.",
+    "passwordResetInstructionsSent": "Password reset instructions sent. Please check your email.",
+    "unableToSendResetInstructions": "Unable to send reset instructions. Please try again.",
+    "passwordResetSuccessfully": "Password reset successfully!",
+    "unableToResetPassword": "Unable to reset password. Please try again.",
+    "unableToChangePassword": "Unable to change password. Please try again."
+  },
   "settings": {
     "title": "Settings",
     "description": "Manage local display preferences.",
@@ -42,9 +110,194 @@
     "settingsSaved": "Settings saved",
     "invalidSettings": "Please select valid settings"
   },
-  "home": {},
-  "catalog": {},
-  "helpCenter": {},
+  "home": {
+    "hero": {
+      "badge": "AUTOMOTIVE EXPERTS",
+      "titleLine1": "TRANSFORM YOUR",
+      "titleLine2": "VEHICLES INTO",
+      "titleLine3": "ADVERTISING TOOLS",
+      "description": "Leader In Visual Communication For The Automotive Sector. Vehicle Wrapping, Marking, And Advertising With Uncompromising Professional Quality.",
+      "freeQuote": "Free Quote",
+      "ourProjects": "Our Projects"
+    },
+    "tailored": {
+      "titlePrefix": "TAILORED",
+      "titleAccent": "CATEGORIES",
+      "description": "Complete Visual Communication Solutions Adapted To Your Needs.",
+      "loadMore": "Load More",
+      "cardSubtitle": "Signboards & Stickers",
+      "keyServices": "Key Services",
+      "learnMore": "Learn More"
+    },
+    "keyServices": {
+      "fullPartialWraps": "Full & Partial Wraps",
+      "paintProtection": "Paint Protection",
+      "fleetBranding": "Fleet Branding",
+      "windowGraphics": "Window Graphics"
+    },
+    "why": {
+      "badge": "Our Commitment",
+      "titlePrefix": "WHY",
+      "titleAccent": "CHOOSE US",
+      "description": "Our Commitment To Excellence And Your Satisfaction Makes Us The Ideal Partner For Your Visual Communication Projects.",
+      "cards": {
+        "recognizedExpertise": {
+          "title": "Recognized Expertise",
+          "description": "Over 15 years of experience in automotive visual communication"
+        },
+        "premiumMaterials": {
+          "title": "Premium Materials",
+          "description": "Durable films and finishes selected for demanding automotive environments"
+        },
+        "awardWinning": {
+          "title": "Award-Winning Quality",
+          "description": "Detail-driven production standards for polished visual results"
+        },
+        "clientFocused": {
+          "title": "Client-Focused Process",
+          "description": "Clear guidance from concept through final installation"
+        },
+        "precisionInstall": {
+          "title": "Precision Installation",
+          "description": "Expert handling for clean edges, alignment, and long-lasting results"
+        },
+        "fastDelivery": {
+          "title": "Fast Project Delivery",
+          "description": "Efficient workflows that keep your project moving without compromise"
+        }
+      }
+    },
+    "contact": {
+      "badge": "Get in Touch",
+      "titlePrefix": "START YOUR",
+      "titleAccent": "PROJECT",
+      "titleSuffix": "TODAY",
+      "description": "Let's discuss how we can transform your vision into reality"
+    },
+    "contactCta": {
+      "title": "READY TO BRING YOUR PROJECT TO LIFE?",
+      "description": "Contact us today for a free personalized quote. Our team of experts is available to advise you.",
+      "requesting": "Requesting...",
+      "requestQuote": "Request a Free Quote"
+    }
+  },
+  "catalog": {
+    "hero": {
+      "title": "High-Impact Visual Design",
+      "description": "Elevate your brand with our professional automotive wraps, custom signage, and premium apparel solutions."
+    },
+    "searchPlaceholder": "Search products, wraps, or apparel...",
+    "filters": {
+      "button": "Filters",
+      "allProducts": "All Products",
+      "vehicleWraps": "Vehicle Wraps",
+      "signage": "Signage",
+      "apparel": "Apparel",
+      "accessories": "Accessories"
+    },
+    "sections": {
+      "ourServices": "Our Services",
+      "popularServices": "Popular Services"
+    },
+    "categories": {
+      "commercial": "COMMERCIAL",
+      "automotive": "AUTOMOTIVE",
+      "bikes": "BIKES"
+    },
+    "viewDetails": "View Details",
+    "viewDetailsFor": "View details for {title}",
+    "addToCart": "Add {title} to cart",
+    "items": {
+      "suvBranding": {
+        "title": "SUV Branding",
+        "description": "Custom business decals and partial wraps designed specifically for SUV fleets."
+      },
+      "sedanBranding": {
+        "title": "Sedan Branding",
+        "description": "Elegant and high-visibility branding solutions for corporate sedan fleets."
+      },
+      "compactCarBranding": {
+        "title": "Compact Car Branding",
+        "description": "Cost-effective wrap solutions for city cars and compact delivery fleets."
+      },
+      "lightVanWrapping": {
+        "title": "Light Van Wrapping",
+        "description": "Professional vinyl graphics for small utility vans and service vehicles."
+      },
+      "classicTint": {
+        "title": "35% Classic Tint",
+        "description": "Legal tint in many regions. Provides a sleek look without being overly dark."
+      },
+      "lightSmokeTint": {
+        "title": "50% Light Smoke Tint",
+        "description": "Subtle shading that still provides excellent UV protection and slight dimming."
+      },
+      "clearCeramicTint": {
+        "title": "70% Clear Ceramic Tint",
+        "description": "Maximum heat and UV protection with a nearly transparent finish."
+      },
+      "sportWrap": {
+        "title": "Solid Color Sport Wrap",
+        "description": "Complete aerodynamic fairing coverage in premium matte, gloss, or satin finishes."
+      }
+    }
+  },
+  "helpCenter": {
+    "supportCenter": "Support Center",
+    "hero": {
+      "titlePrefix": "How can we",
+      "titleAccent": "help you?"
+    },
+    "searchPlaceholder": "Search for answers (e.g., 'How to track my order?')",
+    "popularLabel": "Popular:",
+    "popular": {
+      "shippingRates": "Shipping rates",
+      "vinylCare": "Vinyl care",
+      "bulkDiscounts": "Bulk discounts"
+    },
+    "cards": {
+      "orderingPayments": {
+        "title": "Ordering & Payments",
+        "description": "Learn about payment methods, processing times, and how to place custom orders for fleet branding."
+      },
+      "shippingLogistics": {
+        "title": "Shipping & Logistics",
+        "description": "Tracking info, international shipping options, and safe packaging for sensitive signage materials."
+      },
+      "designServices": {
+        "title": "Design Services",
+        "description": "File format requirements, design consultation processes, and template downloads for wraps."
+      },
+      "technicalSupport": {
+        "title": "Technical Support",
+        "description": "Installation guides for illuminated signage, vinyl maintenance, and lighting troubleshooting."
+      },
+      "accountManagement": {
+        "title": "Account Management",
+        "description": "Update your business details, view order history, and manage sub-users for corporate accounts."
+      },
+      "privacyTerms": {
+        "title": "Privacy & Terms",
+        "description": "Information on data security, terms of service for installation, and our quality guarantee policies."
+      }
+    },
+    "faq": {
+      "title": "Featured FAQs",
+      "description": "Find quick answers to our most common inquiries.",
+      "turnaroundTime": {
+        "question": "What is the typical turnaround time for a full vehicle wrap?",
+        "answer": "Turnaround time typically ranges from 3–7 business days depending on design complexity, printing, and installation scheduling."
+      },
+      "onsiteInstallation": {
+        "question": "Do you provide on-site installation services?",
+        "answer": "Yes, we offer on-site installation services depending on your location and project size."
+      },
+      "vinylUvLife": {
+        "question": "How long do the vinyl materials last under UV exposure?",
+        "answer": "High-quality vinyl materials typically last 5–7 years with proper care, even under strong UV exposure."
+      }
+    }
+  },
   "profile": {},
   "booking": {},
   "order": {},
@@ -52,6 +305,178 @@
   "wallet": {},
   "messages": {},
   "notifications": {},
-  "footer": {},
-  "validation": {}
+  "footer": {
+    "platform": "Platform",
+    "description": "Transforming visions into reality through premium printing and design solutions.",
+    "getStarted": "GET STARTED",
+    "services": "Services",
+    "automotive": "Automotive",
+    "visualAdvertising": "Visual Advertising",
+    "signaletique": "Signalétique",
+    "apparel": "Apparel",
+    "accessories": "Accessories",
+    "company": "Company",
+    "aboutUs": "About Us",
+    "blogs": "Blogs",
+    "portfolio": "Portfolio",
+    "contactUs": "Contact Us",
+    "support": "Support",
+    "helpCenter": "Help Center",
+    "contactSupport": "Contact Support",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "followUs": "Follow us"
+  },
+  "validation": {
+    "emailRequired": "Email is required.",
+    "invalidEmail": "Invalid email format.",
+    "passwordRequired": "Password is required.",
+    "passwordMin": "Password must be at least 8 characters.",
+    "otpRequired": "Please enter the OTP.",
+    "otpExactLength": "OTP must be exactly 5 digits.",
+    "newPasswordRequired": "New password is required.",
+    "fullNameRequired": "Full Name is required.",
+    "phoneRequired": "Phone number is required.",
+    "confirmPasswordRequired": "Confirm password is required.",
+    "passwordsDoNotMatch": "Passwords do not match."
+  },
+  "topInfoBar": {
+    "tagline": "Automotive Visual Communication Expert"
+  },
+  "contact": {
+    "information": "Contact Information",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "fullName": "Full Name",
+    "serviceInterestedIn": "Service Interested In",
+    "selectService": "Select a service",
+    "message": "Message",
+    "sendMessage": "Send Message",
+    "trustedBy": "Trusted By"
+  },
+  "about": {
+    "heroTitleLine1": "DRIVING EXCELLENCE IN VISUAL",
+    "heroTitleLine2": "COMMUNICATION",
+    "heroDescription": "Revolutionizing automotive aesthetics with high-impact precision and neon-infused creativity.",
+    "exploreOurWork": "EXPLORE OUR WORK",
+    "originBadge": "Our Origin",
+    "originTitleLine1": "Born from Passion",
+    "originTitleLine2": "Defined by Precision",
+    "originParagraph1": "Founded at the intersection of automotive passion and cutting-edge design, ReactIf Printing & Design specializes in pushing the boundaries of visual communication. We started as a small workshop with a single vision: to treat every vehicle as a high-performance canvas.",
+    "originParagraph2": "Our mission is to transform the ordinary into the extraordinary. By blending industrial-grade materials with futuristic design aesthetics, we help our clients demand attention on the road and beyond.",
+    "commitmentTitle": "Our Commitment",
+    "commitments": {
+      "quality": "Uncompromising quality in every square inch.",
+      "environment": "Environmentally conscious printing processes.",
+      "support": "24/7 Support for corporate fleet accounts.",
+      "materials": "Cutting-edge material sourcing."
+    },
+    "expertise": {
+      "title": "Our Expertise",
+      "items": {
+        "premiumWraps": {
+          "title": "Premium Vehicle Wraps",
+          "description": "Utilizing industry-leading vinyl and precision installation techniques for a flawless finish that protects and performs."
+        },
+        "highImpactDesign": {
+          "title": "High-Impact Design",
+          "description": "Custom livery and graphics designed to capture the essence of your brand or personal style with striking visual clarity."
+        },
+        "industrialPrecision": {
+          "title": "Industrial Precision",
+          "description": "State-of-the-art printing technology ensuring color accuracy and durability that stands up to the rigors of the road."
+        }
+      }
+    }
+  },
+  "legal": {
+    "lastUpdated": "Last Updated: {date}",
+    "cta": {
+      "title": "Have questions about our terms?",
+      "description": "Our legal team is here to help you understand your rights.",
+      "button": "Contact Legal"
+    },
+    "terms": {
+      "title": "TERMS OF SERVICE",
+      "sections": {
+        "introduction": {
+          "title": "Introduction",
+          "content1": "Welcome to Reactif Printing & Design. These Terms of Service (“Terms”) govern your access and use of our website, products, and services.",
+          "content2": "Reactif provides high-quality digital and physical printing solutions, graphic design services, and branding consultations."
+        },
+        "userResponsibilities": {
+          "title": "User Responsibilities",
+          "item1": "You are responsible for ensuring all uploaded files meet technical specifications.",
+          "item2": "You must own or have rights to all submitted content.",
+          "item3": "You agree not to use services for unlawful or offensive materials."
+        },
+        "intellectualProperty": {
+          "title": "Intellectual Property",
+          "content1": "All content created during the design phase remains the property of Reactif until final payment.",
+          "highlight": "Upon final payment, ownership transfers to the client, while Reactif retains the right to showcase work in portfolio and marketing materials."
+        },
+        "liability": {
+          "title": "Limitation of Liability",
+          "content1": "Reactif shall not be liable for indirect or incidental damages.",
+          "content2": "We do not guarantee exact color matching between digital and physical prints.",
+          "content3": "Maximum liability is limited to the amount paid for the service."
+        },
+        "governingLaw": {
+          "title": "Governing Law",
+          "content1": "These Terms are governed by and construed in accordance with the laws of the jurisdiction in which ReactIf Printing & Design is registered, without regard to its conflict of law principles."
+        }
+      }
+    },
+    "privacy": {
+      "title": "PRIVACY POLICY",
+      "cta": {
+        "title": "Have questions about your privacy?",
+        "description": "Our team is here to help you understand how your data is collected, used, and protected.",
+        "button": "Contact Us"
+      },
+      "sections": {
+        "introduction": {
+          "title": "Introduction",
+          "content1": "We respect your privacy and are committed to protecting your personal information.",
+          "content2": "This Privacy Policy explains how we collect, use, and safeguard your data when you use our platform and services."
+        },
+        "information": {
+          "title": "Information We Collect",
+          "item1": "Personal information such as name, email, phone number, and address",
+          "item2": "Account and authentication data",
+          "item3": "Payment and transaction details",
+          "item4": "Usage data including interactions with our platform"
+        },
+        "use": {
+          "title": "How We Use Your Information",
+          "content1": "We use your information to provide and improve our services.",
+          "content2": "This includes processing orders, managing accounts, and providing customer support.",
+          "highlight": "We may also use your data to personalize your experience and send important updates or promotional communications."
+        },
+        "sharing": {
+          "title": "Data Sharing and Security",
+          "content1": "We do not sell your personal data to third parties.",
+          "content2": "We may share data with trusted service providers for payment processing and service delivery.",
+          "content3": "We implement industry-standard security measures to protect your data."
+        },
+        "rights": {
+          "title": "Your Rights",
+          "content1": "You have the right to access, update, or delete your personal information.",
+          "content2": "You may opt out of marketing communications whenever needed.",
+          "content3": "You can request a copy of your stored data."
+        },
+        "cookies": {
+          "title": "Cookies and Tracking",
+          "content1": "We use cookies and similar technologies to enhance user experience.",
+          "content2": "These help us understand user behavior and improve our platform."
+        },
+        "changes": {
+          "title": "Changes to This Policy",
+          "content1": "We may update this Privacy Policy from time to time.",
+          "content2": "Any changes will be communicated through our platform or via email."
+        }
+      }
+    }
+  }
 }

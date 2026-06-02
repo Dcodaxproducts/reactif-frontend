@@ -1,67 +1,72 @@
 "use client";
 
 import { HeroTitle, HeroText } from "@/components/common/HeroUi";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import TermsBlock from "./TermsBlock";
 import LegalCTA from "./LegalCTA";
 const termsSections = [
   {
     id: 1,
-    title: "Introduction",
-    content: [
-      "Welcome to Reactif Printing & Design. These Terms of Service (“Terms”) govern your access and use of our website, products, and services.",
-      "Reactif provides high-quality digital and physical printing solutions, graphic design services, and branding consultations.",
+    titleKey: "legal.terms.sections.introduction.title",
+    contentKeys: [
+      "legal.terms.sections.introduction.content1",
+      "legal.terms.sections.introduction.content2",
     ],
   },
   {
     id: 2,
-    title: "User Responsibilities",
-    list: [
-      "You are responsible for ensuring all uploaded files meet technical specifications.",
-      "You must own or have rights to all submitted content.",
-      "You agree not to use services for unlawful or offensive materials.",
+    titleKey: "legal.terms.sections.userResponsibilities.title",
+    listKeys: [
+      "legal.terms.sections.userResponsibilities.item1",
+      "legal.terms.sections.userResponsibilities.item2",
+      "legal.terms.sections.userResponsibilities.item3",
     ],
   },
   {
     id: 3,
-    title: "Intellectual Property",
-    content: [
-      "All content created during the design phase remains the property of Reactif until final payment.",
-    ],
-    highlight:
-      "Upon final payment, ownership transfers to the client, while Reactif retains the right to showcase work in portfolio and marketing materials.",
+    titleKey: "legal.terms.sections.intellectualProperty.title",
+    contentKeys: ["legal.terms.sections.intellectualProperty.content1"],
+    highlightKey: "legal.terms.sections.intellectualProperty.highlight",
   },
   {
     id: 4,
-    title: "Limitation of Liability",
-    content: [
-      "Reactif shall not be liable for indirect or incidental damages.",
-      "We do not guarantee exact color matching between digital and physical prints.",
-      "Maximum liability is limited to the amount paid for the service.",
+    titleKey: "legal.terms.sections.liability.title",
+    contentKeys: [
+      "legal.terms.sections.liability.content1",
+      "legal.terms.sections.liability.content2",
+      "legal.terms.sections.liability.content3",
     ],
   },
   {
     id: 5,
-    title: "Governing Law",
-    content: [
-      "These Terms are governed by and construed in accordance with the laws of the jurisdiction in which ReactIf Printing & Design is registered, without regard to its conflict of law principles.",
-    ],
+    titleKey: "legal.terms.sections.governingLaw.title",
+    contentKeys: ["legal.terms.sections.governingLaw.content1"],
   },
 ];
 export default function TermsOfService() {
+  const { t } = useAppTranslation();
+  const translatedSections = termsSections.map((section) => ({
+    id: section.id,
+    title: t(section.titleKey),
+    content: section.contentKeys?.map((key) => t(key)),
+    list: section.listKeys?.map((key) => t(key)),
+    highlight: section.highlightKey ? t(section.highlightKey) : undefined,
+  }));
+
   return (
     <section className="w-full px-4 md:px-8 lg:px-20 py-16">
       <div className="max-w-4xl mx-auto space-y-12">
         <div className="text-center space-y-3">
           <HeroTitle className="uppercase text-3xl md:text-4xl">
-            TERMS OF SERVICE
+            {t("legal.terms.title")}
           </HeroTitle>
 
           <HeroText className="text-slate-400">
-            Last Updated: October 24, 2023
+            {t("legal.lastUpdated", { date: "October 24, 2023" })}
           </HeroText>
         </div>
         <div className="space-y-12">
-          {termsSections.map((section) => (
+          {translatedSections.map((section) => (
             <TermsBlock key={section.id} {...section} />
           ))}
         </div>

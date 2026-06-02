@@ -1,56 +1,97 @@
 import { z } from "zod";
 
-export const emailSchema = z
-  .string()
-  .trim()
-  .min(1, "Email is required.")
-  .email("Invalid email format.");
+type ValidationTranslator = (key: string) => string;
 
-export const passwordSchema = z
-  .string()
-  .min(1, "Password is required.")
-  .min(8, "Password must be at least 8 characters.");
+const englishValidationTranslator: ValidationTranslator = (key) => {
+  const messages: Record<string, string> = {
+    "validation.emailRequired": "Email is required.",
+    "validation.invalidEmail": "Invalid email format.",
+    "validation.passwordRequired": "Password is required.",
+    "validation.passwordMin": "Password must be at least 8 characters.",
+    "validation.otpRequired": "Please enter the OTP.",
+    "validation.otpExactLength": "OTP must be exactly 5 digits.",
+    "validation.newPasswordRequired": "New password is required.",
+    "validation.fullNameRequired": "Full Name is required.",
+    "validation.phoneRequired": "Phone number is required.",
+    "validation.confirmPasswordRequired": "Confirm password is required.",
+    "validation.passwordsDoNotMatch": "Passwords do not match.",
+  };
 
-export const otpSchema = z.object({
-  otp: z
+  return messages[key] ?? key;
+};
+
+const createEmailSchema = (t: ValidationTranslator) =>
+  z
     .string()
     .trim()
-    .min(1, "Please enter the OTP.")
-    .regex(/^\d{5}$/, "OTP must be exactly 5 digits."),
-});
+    .min(1, t("validation.emailRequired"))
+    .email(t("validation.invalidEmail"));
 
-export const loginSchema = z.object({
-  email: emailSchema,
-  password: passwordSchema,
-});
-
-export const forgotPasswordSchema = z.object({
-  email: emailSchema,
-});
-
-export const resetPasswordSchema = z.object({
-  email: emailSchema,
-  otp: otpSchema.shape.otp,
-  newPassword: z
+const createPasswordSchema = (t: ValidationTranslator) =>
+  z
     .string()
-    .trim()
-    .min(1, "New password is required.")
-    .min(8, "Password must be at least 8 characters."),
-});
+    .min(1, t("validation.passwordRequired"))
+    .min(8, t("validation.passwordMin"));
 
-export const registrationSchema = z
-  .object({
-    fullName: z.string().trim().min(1, "Full Name is required."),
-    username: z.string().optional(),
-    phone: z.string().trim().min(1, "Phone number is required."),
-    email: emailSchema,
-    password: passwordSchema,
-    confirmPassword: z.string().min(1, "Confirm password is required."),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match.",
-    path: ["confirmPassword"],
+export const createOtpSchema = (t: ValidationTranslator) =>
+  z.object({
+    otp: z
+      .string()
+      .trim()
+      .min(1, t("validation.otpRequired"))
+      .regex(/^\d{5}$/, t("validation.otpExactLength")),
   });
+
+export const createLoginSchema = (t: ValidationTranslator) =>
+  z.object({
+    email: createEmailSchema(t),
+    password: createPasswordSchema(t),
+  });
+
+export const createForgotPasswordSchema = (t: ValidationTranslator) =>
+  z.object({
+    email: createEmailSchema(t),
+  });
+
+export const createResetPasswordSchema = (t: ValidationTranslator) =>
+  z.object({
+    email: createEmailSchema(t),
+    otp: createOtpSchema(t).shape.otp,
+    newPassword: z
+      .string()
+      .trim()
+      .min(1, t("validation.newPasswordRequired"))
+      .min(8, t("validation.passwordMin")),
+  });
+
+export const createRegisterSchema = (t: ValidationTranslator) =>
+  z
+    .object({
+      fullName: z.string().trim().min(1, t("validation.fullNameRequired")),
+      username: z.string().optional(),
+      phone: z.string().trim().min(1, t("validation.phoneRequired")),
+      email: createEmailSchema(t),
+      password: createPasswordSchema(t),
+      confirmPassword: z.string().min(1, t("validation.confirmPasswordRequired")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t("validation.passwordsDoNotMatch"),
+      path: ["confirmPassword"],
+    });
+
+export const emailSchema = createEmailSchema(englishValidationTranslator);
+export const passwordSchema = createPasswordSchema(englishValidationTranslator);
+export const otpSchema = createOtpSchema(englishValidationTranslator);
+export const loginSchema = createLoginSchema(englishValidationTranslator);
+export const forgotPasswordSchema = createForgotPasswordSchema(
+  englishValidationTranslator,
+);
+export const resetPasswordSchema = createResetPasswordSchema(
+  englishValidationTranslator,
+);
+export const registrationSchema = createRegisterSchema(
+  englishValidationTranslator,
+);
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
 export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
@@ -58,4 +99,3 @@ export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 export type ResetPasswordValues = ResetPasswordFormValues;
 export type OtpFormValues = z.infer<typeof otpSchema>;
 export type RegistrationFormValues = z.infer<typeof registrationSchema>;
-

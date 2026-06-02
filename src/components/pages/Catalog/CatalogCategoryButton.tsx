@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 
 export default function CatalogCategoryButton({
   category,
+  label,
   active,
   onSelect,
 }: CatalogCategoryButtonProps) {
@@ -25,7 +26,7 @@ export default function CatalogCategoryButton({
           : {}
       }
     >
-      {category}
+      {label ?? category}
     </Button>
   );
 }

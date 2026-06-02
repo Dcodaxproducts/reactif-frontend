@@ -12,22 +12,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAppSettings } from "@/hooks/useAppSettings";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { languageOptions } from "@/locales";
 import { appSettingsSchema } from "@/validations/settings";
 import type { AppSettings, LanguageCode, ThemeMode } from "@/types/settings";
 
-const themeOptions: Array<{ label: string; value: ThemeMode }> = [
-  { label: "Light", value: "light" },
-  { label: "Dark", value: "dark" },
-  { label: "System", value: "system" },
-];
-
-const languageOptions: Array<{ label: string; value: LanguageCode }> = [
-  { label: "English", value: "en" },
-  { label: "French", value: "fr" },
+const themeOptions: Array<{ labelKey: string; value: ThemeMode }> = [
+  { labelKey: "settings.light", value: "light" },
+  { labelKey: "settings.dark", value: "dark" },
+  { labelKey: "settings.system", value: "system" },
 ];
 
 export default function Settings() {
   const { settings, updateSettings } = useAppSettings();
+  const { t } = useAppTranslation();
   const [draftSettings, setDraftSettings] = useState<AppSettings>(settings);
 
   useEffect(() => {
@@ -38,12 +36,12 @@ export default function Settings() {
     const result = appSettingsSchema.safeParse(draftSettings);
 
     if (!result.success) {
-      toast.error("Please select valid settings");
+      toast.error(t("settings.invalidSettings"));
       return;
     }
 
     updateSettings(result.data);
-    toast.success("Settings saved");
+    toast.success(t("settings.settingsSaved"));
   };
 
   return (
@@ -52,16 +50,18 @@ export default function Settings() {
         <CardContent className="p-6 md:p-10 flex flex-col gap-8">
           <div className="flex flex-col gap-2">
             <h1 className="text-neutral-50 text-3xl font-semibold font-hk">
-              Settings
+              {t("settings.title")}
             </h1>
             <p className="text-neutral-50/60">
-              Manage local display preferences.
+              {t("settings.description")}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col gap-2">
-              <label className="text-neutral-50 font-semibold">Theme</label>
+              <label className="text-neutral-50 font-semibold">
+                {t("settings.theme")}
+              </label>
               <Select
                 value={draftSettings.themeMode}
                 onValueChange={(themeMode: ThemeMode) =>
@@ -69,12 +69,12 @@ export default function Settings() {
                 }
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select theme" />
+                  <SelectValue placeholder={t("settings.selectTheme")} />
                 </SelectTrigger>
                 <SelectContent>
                   {themeOptions.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
-                      {option.label}
+                      {t(option.labelKey)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -82,7 +82,9 @@ export default function Settings() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="text-neutral-50 font-semibold">Language</label>
+              <label className="text-neutral-50 font-semibold">
+                {t("settings.language")}
+              </label>
               <Select
                 value={draftSettings.language}
                 onValueChange={(language: LanguageCode) =>
@@ -90,12 +92,14 @@ export default function Settings() {
                 }
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select language" />
+                  <SelectValue placeholder={t("settings.selectLanguage")} />
                 </SelectTrigger>
                 <SelectContent>
                   {languageOptions.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
-                      {option.label}
+                      {option.value === "en"
+                        ? t("nav.languageEnglish")
+                        : t("nav.languageFrench")}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -108,7 +112,7 @@ export default function Settings() {
             onClick={handleSave}
             className="w-full h-12 bg-pink-400 hover:bg-pink-500 rounded-lg text-neutral-50 text-lg font-semibold font-hk"
           >
-            Save Settings
+            {t("settings.saveSettings")}
           </Button>
         </CardContent>
       </Card>

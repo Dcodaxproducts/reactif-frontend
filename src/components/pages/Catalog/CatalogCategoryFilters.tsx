@@ -1,4 +1,5 @@
 import { catalogFilterCategories } from "@/data/catalog";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import CatalogCategoryButton from "./CatalogCategoryButton";
 
 type CatalogCategoryFiltersProps = {
@@ -10,13 +11,16 @@ export default function CatalogCategoryFilters({
   activeCategory,
   onSelectCategory,
 }: CatalogCategoryFiltersProps) {
+  const { t } = useAppTranslation();
+
   return (
     <>
       {catalogFilterCategories.map((category) => (
         <CatalogCategoryButton
-          key={category}
-          category={category}
-          active={activeCategory === category}
+          key={category.value}
+          category={category.value}
+          label={t(category.labelKey)}
+          active={activeCategory === category.value}
           onSelect={onSelectCategory}
         />
       ))}

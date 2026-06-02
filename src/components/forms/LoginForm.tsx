@@ -12,10 +12,12 @@ import {
   AuthSubmitButton,
   AuthTextField,
 } from "@/components/forms/AuthFormShell";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useLogin } from "@/hooks/useAuth";
-import { loginSchema, type LoginFormValues } from "@/validations/auth";
+import { createLoginSchema, type LoginFormValues } from "@/validations/auth";
 
 export default function LoginForm() {
+  const { t } = useAppTranslation();
   const redirectUrl =
     typeof window !== "undefined"
       ? new URLSearchParams(window.location.search).get("redirect")
@@ -27,7 +29,7 @@ export default function LoginForm() {
     handleSubmit,
     register,
   } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(createLoginSchema((key) => t(key))),
     defaultValues: {
       email: "",
       password: "",
@@ -36,7 +38,7 @@ export default function LoginForm() {
 
   const onSubmit = async (values: LoginFormValues) => {
     if (!navigator.onLine) {
-      toast.error("No internet connection.");
+      toast.error(t("auth.noInternetConnection"));
       return;
     }
 
@@ -49,14 +51,18 @@ export default function LoginForm() {
 
   return (
     <AuthFormShell
-      title="Login Your Account"
-      description="Join ReactIf Printing and Design Today"
+      title={t("auth.loginTitle")}
+      description={t("auth.authDescription")}
       footer
     >
-      <form noValidate className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        noValidate
+        className={AUTH_FORM_CLASS}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <AuthTextField
-          label="Email"
-          placeholder="Enter Your Email"
+          label={t("auth.email")}
+          placeholder={t("auth.enterYourEmail")}
           type="email"
           autoComplete="email"
           error={errors.email?.message}
@@ -64,8 +70,8 @@ export default function LoginForm() {
         />
 
         <AuthTextField
-          label="Password"
-          placeholder="Enter Password"
+          label={t("auth.password")}
+          placeholder={t("auth.enterPassword")}
           type="password"
           autoComplete="current-password"
           error={errors.password?.message}
@@ -77,16 +83,16 @@ export default function LoginForm() {
             href="/forgot-password"
             className="text-blue-600 text-sm font-semibold"
           >
-            Forgot Password?
+            {t("auth.forgotPasswordLink")}
           </Link>
         </div>
 
         <AuthSubmitButton type="submit" disabled={loading} className="-mt-2">
-          {loading ? "Logging in..." : "Login"}
+          {loading ? t("auth.loggingIn") : t("auth.login")}
         </AuthSubmitButton>
 
-        <AuthInlineLink href="/register" label="Sign up">
-          Don’t Have an Account?
+        <AuthInlineLink href="/register" label={t("auth.signUp")}>
+          {t("auth.noAccount")}
         </AuthInlineLink>
       </form>
     </AuthFormShell>

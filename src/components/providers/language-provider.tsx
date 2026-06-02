@@ -9,7 +9,11 @@ import {
   type ReactNode,
 } from "react";
 import { NextIntlClientProvider } from "next-intl";
-import { readAppSettings, writeAppSettings } from "@/lib/app-settings";
+import {
+  APP_SETTINGS_CHANGE_EVENT,
+  readAppSettings,
+  writeAppSettings,
+} from "@/lib/app-settings";
 import { getMessagesForLanguage, normalizeLanguage } from "@/lib/i18n";
 import { DEFAULT_LANGUAGE } from "@/locales";
 import type { LanguageCode } from "@/types/settings";
@@ -35,6 +39,22 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
     setLanguageState(storedLanguage);
     setDocumentLanguage(storedLanguage);
+
+    const handleSettingsChange = (event: Event) => {
+      const nextSettings =
+        event instanceof CustomEvent ? event.detail : readAppSettings();
+      const nextLanguage = normalizeLanguage(nextSettings.language);
+
+      setLanguageState(nextLanguage);
+      setDocumentLanguage(nextLanguage);
+    };
+
+    window.addEventListener(APP_SETTINGS_CHANGE_EVENT, handleSettingsChange);
+    return () =>
+      window.removeEventListener(
+        APP_SETTINGS_CHANGE_EVENT,
+        handleSettingsChange,
+      );
   }, []);
 
   const setLanguage = (nextLanguage: LanguageCode) => {

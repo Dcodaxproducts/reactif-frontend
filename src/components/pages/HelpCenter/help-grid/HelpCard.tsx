@@ -1,7 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import type { HelpCardProps } from "@/types/component-props";
 
 export function HelpCard({ card }: HelpCardProps) {
+  const { t } = useAppTranslation();
   const Icon = card.icon;
 
   return (
@@ -13,9 +15,11 @@ export function HelpCard({ card }: HelpCardProps) {
           <Icon size={20} />
         </div>
 
-        <h3 className="text-white text-lg font-semibold mb-2">{card.title}</h3>
+        <h3 className="text-white text-lg font-semibold mb-2">
+          {card.titleKey ? t(card.titleKey) : card.title}
+        </h3>
         <p className="text-gray-400 text-sm leading-relaxed">
-          {card.description}
+          {card.descriptionKey ? t(card.descriptionKey) : card.description}
         </p>
         <div className="mt-5 h-px w-full bg-white/10" />
       </CardContent>

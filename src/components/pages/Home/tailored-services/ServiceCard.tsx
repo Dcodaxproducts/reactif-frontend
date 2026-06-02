@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { keyServices } from "@/data/home";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import type { ServiceCardProps } from "@/types/component-props";
 
 export function ServiceCard({
@@ -11,6 +12,8 @@ export function ServiceCard({
   icon: Icon,
   index,
 }: ServiceCardProps) {
+  const { t } = useAppTranslation();
+
   return (
     <Card
       className="relative rounded-[24px] overflow-hidden opacity-0 translate-y-6 animate-[fadeUp_0.6s_ease_forwards] border-0 bg-transparent p-0 shadow-none"
@@ -37,7 +40,7 @@ export function ServiceCard({
               {title}
             </h3>
             <p className="text-white/70 text-sm md:text-base font-bold">
-              Signboards & Stickers
+              {t("home.tailored.cardSubtitle")}
             </p>
           </div>
 
@@ -45,13 +48,15 @@ export function ServiceCard({
 
           <div>
             <p className="text-white text-sm md:text-base font-medium mb-4">
-              Key Services
+              {t("home.tailored.keyServices")}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {keyServices.map((service) => (
-                <div key={service} className="flex items-center gap-3">
+                <div key={service.labelKey} className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-pink-400" />
-                  <span className="text-white text-sm">{service}</span>
+                  <span className="text-white text-sm">
+                    {t(service.labelKey)}
+                  </span>
                 </div>
               ))}
             </div>
@@ -62,7 +67,9 @@ export function ServiceCard({
           asChild
           className="h-11 bg-white rounded-full flex justify-center items-center font-semibold text-zinc-800 hover:bg-white/90"
         >
-          <Link href={`/subcategories?id=${id}`}>Learn More</Link>
+          <Link href={`/subcategories?id=${id}`}>
+            {t("home.tailored.learnMore")}
+          </Link>
         </Button>
       </CardContent>
     </Card>

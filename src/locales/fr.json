@@ -27,7 +27,75 @@
     "languageEnglish": "English",
     "languageFrench": "Français"
   },
-  "auth": {},
+  "auth": {
+    "loginTitle": "Connectez-vous à votre compte",
+    "authDescription": "Rejoignez ReactIf Printing and Design dès aujourd’hui",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "enterYourEmail": "Entrez votre e-mail",
+    "enterPassword": "Entrez votre mot de passe",
+    "forgotPasswordLink": "Mot de passe oublié ?",
+    "loggingIn": "Connexion...",
+    "login": "Connexion",
+    "noAccount": "Vous n’avez pas de compte ?",
+    "signUp": "Inscription",
+    "registerTitle": "Créer un nouveau compte",
+    "fullName": "Nom complet",
+    "enterFullName": "Entrez votre nom complet",
+    "usernameOptional": "Nom d’utilisateur (facultatif)",
+    "enterUsername": "Entrez un nom d’utilisateur",
+    "phoneNumber": "Numéro de téléphone",
+    "enterPhoneNumber": "Entrez votre numéro de téléphone",
+    "confirmPassword": "Confirmer le mot de passe",
+    "enterConfirmPassword": "Confirmez le mot de passe",
+    "accountCreatedVerify": "Compte créé avec succès ! Veuillez vérifier votre e-mail avec l’OTP envoyé.",
+    "creatingAccount": "Création du compte...",
+    "register": "S’inscrire",
+    "signIn": "Se connecter",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "forgotPasswordTitle": "Mot de passe oublié",
+    "forgotPasswordDescription": "Entrez votre e-mail enregistré pour recevoir un OTP de réinitialisation",
+    "enterRegisteredEmail": "Entrez votre e-mail enregistré",
+    "sendingOtp": "Envoi de l’OTP...",
+    "sendOtp": "Envoyer l’OTP",
+    "rememberedPassword": "Vous vous souvenez de votre mot de passe ?",
+    "verifyAccountTitle": "Vérifiez votre compte",
+    "verifyAccountDescription": "Entrez le code à 5 chiffres envoyé à votre e-mail",
+    "verificationCode": "Code de vérification",
+    "verifying": "Vérification...",
+    "verify": "Vérifier",
+    "resendOtp": "Renvoyer l’OTP",
+    "resendOtpIn": "Renvoyer l’OTP dans {seconds}s",
+    "backTo": "Retour à",
+    "accountVerified": "Compte vérifié avec succès !",
+    "verificationFailed": "La vérification a échoué. Réessayez.",
+    "failedToResendOtp": "Impossible de renvoyer l’OTP. Réessayez.",
+    "noInternetConnection": "Aucune connexion Internet.",
+    "verificationEmailNotFound": "E-mail de vérification introuvable. Veuillez vous inscrire à nouveau.",
+    "noEmailToResendOtp": "Aucun e-mail disponible pour renvoyer l’OTP.",
+    "resetPasswordTitle": "Réinitialiser le mot de passe",
+    "resetPasswordDescription": "Entrez l’OTP envoyé à votre e-mail et choisissez un nouveau mot de passe",
+    "otp": "OTP",
+    "newPassword": "Nouveau mot de passe",
+    "enterNewPassword": "Entrez un nouveau mot de passe",
+    "resetting": "Réinitialisation...",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "footerCopyright": "© 2026 ReactIf Printing & Design. Tous droits réservés",
+    "loggedOutSuccessfully": "Déconnexion réussie",
+    "verifyAccountToContinue": "Veuillez vérifier votre compte pour continuer.",
+    "loginSuccessful": "Connexion réussie",
+    "loginFailed": "Échec de la connexion. Veuillez réessayer.",
+    "accountCreatedOtpSent": "Compte créé avec succès ! OTP envoyé à votre e-mail.",
+    "accountCreationFailed": "Échec de la création du compte. Réessayez.",
+    "verificationFailedPleaseTryAgain": "La vérification a échoué. Veuillez réessayer.",
+    "newOtpSent": "Un nouvel OTP a été envoyé à votre e-mail.",
+    "unableToResendCode": "Impossible de renvoyer le code. Veuillez réessayer.",
+    "passwordResetInstructionsSent": "Instructions de réinitialisation envoyées. Veuillez consulter votre e-mail.",
+    "unableToSendResetInstructions": "Impossible d’envoyer les instructions. Veuillez réessayer.",
+    "passwordResetSuccessfully": "Mot de passe réinitialisé avec succès !",
+    "unableToResetPassword": "Impossible de réinitialiser le mot de passe. Veuillez réessayer.",
+    "unableToChangePassword": "Impossible de modifier le mot de passe. Veuillez réessayer."
+  },
   "settings": {
     "title": "Paramètres",
     "description": "Gérez les préférences d'affichage locales.",
@@ -42,9 +110,194 @@
     "settingsSaved": "Paramètres enregistrés",
     "invalidSettings": "Veuillez sélectionner des paramètres valides"
   },
-  "home": {},
-  "catalog": {},
-  "helpCenter": {},
+  "home": {
+    "hero": {
+      "badge": "EXPERTS AUTOMOBILES",
+      "titleLine1": "TRANSFORMEZ VOS",
+      "titleLine2": "VÉHICULES EN",
+      "titleLine3": "OUTILS PUBLICITAIRES",
+      "description": "Leader de la communication visuelle pour le secteur automobile. Habillage, marquage et publicité de véhicules avec une qualité professionnelle sans compromis.",
+      "freeQuote": "Devis gratuit",
+      "ourProjects": "Nos projets"
+    },
+    "tailored": {
+      "titlePrefix": "CATÉGORIES",
+      "titleAccent": "SUR MESURE",
+      "description": "Des solutions complètes de communication visuelle adaptées à vos besoins.",
+      "loadMore": "Voir plus",
+      "cardSubtitle": "Enseignes et autocollants",
+      "keyServices": "Services clés",
+      "learnMore": "En savoir plus"
+    },
+    "keyServices": {
+      "fullPartialWraps": "Habillages complets et partiels",
+      "paintProtection": "Protection de peinture",
+      "fleetBranding": "Branding de flotte",
+      "windowGraphics": "Graphiques de vitrine"
+    },
+    "why": {
+      "badge": "Notre engagement",
+      "titlePrefix": "POURQUOI",
+      "titleAccent": "NOUS CHOISIR",
+      "description": "Notre engagement envers l’excellence et votre satisfaction fait de nous le partenaire idéal pour vos projets de communication visuelle.",
+      "cards": {
+        "recognizedExpertise": {
+          "title": "Expertise reconnue",
+          "description": "Plus de 15 ans d’expérience en communication visuelle automobile"
+        },
+        "premiumMaterials": {
+          "title": "Matériaux premium",
+          "description": "Films et finitions durables choisis pour les environnements automobiles exigeants"
+        },
+        "awardWinning": {
+          "title": "Qualité primée",
+          "description": "Des standards de production précis pour des résultats visuels soignés"
+        },
+        "clientFocused": {
+          "title": "Approche centrée client",
+          "description": "Un accompagnement clair du concept à l’installation finale"
+        },
+        "precisionInstall": {
+          "title": "Installation précise",
+          "description": "Une pose experte pour des bords nets, un alignement propre et une tenue durable"
+        },
+        "fastDelivery": {
+          "title": "Livraison rapide",
+          "description": "Des processus efficaces pour faire avancer votre projet sans compromis"
+        }
+      }
+    },
+    "contact": {
+      "badge": "Contactez-nous",
+      "titlePrefix": "LANCEZ VOTRE",
+      "titleAccent": "PROJET",
+      "titleSuffix": "AUJOURD’HUI",
+      "description": "Discutons de la façon dont nous pouvons transformer votre vision en réalité"
+    },
+    "contactCta": {
+      "title": "PRÊT À DONNER VIE À VOTRE PROJET ?",
+      "description": "Contactez-nous dès aujourd’hui pour un devis personnalisé gratuit. Notre équipe d’experts est disponible pour vous conseiller.",
+      "requesting": "Demande en cours...",
+      "requestQuote": "Demander un devis gratuit"
+    }
+  },
+  "catalog": {
+    "hero": {
+      "title": "Design visuel à fort impact",
+      "description": "Valorisez votre marque avec nos habillages automobiles professionnels, signalétiques personnalisées et solutions textiles premium."
+    },
+    "searchPlaceholder": "Rechercher des produits, habillages ou vêtements...",
+    "filters": {
+      "button": "Filtres",
+      "allProducts": "Tous les produits",
+      "vehicleWraps": "Habillages véhicule",
+      "signage": "Signalétique",
+      "apparel": "Vêtements",
+      "accessories": "Accessoires"
+    },
+    "sections": {
+      "ourServices": "Nos services",
+      "popularServices": "Services populaires"
+    },
+    "categories": {
+      "commercial": "COMMERCIAL",
+      "automotive": "AUTOMOBILE",
+      "bikes": "MOTOS"
+    },
+    "viewDetails": "Voir les détails",
+    "viewDetailsFor": "Voir les détails de {title}",
+    "addToCart": "Ajouter {title} au panier",
+    "items": {
+      "suvBranding": {
+        "title": "Branding SUV",
+        "description": "Décalcomanies commerciales et habillages partiels conçus spécialement pour les flottes de SUV."
+      },
+      "sedanBranding": {
+        "title": "Branding berline",
+        "description": "Solutions de branding élégantes et très visibles pour les flottes de berlines d’entreprise."
+      },
+      "compactCarBranding": {
+        "title": "Branding voiture compacte",
+        "description": "Solutions économiques d’habillage pour citadines et flottes de livraison compactes."
+      },
+      "lightVanWrapping": {
+        "title": "Habillage utilitaire léger",
+        "description": "Graphismes vinyle professionnels pour petits utilitaires et véhicules de service."
+      },
+      "classicTint": {
+        "title": "Teinte classique 35 %",
+        "description": "Teinte légale dans de nombreuses régions, pour un style élégant sans être trop sombre."
+      },
+      "lightSmokeTint": {
+        "title": "Teinte fumée légère 50 %",
+        "description": "Ombrage subtil offrant une excellente protection UV et un léger assombrissement."
+      },
+      "clearCeramicTint": {
+        "title": "Céramique transparente 70 %",
+        "description": "Protection maximale contre la chaleur et les UV avec une finition presque transparente."
+      },
+      "sportWrap": {
+        "title": "Habillage sport couleur unie",
+        "description": "Couverture complète des carénages aérodynamiques en finitions premium mates, brillantes ou satinées."
+      }
+    }
+  },
+  "helpCenter": {
+    "supportCenter": "Centre de support",
+    "hero": {
+      "titlePrefix": "Comment pouvons-nous",
+      "titleAccent": "vous aider ?"
+    },
+    "searchPlaceholder": "Rechercher une réponse (ex. : 'Comment suivre ma commande ?')",
+    "popularLabel": "Populaire :",
+    "popular": {
+      "shippingRates": "Tarifs d’expédition",
+      "vinylCare": "Entretien du vinyle",
+      "bulkDiscounts": "Remises en volume"
+    },
+    "cards": {
+      "orderingPayments": {
+        "title": "Commandes et paiements",
+        "description": "Découvrez les moyens de paiement, les délais de traitement et la création de commandes personnalisées pour le branding de flotte."
+      },
+      "shippingLogistics": {
+        "title": "Expédition et logistique",
+        "description": "Informations de suivi, options internationales et emballage sécurisé pour les matériaux de signalétique sensibles."
+      },
+      "designServices": {
+        "title": "Services de design",
+        "description": "Formats de fichiers requis, processus de consultation et modèles à télécharger pour les habillages."
+      },
+      "technicalSupport": {
+        "title": "Support technique",
+        "description": "Guides d’installation pour signalétique lumineuse, entretien du vinyle et dépannage d’éclairage."
+      },
+      "accountManagement": {
+        "title": "Gestion du compte",
+        "description": "Mettez à jour vos informations, consultez l’historique des commandes et gérez les sous-utilisateurs."
+      },
+      "privacyTerms": {
+        "title": "Confidentialité et conditions",
+        "description": "Informations sur la sécurité des données, les conditions de service et nos garanties qualité."
+      }
+    },
+    "faq": {
+      "title": "FAQ à la une",
+      "description": "Trouvez rapidement les réponses aux questions les plus courantes.",
+      "turnaroundTime": {
+        "question": "Quel est le délai habituel pour un habillage complet de véhicule ?",
+        "answer": "Le délai varie généralement de 3 à 7 jours ouvrés selon la complexité du design, l’impression et la planification de l’installation."
+      },
+      "onsiteInstallation": {
+        "question": "Proposez-vous une installation sur site ?",
+        "answer": "Oui, nous proposons l’installation sur site selon votre emplacement et la taille du projet."
+      },
+      "vinylUvLife": {
+        "question": "Combien de temps les matériaux vinyle résistent-ils aux UV ?",
+        "answer": "Les vinyles de haute qualité durent généralement 5 à 7 ans avec un entretien adapté, même sous forte exposition UV."
+      }
+    }
+  },
   "profile": {},
   "booking": {},
   "order": {},
@@ -52,6 +305,178 @@
   "wallet": {},
   "messages": {},
   "notifications": {},
-  "footer": {},
-  "validation": {}
+  "footer": {
+    "platform": "Plateforme",
+    "description": "Nous transformons vos visions en réalité grâce à des solutions premium d’impression et de design.",
+    "getStarted": "COMMENCER",
+    "services": "Services",
+    "automotive": "Automobile",
+    "visualAdvertising": "Publicité visuelle",
+    "signaletique": "Signalétique",
+    "apparel": "Vêtements",
+    "accessories": "Accessoires",
+    "company": "Entreprise",
+    "aboutUs": "À propos",
+    "blogs": "Blogs",
+    "portfolio": "Portfolio",
+    "contactUs": "Nous contacter",
+    "support": "Support",
+    "helpCenter": "Centre d’aide",
+    "contactSupport": "Contacter le support",
+    "termsOfService": "Conditions d’utilisation",
+    "privacyPolicy": "Politique de confidentialité",
+    "followUs": "Suivez-nous"
+  },
+  "validation": {
+    "emailRequired": "L’e-mail est obligatoire.",
+    "invalidEmail": "Format d’e-mail invalide.",
+    "passwordRequired": "Le mot de passe est obligatoire.",
+    "passwordMin": "Le mot de passe doit contenir au moins 8 caractères.",
+    "otpRequired": "Veuillez entrer l’OTP.",
+    "otpExactLength": "L’OTP doit contenir exactement 5 chiffres.",
+    "newPasswordRequired": "Le nouveau mot de passe est obligatoire.",
+    "fullNameRequired": "Le nom complet est obligatoire.",
+    "phoneRequired": "Le numéro de téléphone est obligatoire.",
+    "confirmPasswordRequired": "La confirmation du mot de passe est obligatoire.",
+    "passwordsDoNotMatch": "Les mots de passe ne correspondent pas."
+  },
+  "topInfoBar": {
+    "tagline": "Expert en communication visuelle automobile"
+  },
+  "contact": {
+    "information": "Informations de contact",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "address": "Adresse",
+    "fullName": "Nom complet",
+    "serviceInterestedIn": "Service souhaité",
+    "selectService": "Sélectionner un service",
+    "message": "Message",
+    "sendMessage": "Envoyer le message",
+    "trustedBy": "Approuvé par"
+  },
+  "about": {
+    "heroTitleLine1": "L’EXCELLENCE EN COMMUNICATION",
+    "heroTitleLine2": "VISUELLE",
+    "heroDescription": "Nous réinventons l’esthétique automobile avec une précision à fort impact et une créativité inspirée du néon.",
+    "exploreOurWork": "DÉCOUVRIR NOS RÉALISATIONS",
+    "originBadge": "Notre origine",
+    "originTitleLine1": "Né de la passion",
+    "originTitleLine2": "Défini par la précision",
+    "originParagraph1": "Fondé à la croisée de la passion automobile et du design de pointe, ReactIf Printing & Design repousse les limites de la communication visuelle. Nous avons commencé comme un petit atelier avec une vision : traiter chaque véhicule comme une toile haute performance.",
+    "originParagraph2": "Notre mission est de transformer l’ordinaire en extraordinaire. En combinant des matériaux industriels avec une esthétique futuriste, nous aidons nos clients à attirer l’attention sur la route et au-delà.",
+    "commitmentTitle": "Notre engagement",
+    "commitments": {
+      "quality": "Une qualité sans compromis sur chaque centimètre carré.",
+      "environment": "Des procédés d’impression respectueux de l’environnement.",
+      "support": "Support 24/7 pour les comptes de flottes professionnelles.",
+      "materials": "Sourcing de matériaux à la pointe."
+    },
+    "expertise": {
+      "title": "Notre expertise",
+      "items": {
+        "premiumWraps": {
+          "title": "Habillages véhicule premium",
+          "description": "Vinyle de référence et techniques de pose précises pour une finition impeccable, protectrice et performante."
+        },
+        "highImpactDesign": {
+          "title": "Design à fort impact",
+          "description": "Livrées et graphismes personnalisés conçus pour exprimer votre marque ou votre style avec une clarté visuelle marquante."
+        },
+        "industrialPrecision": {
+          "title": "Précision industrielle",
+          "description": "Technologie d’impression avancée garantissant fidélité des couleurs et durabilité sur la route."
+        }
+      }
+    }
+  },
+  "legal": {
+    "lastUpdated": "Dernière mise à jour : {date}",
+    "cta": {
+      "title": "Des questions sur nos conditions ?",
+      "description": "Notre équipe juridique vous aide à comprendre vos droits.",
+      "button": "Contacter le service juridique"
+    },
+    "terms": {
+      "title": "CONDITIONS D’UTILISATION",
+      "sections": {
+        "introduction": {
+          "title": "Introduction",
+          "content1": "Welcome to Reactif Printing & Design. These Terms of Service (“Terms”) govern your access and use of our website, products, and services.",
+          "content2": "Reactif provides high-quality digital and physical printing solutions, graphic design services, and branding consultations."
+        },
+        "userResponsibilities": {
+          "title": "User Responsibilities",
+          "item1": "You are responsible for ensuring all uploaded files meet technical specifications.",
+          "item2": "You must own or have rights to all submitted content.",
+          "item3": "You agree not to use services for unlawful or offensive materials."
+        },
+        "intellectualProperty": {
+          "title": "Intellectual Property",
+          "content1": "All content created during the design phase remains the property of Reactif until final payment.",
+          "highlight": "Upon final payment, ownership transfers to the client, while Reactif retains the right to showcase work in portfolio and marketing materials."
+        },
+        "liability": {
+          "title": "Limitation of Liability",
+          "content1": "Reactif shall not be liable for indirect or incidental damages.",
+          "content2": "We do not guarantee exact color matching between digital and physical prints.",
+          "content3": "Maximum liability is limited to the amount paid for the service."
+        },
+        "governingLaw": {
+          "title": "Governing Law",
+          "content1": "These Terms are governed by and construed in accordance with the laws of the jurisdiction in which ReactIf Printing & Design is registered, without regard to its conflict of law principles."
+        }
+      }
+    },
+    "privacy": {
+      "title": "POLITIQUE DE CONFIDENTIALITÉ",
+      "cta": {
+        "title": "Have questions about your privacy?",
+        "description": "Our team is here to help you understand how your data is collected, used, and protected.",
+        "button": "Contact Us"
+      },
+      "sections": {
+        "introduction": {
+          "title": "Introduction",
+          "content1": "We respect your privacy and are committed to protecting your personal information.",
+          "content2": "This Privacy Policy explains how we collect, use, and safeguard your data when you use our platform and services."
+        },
+        "information": {
+          "title": "Information We Collect",
+          "item1": "Personal information such as name, email, phone number, and address",
+          "item2": "Account and authentication data",
+          "item3": "Payment and transaction details",
+          "item4": "Usage data including interactions with our platform"
+        },
+        "use": {
+          "title": "How We Use Your Information",
+          "content1": "We use your information to provide and improve our services.",
+          "content2": "This includes processing orders, managing accounts, and providing customer support.",
+          "highlight": "We may also use your data to personalize your experience and send important updates or promotional communications."
+        },
+        "sharing": {
+          "title": "Data Sharing and Security",
+          "content1": "We do not sell your personal data to third parties.",
+          "content2": "We may share data with trusted service providers for payment processing and service delivery.",
+          "content3": "We implement industry-standard security measures to protect your data."
+        },
+        "rights": {
+          "title": "Your Rights",
+          "content1": "You have the right to access, update, or delete your personal information.",
+          "content2": "You may opt out of marketing communications whenever needed.",
+          "content3": "You can request a copy of your stored data."
+        },
+        "cookies": {
+          "title": "Cookies and Tracking",
+          "content1": "We use cookies and similar technologies to enhance user experience.",
+          "content2": "These help us understand user behavior and improve our platform."
+        },
+        "changes": {
+          "title": "Changes to This Policy",
+          "content1": "We may update this Privacy Policy from time to time.",
+          "content2": "Any changes will be communicated through our platform or via email."
+        }
+      }
+    }
+  }
 }

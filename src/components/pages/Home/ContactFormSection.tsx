@@ -4,10 +4,12 @@ import Image from "next/image";
 import { Container } from "@/components/common/Container";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import ContactForm from "@/components/forms/ContactForm";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { usePathname } from "next/navigation";
 import { Suspense } from "react";
 
 function StartProjectContent() {
+  const { t } = useAppTranslation();
   const pathname = usePathname();
   const isHelpCenter = pathname === "/help-center";
 
@@ -25,11 +27,11 @@ function StartProjectContent() {
 
       <Container gutter="narrow">
         <SectionHeader
-          badgeText="Get in Touch"
+          badgeText={t("home.contact.badge")}
           size={isHelpCenter ? "sm" : "default"}
           title={
             <>
-              START YOUR{" "}
+              {t("home.contact.titlePrefix")}{" "}
               <span
                 style={{
                   background:
@@ -38,12 +40,12 @@ function StartProjectContent() {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                PROJECT
+                {t("home.contact.titleAccent")}
               </span>{" "}
-              TODAY
+              {t("home.contact.titleSuffix")}
             </>
           }
-          description="Let's discuss how we can transform your vision into reality"
+          description={t("home.contact.description")}
         />
 
         <ContactForm />

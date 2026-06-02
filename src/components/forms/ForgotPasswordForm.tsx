@@ -10,13 +10,15 @@ import {
   AuthSubmitButton,
   AuthTextField,
 } from "@/components/forms/AuthFormShell";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useForgotPassword } from "@/hooks/useAuth";
 import {
-  forgotPasswordSchema,
+  createForgotPasswordSchema,
   type ForgotPasswordFormValues,
 } from "@/validations/auth";
 
 const ForgotPasswordForm = () => {
+  const { t } = useAppTranslation();
   const forgotPasswordMutation = useForgotPassword();
   const loading = forgotPasswordMutation.isPending;
   const {
@@ -24,7 +26,7 @@ const ForgotPasswordForm = () => {
     handleSubmit,
     register,
   } = useForm<ForgotPasswordFormValues>({
-    resolver: zodResolver(forgotPasswordSchema),
+    resolver: zodResolver(createForgotPasswordSchema((key) => t(key))),
     defaultValues: {
       email: "",
     },
@@ -40,27 +42,31 @@ const ForgotPasswordForm = () => {
 
   return (
     <AuthFormShell
-      title="Forgot Password"
-      description="Enter your registered email to receive a password reset OTP"
+      title={t("auth.forgotPasswordTitle")}
+      description={t("auth.forgotPasswordDescription")}
       descriptionClassName="mx-auto max-w-[400px]"
       footer
     >
-      <form noValidate className={AUTH_FORM_CLASS} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        noValidate
+        className={AUTH_FORM_CLASS}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <AuthTextField
-          label="Email"
+          label={t("auth.email")}
           type="email"
           autoComplete="email"
-          placeholder="Enter your registered email"
+          placeholder={t("auth.enterRegisteredEmail")}
           error={errors.email?.message}
           {...register("email")}
         />
 
         <AuthSubmitButton type="submit" disabled={loading}>
-          {loading ? "Sending OTP..." : "Send OTP"}
+          {loading ? t("auth.sendingOtp") : t("auth.sendOtp")}
         </AuthSubmitButton>
 
-        <AuthInlineLink href="/login" label="Login">
-          Remembered your password?
+        <AuthInlineLink href="/login" label={t("auth.login")}>
+          {t("auth.rememberedPassword")}
         </AuthInlineLink>
       </form>
     </AuthFormShell>

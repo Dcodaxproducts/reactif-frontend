@@ -2,6 +2,7 @@ import type { AppSettings } from "@/types/settings";
 import { appSettingsSchema } from "../validations/settings";
 
 export const APP_SETTINGS_STORAGE_KEY = "reactif.appSettings";
+export const APP_SETTINGS_CHANGE_EVENT = "reactif.appSettings.change";
 
 export const DEFAULT_APP_SETTINGS: AppSettings = {
   themeMode: "system",
@@ -32,9 +33,16 @@ export const readAppSettings = (): AppSettings => {
 export const writeAppSettings = (settings: AppSettings) => {
   if (!isBrowser()) return;
 
+  const normalizedSettings = normalizeAppSettings(settings);
+
   // Backend API integration point: replace local settings persistence with HTTP calls when settings endpoints are available.
   window.localStorage.setItem(
     APP_SETTINGS_STORAGE_KEY,
-    JSON.stringify(normalizeAppSettings(settings)),
+    JSON.stringify(normalizedSettings),
+  );
+  window.dispatchEvent(
+    new CustomEvent<AppSettings>(APP_SETTINGS_CHANGE_EVENT, {
+      detail: normalizedSettings,
+    }),
   );
 };
