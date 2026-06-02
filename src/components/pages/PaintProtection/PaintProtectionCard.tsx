@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { buildLoginRoute, useAuth } from "@/hooks/useAuth";
 import { writeBookingDraft } from "@/lib/booking-draft";
@@ -9,6 +9,7 @@ import { BookingCardHeader } from "./booking-card/BookingCardHeader";
 import { BookingCardSkeleton } from "./booking-card/BookingCardSkeleton";
 import { BookingSummary } from "./booking-card/BookingSummary";
 import { DynamicServiceFields } from "./booking-card/DynamicServiceFields";
+import { ServiceSelector } from "./booking-card/ServiceSelector";
 import { ServiceEmptyState } from "./booking-card/ServiceEmptyState";
 import {
   buildBookingDraft,
@@ -28,36 +29,54 @@ interface PaintProtectionCardProps {
   activeCategory: string | null;
   services?: Service[];
   isLoading?: boolean;
+  designerId?: string | null;
 }
 
-export default function PaintProtectionCard({
+export function PaintProtectionCard({
   activeItem,
   setActiveItem,
   activeCategory,
   services = [],
   isLoading = false,
+  designerId = null,
 }: PaintProtectionCardProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { user, loading: authLoading } = useAuth();
 
   const [formErrors, setFormErrors] = useState<ServiceFormErrors>({});
   const [formValues, setFormValues] = useState<ServiceFormValues>({});
   const [bookingLoading, setBookingLoading] = useState(false);
 
-  const designerId = searchParams.get("designerId");
-  const currentService = services.find(
-    ({ id }) => id.toString() === activeItem,
+  const currentService = useMemo(
+    () => services.find(({ id }) => id.toString() === activeItem),
+    [activeItem, services],
   );
+
   useEffect(() => {
-    if (!isLoading && services.length > 0) {
+    if (isLoading) return;
+
+    if (services.length === 0) {
+      setActiveItem(null);
+      return;
+    }
+
+    const hasActiveService = services.some(
+      ({ id }) => id.toString() === activeItem,
+    );
+
+    if (!hasActiveService) {
       setActiveItem(services[0].id.toString());
     }
-  }, [activeCategory, services, isLoading, setActiveItem]);
+  }, [activeItem, services, isLoading, setActiveItem]);
 
   useEffect(() => {
     setFormValues(buildInitialServiceValues(currentService));
+    setFormErrors({});
   }, [currentService]);
+
+  const handleSelectService = (serviceId: string) => {
+    setActiveItem(serviceId);
+  };
 
   const handleChange = (fieldName: string, value: ServiceFormValue) => {
     setFormValues((prev) => ({ ...prev, [fieldName]: value }));
@@ -124,6 +143,14 @@ export default function PaintProtectionCard({
       <BookingCardHeader activeCategory={activeCategory} />
 
       {isLoading && <BookingCardSkeleton />}
+
+      {!isLoading && services.length > 1 && (
+        <ServiceSelector
+          services={services}
+          selectedServiceId={activeItem}
+          onSelect={handleSelectService}
+        />
+      )}
 
       {!isLoading && (
         <div className="text-neutral-400 text-sm md:text-base font-medium font-hk leading-relaxed">

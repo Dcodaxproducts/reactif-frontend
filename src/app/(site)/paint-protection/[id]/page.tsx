@@ -3,12 +3,12 @@
 import { PageShell } from "@/components/common/PageShell";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/common/Container";
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import PaintDetailsHeader from "@/components/pages/PaintProtection/PaintDetailsHeader";
 import ServicesRow from "@/components/pages/PaintProtection/ServicesRow";
 import CarPreviewSection from "@/components/pages/PaintProtection/CarPreviewSection";
-import PaintProtectionCard from "@/components/pages/PaintProtection/PaintProtectionCard";
+import { PaintProtectionCard } from "@/components/pages/PaintProtection/PaintProtectionCard";
 import { Loader2 } from "lucide-react";
 import {
   useCategoryDetail,
@@ -19,12 +19,31 @@ import type { Subcategory } from "@/types/categories";
 type ActiveItem = string | null;
 
 export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <PageShell className="min-h-screen">
+          <Container gutter="page" className="py-10">
+            <div className="w-full rounded-3xl border border-slate-800 bg-neutral-950/60 p-8 text-center text-neutral-400">
+              Loading service details...
+            </div>
+          </Container>
+        </PageShell>
+      }
+    >
+      <PaintProtectionContent />
+    </Suspense>
+  );
+}
+
+function PaintProtectionContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const id = params?.id as string;
   const urlSubcategoryId = searchParams.get("subcategoryId");
+  const designerId = searchParams.get("designerId");
 
   const [activeItem, setActiveItem] = useState<ActiveItem>("frontBlock");
   const [activeCategory, setActiveCategory] = useState<string>("");
@@ -148,6 +167,7 @@ export default function Page() {
                 activeCategory={displayCategoryName}
                 services={services}
                 isLoading={isLoading}
+                designerId={designerId}
               />
             </div>
           </div>
