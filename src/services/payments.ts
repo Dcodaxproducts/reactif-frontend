@@ -1,5 +1,6 @@
 import { API_ENDPOINTS } from "@/config/api-endpoints";
 import api from "@/lib/axios";
+import { getPaymentSaveError } from "@/lib/payment-save-response";
 import { normalizePaymentGatewayList } from "@/lib/payments";
 import type { ApiListResponse } from "@/types/api";
 import type {
@@ -26,6 +27,11 @@ export const getPaymentGateways = async (): Promise<PaymentGateway[]> => {
 
 export const savePayment = async (payload: SavePaymentPayload) => {
   const { data } = await api.post(PAYMENT_ROUTES.savePayment, payload);
+  const paymentError = getPaymentSaveError(data);
+
+  if (paymentError) {
+    throw new Error(paymentError);
+  }
 
   return data;
 };
@@ -53,4 +59,3 @@ export const getWalletList = async (): Promise<ApiListResponse<WalletItem>> => {
 
   return data;
 };
-

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { paymentFields, paymentSecondaryFields } from "@/data/order";
+import { useAuth } from "@/hooks/useAuth";
 import { useCreateBooking } from "@/hooks/useBookings";
 import { usePaymentGateways, useSavePayment } from "@/hooks/usePayments";
 import { clearBookingDraft, readBookingDraft } from "@/lib/booking-draft";
@@ -17,6 +18,7 @@ import { PaymentTab } from "./PaymentTab";
 
 export function PaymentDetailsCard() {
   const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
   const { gateways, loading } = usePaymentGateways();
   const createBookingMutation = useCreateBooking();
   const savePaymentMutation = useSavePayment();
@@ -51,12 +53,19 @@ export function PaymentDetailsCard() {
       return;
     }
 
+    if (!user) {
+      toast.error("Please login before completing payment.");
+      router.push("/login?redirect=/order/payment");
+      return;
+    }
+
     try {
       const bookingResponse = await createBookingMutation.mutateAsync(
         buildBookingFormDataFromDraft(draft),
       );
       const bookingId = bookingResponse.data?.id ?? draft.selected_service.id;
       await savePaymentMutation.mutateAsync({
+        user_id: user.userId,
         booking_id: bookingId,
         amount,
         transaction_id: `SIM-${Date.now()}`,
@@ -108,7 +117,11 @@ export function PaymentDetailsCard() {
         <button
           type="button"
           onClick={handlePay}
-          disabled={createBookingMutation.isPending || savePaymentMutation.isPending}
+          disabled={
+            authLoading ||
+            createBookingMutation.isPending ||
+            savePaymentMutation.isPending
+          }
           className="w-full h-12 bg-pink-400 hover:bg-pink-500 rounded-lg text-neutral-50 text-lg font-semibold font-['HK_Grotesk'] flex items-center justify-center"
         >
           Pay ${amount}

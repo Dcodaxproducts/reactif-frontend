@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import OrderPageShell from "@/components/pages/order/OrderPageShell";
-import OrderConfirm from "@/components/pages/order/OrderConfirm";
+import { OrderConfirm } from "@/components/pages/order/OrderConfirm";
 
 export default function Page() {
   return (

@@ -10,6 +10,7 @@ export type PaymentGateway = {
 };
 
 export type SavePaymentPayload = {
+  user_id: number | string;
   booking_id: number | string;
   amount: number | string;
   transaction_id: string;
