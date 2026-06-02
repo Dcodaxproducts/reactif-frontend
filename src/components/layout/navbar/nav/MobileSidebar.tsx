@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { X } from "lucide-react";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { LanguageSelector } from "./LanguageSelector";
 import type { MobileSidebarProps } from "@/types/component-props";
 
 export function MobileSidebar({
@@ -11,6 +13,8 @@ export function MobileSidebar({
   onLogout,
   onLogin,
 }: MobileSidebarProps) {
+  const { t } = useAppTranslation();
+
   if (!isOpen) return null;
 
   return (
@@ -30,9 +34,14 @@ export function MobileSidebar({
         </div>
 
         <div className="flex flex-col gap-5 px-6 text-[15px]">
-          {navItems.map(({ label, href }) => (
+          <div className="flex items-center justify-between gap-3 text-black">
+            <span className="font-medium">{t("nav.language")}</span>
+            <LanguageSelector tone="light" />
+          </div>
+
+          {navItems.map(({ label, translationKey, href }) => (
             <Link key={label} href={href} onClick={onClose}>
-              {label}
+              {translationKey ? t(translationKey) : label}
             </Link>
           ))}
 
@@ -43,7 +52,7 @@ export function MobileSidebar({
               variant="navDark"
               className="mt-4 py-2"
             >
-              Get Started
+              {t("nav.getStarted")}
             </Button>
           ) : (
             <Button
@@ -52,7 +61,7 @@ export function MobileSidebar({
               variant="destructive"
               className="mt-4 rounded-full py-2"
             >
-              Logout
+              {t("nav.logout")}
             </Button>
           )}
         </div>

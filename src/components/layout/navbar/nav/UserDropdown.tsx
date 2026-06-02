@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useRouter } from "next/navigation";
 import {
   FiBell,
@@ -26,6 +27,7 @@ export function UserDropdown({
   onLogout,
 }: UserDropdownProps) {
   const router = useRouter();
+  const { t } = useAppTranslation();
 
   const handleNavigate = (href: string) => {
     onClose();
@@ -116,7 +118,7 @@ export function UserDropdown({
             className={cn(menuItemClassName, "text-red-600 hover:bg-red-50")}
           >
             <FiLogOut size={16} />
-            Logout
+            {t("nav.logout")}
           </button>
         </div>
       )}
