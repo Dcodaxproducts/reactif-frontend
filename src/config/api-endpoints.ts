@@ -12,7 +12,7 @@ export const API_ENDPOINTS = {
   deleteUserAccount: "delete-user-account",
   designerList: "designer-list",
   category: "categories",
-  service: "service",
+  service: "services",
   booking: "booking",
   bookingList: "booking-list",
   bookingDetail: "booking-detail",
