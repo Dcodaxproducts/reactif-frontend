@@ -14,6 +14,7 @@ export function EditableInputField({
 
       <Input
         defaultValue={defaultValue}
+        placeholder={label}
         className="h-10 bg-neutral-800 rounded-lg border border-neutral-50/10 text-neutral-50 text-base md:text-lg font-medium font-['HK_Grotesk'] focus-visible:ring-0 focus-visible:border-blue-500"
       />
     </div>

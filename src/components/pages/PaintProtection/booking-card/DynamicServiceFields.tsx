@@ -19,7 +19,7 @@ import type {
 } from "@/types/component-props";
 
 const commonInputClasses =
-  "w-full px-4 py-3 rounded-xl outline-1 outline-slate-700 text-sm text-neutral-50 bg-black/20 focus:outline-[#F262B5] focus:ring-1 focus:ring-[#F262B5] transition";
+  "rounded-xl border-slate-700 bg-black/20 px-4 py-3 text-sm text-neutral-50 focus-visible:border-[#F262B5] focus-visible:ring-[#F262B5]/30";
 
 type ServiceFieldRenderProps = Pick<
   Service["fields"][number],
@@ -169,7 +169,7 @@ function renderField({
         >
           <SelectTrigger
             id={`service-field-${id}`}
-            className="w-full h-12 rounded-xl text-sm text-neutral-50 bg-black/20 border border-slate-700 focus:border-[#F262B5] focus:ring-1 focus:ring-[#F262B5]"
+            className="w-full h-12 rounded-xl text-sm text-neutral-50 bg-black/20 border border-slate-700 focus:border-[#F262B5] focus:ring-1 focus:ring-[#F262B5]/30"
           >
             <SelectValue placeholder={placeholder ?? "Select"} />
           </SelectTrigger>

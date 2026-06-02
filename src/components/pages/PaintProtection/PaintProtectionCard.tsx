@@ -27,6 +27,7 @@ interface PaintProtectionCardProps {
   activeItem: string | null;
   setActiveItem: (item: string | null) => void;
   activeCategory: string | null;
+  parentCategory?: string | null;
   services?: Service[];
   isLoading?: boolean;
   designerId?: string | null;
@@ -36,6 +37,7 @@ export function PaintProtectionCard({
   activeItem,
   setActiveItem,
   activeCategory,
+  parentCategory = null,
   services = [],
   isLoading = false,
   designerId = null,
@@ -125,6 +127,7 @@ export function PaintProtectionCard({
       const draft = buildBookingDraft({
         service: currentService,
         activeCategory,
+        parentCategory,
         formValues,
         designerId,
       });

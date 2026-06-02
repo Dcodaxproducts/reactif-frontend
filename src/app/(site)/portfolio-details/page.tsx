@@ -1,6 +1,6 @@
 import { PageShell } from "@/components/common/PageShell";
-import Configuration from "@/components/pages/order/OrderAddress/Configuration";
-import WhyProtection from "@/components/pages/order/OrderAddress/WhyProtection";
+import { Configuration } from "@/components/pages/order/OrderAddress/Configuration";
+import { WhyProtection } from "@/components/pages/order/OrderAddress/WhyProtection";
 
 const page = () => {
   return (

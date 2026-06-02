@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { formatCurrency } from "@/lib/currency";
 import type { Service } from "@/types/component-props";
 
 export function BookingSummary({
@@ -24,6 +25,27 @@ export function BookingSummary({
       <div className="text-neutral-50 text-xs font-bold font-hk">
         {activeCategory} — {currentService?.name || "No selection"}
       </div>
+
+      {currentService && (
+        <div className="grid grid-cols-2 gap-2 text-xs text-neutral-300">
+          <div className="rounded-md border border-[#F262B5]/10 bg-black/20 px-3 py-2">
+            <span className="block text-[10px] uppercase text-neutral-500">
+              Service price
+            </span>
+            <span className="font-bold text-neutral-50">
+              {formatCurrency(currentService.price)}
+            </span>
+          </div>
+          <div className="rounded-md border border-[#F262B5]/10 bg-black/20 px-3 py-2">
+            <span className="block text-[10px] uppercase text-neutral-500">
+              Required details
+            </span>
+            <span className="font-bold text-neutral-50">
+              {currentService.fields.length} fields
+            </span>
+          </div>
+        </div>
+      )}
 
       <Button
         onClick={onSubmit}

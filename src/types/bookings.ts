@@ -46,6 +46,9 @@ export type BookingDraft = {
     id: number;
     name: string;
     price?: number | null;
+    description?: string | null;
+    image?: string | null;
+    field_count?: number;
   };
   selected_category: string | null;
   selected_subcategory: {

@@ -165,6 +165,7 @@ function PaintProtectionContent() {
                 activeItem={activeItem}
                 setActiveItem={setActiveItem}
                 activeCategory={displayCategoryName}
+                parentCategory={categoryName}
                 services={services}
                 isLoading={isLoading}
                 designerId={designerId}

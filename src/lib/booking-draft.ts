@@ -82,6 +82,11 @@ export const normalizeBookingDraft = (value: unknown): BookingDraft | null => {
           : Number.isFinite(Number(selectedService.price))
             ? Number(selectedService.price)
             : null,
+      description: readString(selectedService.description) || null,
+      image: readString(selectedService.image) || null,
+      field_count: Number.isFinite(Number(selectedService.field_count))
+        ? Number(selectedService.field_count)
+        : fieldResponses.length,
     },
     selected_category: readString(value.selected_category) || null,
     selected_subcategory: selectedSubcategory,
@@ -136,4 +141,3 @@ export const rememberBookingDraftFile = (key: string, file: File) => {
 };
 
 export const getBookingDraftFile = (key: string) => bookingDraftFiles.get(key);
-

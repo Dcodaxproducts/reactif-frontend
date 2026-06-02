@@ -5,6 +5,7 @@ import {
   PAINT_PROTECTION_FALLBACK_IMAGE,
   getImageSource,
 } from "@/lib/image-source";
+import { formatCurrency } from "@/lib/currency";
 import { cn } from "@/lib/utils";
 import type { Service } from "@/types/component-props";
 
@@ -95,7 +96,7 @@ export function ServiceSelector({
                   <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-semibold text-neutral-300">
                     <span className="inline-flex items-center gap-1 rounded-md border border-slate-800 bg-black/20 px-2 py-1">
                       <CircleDollarSign className="h-3.5 w-3.5 text-[#F262B5]" />
-                      ${price}
+                      {formatCurrency(price)}
                     </span>
                     <span className="inline-flex items-center gap-1 rounded-md border border-slate-800 bg-black/20 px-2 py-1">
                       <ListChecks className="h-3.5 w-3.5 text-[#F262B5]" />

@@ -1,9 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { addressFields, personalInfoFields } from "@/data/order";
+import type { EditableInputFieldProps } from "@/types/component-props";
 import { EditableInputField } from "./EditableInputField";
 
-const PersonalInfo = () => {
+export function PersonalInfo({
+  fields = personalInfoFields,
+}: {
+  fields?: EditableInputFieldProps[];
+}) {
   return (
     <Card className="w-full max-w-6xl bg-neutral-800/80 rounded-3xl border border-neutral-50/30">
       <CardContent className="p-6 md:p-10 flex flex-col gap-8 md:py-5">
@@ -13,7 +18,7 @@ const PersonalInfo = () => {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {personalInfoFields.map((field) => (
+            {fields.map((field) => (
               <EditableInputField key={field.label} {...field} />
             ))}
           </div>
@@ -43,6 +48,4 @@ const PersonalInfo = () => {
       </CardContent>
     </Card>
   );
-};
-
-export default PersonalInfo;
+}

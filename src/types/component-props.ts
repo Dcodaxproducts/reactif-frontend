@@ -231,6 +231,11 @@ export type OrderConfigurationProps = {
   finalPriceText?: string;
   basePriceColor?: string;
   finalPriceColor?: string;
+  optionGroups?: OptionGroupData[];
+  priceRows?: OrderPriceRowData[];
+  totalEstimated?: string;
+  subtitle?: string;
+  showRating?: boolean;
   route?: string;
 };
 

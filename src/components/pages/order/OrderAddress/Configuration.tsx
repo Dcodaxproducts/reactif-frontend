@@ -10,7 +10,7 @@ import type { OrderConfigurationProps } from "@/types/component-props";
 import { Divider } from "./Divider";
 import { OptionGroup } from "./OptionGroup";
 
-export default function Configuration({
+export function Configuration({
   buttonText = "Process To Pay",
   backgroundColor = "bg-pink-400",
   basePrice = 123.0,
@@ -18,6 +18,11 @@ export default function Configuration({
   basePriceText = "Gtechhalo",
   basePriceColor = "text-pink-400",
   finalPriceColor = "text-pink-400",
+  optionGroups = configurationOptionGroups,
+  priceRows,
+  totalEstimated,
+  subtitle,
+  showRating = true,
   route,
 }: OrderConfigurationProps) {
   const router = useRouter();
@@ -30,48 +35,72 @@ export default function Configuration({
     <Card className="w-full max-w-6xl bg-neutral-800/80 border border-neutral-50/30 rounded-3xl backdrop-blur-sm py-0">
       <CardContent className="p-6 md:p-10 flex flex-col gap-10">
         <div className="flex justify-between items-center">
-          <h2 className="text-white text-2xl font-bold font-hk">
-            Configuration
-          </h2>
-          <div className="flex items-center gap-1">
-            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-            <span className="text-white text-base font-semibold font-hk">
-              4.9
-            </span>
-            <span className="text-stone-300 text-xs font-medium font-hk">
-              (128)
-            </span>
+          <div>
+            <h2 className="text-white text-2xl font-bold font-hk">
+              Configuration
+            </h2>
+            {subtitle && (
+              <p className="mt-1 text-sm text-stone-400 font-hk">
+                {subtitle}
+              </p>
+            )}
           </div>
+          {showRating && (
+            <div className="flex items-center gap-1">
+              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+              <span className="text-white text-base font-semibold font-hk">
+                4.9
+              </span>
+              <span className="text-stone-300 text-xs font-medium font-hk">
+                (128)
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col md:flex-row gap-6">
-          {configurationOptionGroups.map((group) => (
+          {optionGroups.map((group) => (
             <OptionGroup key={group.title} {...group} />
           ))}
         </div>
 
         <Divider />
 
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col gap-1">
-            <span className="text-stone-300 text-xs font-medium font-hk">
-              Base Price
-            </span>
-            <span className={`${basePriceColor} text-base font-medium font-hk`}>
-              {basePriceText}
-            </span>
+        {priceRows ? (
+          <div className="flex flex-col gap-3">
+            {priceRows.map(({ label, value }) => (
+              <div key={label} className="flex justify-between gap-4">
+                <span className="text-stone-300 text-sm font-medium font-hk">
+                  {label}
+                </span>
+                <span className="text-neutral-50 text-sm font-semibold font-hk">
+                  {value}
+                </span>
+              </div>
+            ))}
           </div>
-          <div className="flex flex-col items-end gap-1">
-            <span className="text-stone-300 text-xs font-medium font-hk">
-              ${basePrice.toFixed(2)}
-            </span>
-            <span
-              className={`${finalPriceColor} text-base font-semibold font-hk`}
-            >
-              ${finalPrice.toFixed(2)}
-            </span>
+        ) : (
+          <div className="flex justify-between items-center">
+            <div className="flex flex-col gap-1">
+              <span className="text-stone-300 text-xs font-medium font-hk">
+                Base Price
+              </span>
+              <span className={`${basePriceColor} text-base font-medium font-hk`}>
+                {basePriceText}
+              </span>
+            </div>
+            <div className="flex flex-col items-end gap-1">
+              <span className="text-stone-300 text-xs font-medium font-hk">
+                ${basePrice.toFixed(2)}
+              </span>
+              <span
+                className={`${finalPriceColor} text-base font-semibold font-hk`}
+              >
+                ${finalPrice.toFixed(2)}
+              </span>
+            </div>
           </div>
-        </div>
+        )}
 
         <Divider />
 
@@ -80,7 +109,7 @@ export default function Configuration({
             Total Estimated
           </span>
           <span className="text-stone-300 text-xl md:text-2xl font-bold font-hk">
-            ${(basePrice + finalPrice).toFixed(2)}
+            {totalEstimated ?? `$${(basePrice + finalPrice).toFixed(2)}`}
           </span>
         </div>
 

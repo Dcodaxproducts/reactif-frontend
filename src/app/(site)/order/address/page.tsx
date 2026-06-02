@@ -1,4 +1,4 @@
-import OrderAddress from "@/components/pages/order/OrderAddress";
+import { OrderAddress } from "@/components/pages/order/OrderAddress";
 import OrderPageShell from "@/components/pages/order/OrderPageShell";
 import { orderBackgroundStyle } from "@/data/order";
 

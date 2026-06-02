@@ -72,11 +72,13 @@ export const buildBookingFormData = ({ draft }: { draft: BookingDraft }) =>
 export const buildBookingDraft = ({
   service,
   activeCategory,
+  parentCategory,
   formValues,
   designerId,
 }: {
   service: Service;
   activeCategory: string | null;
+  parentCategory?: string | null;
   formValues: ServiceFormValues;
   designerId?: string | null;
 }): BookingDraft => {
@@ -127,8 +129,11 @@ export const buildBookingDraft = ({
       id,
       name,
       price,
+      description: service.description,
+      image: service.service_image,
+      field_count: fields.length,
     },
-    selected_category: activeCategory,
+    selected_category: parentCategory ?? activeCategory,
     selected_subcategory: service.sub_category_id
       ? { id: service.sub_category_id, name: activeCategory }
       : null,

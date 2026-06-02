@@ -82,20 +82,20 @@ export const configurationOptionGroups = [
 ];
 
 export const personalInfoFields = [
-  { label: "Full Name", defaultValue: "Customer Name" },
-  { label: "Email Address", defaultValue: "customer@example.com" },
-  { label: "Phone Number", defaultValue: "Phone number" },
+  { label: "Full Name", defaultValue: "" },
+  { label: "Email Address", defaultValue: "" },
+  { label: "Phone Number", defaultValue: "" },
 ];
 
 export const addressFields = [
   {
     label: "Street Address",
-    defaultValue: "Customer address",
+    defaultValue: "",
     fullWidth: true,
   },
-  { label: "City", defaultValue: "City" },
-  { label: "State", defaultValue: "State" },
-  { label: "Zip Code", defaultValue: "Zip code" },
+  { label: "City", defaultValue: "" },
+  { label: "State", defaultValue: "" },
+  { label: "Zip Code", defaultValue: "" },
 ];
 
 export const paymentSummaryRows: OrderPriceRowData[] = [
