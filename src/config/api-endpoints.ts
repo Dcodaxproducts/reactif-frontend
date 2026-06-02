@@ -11,7 +11,7 @@ export const API_ENDPOINTS = {
   updateProfile: "update-profile",
   deleteUserAccount: "delete-user-account",
   designerList: "designer-list",
-  category: "category",
+  category: "categories",
   service: "service",
   booking: "booking",
   bookingList: "booking-list",
