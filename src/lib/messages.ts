@@ -19,6 +19,7 @@ export const normalizeInboxItem = (value: unknown): MessageInboxItem => {
 
   return {
     booking_id: readString(record.booking_id),
+    receiver_id: readString(record.receiver_id),
     last_message: readString(record.last_message),
     last_message_id: readString(record.last_message_id),
     unread_message_count: readNumber(record.unread_message_count),
@@ -39,6 +40,8 @@ export const normalizeChatMessage = (value: unknown): ChatMessage => {
   return {
     id: readString(record.id),
     booking_id: readString(record.booking_id),
+    receiver_id: readString(record.receiver_id),
+    sender_id: readString(record.sender_id),
     message: readString(record.message),
     sender_type: readString(record.sender_type),
     receiver_type: readString(record.receiver_type),
@@ -67,4 +70,3 @@ export const normalizeListResponse = <T>(
 
   return candidates.map(normalizer);
 };
-

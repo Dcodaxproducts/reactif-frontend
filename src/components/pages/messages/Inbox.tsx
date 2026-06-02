@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { useMessageInbox } from "@/hooks/useMessages";
 
-export default function Inbox() {
+export function Inbox() {
   const { inbox, loading, error } = useMessageInbox();
 
   return (
@@ -22,7 +22,10 @@ export default function Inbox() {
           {inbox.map((item) => (
             <Link
               key={`${item.booking_id}-${item.last_message_id}`}
-              href={`/messages/${item.booking_id}`}
+              href={{
+                pathname: `/messages/${item.booking_id}`,
+                query: item.receiver_id ? { receiverId: item.receiver_id } : {},
+              }}
               className="flex flex-col gap-2 border-t border-neutral-50/10 pt-4"
             >
               <div className="flex justify-between gap-4 text-neutral-50">

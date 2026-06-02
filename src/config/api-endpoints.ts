@@ -23,7 +23,7 @@ export const API_ENDPOINTS = {
   walletList: "wallet-list",
   messageInbox: "message/inbox",
   messageGet: "message/get",
-  messageSend: "messages/send",
+  messageSend: "message/send",
   notificationList: "notification-list",
   supportFaqs: "support/faqs",
 } as const;

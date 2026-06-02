@@ -1,5 +1,6 @@
 export type MessageInboxItem = {
   booking_id: number | string;
+  receiver_id: number | string;
   last_message: string;
   last_message_id: number | string;
   unread_message_count: number;
@@ -12,6 +13,8 @@ export type MessageInboxItem = {
 export type ChatMessage = {
   id: number | string;
   booking_id: number | string;
+  receiver_id: number | string;
+  sender_id: number | string;
   message: string;
   sender_type: string;
   receiver_type: string;
@@ -28,6 +31,7 @@ export type GetMessagesParams = {
 
 export type SendMessagePayload = {
   booking_id: number | string;
+  receiver_id: number | string;
   message: string;
-  files?: File[];
+  images?: File[];
 };

@@ -1,24 +1,30 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useParams, useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useMessages, useSendMessage } from "@/hooks/useMessages";
 import { sendMessageSchema } from "@/validations/messages";
 
-export default function Chat() {
+function ChatContent() {
   const params = useParams();
+  const searchParams = useSearchParams();
   const bookingId = typeof params?.bookingId === "string" ? params.bookingId : "";
   const { messages, loading, error } = useMessages({ booking_id: bookingId });
+  const receiverId =
+    searchParams.get("receiverId") ||
+    messages.find((item) => item.receiver_id)?.receiver_id ||
+    "";
   const sendMessageMutation = useSendMessage();
   const [message, setMessage] = useState("");
-  const [files, setFiles] = useState<File[]>([]);
+  const [images, setImages] = useState<File[]>([]);
 
   const handleSend = async () => {
     const result = sendMessageSchema.safeParse({
       booking_id: bookingId,
+      receiver_id: receiverId,
       message,
     });
 
@@ -26,11 +32,12 @@ export default function Chat() {
 
     await sendMessageMutation.mutateAsync({
       booking_id: bookingId,
+      receiver_id: receiverId,
       message,
-      files,
+      images,
     });
     setMessage("");
-    setFiles([]);
+    setImages([]);
   };
 
   return (
@@ -69,9 +76,10 @@ export default function Chat() {
             />
             <Input
               type="file"
+              accept="image/*"
               multiple
               onChange={({ target }) =>
-                setFiles(Array.from(target.files ?? []))
+                setImages(Array.from(target.files ?? []))
               }
               className="bg-neutral-900 border-neutral-50/10 text-neutral-50"
             />
@@ -85,5 +93,13 @@ export default function Chat() {
         </CardContent>
       </Card>
     </section>
+  );
+}
+
+export function Chat() {
+  return (
+    <Suspense fallback={null}>
+      <ChatContent />
+    </Suspense>
   );
 }

@@ -21,8 +21,11 @@ export const MESSAGE_ROUTES = {
 const createMessageFormData = (payload: SendMessagePayload) => {
   const body = new FormData();
   body.append("booking_id", String(payload.booking_id));
+  body.append("receiver_id", String(payload.receiver_id));
   body.append("message", payload.message);
-  payload.files?.forEach((file) => body.append("files[]", file));
+  payload.images?.forEach((image, index) => {
+    body.append(`images[${index}]`, image);
+  });
 
   return body;
 };
@@ -50,4 +53,3 @@ export const sendMessage = async (payload: SendMessagePayload) => {
 
   return data;
 };
-

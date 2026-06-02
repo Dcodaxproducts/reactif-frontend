@@ -8,7 +8,7 @@ describe("API_ENDPOINTS", () => {
     expect(API_ENDPOINTS.service).toBe("services");
     expect(API_ENDPOINTS.bookingDetail).toBe("booking-detail");
     expect(API_ENDPOINTS.paymentGatewayList).toBe("payment-gateway-list");
-    expect(API_ENDPOINTS.messageSend).toBe("messages/send");
+    expect(API_ENDPOINTS.messageSend).toBe("message/send");
   });
 
   it("joins API paths without leading slashes", () => {
