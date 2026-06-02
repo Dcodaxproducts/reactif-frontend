@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { formatCurrency } from "@/lib/currency";
 import type { BookingDraft } from "@/types/bookings";
 import { PriceRow } from "./PriceRow";
@@ -16,21 +17,22 @@ export function OrderSummaryCard({
   total: string;
   draft?: BookingDraft | null;
 }) {
+  const { t } = useAppTranslation();
   const paymentSummaryRows = [
-    { label: "Sub Total", value: formatCurrency(subtotal) },
-    { label: "Extra Charges", value: formatCurrency(extraCharges) },
+    { label: t("payment.subTotal"), value: formatCurrency(subtotal) },
+    { label: t("payment.extraCharges"), value: formatCurrency(extraCharges) },
   ];
   const bookingDetails = draft
     ? [
-        { label: "Category", value: draft.selected_category ?? "Not selected" },
+        { label: t("payment.category"), value: draft.selected_category ?? t("payment.notSelected") },
         {
-          label: "Subcategory",
-          value: draft.selected_subcategory?.name ?? "Not selected",
+          label: t("payment.subcategory"),
+          value: draft.selected_subcategory?.name ?? t("payment.notSelected"),
         },
-        { label: "Service", value: draft.selected_service.name },
-        { label: "Address", value: draft.address || "Missing" },
-        { label: "Latitude", value: draft.latitude || "Missing" },
-        { label: "Longitude", value: draft.longitude || "Missing" },
+        { label: t("payment.service"), value: draft.selected_service.name },
+        { label: t("payment.address"), value: draft.address || t("payment.missing") },
+        { label: t("payment.latitude"), value: draft.latitude || t("payment.missing") },
+        { label: t("payment.longitude"), value: draft.longitude || t("payment.missing") },
       ]
     : [];
   const dynamicDetails = draft?.dynamic_field_responses.slice(0, 4) ?? [];
@@ -39,7 +41,7 @@ export function OrderSummaryCard({
     <Card className="bg-neutral-800 rounded-3xl border border-neutral-50/30">
       <CardContent className="p-6 md:px-10 md:py-6 flex flex-col gap-6">
         <h2 className="text-neutral-50 text-2xl font-semibold font-['HK_Grotesk']">
-          Order Summary
+          {t("payment.orderSummary")}
         </h2>
 
         <div className="flex items-center gap-4">
@@ -55,7 +57,7 @@ export function OrderSummaryCard({
               {title}
             </div>
             <div className="text-neutral-50/60 text-lg font-medium font-['HK_Grotesk']">
-              A detailed summary of your purchase
+              {t("order.summaryDescription")}
             </div>
           </div>
         </div>
@@ -83,7 +85,7 @@ export function OrderSummaryCard({
         {dynamicDetails.length > 0 && (
           <div className="flex flex-col gap-2">
             <div className="text-neutral-50/50 text-xs font-semibold uppercase">
-              Submitted details
+              {t("payment.submittedDetails")}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {dynamicDetails.map((field) => (
@@ -95,7 +97,7 @@ export function OrderSummaryCard({
                     {field.label ?? field.lable ?? field.field_name}
                   </span>
                   <span className="break-words text-right text-neutral-50 text-sm font-semibold">
-                    {field.value ?? "Not provided"}
+                    {field.value ?? t("payment.notProvided")}
                   </span>
                 </div>
               ))}
@@ -115,7 +117,7 @@ export function OrderSummaryCard({
 
         <div className="flex justify-between items-center">
           <span className="text-neutral-50 text-xl md:text-2xl font-semibold font-['HK_Grotesk']">
-            Total Payable Amount
+            {t("payment.totalPayableAmount")}
           </span>
           <span className="text-pink-400 text-xl md:text-2xl font-semibold font-['HK_Grotesk']">
             {formatCurrency(total)}

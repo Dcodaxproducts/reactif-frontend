@@ -16,10 +16,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useMessages, useSendMessage } from "@/hooks/useMessages";
 import { cn } from "@/lib/utils";
 import type { ChatMessage } from "@/types/messages";
-import { sendMessageSchema } from "@/validations/messages";
+import { createSendMessageSchema } from "@/validations/messages";
 
 const outgoingSenderTypes = new Set(["user", "customer", "client"]);
 
@@ -57,6 +58,8 @@ const isOutgoingMessage = (message: ChatMessage) =>
   outgoingSenderTypes.has(message.sender_type.toLowerCase());
 
 function ChatContent() {
+  const { t } = useAppTranslation();
+  const sendMessageSchema = useMemo(() => createSendMessageSchema(t), [t]);
   const params = useParams();
   const searchParams = useSearchParams();
   const bookingId =
@@ -104,7 +107,7 @@ function ChatContent() {
               asChild
               variant="neutralOutline"
               className="h-11 w-11 rounded-2xl p-0"
-              aria-label="Back to messages"
+              aria-label={t("messages.backToMessages")}
             >
               <Link href="/messages">
                 <FiArrowLeft size={18} />
@@ -117,20 +120,20 @@ function ChatContent() {
 
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-pink-300">
-                Booking conversation
+                {t("messages.bookingConversation")}
               </p>
               <h1 className="mt-1 text-2xl font-semibold text-neutral-50 font-hk">
-                Booking #{bookingId}
+                {t("messages.bookingNumber", { bookingId })}
               </h1>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 text-sm text-neutral-50/60">
             <span className="rounded-full border border-neutral-50/10 bg-neutral-800 px-3 py-1">
-              {messages.length} messages
+              {t("messages.messageCount", { count: messages.length })}
             </span>
             <span className="rounded-full border border-emerald-300/20 bg-emerald-400/10 px-3 py-1 text-emerald-100">
-              Active thread
+              {t("messages.activeThread")}
             </span>
           </div>
         </header>
@@ -164,11 +167,10 @@ function ChatContent() {
                 </div>
                 <div>
                   <p className="text-lg font-semibold text-neutral-50">
-                    No messages yet
+                    {t("messages.emptyChatTitle")}
                   </p>
                   <p className="mt-2 max-w-sm text-sm leading-6 text-neutral-50/55">
-                    Start this booking conversation by sending a message or
-                    attaching an image.
+                    {t("messages.emptyChatDescription")}
                   </p>
                 </div>
               </div>
@@ -196,18 +198,18 @@ function ChatContent() {
 
             <div className="flex flex-col gap-3 lg:flex-row lg:items-end">
               <label className="flex-1">
-                <span className="sr-only">Message</span>
+                <span className="sr-only">{t("messages.messageLabel")}</span>
                 <Textarea
                   value={message}
                   onChange={({ target }) => setMessage(target.value)}
-                  placeholder="Type your message..."
+                  placeholder={t("messages.placeholder")}
                   className="min-h-24 rounded-2xl border-neutral-50/10 bg-neutral-800 text-neutral-50 placeholder:text-neutral-50/40 focus-visible:ring-pink-300/30"
                 />
               </label>
 
               <div className="flex items-center gap-3">
                 <label className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-2xl border border-neutral-50/10 bg-neutral-800 text-neutral-50 transition hover:bg-neutral-700">
-                  <span className="sr-only">Attach images</span>
+                  <span className="sr-only">{t("messages.attachImages")}</span>
                   <FiImage size={18} />
                   <Input
                     type="file"
@@ -226,15 +228,14 @@ function ChatContent() {
                   className="h-12 rounded-2xl bg-pink-400 px-5 text-neutral-950 hover:bg-pink-300"
                 >
                   <FiSend size={17} />
-                  {sendMessageMutation.isPending ? "Sending" : "Send"}
+                  {sendMessageMutation.isPending ? t("messages.sending") : t("messages.send")}
                 </Button>
               </div>
             </div>
 
             {!receiverId && (
               <p className="mt-3 text-xs text-amber-200">
-                Receiver information is missing for this thread. Open it from
-                the inbox if sending is disabled.
+                {t("messages.missingReceiver")}
               </p>
             )}
           </form>
@@ -245,6 +246,7 @@ function ChatContent() {
 }
 
 function MessageBubble({ message }: { message: ChatMessage }) {
+  const { t } = useAppTranslation();
   const isOutgoing = isOutgoingMessage(message);
   const attachmentUrl = getAttachmentUrl(message);
   const messageTime = formatMessageTime(message.created_at);
@@ -287,7 +289,7 @@ function MessageBubble({ message }: { message: ChatMessage }) {
               >
                 <Image
                   src={attachmentUrl}
-                  alt="Message attachment"
+                  alt={t("messages.attachmentAlt")}
                   width={280}
                   height={190}
                   className="max-h-64 w-full object-cover"
@@ -307,7 +309,7 @@ function MessageBubble({ message }: { message: ChatMessage }) {
                 )}
               >
                 <FiPaperclip size={15} />
-                View attachment
+                {t("messages.viewAttachment")}
               </a>
             )}
           </div>

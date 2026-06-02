@@ -2,6 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { usePaymentHistory } from "@/hooks/usePayments";
 import { formatCurrency } from "@/lib/currency";
 import { cn } from "@/lib/utils";
@@ -16,7 +17,14 @@ const statusClassNames: Record<string, string> = {
   cancelled: "border-red-400/30 bg-red-400/10 text-red-300",
 };
 
-const columns = ["Booking", "Amount", "Method", "Transaction", "Date", "Status"];
+const columnKeys = [
+  "payment.booking",
+  "payment.amount",
+  "payment.method",
+  "payment.transaction",
+  "payment.date",
+  "payment.status",
+];
 
 const formatStatusLabel = (status: string) =>
   status
@@ -31,14 +39,14 @@ const getPaymentAmount = (payment: PaymentHistoryItem) =>
 const getPaymentDate = (payment: PaymentHistoryItem) => {
   const rawDate = payment.datetime || payment.created_at;
 
-  if (!rawDate) return "Not recorded";
+  if (!rawDate) return null;
 
   const date = new Date(rawDate);
-  return Number.isNaN(date.getTime()) ? "Not recorded" : date.toLocaleDateString();
+  return Number.isNaN(date.getTime()) ? null : date.toLocaleDateString();
 };
 
 const getPaymentReference = (payment: PaymentHistoryItem) =>
-  payment.txn_id || payment.transaction_id || "No transaction reference";
+  payment.txn_id || payment.transaction_id || null;
 
 const getStatusClassName = (status: string) =>
   statusClassNames[status.toLowerCase()] ??
@@ -56,6 +64,7 @@ function PaymentStatusBadge({ status }: { status: string }) {
 }
 
 function PaymentHistoryMobileCard({ payment }: { payment: PaymentHistoryItem }) {
+  const { t } = useAppTranslation();
   const status = payment.payment_status || "unknown";
 
   return (
@@ -63,7 +72,7 @@ function PaymentHistoryMobileCard({ payment }: { payment: PaymentHistoryItem }) 
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-neutral-50/50 text-xs font-semibold uppercase">
-            Booking
+            {t("payment.booking")}
           </p>
           <p className="mt-1 text-neutral-50 text-base font-semibold">
             #{payment.booking_id}
@@ -73,16 +82,16 @@ function PaymentHistoryMobileCard({ payment }: { payment: PaymentHistoryItem }) 
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <PaymentMeta label="Amount" value={formatCurrency(getPaymentAmount(payment))} />
+        <PaymentMeta label={t("payment.amount")} value={formatCurrency(getPaymentAmount(payment))} />
         <PaymentMeta
-          label="Method"
-          value={formatStatusLabel(payment.payment_type || "Not recorded")}
+          label={t("payment.method")}
+          value={formatStatusLabel(payment.payment_type || t("payment.notRecorded"))}
         />
         <PaymentMeta
-          label="Transaction"
-          value={getPaymentReference(payment)}
+          label={t("payment.transaction")}
+          value={getPaymentReference(payment) ?? t("payment.noTransactionReference")}
         />
-        <PaymentMeta label="Date" value={getPaymentDate(payment)} />
+        <PaymentMeta label={t("payment.date")} value={getPaymentDate(payment) ?? t("payment.notRecorded")} />
       </div>
     </article>
   );
@@ -100,6 +109,7 @@ function PaymentMeta({ label, value }: { label: string; value: string }) {
 }
 
 export function PaymentHistory() {
+  const { t } = useAppTranslation();
   const { payments, loading, error } = usePaymentHistory();
 
   return (
@@ -108,28 +118,28 @@ export function PaymentHistory() {
         <CardContent className="p-6 md:p-10 flex flex-col gap-8">
           <div className="flex flex-col gap-2">
             <h1 className="text-neutral-50 text-3xl font-semibold font-hk">
-              Payment History
+              {t("payment.historyTitle")}
             </h1>
             <p className="text-neutral-50/60">
-              Review booking payments, transaction references, and payment status.
+              {t("payment.historyDescription")}
             </p>
           </div>
 
-          {loading && <p className="text-neutral-50/60">Loading...</p>}
+          {loading && <p className="text-neutral-50/60">{t("payment.loading")}</p>}
           {error && <p className="text-red-400">{error}</p>}
           {!loading && payments.length === 0 && (
-            <p className="text-neutral-50/60">No payments found.</p>
+            <p className="text-neutral-50/60">{t("payment.noPaymentsFound")}</p>
           )}
 
           {payments.length > 0 && (
             <div className="flex flex-col gap-3">
               <div className="hidden md:grid grid-cols-[1.1fr_1fr_1fr_1.4fr_1fr_1fr] gap-4 rounded-xl border border-neutral-50/10 bg-neutral-900/70 px-4 py-3">
-                {columns.map((column) => (
+                {columnKeys.map((columnKey) => (
                   <span
-                    key={column}
+                    key={columnKey}
                     className="text-neutral-50/50 text-xs font-semibold uppercase"
                   >
-                    {column}
+                    {t(columnKey)}
                   </span>
                 ))}
               </div>
@@ -142,18 +152,18 @@ export function PaymentHistory() {
                     <PaymentHistoryMobileCard payment={payment} />
                     <div className="hidden md:grid grid-cols-[1.1fr_1fr_1fr_1.4fr_1fr_1fr] gap-4 items-center rounded-xl border border-neutral-50/10 bg-neutral-900/40 px-4 py-4 text-neutral-50/70">
                       <span className="text-neutral-50 font-semibold">
-                        Booking #{payment.booking_id}
+                        {t("messages.bookingNumber", { bookingId: payment.booking_id })}
                       </span>
                       <span className="font-semibold text-neutral-50">
                         {formatCurrency(getPaymentAmount(payment))}
                       </span>
                       <span className="capitalize">
-                        {formatStatusLabel(payment.payment_type || "Not recorded")}
+                        {formatStatusLabel(payment.payment_type || t("payment.notRecorded"))}
                       </span>
                       <span className="break-words">
-                        {getPaymentReference(payment)}
+                        {getPaymentReference(payment) ?? t("payment.noTransactionReference")}
                       </span>
-                      <span>{getPaymentDate(payment)}</span>
+                      <span>{getPaymentDate(payment) ?? t("payment.notRecorded")}</span>
                       <PaymentStatusBadge status={status} />
                     </div>
                   </div>

@@ -1,6 +1,33 @@
 import { z } from "zod";
 import type { Service } from "@/types/categories";
 
+type BookingValidationMessageKey =
+  | "required"
+  | "validEmail"
+  | "validNumber"
+  | "validPhone"
+  | "validFile";
+
+type BookingValidationMessageResolver = (
+  key: BookingValidationMessageKey,
+  label: string,
+) => string;
+
+const defaultMessageResolver: BookingValidationMessageResolver = (
+  key,
+  label,
+) => {
+  const messages: Record<BookingValidationMessageKey, string> = {
+    required: `${label} is required`,
+    validEmail: `${label} must be a valid email`,
+    validNumber: `${label} must be a valid number`,
+    validPhone: `${label} must be a valid phone number`,
+    validFile: `${label} must be a valid file`,
+  };
+
+  return messages[key];
+};
+
 export const isBlankValue = (value: unknown) => {
   return typeof value === "string" ? value.trim() === "" : value == null;
 };
@@ -32,8 +59,12 @@ export const isFileValue = (value: unknown): value is File => {
   );
 };
 
-const buildStringValidator = (label: string, isRequired: boolean) => {
-  const validator = z.string().trim().min(1, `${label} is required`);
+const buildStringValidator = (
+  label: string,
+  isRequired: boolean,
+  message: BookingValidationMessageResolver,
+) => {
+  const validator = z.string().trim().min(1, message("required", label));
 
   if (isRequired) {
     return validator;
@@ -42,12 +73,16 @@ const buildStringValidator = (label: string, isRequired: boolean) => {
   return z.preprocess(normalizeOptionalStringInput, z.string().optional());
 };
 
-const buildEmailValidator = (label: string, isRequired: boolean) => {
+const buildEmailValidator = (
+  label: string,
+  isRequired: boolean,
+  message: BookingValidationMessageResolver,
+) => {
   const validator = z
     .string()
     .trim()
-    .min(1, `${label} is required`)
-    .email(`${label} must be a valid email`);
+    .min(1, message("required", label))
+    .email(message("validEmail", label));
 
   if (isRequired) {
     return validator;
@@ -55,17 +90,21 @@ const buildEmailValidator = (label: string, isRequired: boolean) => {
 
   return z.preprocess(
     normalizeOptionalStringInput,
-    z.string().email(`${label} must be a valid email`).optional(),
+    z.string().email(message("validEmail", label)).optional(),
   );
 };
 
-const buildNumberValidator = (label: string, isRequired: boolean) => {
+const buildNumberValidator = (
+  label: string,
+  isRequired: boolean,
+  message: BookingValidationMessageResolver,
+) => {
   return z.unknown().superRefine((value, ctx) => {
     if (isBlankValue(value)) {
       if (isRequired) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: `${label} is required`,
+          message: message("required", label),
         });
       }
 
@@ -75,18 +114,22 @@ const buildNumberValidator = (label: string, isRequired: boolean) => {
     if (!isValidNumberInput(value)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: `${label} must be a valid number`,
+        message: message("validNumber", label),
       });
     }
   });
 };
 
-const buildPhoneValidator = (label: string, isRequired: boolean) => {
+const buildPhoneValidator = (
+  label: string,
+  isRequired: boolean,
+  message: BookingValidationMessageResolver,
+) => {
   const validator = z
     .string()
     .trim()
-    .min(1, `${label} is required`)
-    .min(6, `${label} must be a valid phone number`);
+    .min(1, message("required", label))
+    .min(6, message("validPhone", label));
 
   if (isRequired) {
     return validator;
@@ -94,17 +137,21 @@ const buildPhoneValidator = (label: string, isRequired: boolean) => {
 
   return z.preprocess(
     normalizeOptionalStringInput,
-    z.string().min(6, `${label} must be a valid phone number`).optional(),
+    z.string().min(6, message("validPhone", label)).optional(),
   );
 };
 
-const buildFileValidator = (label: string, isRequired: boolean) => {
+const buildFileValidator = (
+  label: string,
+  isRequired: boolean,
+  message: BookingValidationMessageResolver,
+) => {
   return z.unknown().superRefine((value, ctx) => {
     if (value == null) {
       if (isRequired) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: `${label} is required`,
+          message: message("required", label),
         });
       }
 
@@ -114,21 +161,28 @@ const buildFileValidator = (label: string, isRequired: boolean) => {
     if (!isFileValue(value)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: `${label} must be a valid file`,
+        message: message("validFile", label),
       });
     }
   });
 };
 
-const buildCheckboxValidator = (label: string, isRequired: boolean) => {
+const buildCheckboxValidator = (
+  label: string,
+  isRequired: boolean,
+  message: BookingValidationMessageResolver,
+) => {
   const validator = z.array(z.string());
 
   return isRequired
-    ? validator.min(1, `${label} is required`)
+    ? validator.min(1, message("required", label))
     : validator.optional();
 };
 
-export const buildServiceValidationSchema = (service?: Service | null) => {
+export const createServiceValidationSchema = (
+  service?: Service | null,
+  message: BookingValidationMessageResolver = defaultMessageResolver,
+) => {
   const { fields } = service ?? {};
 
   if (!fields) return null;
@@ -141,22 +195,22 @@ export const buildServiceValidationSchema = (service?: Service | null) => {
 
     switch (input_type) {
       case "email":
-        validator = buildEmailValidator(label, is_required);
+        validator = buildEmailValidator(label, is_required, message);
         break;
       case "number":
-        validator = buildNumberValidator(label, is_required);
+        validator = buildNumberValidator(label, is_required, message);
         break;
       case "tel":
-        validator = buildPhoneValidator(label, is_required);
+        validator = buildPhoneValidator(label, is_required, message);
         break;
       case "file":
-        validator = buildFileValidator(label, is_required);
+        validator = buildFileValidator(label, is_required, message);
         break;
       case "checkbox":
-        validator = buildCheckboxValidator(label, is_required);
+        validator = buildCheckboxValidator(label, is_required, message);
         break;
       default:
-        validator = buildStringValidator(label, is_required);
+        validator = buildStringValidator(label, is_required, message);
     }
 
     schemaFields[field_name] = validator;
@@ -164,3 +218,5 @@ export const buildServiceValidationSchema = (service?: Service | null) => {
 
   return z.object(schemaFields);
 };
+
+export const buildServiceValidationSchema = createServiceValidationSchema;

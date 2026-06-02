@@ -81,9 +81,21 @@ describe("order address summary", () => {
       { title: "Configuration fields", description: "3 captured" },
     ]);
     expect(buildPersonalInfoFields(draft)).toEqual([
-      { label: "Full Name", defaultValue: "Jane Customer" },
-      { label: "Email Address", defaultValue: "jane@example.com" },
-      { label: "Phone Number", defaultValue: "+15551234567" },
+      {
+        label: "Full Name",
+        labelKey: "order.fullName",
+        defaultValue: "Jane Customer",
+      },
+      {
+        label: "Email Address",
+        labelKey: "order.emailAddress",
+        defaultValue: "jane@example.com",
+      },
+      {
+        label: "Phone Number",
+        labelKey: "order.phoneNumber",
+        defaultValue: "+15551234567",
+      },
     ]);
   });
 });

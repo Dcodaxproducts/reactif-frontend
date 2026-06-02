@@ -1,8 +1,9 @@
 import { ShoppingCart } from "lucide-react";
 
 import { ORDER_INFO_SECONDARY_TEXT_CLASS } from "@/components/pages/order/OrderInfoText";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { getBookingStatusTranslationKey } from "@/lib/booking-status";
 import type { OrderCardMetaProps } from "@/types/component-props";
-import { formatStatusLabel } from "./order-management-utils";
 
 export function OrderCardHeader({
   title,
@@ -10,6 +11,8 @@ export function OrderCardHeader({
   amount,
   status,
 }: OrderCardMetaProps) {
+  const { t } = useAppTranslation();
+
   return (
     <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
       <div className="flex gap-4">
@@ -32,7 +35,7 @@ export function OrderCardHeader({
 
         <div className="px-3 py-1 rounded-full bg-blue-600 flex items-center justify-center">
           <span className="text-neutral-50 text-xs font-medium font-hk">
-            {formatStatusLabel(status)}
+            {t(getBookingStatusTranslationKey(status))}
           </span>
         </div>
       </div>

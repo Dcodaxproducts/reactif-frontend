@@ -13,7 +13,7 @@ export function NavbarActions({
   dropdownRef,
   onToggleDropdown,
   onCloseDropdown,
-  onLogout,
+  onSignOut,
 }: NavbarActionsProps) {
   const router = useRouter();
   const { t } = useAppTranslation();
@@ -41,7 +41,7 @@ export function NavbarActions({
           dropdownRef={dropdownRef}
           onToggle={onToggleDropdown}
           onClose={onCloseDropdown}
-          onLogout={onLogout}
+          onSignOut={onSignOut}
         />
       ) : (
         <Button

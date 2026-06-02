@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { CircleDollarSign, Shield } from "lucide-react";
 
 import { protectionFeatures } from "@/data/order";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { formatCurrency } from "@/lib/currency";
 import type { BookingDraft } from "@/types/bookings";
 import type { ProtectionFeatureData } from "@/types/component-props";
@@ -17,12 +18,13 @@ export function WhyProtection({
   draft?: BookingDraft | null;
   details?: ProtectionFeatureData[];
 }) {
+  const { t } = useAppTranslation();
   const pathname = usePathname();
   const isPortfolioDetailsPage = pathname === "/portfolio-details";
-  const serviceName = draft?.selected_service.name ?? "Selected service";
+  const serviceName = draft?.selected_service.name ?? t("order.selectedService");
   const serviceDescription =
     draft?.selected_service.description ||
-    "Review the service, category, and configuration captured from your selection.";
+    t("order.selectedServiceDescription");
   const imageSource = draft?.selected_service.image || "/assets/car.png";
 
   return (
@@ -47,7 +49,7 @@ export function WhyProtection({
         <div className="flex items-center gap-2">
           <Shield className="w-5 h-5 text-white" />
           <h2 className="text-neutral-50 text-base md:text-lg font-bold font-['HK_Grotesk']">
-            Selected service
+            {t("order.selectedService")}
           </h2>
         </div>
 

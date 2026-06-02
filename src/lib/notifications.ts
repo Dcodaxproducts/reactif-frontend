@@ -21,7 +21,7 @@ export const normalizeNotification = (value: unknown): AppNotification => {
 
   return {
     id: readString(record.id),
-    title: readString(record.title) || "Notification",
+    title: readString(record.title),
     message,
     body: readString(record.body) || message,
     description: readString(record.description) || message,

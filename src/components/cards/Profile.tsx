@@ -8,15 +8,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useDeleteAccount, useProfile } from "@/hooks/useProfile";
 import { PROFILE_AVATAR_FALLBACK, getImageSource } from "@/lib/image-source";
 import { toast } from "sonner";
 
-const getDisplayValue = (value?: string | null, fallback = "Not provided") =>
+const getDisplayValue = (value: string | null | undefined, fallback: string) =>
   value?.trim() ? value : fallback;
 
 const Profile = () => {
   const router = useRouter();
+  const { t } = useAppTranslation();
   const { user, loading, error } = useProfile();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const deleteAccountMutation = useDeleteAccount();
@@ -46,7 +48,7 @@ const Profile = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center text-white">
-        Loading profile...
+        {t("profile.loading")}
       </div>
     );
   }
@@ -56,12 +58,18 @@ const Profile = () => {
   const { name, email, phone, address, avatar, bio, is_verified } = user;
   const avatarSource = getImageSource(avatar, PROFILE_AVATAR_FALLBACK);
   const profileInfoItems = [
-    { label: "Full Name", value: name },
-    { label: "Email Address", value: email },
-    { label: "Phone Number", value: getDisplayValue(phone) },
-    { label: "Address", value: getDisplayValue(address) },
+    { label: t("profile.fullName"), value: name },
+    { label: t("profile.emailAddress"), value: email },
+    {
+      label: t("profile.phoneNumber"),
+      value: getDisplayValue(phone, t("profile.notProvided")),
+    },
+    {
+      label: t("profile.address"),
+      value: getDisplayValue(address, t("profile.notProvided")),
+    },
   ];
-  const bioText = bio?.trim() ? bio : "No bio provided";
+  const bioText = bio?.trim() ? bio : t("profile.noBioProvided");
 
   return (
     <div className="min-h-screen w-full px-4 sm:px-6 lg:px-12 py-12 flex justify-center relative">
@@ -78,11 +86,10 @@ const Profile = () => {
                 id="delete-account-dialog-title"
                 className="text-lg font-bold text-red-500"
               >
-                Confirm Account Deletion
+                {t("profile.confirmDeleteTitle")}
               </h3>
               <p className="text-gray-400 text-sm">
-                This action cannot be undone. Are you sure you want to
-                permanently delete your account?
+                {t("profile.confirmDeleteDescription")}
               </p>
 
               <div className="mt-4 flex justify-end gap-3">
@@ -92,7 +99,7 @@ const Profile = () => {
                   className="px-4 py-2 bg-gray-700 text-gray-200 rounded-lg hover:bg-gray-600 transition"
                   disabled={deleting}
                 >
-                  Cancel
+                  {t("common.cancel")}
                 </Button>
                 <Button
                   type="button"
@@ -101,7 +108,7 @@ const Profile = () => {
                   className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 flex items-center gap-2 transition disabled:opacity-50"
                 >
                   {deleting && <Loader2 className="w-4 h-4 animate-spin" />}
-                  {deleting ? "Deleting..." : "Delete Account"}
+                  {deleting ? t("profile.deleting") : t("profile.deleteAccount")}
                 </Button>
               </div>
             </CardContent>
@@ -116,7 +123,7 @@ const Profile = () => {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-pink-500 p-[3px]">
                   <Image
                     src={avatarSource}
-                    alt="Profile"
+                    alt={t("profile.profileImageAlt")}
                     fill
                     sizes="112px"
                     className="object-cover rounded-full border-4 border-slate-900"
@@ -136,10 +143,12 @@ const Profile = () => {
                   {name}
                 </h2>
                 <p className="text-sm text-gray-400 mt-1">
-                  Senior Automotive Designer
+                  {t("profile.role")}
                 </p>
                 <span className="inline-block mt-3 px-3 py-1 text-xs font-medium rounded-full bg-blue-600/20 text-blue-400 border border-blue-500/40">
-                  {is_verified ? "Active Member" : "Inactive Member"}
+                  {is_verified
+                    ? t("profile.activeMember")
+                    : t("profile.inactiveMember")}
                 </span>
               </div>
             </div>
@@ -149,12 +158,12 @@ const Profile = () => {
                 className="w-[125px] flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-gradient-to-l from-blue-600 via-cyan-600 to-blue-700 hover:opacity-90 transition"
               >
                 <Pencil size={16} />
-                Edit Profile
+                {t("profile.editProfile")}
               </Link>
 
               <Button
                 type="button"
-                aria-label="Share profile"
+                aria-label={t("profile.shareProfile")}
                 className="p-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition h-auto"
               >
                 <Share2 size={18} />
@@ -166,7 +175,9 @@ const Profile = () => {
           <div>
             <div className="flex items-center gap-2 mb-6">
               <User size={18} className="text-blue-400" />
-              <h3 className="text-lg font-semibold">Personal Information</h3>
+              <h3 className="text-lg font-semibold">
+                {t("profile.personalInformation")}
+              </h3>
             </div>
 
             <div className="space-y-6 text-sm">
@@ -181,7 +192,7 @@ const Profile = () => {
               ))}
               <div>
                 <p className="text-gray-400 uppercase text-xs tracking-wide mb-3">
-                  Bio
+                  {t("profile.bio")}
                 </p>
                 <Textarea
                   readOnly
@@ -194,15 +205,16 @@ const Profile = () => {
           </div>
           <div className="mt-12">
             <p className="text-red-500 text-xs uppercase tracking-widest font-semibold mb-4">
-              Danger Zone
+              {t("profile.dangerZone")}
             </p>
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
               <div>
-                <h4 className="font-semibold text-gray-900">Delete Account</h4>
+                <h4 className="font-semibold text-gray-900">
+                  {t("profile.deleteAccount")}
+                </h4>
                 <p className="text-sm text-gray-600 mt-1">
-                  Once you delete your account, there is no going back. Please
-                  be certain.
+                  {t("profile.deleteAccountDescription")}
                 </p>
               </div>
 
@@ -212,7 +224,7 @@ const Profile = () => {
                 variant="ghost"
                 className="text-red-600 font-semibold hover:text-red-700 transition bg-transparent hover:bg-transparent h-auto p-0"
               >
-                Delete Account
+                {t("profile.deleteAccount")}
               </Button>
             </div>
           </div>

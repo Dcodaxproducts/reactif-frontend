@@ -27,7 +27,28 @@ export const formatBookingStatusLabel = (status: string | null | undefined) =>
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
 
+const BOOKING_STATUS_TRANSLATION_KEYS: Record<string, string> = {
+  new_booking: "booking.status.newBooking",
+  pending: "booking.status.pending",
+  accepted: "booking.status.accepted",
+  arriving: "booking.status.arriving",
+  arrived: "booking.status.arrived",
+  in_progress: "booking.status.inProgress",
+  processing: "booking.status.processing",
+  ready_to_pickup: "booking.status.readyToPickup",
+  picked_up: "booking.status.pickedUp",
+  pickedup: "booking.status.pickedUp",
+  delivered: "booking.status.delivered",
+  completed: "booking.status.completed",
+  canceled: "booking.status.canceled",
+  cancelled: "booking.status.canceled",
+};
+
+export const getBookingStatusTranslationKey = (
+  status: string | null | undefined,
+) => BOOKING_STATUS_TRANSLATION_KEYS[normalizeBookingStatus(status)] ??
+  "booking.status.unknown";
+
 export const canTrackBookingStatus = (status: string | null | undefined) =>
   getBookingStatusProgress(status) > 0 &&
   getBookingStatusProgress(status) < 100;
-

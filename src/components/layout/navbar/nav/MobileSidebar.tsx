@@ -10,7 +10,7 @@ export function MobileSidebar({
   user,
   navItems,
   onClose,
-  onLogout,
+  onSignOut,
   onLogin,
 }: MobileSidebarProps) {
   const { t } = useAppTranslation();
@@ -57,7 +57,7 @@ export function MobileSidebar({
           ) : (
             <Button
               type="button"
-              onClick={onLogout}
+              onClick={onSignOut}
               variant="destructive"
               className="mt-4 rounded-full py-2"
             >

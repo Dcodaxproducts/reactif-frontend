@@ -11,12 +11,13 @@ import {
 } from "react-icons/fi";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useMessageInbox } from "@/hooks/useMessages";
 import { cn } from "@/lib/utils";
 import type { MessageInboxItem } from "@/types/messages";
 
-const getConversationName = (item: MessageInboxItem) =>
-  item.receiver_name || item.sender_name || "Conversation";
+const getConversationName = (item: MessageInboxItem, fallback: string) =>
+  item.receiver_name || item.sender_name || fallback;
 
 const getInitials = (name: string) =>
   name
@@ -24,12 +25,13 @@ const getInitials = (name: string) =>
     .filter(Boolean)
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase())
-    .join("") || "M";
+    .join("");
 
-const getLastMessage = (message: string) =>
-  message.trim() === "" ? "No message preview available" : message;
+const getLastMessage = (message: string, fallback: string) =>
+  message.trim() === "" ? fallback : message;
 
 export function Inbox() {
+  const { t } = useAppTranslation();
   const { inbox, loading, error } = useMessageInbox();
   const [searchQuery, setSearchQuery] = useState("");
   const unreadTotal = inbox.reduce(
@@ -42,14 +44,14 @@ export function Inbox() {
 
     return inbox.filter((item) => {
       const values = [
-        getConversationName(item),
+        getConversationName(item, t("messages.conversation")),
         item.last_message,
         String(item.booking_id),
       ];
 
       return values.some((value) => value.toLowerCase().includes(query));
     });
-  }, [inbox, searchQuery]);
+  }, [inbox, searchQuery, t]);
 
   return (
     <main className="w-full px-4 py-8 sm:py-10">
@@ -59,13 +61,13 @@ export function Inbox() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-pink-300">
-                  Inbox
+                  {t("messages.inboxEyebrow")}
                 </p>
                 <h1 className="mt-2 text-3xl font-semibold text-neutral-50 font-hk">
-                  Messages
+                  {t("messages.title")}
                 </h1>
                 <p className="mt-2 text-sm text-neutral-50/60">
-                  Booking conversations and service updates.
+                  {t("messages.description")}
                 </p>
               </div>
 
@@ -77,7 +79,7 @@ export function Inbox() {
             <div className="grid grid-cols-2 gap-3">
               <div className="rounded-2xl border border-neutral-50/10 bg-neutral-800/80 p-4">
                 <p className="text-xs font-semibold uppercase tracking-wide text-neutral-50/50">
-                  Threads
+                  {t("messages.threads")}
                 </p>
                 <p className="mt-1 text-2xl font-semibold text-neutral-50">
                   {inbox.length}
@@ -85,7 +87,7 @@ export function Inbox() {
               </div>
               <div className="rounded-2xl border border-neutral-50/10 bg-neutral-800/80 p-4">
                 <p className="text-xs font-semibold uppercase tracking-wide text-neutral-50/50">
-                  Unread
+                  {t("messages.unread")}
                 </p>
                 <p className="mt-1 text-2xl font-semibold text-neutral-50">
                   {unreadTotal}
@@ -94,7 +96,7 @@ export function Inbox() {
             </div>
 
             <label className="relative block">
-              <span className="sr-only">Search messages</span>
+              <span className="sr-only">{t("messages.search")}</span>
               <FiSearch
                 aria-hidden
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-50/40"
@@ -103,7 +105,7 @@ export function Inbox() {
               <Input
                 value={searchQuery}
                 onChange={({ target }) => setSearchQuery(target.value)}
-                placeholder="Search booking or contact"
+                placeholder={t("messages.searchPlaceholder")}
                 className="h-12 rounded-2xl border-neutral-50/10 bg-neutral-800 pl-11 text-neutral-50 placeholder:text-neutral-50/40"
               />
             </label>
@@ -133,11 +135,10 @@ export function Inbox() {
                   <FiInbox size={26} />
                 </div>
                 <p className="text-base font-semibold text-neutral-50">
-                  No conversations found
+                  {t("messages.emptyTitle")}
                 </p>
                 <p className="max-w-xs text-sm text-neutral-50/55">
-                  Booking conversations will appear here once messages are
-                  available.
+                  {t("messages.emptyDescription")}
                 </p>
               </div>
             )}
@@ -158,11 +159,10 @@ export function Inbox() {
             <FiMessageSquare size={34} />
           </div>
           <h2 className="mt-6 text-3xl font-semibold text-neutral-50 font-hk">
-            Select a conversation
+            {t("messages.selectConversation")}
           </h2>
           <p className="mt-3 max-w-md text-sm leading-6 text-neutral-50/60">
-            Open a booking thread from the inbox to review messages, send
-            updates, and share images with the other party.
+            {t("messages.selectConversationDescription")}
           </p>
         </div>
       </section>
@@ -171,7 +171,8 @@ export function Inbox() {
 }
 
 function InboxConversation({ item }: { item: MessageInboxItem }) {
-  const conversationName = getConversationName(item);
+  const { t } = useAppTranslation();
+  const conversationName = getConversationName(item, t("messages.conversation"));
   const hasUnread = item.unread_message_count > 0;
 
   return (
@@ -197,7 +198,7 @@ function InboxConversation({ item }: { item: MessageInboxItem }) {
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-neutral-50">
-            {getInitials(conversationName)}
+            {getInitials(conversationName) || t("messages.initialsFallback")}
           </div>
         )}
       </div>
@@ -209,7 +210,7 @@ function InboxConversation({ item }: { item: MessageInboxItem }) {
               {conversationName}
             </p>
             <p className="mt-1 text-xs font-medium text-neutral-50/45">
-              Booking #{item.booking_id}
+              {t("messages.bookingNumber", { bookingId: item.booking_id })}
             </p>
           </div>
 
@@ -232,7 +233,7 @@ function InboxConversation({ item }: { item: MessageInboxItem }) {
             hasUnread ? "text-neutral-50/80" : "text-neutral-50/50",
           )}
         >
-          {getLastMessage(item.last_message)}
+          {getLastMessage(item.last_message, t("messages.noPreview"))}
         </p>
       </div>
     </Link>

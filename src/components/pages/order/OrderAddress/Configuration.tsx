@@ -6,12 +6,13 @@ import { ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { configurationOptionGroups } from "@/data/order";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import type { OrderConfigurationProps } from "@/types/component-props";
 import { Divider } from "./Divider";
 import { OptionGroup } from "./OptionGroup";
 
 export function Configuration({
-  buttonText = "Process To Pay",
+  buttonText,
   backgroundColor = "bg-pink-400",
   basePrice = 123.0,
   finalPrice = 150.0,
@@ -27,6 +28,8 @@ export function Configuration({
   route,
 }: OrderConfigurationProps) {
   const router = useRouter();
+  const { t } = useAppTranslation();
+  const buttonLabel = buttonText ?? t("order.processToPay");
 
   const handleButtonClick = () => {
     if (onBeforeNavigate && !onBeforeNavigate()) return;
@@ -39,7 +42,7 @@ export function Configuration({
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-white text-2xl font-bold font-hk">
-              Configuration
+              {t("order.configuration")}
             </h2>
             {subtitle && (
               <p className="mt-1 text-sm text-stone-400 font-hk">
@@ -85,7 +88,7 @@ export function Configuration({
           <div className="flex justify-between items-center">
             <div className="flex flex-col gap-1">
               <span className="text-stone-300 text-xs font-medium font-hk">
-                Base Price
+                {t("order.basePrice")}
               </span>
               <span className={`${basePriceColor} text-base font-medium font-hk`}>
                 {basePriceText}
@@ -108,7 +111,7 @@ export function Configuration({
 
         <div className="flex justify-between items-center">
           <span className="text-stone-300 text-xl md:text-2xl font-bold font-hk">
-            Total Estimated
+            {t("order.totalEstimated")}
           </span>
           <span className="text-stone-300 text-xl md:text-2xl font-bold font-hk">
             {totalEstimated ?? `$${(basePrice + finalPrice).toFixed(2)}`}
@@ -119,13 +122,12 @@ export function Configuration({
           className={`w-full h-10 ${backgroundColor} hover:bg-white hover:text-black font-semibold font-hk py-3 rounded-lg text-base md:text-lg shadow-[0px_4px_10px_rgba(210,40,119,0.25)] flex items-center justify-center gap-2`}
           onClick={handleButtonClick}
         >
-          {buttonText}
+          {buttonLabel}
           <ArrowRight className="w-5 h-5" />
         </Button>
 
         <p className="text-stone-500 text-xs font-bold font-hk text-center">
-          No payment required now. The vendor will contact you to confirm
-          details.
+          {t("order.noPaymentRequired")}
         </p>
       </CardContent>
     </Card>

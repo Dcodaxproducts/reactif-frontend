@@ -1,8 +1,10 @@
 import type {
   DetailPair,
+  EditableInputFieldProps,
   InstallationNoteData,
   OrderInfoItemData,
   OrderItemData,
+  PaymentInputFieldProps,
   OrderPaymentMethodData,
   OrderPriceRowData,
   ShipmentStatusData,
@@ -64,41 +66,58 @@ export const sampleDesignImages = Array.from(
 export const protectionFeatures = [
   {
     title: "Stone Chip Resistance",
+    titleKey: "order.stoneChipResistance",
     description: "Absorbs impacts from gravel and road debris.",
+    descriptionKey: "order.stoneChipResistanceDescription",
   },
   {
     title: "UV Protection",
+    titleKey: "order.uvProtection",
     description: "Prevents discoloration and fading from sun exposure.",
+    descriptionKey: "order.uvProtectionDescription",
   },
   {
     title: "Scratch Resistance",
+    titleKey: "order.scratchResistance",
     description: "Protects your vehicle from light scratches and scuffs.",
+    descriptionKey: "order.scratchResistanceDescription",
   },
 ];
 
 export const configurationOptionGroups = [
-  { title: "FILM FINISH", options: ["Gloss (Standard)", "Matte / Steel"] },
-  { title: "CERAMIC COATING", options: ["None", "Gtechhalo (2 layers)"] },
+  {
+    title: "FILM FINISH",
+    titleKey: "order.filmFinish",
+    options: ["Gloss (Standard)", "Matte / Steel"],
+    optionKeys: ["order.glossStandard", "order.matteSteel"],
+  },
+  {
+    title: "CERAMIC COATING",
+    titleKey: "order.ceramicCoating",
+    options: ["None", "Gtechhalo (2 layers)"],
+    optionKeys: ["order.none", "order.gtechhaloLayers"],
+  },
 ];
 
-export const personalInfoFields = [
-  { label: "Full Name", defaultValue: "" },
-  { label: "Email Address", defaultValue: "" },
-  { label: "Phone Number", defaultValue: "" },
+export const personalInfoFields: EditableInputFieldProps[] = [
+  { label: "Full Name", labelKey: "order.fullName", defaultValue: "" },
+  { label: "Email Address", labelKey: "order.emailAddress", defaultValue: "" },
+  { label: "Phone Number", labelKey: "order.phoneNumber", defaultValue: "" },
 ];
 
-export const addressFields = [
+export const addressFields: EditableInputFieldProps[] = [
   {
     label: "Street Address",
+    labelKey: "order.streetAddress",
     name: "street",
     defaultValue: "",
     fullWidth: true,
   },
-  { label: "City", name: "city", defaultValue: "" },
-  { label: "State", name: "state", defaultValue: "" },
-  { label: "Zip Code", name: "zip", defaultValue: "" },
-  { label: "Latitude", name: "latitude", defaultValue: "" },
-  { label: "Longitude", name: "longitude", defaultValue: "" },
+  { label: "City", labelKey: "order.city", name: "city", defaultValue: "" },
+  { label: "State", labelKey: "order.state", name: "state", defaultValue: "" },
+  { label: "Zip Code", labelKey: "order.zipCode", name: "zip", defaultValue: "" },
+  { label: "Latitude", labelKey: "order.latitude", name: "latitude", defaultValue: "" },
+  { label: "Longitude", labelKey: "order.longitude", name: "longitude", defaultValue: "" },
 ];
 
 export const paymentSummaryRows: OrderPriceRowData[] = [
@@ -113,15 +132,40 @@ export const paymentMethods: OrderPaymentMethodData[] = [
   { label: "Apple Pay" },
 ];
 
-export const paymentFields = [
-  { label: "Name on Card", placeholder: "John Smith" },
-  { label: "Card Number", placeholder: "0000 0000 0000 0000" },
+export const paymentFields: PaymentInputFieldProps[] = [
+  {
+    label: "Name on Card",
+    labelKey: "payment.nameOnCard",
+    placeholder: "John Smith",
+    placeholderKey: "payment.johnSmith",
+  },
+  {
+    label: "Card Number",
+    labelKey: "payment.cardNumber",
+    placeholder: "0000 0000 0000 0000",
+    placeholderKey: "payment.cardPlaceholder",
+  },
 ];
 
-export const paymentSecondaryFields = [
-  { label: "Expiry Date", placeholder: "MM / YY" },
-  { label: "CVC", placeholder: "123" },
-  { label: "ZIP or Postal Code", placeholder: "12345" },
+export const paymentSecondaryFields: PaymentInputFieldProps[] = [
+  {
+    label: "Expiry Date",
+    labelKey: "payment.expiryDate",
+    placeholder: "MM / YY",
+    placeholderKey: "payment.expiryPlaceholder",
+  },
+  {
+    label: "CVC",
+    labelKey: "payment.cvc",
+    placeholder: "123",
+    placeholderKey: "payment.cvcPlaceholder",
+  },
+  {
+    label: "ZIP or Postal Code",
+    labelKey: "payment.zipPostalCode",
+    placeholder: "12345",
+    placeholderKey: "payment.zipPlaceholder",
+  },
 ];
 
 export const orderConfirmationInfo: OrderInfoItemData[] = [

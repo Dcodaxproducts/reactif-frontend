@@ -6,10 +6,12 @@ import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useSaveWallet, useWalletList } from "@/hooks/usePayments";
 import { formatCurrency } from "@/lib/currency";
 
 export function Wallet() {
+  const { t } = useAppTranslation();
   const { wallets, loading, error } = useWalletList();
   const saveWalletMutation = useSaveWallet();
   const [topUpAmount, setTopUpAmount] = useState("");
@@ -29,7 +31,7 @@ export function Wallet() {
     const amount = Number(topUpAmount);
 
     if (!Number.isFinite(amount) || amount <= 0) {
-      toast.error("Please enter a valid top-up amount.");
+      toast.error(t("wallet.validAmount"));
       return;
     }
 
@@ -55,16 +57,16 @@ export function Wallet() {
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div className="flex flex-col gap-2">
               <h1 className="text-neutral-50 text-3xl font-semibold font-hk">
-                Wallet
+                {t("wallet.title")}
               </h1>
               <p className="text-neutral-50/60">
-                Top up your wallet balance and review wallet activity.
+                {t("wallet.description")}
               </p>
             </div>
 
             <div className="rounded-2xl border border-neutral-50/10 bg-neutral-900/60 px-5 py-4">
               <p className="text-neutral-50/50 text-xs font-semibold uppercase">
-                Current Balance
+                {t("wallet.currentBalance")}
               </p>
               <p className="mt-1 text-pink-400 text-2xl font-semibold">
                 {formatCurrency(walletBalance)}
@@ -75,7 +77,7 @@ export function Wallet() {
           <div className="rounded-2xl border border-neutral-50/10 bg-neutral-900/50 p-4 md:p-5 flex flex-col md:flex-row gap-3 md:items-end">
             <label className="flex-1 flex flex-col gap-2">
               <span className="text-neutral-50/70 text-sm font-semibold">
-                Top-up Amount
+                {t("wallet.topUpAmount")}
               </span>
               <Input
                 type="number"
@@ -83,7 +85,7 @@ export function Wallet() {
                 step="0.01"
                 value={topUpAmount}
                 onChange={handleAmountChange}
-                placeholder="Enter amount"
+                placeholder={t("wallet.enterAmount")}
                 className="text-neutral-50 border-neutral-50/20"
               />
             </label>
@@ -94,31 +96,31 @@ export function Wallet() {
               disabled={saveWalletMutation.isPending}
               className="h-[52px] px-6"
             >
-              {saveWalletMutation.isPending ? "Adding..." : "Top Up Wallet"}
+              {saveWalletMutation.isPending ? t("wallet.adding") : t("wallet.topUpWallet")}
             </Button>
           </div>
 
-          {loading && <p className="text-neutral-50/60">Loading...</p>}
+          {loading && <p className="text-neutral-50/60">{t("wallet.loading")}</p>}
           {error && <p className="text-red-400">{error}</p>}
           {!loading && wallets.length === 0 && (
-            <p className="text-neutral-50/60">No wallet activity found.</p>
+            <p className="text-neutral-50/60">{t("wallet.noActivity")}</p>
           )}
           {wallets.length > 0 && (
             <div className="flex flex-col gap-3">
               <h2 className="text-neutral-50 text-xl font-semibold font-hk">
-                Wallet Activity
+                {t("wallet.activity")}
               </h2>
               {wallets.map((wallet) => (
                 <div
                   key={wallet.id}
                   className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-t border-neutral-50/10 pt-4 text-neutral-50/70"
                 >
-                  <span>{wallet.title ?? `Wallet entry #${wallet.id}`}</span>
-                  <span className="capitalize">{wallet.type ?? "credit"}</span>
+                  <span>{wallet.title ?? t("wallet.entry", { id: wallet.id })}</span>
+                  <span className="capitalize">{wallet.type ?? t("wallet.credit")}</span>
                   <span className="font-semibold text-neutral-50">
                     {formatCurrency(wallet.amount ?? wallet.balance ?? 0)}
                   </span>
-                  <span>{String(wallet.status ?? "active")}</span>
+                  <span>{String(wallet.status ?? t("wallet.active"))}</span>
                 </div>
               ))}
             </div>

@@ -32,7 +32,7 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleLogout = () => {
+  const handleSignOut = () => {
     logout();
   };
 
@@ -58,7 +58,7 @@ export function Navbar() {
             dropdownRef={dropdownRef}
             onToggleDropdown={() => setDropdownOpen((isOpen) => !isOpen)}
             onCloseDropdown={() => setDropdownOpen(false)}
-            onLogout={handleLogout}
+            onSignOut={handleSignOut}
           />
         </div>
       </nav>
@@ -68,7 +68,7 @@ export function Navbar() {
         user={user}
         navItems={mobileNavItems}
         onClose={() => setIsSidebarOpen(false)}
-        onLogout={handleLogout}
+        onSignOut={handleSignOut}
         onLogin={() => router.push("/login")}
       />
     </>

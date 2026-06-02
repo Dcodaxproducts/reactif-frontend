@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import { Check } from "lucide-react";
 import { toast } from "sonner";
@@ -11,13 +11,17 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useProfile, useUpdateProfile } from "@/hooks/useProfile";
 import {
   PROFILE_EDIT_AVATAR_FALLBACK,
   getImageSource,
 } from "@/lib/image-source";
 import { cn } from "@/lib/utils";
-import { profileSchema, type ProfileFormValues } from "@/validations/profile";
+import {
+  createProfileSchema,
+  type ProfileFormValues,
+} from "@/validations/profile";
 
 const FIELD_ERROR_CLASS = "text-sm font-medium text-red-500";
 const PROFILE_FIELD_WRAPPER_CLASS = "flex flex-col gap-2";
@@ -31,19 +35,21 @@ const PROFILE_SUBMIT_CLASS =
 
 const profileFields: Array<{
   name: "name" | "phone" | "email" | "address";
-  label: string;
+  labelKey: string;
   type?: "email";
 }> = [
-  { name: "name", label: "Full Name" },
-  { name: "phone", label: "Phone" },
-  { name: "email", label: "Email", type: "email" },
-  { name: "address", label: "Address" },
+  { name: "name", labelKey: "profile.fullName" },
+  { name: "phone", labelKey: "profile.phone" },
+  { name: "email", labelKey: "profile.email", type: "email" },
+  { name: "address", labelKey: "profile.address" },
 ];
 
 const ProfileForm = () => {
   const router = useRouter();
+  const { t } = useAppTranslation();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const localAvatarPreviewUrlRef = useRef<string | null>(null);
+  const translatedProfileSchema = useMemo(() => createProfileSchema(t), [t]);
 
   const { user } = useProfile();
   const updateProfileMutation = useUpdateProfile();
@@ -56,7 +62,7 @@ const ProfileForm = () => {
     reset,
     setValue,
   } = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileSchema),
+    resolver: zodResolver(translatedProfileSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -120,7 +126,7 @@ const ProfileForm = () => {
 
   const onSubmit = async (values: ProfileFormValues) => {
     if (!user) {
-      toast.error("Session expired. Please login again.");
+      toast.error(t("profile.sessionExpired"));
       router.push("/login");
       return;
     }
@@ -137,10 +143,10 @@ const ProfileForm = () => {
       <div className="relative rounded-2xl outline-1 outline-offset-[-1px] outline-indigo-600 backdrop-blur-md overflow-hidden px-15 py-18">
         <div className="flex flex-col items-center gap-2 mb-10">
           <h1 className="bg-gradient-to-r from-[#F262B5] to-[#9F73F1] bg-clip-text text-transparent text-2xl sm:text-3xl md:text-4xl font-bold uppercase">
-            Edit User Profile
+            {t("profile.editTitle")}
           </h1>
           <p className="text-gray-400 text-sm md:text-base text-center">
-            Update your personal details and settings
+            {t("profile.editDescription")}
           </p>
         </div>
 
@@ -153,7 +159,7 @@ const ProfileForm = () => {
             >
               <Image
                 src={preview}
-                alt="Avatar"
+                alt={t("profile.avatarAlt")}
                 fill
                 sizes="96px"
                 className="object-cover rounded-full border-2 border-indigo-600"
@@ -172,14 +178,15 @@ const ProfileForm = () => {
             />
 
             <span className="text-gray-500 text-xs">
-              Allowed *.jpeg, *.jpg, *.png
+              {t("profile.allowedImageTypes")}
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mb-8">
             {profileFields.map((field) => {
-              const { label, name, type } = field;
+              const { labelKey, name, type } = field;
               const error = errors[name]?.message;
+              const label = t(labelKey);
 
               return (
                 <div key={name} className={PROFILE_FIELD_WRAPPER_CLASS}>
@@ -207,7 +214,7 @@ const ProfileForm = () => {
               htmlFor="profile-bio"
               className={cn(PROFILE_LABEL_CLASS, PROFILE_LABEL_WEIGHT_CLASS)}
             >
-              Bio (Optional)
+              {t("profile.bioOptional")}
             </label>
             <Textarea
               id="profile-bio"
@@ -226,7 +233,7 @@ const ProfileForm = () => {
               disabled={loading}
               className={PROFILE_SUBMIT_CLASS}
             >
-              {loading ? "Saving..." : "Save"}
+              {loading ? t("profile.saving") : t("common.save")}
             </Button>
           </div>
         </form>

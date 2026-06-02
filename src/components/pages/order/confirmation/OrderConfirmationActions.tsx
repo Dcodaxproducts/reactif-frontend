@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 
 export function OrderConfirmationActions({
   bookingId,
 }: {
   bookingId?: number | string | null;
 }) {
+  const { t } = useAppTranslation();
   const trackHref = bookingId ? `/order/track/${bookingId}` : "/order/management";
   const handlePrintReceipt = () => {
     window.print();
@@ -19,7 +21,7 @@ export function OrderConfirmationActions({
         href={trackHref}
         className="h-12 w-full sm:w-auto bg-pink-500 hover:bg-pink-600 text-white font-semibold text-base px-8 flex items-center justify-center rounded-[12px]"
       >
-        Track Order Status
+        {t("order.trackOrderStatus")}
       </Link>
 
       <Button
@@ -28,7 +30,7 @@ export function OrderConfirmationActions({
         onClick={handlePrintReceipt}
         className="h-12 w-full sm:w-auto bg-transparent border-neutral-50/30 text-white hover:bg-neutral-700 font-semibold text-base px-8"
       >
-        Print Receipt
+        {t("order.printReceipt")}
       </Button>
     </div>
   );

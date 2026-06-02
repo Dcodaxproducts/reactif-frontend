@@ -1,4 +1,5 @@
-import { formatBookingStatusLabel } from "@/lib/booking-status";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { getBookingStatusTranslationKey } from "@/lib/booking-status";
 import { formatCurrency } from "@/lib/currency";
 import type { Booking, BookingFieldResponse } from "@/types/bookings";
 import { InfoItem } from "./InfoItem";
@@ -20,10 +21,12 @@ export function OrderConfirmationSummary({
   error: string | null;
   serviceName: string;
 }) {
+  const { t } = useAppTranslation();
+
   if (loading) {
     return (
       <div className="w-full p-6 sm:p-8 md:p-10 bg-neutral-800 rounded-3xl border border-neutral-50/10">
-        <p className="text-neutral-50/60">Loading receipt details...</p>
+        <p className="text-neutral-50/60">{t("order.loadingReceipt")}</p>
       </div>
     );
   }
@@ -32,30 +35,30 @@ export function OrderConfirmationSummary({
     return (
       <div className="w-full p-6 sm:p-8 md:p-10 bg-neutral-800 rounded-3xl border border-neutral-50/10">
         <p className="text-neutral-50/60">
-          Receipt details are unavailable. Please check your order management page.
+          {t("order.receiptUnavailable")}
         </p>
       </div>
     );
   }
 
   const orderConfirmationInfo = [
-    { title: "Booking Number", value: `#${booking.id}` },
+    { title: t("order.bookingNumber"), value: `#${booking.id}` },
     {
-      title: "Order Date",
+      title: t("order.orderDate"),
       value: new Date(booking.created_at).toLocaleDateString(),
     },
-    { title: "Status", value: formatBookingStatusLabel(booking.status) },
-    { title: "Service", value: serviceName },
-    { title: "Payment Method", value: booking.payment_type ?? "Payment recorded" },
-    { title: "Booking Type", value: booking.booking_type ?? "Service booking" },
+    { title: t("order.status"), value: t(getBookingStatusTranslationKey(booking.status)) },
+    { title: t("order.service"), value: serviceName },
+    { title: t("order.paymentMethod"), value: booking.payment_type ?? t("order.paymentRecorded") },
+    { title: t("booking.bookingType"), value: booking.booking_type ?? t("order.serviceBooking") },
   ];
   const orderConfirmationTotals = [
     {
-      label: "Subtotal",
+      label: t("booking.subtotal"),
       value: formatCurrency(booking.subtotal ?? booking.total_amount),
     },
     {
-      label: "Extra Charges",
+      label: t("order.extraCharges"),
       value: formatCurrency(booking.extra_charges_amount ?? 0),
     },
   ];
@@ -63,7 +66,7 @@ export function OrderConfirmationSummary({
   return (
     <div className="w-full p-6 sm:p-8 md:p-10 bg-neutral-800 rounded-3xl border border-neutral-50/10 flex flex-col gap-8">
       <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-neutral-50 font-hk">
-        Order Summary
+        {t("order.summaryTitle")}
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -73,15 +76,15 @@ export function OrderConfirmationSummary({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <InfoItem title="Service Address" value={booking.address || "Not provided"} />
-        <InfoItem title="Latitude" value={String(booking.latitude ?? "Not provided")} />
-        <InfoItem title="Longitude" value={String(booking.longitude ?? "Not provided")} />
+        <InfoItem title={t("order.serviceAddress")} value={booking.address || t("booking.notProvided")} />
+        <InfoItem title={t("order.latitude")} value={String(booking.latitude ?? t("booking.notProvided"))} />
+        <InfoItem title={t("order.longitude")} value={String(booking.longitude ?? t("booking.notProvided"))} />
       </div>
 
       {fieldResponses.length > 0 && (
         <div className="flex flex-col gap-3">
           <h3 className="text-neutral-50 text-base sm:text-lg font-semibold font-hk">
-            Submitted Details
+            {t("order.submittedDetails")}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {fieldResponses.map((field) => (
@@ -93,7 +96,7 @@ export function OrderConfirmationSummary({
                   {getFieldLabel(field)}
                 </p>
                 <p className="mt-1 break-words text-neutral-50 text-sm font-semibold">
-                  {field.value ?? "Not provided"}
+                  {field.value ?? t("booking.notProvided")}
                 </p>
               </div>
             ))}
@@ -107,7 +110,7 @@ export function OrderConfirmationSummary({
         ))}
 
         <div className="border-t border-neutral-50/10 pt-4 flex justify-between font-semibold text-neutral-50">
-          <span>Total</span>
+          <span>{t("booking.total")}</span>
           <span>{formatCurrency(booking.total_amount)}</span>
         </div>
       </div>

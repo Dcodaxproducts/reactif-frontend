@@ -3,13 +3,15 @@
 import { Suspense } from "react";
 import { CheckCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useBookingDetail } from "@/hooks/useBookings";
-import { formatBookingStatusLabel } from "@/lib/booking-status";
+import { getBookingStatusTranslationKey } from "@/lib/booking-status";
 import { parseBookingData } from "./management/order-management-utils";
 import { OrderConfirmationActions } from "./confirmation/OrderConfirmationActions";
 import { OrderConfirmationSummary } from "./confirmation/OrderConfirmationSummary";
 
 function OrderConfirmContent() {
+  const { t } = useAppTranslation();
   const searchParams = useSearchParams();
   const bookingId = searchParams.get("bookingId");
   const { booking, loading, error } = useBookingDetail(bookingId);
@@ -17,10 +19,10 @@ function OrderConfirmContent() {
     ? parseBookingData(booking)
     : { serviceData: null, fieldResponses: [] };
   const serviceName =
-    serviceData?.service_name ?? booking?.service?.name ?? "your selected service";
+    serviceData?.service_name ?? booking?.service?.name ?? t("order.selectedService");
   const statusLabel = booking
-    ? formatBookingStatusLabel(booking.status)
-    : "Pending confirmation";
+    ? t(getBookingStatusTranslationKey(booking.status))
+    : t("order.pendingConfirmation");
 
   return (
     <section className="w-full flex justify-center px-4 py-10">
@@ -34,13 +36,17 @@ function OrderConfirmContent() {
           </div>
 
           <h1 className="text-xl sm:text-2xl md:text-4xl font-semibold text-neutral-50 font-hk">
-            Thank You! Your Order is Confirmed
+            {t("order.confirmationTitle")}
           </h1>
 
           <p className="max-w-2xl text-neutral-50/60 text-sm sm:text-base md:text-xl font-medium font-hk">
             {booking
-              ? `Booking #${booking.id} for ${serviceName} is ${statusLabel.toLowerCase()}.`
-              : "We are loading the latest booking details for your receipt."}
+              ? t("order.confirmationDescription", {
+                  bookingId: booking.id,
+                  serviceName,
+                  status: statusLabel.toLowerCase(),
+                })
+              : t("order.confirmationLoadingDescription")}
           </p>
         </div>
 

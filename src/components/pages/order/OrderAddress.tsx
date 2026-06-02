@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { addressFields } from "@/data/order";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { readBookingDraft, writeBookingDraft } from "@/lib/booking-draft";
 import {
   buildOrderDetailItems,
@@ -47,6 +48,7 @@ const hydrateAddressValues = (draft: BookingDraft | null): AddressFormValues => 
 });
 
 export function OrderAddress() {
+  const { t } = useAppTranslation();
   const [draft, setDraft] = useState<BookingDraft | null>(null);
   const [addressValues, setAddressValues] =
     useState<AddressFormValues>(emptyAddressValues);
@@ -58,21 +60,23 @@ export function OrderAddress() {
     setAddressValues(hydrateAddressValues(nextDraft));
   }, []);
 
-  const fieldGroups = useMemo(() => buildOrderFieldGroups(draft), [draft]);
-  const detailItems = useMemo(() => buildOrderDetailItems(draft), [draft]);
-  const priceRows = useMemo(() => buildOrderPriceRows(draft), [draft]);
+  const fieldGroups = useMemo(() => buildOrderFieldGroups(draft, t), [draft, t]);
+  const detailItems = useMemo(() => buildOrderDetailItems(draft, t), [draft, t]);
+  const priceRows = useMemo(() => buildOrderPriceRows(draft, t), [draft, t]);
   const personalFields = useMemo(() => buildPersonalInfoFields(draft), [draft]);
   const totalEstimated = useMemo(() => getOrderTotalLabel(draft), [draft]);
   const configurationSubtitle = draft
     ? `${draft.selected_service.name} · ${
-        draft.selected_subcategory?.name ?? draft.selected_category ?? "Selected category"
+        draft.selected_subcategory?.name ?? draft.selected_category ?? t("order.selectedCategory")
       }`
-    : "Select a service first to see dynamic configuration details.";
+    : t("order.selectServiceFirst");
   const editableAddressFields = addressFields.map((field) => {
     const name = field.name as keyof AddressFormValues | undefined;
 
     return {
       ...field,
+      label: field.labelKey ? t(field.labelKey) : field.label,
+      placeholder: field.placeholderKey ? t(field.placeholderKey) : field.placeholder,
       value: name ? addressValues[name] : field.defaultValue,
     };
   });
@@ -88,7 +92,7 @@ export function OrderAddress() {
 
   const saveDraftLocation = () => {
     if (!draft) {
-      toast.error("Booking draft is missing. Please start the booking again.");
+      toast.error(t("order.missingDraft"));
       return false;
     }
 
@@ -97,7 +101,7 @@ export function OrderAddress() {
     const longitude = addressValues.longitude.trim();
 
     if (!address || !latitude || !longitude) {
-      toast.error("Please add address, latitude, and longitude before payment.");
+      toast.error(t("order.missingLocation"));
       return false;
     }
 
@@ -110,13 +114,13 @@ export function OrderAddress() {
 
     writeBookingDraft(updatedDraft);
     setDraft(updatedDraft);
-    toast.success("Booking location saved");
+    toast.success(t("order.locationSaved"));
     return true;
   };
 
   const handleUseCurrentLocation = () => {
     if (!navigator.geolocation) {
-      toast.error("Location is not supported by this browser.");
+      toast.error(t("order.locationUnsupported"));
       return;
     }
 
@@ -143,8 +147,8 @@ export function OrderAddress() {
           }));
           toast.success(
             address
-              ? "Current location and address added"
-              : "Current latitude and longitude added",
+              ? t("order.locationAddressAdded")
+              : t("order.locationCoordinatesAdded"),
           );
         } catch {
           setAddressValues((current) => ({
@@ -152,14 +156,14 @@ export function OrderAddress() {
             latitude,
             longitude,
           }));
-          toast.success("Current latitude and longitude added");
+          toast.success(t("order.locationCoordinatesAdded"));
         } finally {
           setLocationLoading(false);
         }
       },
       () => {
         setLocationLoading(false);
-        toast.error("Unable to get current location. Please enter it manually.");
+        toast.error(t("order.locationError"));
       },
       {
         enableHighAccuracy: true,

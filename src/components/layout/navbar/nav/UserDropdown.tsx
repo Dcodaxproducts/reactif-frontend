@@ -24,7 +24,7 @@ export function UserDropdown({
   dropdownRef,
   onToggle,
   onClose,
-  onLogout,
+  onSignOut,
 }: UserDropdownProps) {
   const router = useRouter();
   const { t } = useAppTranslation();
@@ -34,9 +34,9 @@ export function UserDropdown({
     router.push(href);
   };
 
-  const handleLogout = () => {
+  const handleSignOut = () => {
     onClose();
-    onLogout();
+    onSignOut();
   };
 
   return (
@@ -64,7 +64,7 @@ export function UserDropdown({
             className={menuItemClassName}
           >
             <FiUser size={16} />
-            Profile
+            {t("profile.profileImageAlt")}
           </button>
 
           <button
@@ -73,7 +73,7 @@ export function UserDropdown({
             className={menuItemClassName}
           >
             <FiBell size={16} />
-            Notifications
+            {t("notifications.title")}
           </button>
 
           <button
@@ -82,7 +82,7 @@ export function UserDropdown({
             className={menuItemClassName}
           >
             <FiMessageSquare size={16} />
-            Messages
+            {t("messages.title")}
           </button>
 
           <button
@@ -91,7 +91,7 @@ export function UserDropdown({
             className={menuItemClassName}
           >
             <FiCreditCard size={16} />
-            Wallet
+            {t("wallet.title")}
           </button>
 
           <button
@@ -100,7 +100,7 @@ export function UserDropdown({
             className={menuItemClassName}
           >
             <FiClock size={16} />
-            Payment History
+            {t("payment.historyTitle")}
           </button>
 
           <button
@@ -109,12 +109,12 @@ export function UserDropdown({
             className={menuItemClassName}
           >
             <FiSettings size={16} />
-            Settings
+            {t("settings.title")}
           </button>
 
           <button
             type="button"
-            onClick={handleLogout}
+            onClick={handleSignOut}
             className={cn(menuItemClassName, "text-red-600 hover:bg-red-50")}
           >
             <FiLogOut size={16} />

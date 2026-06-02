@@ -37,7 +37,7 @@ export type NavbarActionsProps = {
   dropdownRef: RefObject<HTMLDivElement | null>;
   onToggleDropdown: () => void;
   onCloseDropdown: () => void;
-  onLogout: () => void;
+  onSignOut: () => void;
 };
 
 export type UserDropdownProps = {
@@ -46,7 +46,7 @@ export type UserDropdownProps = {
   dropdownRef: RefObject<HTMLDivElement | null>;
   onToggle: () => void;
   onClose: () => void;
-  onLogout: () => void;
+  onSignOut: () => void;
 };
 
 export type MobileSidebarProps = {
@@ -54,7 +54,7 @@ export type MobileSidebarProps = {
   user: NavbarUser | null;
   navItems: NavItem[];
   onClose: () => void;
-  onLogout: () => void;
+  onSignOut: () => void;
   onLogin: () => void;
 };
 
@@ -223,15 +223,19 @@ export type OrderPaymentMethodData = {
 export type PaymentInputFieldProps = {
   label: string;
   placeholder: string;
+  labelKey?: string;
+  placeholderKey?: string;
 };
 
 export type EditableInputFieldProps = {
   label: string;
+  labelKey?: string;
   defaultValue: string;
   fullWidth?: boolean;
   name?: string;
   value?: string;
   placeholder?: string;
+  placeholderKey?: string;
   readOnly?: boolean;
   onChange?: (name: string, value: string) => void;
 };
@@ -257,12 +261,16 @@ export type OrderConfigurationProps = {
 
 export type OptionGroupData = {
   title: string;
+  titleKey?: string;
   options: string[];
+  optionKeys?: string[];
 };
 
 export type ProtectionFeatureData = {
   title: string;
+  titleKey?: string;
   description: string;
+  descriptionKey?: string;
 };
 
 export type ShipmentStatusData = {
