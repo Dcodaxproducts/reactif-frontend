@@ -23,11 +23,13 @@ export function Configuration({
   totalEstimated,
   subtitle,
   showRating = true,
+  onBeforeNavigate,
   route,
 }: OrderConfigurationProps) {
   const router = useRouter();
 
   const handleButtonClick = () => {
+    if (onBeforeNavigate && !onBeforeNavigate()) return;
     if (route) router.push(route);
   };
 

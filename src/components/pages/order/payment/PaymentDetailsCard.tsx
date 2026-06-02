@@ -8,7 +8,10 @@ import { paymentFields, paymentSecondaryFields } from "@/data/order";
 import { useCreateBooking } from "@/hooks/useBookings";
 import { usePaymentGateways, useSavePayment } from "@/hooks/usePayments";
 import { clearBookingDraft, readBookingDraft } from "@/lib/booking-draft";
-import { buildBookingFormDataFromDraft } from "@/lib/booking-payload";
+import {
+  buildBookingFormDataFromDraft,
+  getMissingBookingLocationFields,
+} from "@/lib/booking-payload";
 import { PaymentInputField } from "./PaymentInputField";
 import { PaymentTab } from "./PaymentTab";
 
@@ -36,6 +39,15 @@ export function PaymentDetailsCard() {
     if (!draft) {
       toast.error("Booking draft is missing. Please start the booking again.");
       router.push("/order/management");
+      return;
+    }
+
+    const missingLocationFields = getMissingBookingLocationFields(draft);
+    if (missingLocationFields.length > 0) {
+      toast.error(
+        `Please add ${missingLocationFields.join(", ")} before payment.`,
+      );
+      router.push("/order/address");
       return;
     }
 

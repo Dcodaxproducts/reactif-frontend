@@ -219,6 +219,11 @@ export type EditableInputFieldProps = {
   label: string;
   defaultValue: string;
   fullWidth?: boolean;
+  name?: string;
+  value?: string;
+  placeholder?: string;
+  readOnly?: boolean;
+  onChange?: (name: string, value: string) => void;
 };
 
 export type OrderConfigurationProps = {
@@ -236,6 +241,7 @@ export type OrderConfigurationProps = {
   totalEstimated?: string;
   subtitle?: string;
   showRating?: boolean;
+  onBeforeNavigate?: () => boolean;
   route?: string;
 };
 

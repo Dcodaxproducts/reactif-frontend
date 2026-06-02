@@ -90,12 +90,15 @@ export const personalInfoFields = [
 export const addressFields = [
   {
     label: "Street Address",
+    name: "street",
     defaultValue: "",
     fullWidth: true,
   },
-  { label: "City", defaultValue: "" },
-  { label: "State", defaultValue: "" },
-  { label: "Zip Code", defaultValue: "" },
+  { label: "City", name: "city", defaultValue: "" },
+  { label: "State", name: "state", defaultValue: "" },
+  { label: "Zip Code", name: "zip", defaultValue: "" },
+  { label: "Latitude", name: "latitude", defaultValue: "" },
+  { label: "Longitude", name: "longitude", defaultValue: "" },
 ];
 
 export const paymentSummaryRows: OrderPriceRowData[] = [

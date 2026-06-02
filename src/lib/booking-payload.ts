@@ -56,3 +56,15 @@ export const buildBookingFormDataFromDraft = (draft: BookingDraft) => {
 
   return formData;
 };
+
+export const getMissingBookingLocationFields = (draft: BookingDraft | null) => {
+  if (!draft) return ["booking draft"];
+
+  const missingFields: string[] = [];
+
+  if (draft.address.trim() === "") missingFields.push("address");
+  if (draft.latitude.trim() === "") missingFields.push("latitude");
+  if (draft.longitude.trim() === "") missingFields.push("longitude");
+
+  return missingFields;
+};

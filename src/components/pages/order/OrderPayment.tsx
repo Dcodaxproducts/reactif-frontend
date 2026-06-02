@@ -1,11 +1,19 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { OrderSummaryCard } from "./payment/OrderSummaryCard";
 import { PaymentDetailsCard } from "./payment/PaymentDetailsCard";
 import { readBookingDraft } from "@/lib/booking-draft";
+import type { BookingDraft } from "@/types/bookings";
 
-const OrderPayment = () => {
-  const draft = typeof window === "undefined" ? null : readBookingDraft();
+export function OrderPayment() {
+  const [draft, setDraft] = useState<BookingDraft | null>(null);
+
+  useEffect(() => {
+    setDraft(readBookingDraft());
+  }, []);
+
   const title = draft
     ? `Booking for ${draft.selected_service.name}`
     : "Booking payment";
@@ -31,12 +39,11 @@ const OrderPayment = () => {
             subtotal={subtotal}
             extraCharges={extraCharges}
             total={total}
+            draft={draft}
           />
           <PaymentDetailsCard />
         </div>
       </div>
     </section>
   );
-};
-
-export default OrderPayment;
+}

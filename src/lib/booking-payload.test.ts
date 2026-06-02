@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { buildBookingFormDataFromDraft } from "./booking-payload";
+import {
+  buildBookingFormDataFromDraft,
+  getMissingBookingLocationFields,
+} from "./booking-payload";
 import type { BookingDraft } from "@/types/bookings";
 
 const draft: BookingDraft = {
@@ -67,5 +70,18 @@ describe("booking payload helpers", () => {
       field_name: "image",
       value: "file_8",
     });
+  });
+
+  it("reports missing booking location fields", () => {
+    expect(getMissingBookingLocationFields(draft)).toEqual([]);
+    expect(
+      getMissingBookingLocationFields({
+        ...draft,
+        address: "",
+        latitude: "",
+        longitude: "",
+      }),
+    ).toEqual(["address", "latitude", "longitude"]);
+    expect(getMissingBookingLocationFields(null)).toEqual(["booking draft"]);
   });
 });
