@@ -39,7 +39,12 @@ export function LanguageSelector({ tone = "dark" }: LanguageSelectorProps) {
       >
         <span>{compactLabels[language]}</span>
       </SelectTrigger>
-      <SelectContent align="end" className="min-w-[9rem]">
+      <SelectContent
+        align="end"
+        className="z-[1000] min-w-[9rem]"
+        position="popper"
+        sideOffset={6}
+      >
         {languageOptions.map((option) => (
           <SelectItem key={option.value} value={option.value}>
             {option.value === "en"

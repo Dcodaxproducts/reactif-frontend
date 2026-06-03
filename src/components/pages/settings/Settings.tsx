@@ -15,13 +15,7 @@ import { useAppSettings } from "@/hooks/useAppSettings";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { languageOptions } from "@/locales";
 import { appSettingsSchema } from "@/validations/settings";
-import type { AppSettings, LanguageCode, ThemeMode } from "@/types/settings";
-
-const themeOptions: Array<{ labelKey: string; value: ThemeMode }> = [
-  { labelKey: "settings.light", value: "light" },
-  { labelKey: "settings.dark", value: "dark" },
-  { labelKey: "settings.system", value: "system" },
-];
+import type { AppSettings, LanguageCode } from "@/types/settings";
 
 export default function Settings() {
   const { settings, updateSettings } = useAppSettings();
@@ -57,30 +51,7 @@ export default function Settings() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex flex-col gap-2">
-              <label className="text-neutral-50 font-semibold">
-                {t("settings.theme")}
-              </label>
-              <Select
-                value={draftSettings.themeMode}
-                onValueChange={(themeMode: ThemeMode) =>
-                  setDraftSettings((current) => ({ ...current, themeMode }))
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder={t("settings.selectTheme")} />
-                </SelectTrigger>
-                <SelectContent>
-                  {themeOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {t(option.labelKey)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
+          <div className="grid grid-cols-1 gap-6">
             <div className="flex flex-col gap-2">
               <label className="text-neutral-50 font-semibold">
                 {t("settings.language")}
