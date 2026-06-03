@@ -662,6 +662,7 @@
     },
     "terms": {
       "title": "TERMS OF SERVICE",
+      "lastUpdatedDate": "October 24, 2023",
       "sections": {
         "introduction": {
           "title": "Introduction",
@@ -693,6 +694,7 @@
     },
     "privacy": {
       "title": "PRIVACY POLICY",
+      "lastUpdatedDate": "March 2026",
       "cta": {
         "title": "Have questions about your privacy?",
         "description": "Our team is here to help you understand how your data is collected, used, and protected.",

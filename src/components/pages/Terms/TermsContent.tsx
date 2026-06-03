@@ -62,7 +62,7 @@ export default function TermsOfService() {
           </HeroTitle>
 
           <HeroText className="text-slate-400">
-            {t("legal.lastUpdated", { date: "October 24, 2023" })}
+            {t("legal.lastUpdated", { date: t("legal.terms.lastUpdatedDate") })}
           </HeroText>
         </div>
         <div className="space-y-12">

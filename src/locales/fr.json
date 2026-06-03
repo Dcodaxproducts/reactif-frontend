@@ -662,82 +662,84 @@
     },
     "terms": {
       "title": "CONDITIONS D’UTILISATION",
+      "lastUpdatedDate": "24 octobre 2023",
       "sections": {
         "introduction": {
           "title": "Introduction",
-          "content1": "Welcome to Reactif Printing & Design. These Terms of Service (“Terms”) govern your access and use of our website, products, and services.",
-          "content2": "Reactif provides high-quality digital and physical printing solutions, graphic design services, and branding consultations."
+          "content1": "Bienvenue chez Reactif Printing & Design. Les présentes conditions d’utilisation (« Conditions ») régissent votre accès à notre site web, à nos produits et à nos services, ainsi que leur utilisation.",
+          "content2": "Reactif fournit des solutions d’impression numériques et physiques de haute qualité, des services de conception graphique et des consultations en image de marque."
         },
         "userResponsibilities": {
-          "title": "User Responsibilities",
-          "item1": "You are responsible for ensuring all uploaded files meet technical specifications.",
-          "item2": "You must own or have rights to all submitted content.",
-          "item3": "You agree not to use services for unlawful or offensive materials."
+          "title": "Responsabilités de l’utilisateur",
+          "item1": "Vous êtes responsable de vous assurer que tous les fichiers téléversés respectent les spécifications techniques.",
+          "item2": "Vous devez posséder tous les contenus soumis ou disposer des droits nécessaires pour les utiliser.",
+          "item3": "Vous acceptez de ne pas utiliser nos services pour des contenus illégaux ou offensants."
         },
         "intellectualProperty": {
-          "title": "Intellectual Property",
-          "content1": "All content created during the design phase remains the property of Reactif until final payment.",
-          "highlight": "Upon final payment, ownership transfers to the client, while Reactif retains the right to showcase work in portfolio and marketing materials."
+          "title": "Propriété intellectuelle",
+          "content1": "Tout contenu créé pendant la phase de conception demeure la propriété de Reactif jusqu’au paiement final.",
+          "highlight": "Après le paiement final, la propriété est transférée au client, tandis que Reactif conserve le droit de présenter les travaux dans son portfolio et ses supports marketing."
         },
         "liability": {
-          "title": "Limitation of Liability",
-          "content1": "Reactif shall not be liable for indirect or incidental damages.",
-          "content2": "We do not guarantee exact color matching between digital and physical prints.",
-          "content3": "Maximum liability is limited to the amount paid for the service."
+          "title": "Limitation de responsabilité",
+          "content1": "Reactif ne saurait être tenu responsable des dommages indirects ou accessoires.",
+          "content2": "Nous ne garantissons pas une correspondance exacte des couleurs entre les supports numériques et les impressions physiques.",
+          "content3": "La responsabilité maximale est limitée au montant payé pour le service."
         },
         "governingLaw": {
-          "title": "Governing Law",
-          "content1": "These Terms are governed by and construed in accordance with the laws of the jurisdiction in which ReactIf Printing & Design is registered, without regard to its conflict of law principles."
+          "title": "Droit applicable",
+          "content1": "Les présentes Conditions sont régies et interprétées conformément aux lois de la juridiction dans laquelle Reactif Printing & Design est enregistrée, sans égard aux principes de conflit de lois."
         }
       }
     },
     "privacy": {
       "title": "POLITIQUE DE CONFIDENTIALITÉ",
+      "lastUpdatedDate": "mars 2026",
       "cta": {
-        "title": "Have questions about your privacy?",
-        "description": "Our team is here to help you understand how your data is collected, used, and protected.",
-        "button": "Contact Us"
+        "title": "Des questions sur votre confidentialité ?",
+        "description": "Notre équipe vous aide à comprendre comment vos données sont collectées, utilisées et protégées.",
+        "button": "Nous contacter"
       },
       "sections": {
         "introduction": {
           "title": "Introduction",
-          "content1": "We respect your privacy and are committed to protecting your personal information.",
-          "content2": "This Privacy Policy explains how we collect, use, and safeguard your data when you use our platform and services."
+          "content1": "Nous respectons votre vie privée et nous nous engageons à protéger vos renseignements personnels.",
+          "content2": "Cette Politique de confidentialité explique comment nous collectons, utilisons et protégeons vos données lorsque vous utilisez notre plateforme et nos services."
         },
         "information": {
-          "title": "Information We Collect",
-          "item1": "Personal information such as name, email, phone number, and address",
-          "item2": "Account and authentication data",
-          "item3": "Payment and transaction details",
-          "item4": "Usage data including interactions with our platform"
+          "title": "Informations que nous collectons",
+          "item1": "Renseignements personnels tels que le nom, l’adresse e-mail, le numéro de téléphone et l’adresse",
+          "item2": "Données de compte et d’authentification",
+          "item3": "Détails de paiement et de transaction",
+          "item4": "Données d’utilisation, y compris les interactions avec notre plateforme"
         },
         "use": {
-          "title": "How We Use Your Information",
-          "content1": "We use your information to provide and improve our services.",
-          "content2": "This includes processing orders, managing accounts, and providing customer support.",
-          "highlight": "We may also use your data to personalize your experience and send important updates or promotional communications."
+          "title": "Comment nous utilisons vos informations",
+          "content1": "Nous utilisons vos informations pour fournir et améliorer nos services.",
+          "content2": "Cela comprend le traitement des commandes, la gestion des comptes et l’assistance client.",
+          "highlight": "Nous pouvons également utiliser vos données pour personnaliser votre expérience et envoyer des mises à jour importantes ou des communications promotionnelles."
         },
         "sharing": {
-          "title": "Data Sharing and Security",
-          "content1": "We do not sell your personal data to third parties.",
-          "content2": "We may share data with trusted service providers for payment processing and service delivery.",
-          "content3": "We implement industry-standard security measures to protect your data."
+          "title": "Partage des données et sécurité",
+          "content1": "Nous ne vendons pas vos données personnelles à des tiers.",
+          "content2": "Nous pouvons partager des données avec des prestataires de confiance pour le traitement des paiements et la prestation des services.",
+          "content3": "Nous mettons en œuvre des mesures de sécurité conformes aux standards du secteur afin de protéger vos données."
         },
         "rights": {
-          "title": "Your Rights",
-          "content1": "You have the right to access, update, or delete your personal information.",
-          "content2": "You may opt out of marketing communications whenever needed.",
-          "content3": "You can request a copy of your stored data."
+          "title": "Vos droits",
+          "content1": "Vous avez le droit d’accéder à vos renseignements personnels, de les mettre à jour ou de les supprimer.",
+          "content2": "Vous pouvez vous désabonner des communications marketing à tout moment.",
+          "content3": "Vous pouvez demander une copie des données que nous conservons à votre sujet."
         },
         "cookies": {
-          "title": "Cookies and Tracking",
-          "content1": "We use cookies and similar technologies to enhance user experience.",
-          "content2": "These help us understand user behavior and improve our platform."
+          "title": "Cookies et suivi",
+          "content1": "Nous utilisons des cookies et des technologies similaires pour améliorer l’expérience utilisateur.",
+          "content2": "Ils nous aident à comprendre le comportement des utilisateurs et à améliorer notre plateforme."
         },
         "changes": {
-          "title": "Changes to This Policy",
-          "content1": "We may update this Privacy Policy from time to time.",
-          "content2": "Any changes will be communicated through our platform or via email."
+          "title": "Modifications de cette politique",
+          "content1": "Nous pouvons mettre à jour cette Politique de confidentialité de temps à autre.",
+          "content2": "Toute modification sera communiquée via notre plateforme ou par e-mail."
         }
       }
     }

@@ -75,9 +75,10 @@ interface PrivacyPolicyProps {
 
 export default function PrivacyPolicy({
   sections = defaultPrivacySections,
-  lastUpdated = "March 2026",
+  lastUpdated,
 }: PrivacyPolicyProps) {
   const { t } = useAppTranslation();
+  const displayLastUpdated = lastUpdated ?? t("legal.privacy.lastUpdatedDate");
   const translatedDefaultSections: TermsBlockData[] = [
     {
       id: 1,
@@ -153,7 +154,7 @@ export default function PrivacyPolicy({
           </HeroTitle>
 
           <HeroText className="text-slate-400">
-            {t("legal.lastUpdated", { date: lastUpdated })}
+            {t("legal.lastUpdated", { date: displayLastUpdated })}
           </HeroText>
         </div>
         <div className="space-y-12">
