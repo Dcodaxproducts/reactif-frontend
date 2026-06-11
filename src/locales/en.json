@@ -210,6 +210,9 @@
     "searchPlaceholder": "Search products, wraps, or apparel...",
     "filters": {
       "button": "Filters",
+      "priceFilter": "Price filter",
+      "priceLowHigh": "Price: low to high",
+      "priceHighLow": "Price: high to low",
       "allProducts": "All Products",
       "vehicleWraps": "Vehicle Wraps",
       "signage": "Signage",
@@ -228,6 +231,17 @@
     "viewDetails": "View Details",
     "viewDetailsFor": "View details for {title}",
     "addToCart": "Add {title} to cart",
+    "bookNow": "Book Now",
+    "priceLabel": "Price",
+    "priceOnRequest": "Price on request",
+    "serviceFallbackDescription": "Service details will be confirmed during booking.",
+    "uncategorized": "Uncategorized",
+    "loading": "Loading catalog services...",
+    "errorTitle": "Unable to load catalog",
+    "errorDescription": "The services API is unavailable right now. Please try again.",
+    "retry": "Retry",
+    "emptyTitle": "No services found",
+    "emptyDescription": "Try another category or search term. New services will appear here as soon as they are published.",
     "items": {
       "suvBranding": {
         "title": "SUV Branding",

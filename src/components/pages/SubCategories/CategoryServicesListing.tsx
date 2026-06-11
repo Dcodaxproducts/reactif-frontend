@@ -6,28 +6,13 @@ import { ArrowRight, CalendarClock, Eye, PackageOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/currency";
 import { getImageSource } from "@/lib/image-source";
-import { resolveCategorySlug } from "@/lib/category-routes";
+import { buildServiceFlowHref } from "@/lib/service-routes";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import type { Category, Service } from "@/types/categories";
 
 type CategoryServicesListingProps = {
   category: Category;
   services: Service[];
-};
-
-const buildServiceFlowHref = (category: Category, service: Service) => {
-  const params = new URLSearchParams({
-    serviceId: String(service.id),
-    categoryId: String(category.id),
-    categorySlug: resolveCategorySlug(category.name),
-    from: "category-listing",
-  });
-
-  if (service.sub_category_id) {
-    params.set("subcategoryId", String(service.sub_category_id));
-  }
-
-  return `/paint-protection/${category.id}?${params.toString()}`;
 };
 
 const getLeadTime = (service: Service) =>
@@ -106,7 +91,11 @@ export default function CategoryServicesListing({
           {activeServices.map((service, index) => {
             const imageSource = getImageSource(service.service_image, "");
             const leadTime = getLeadTime(service);
-            const serviceHref = buildServiceFlowHref(category, service);
+            const serviceHref = buildServiceFlowHref({
+              category,
+              service,
+              from: "category-listing",
+            });
 
             return (
               <article
@@ -139,7 +128,8 @@ export default function CategoryServicesListing({
                     {service.name}
                   </h3>
                   <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-400">
-                    {service.description || t("categoryFlow.serviceFallbackDescription")}
+                    {service.description ||
+                      t("categoryFlow.serviceFallbackDescription")}
                   </p>
 
                   <div className="mt-5 grid gap-3 text-sm text-slate-300">

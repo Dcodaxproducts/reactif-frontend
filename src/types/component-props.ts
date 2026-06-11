@@ -182,16 +182,19 @@ export type CarrierBadgeProps = {
 };
 
 export type CatalogCardProps = {
-  item: import("@/types/catalog").CatalogItem;
+  service: Service;
+  categoryName: string;
 };
 
 export type CatalogSectionProps = {
   title: string;
-  items: import("@/types/catalog").CatalogItem[];
+  services: Service[];
+  categoryNamesById: Map<number, string>;
 };
 
 export type CatalogScrollerProps = {
-  items: import("@/types/catalog").CatalogItem[];
+  services: Service[];
+  categoryNamesById: Map<number, string>;
 };
 
 export type CatalogCategoryButtonProps = {

@@ -1,27 +1,44 @@
 "use client";
 
-import { useState } from "react";
-import { catalogFilterCategories } from "@/data/catalog";
+import type { Category } from "@/types/categories";
 import CatalogCategoryFilters from "./CatalogCategoryFilters";
-import FiltersButton from "./FiltersButton";
+import FiltersButton, { type CatalogPriceSort } from "./FiltersButton";
 import ProductSearchInput from "./ProductSearchInput";
 
-export default function ProductFilterBar() {
-  const [activeCategory, setActiveCategory] = useState(
-    catalogFilterCategories[0].value,
-  );
+type ProductFilterBarProps = {
+  categories: Category[];
+  activeCategory: string;
+  onSelectCategory: (category: string) => void;
+  search: string;
+  onSearchChange: (value: string) => void;
+  priceSort: CatalogPriceSort;
+  onChangePriceSort: (sort: CatalogPriceSort) => void;
+};
 
+export default function ProductFilterBar({
+  categories,
+  activeCategory,
+  onSelectCategory,
+  search,
+  onSearchChange,
+  priceSort,
+  onChangePriceSort,
+}: ProductFilterBarProps) {
   return (
     <div className="w-full">
-      <div className="flex flex-col lg:flex-row items-center gap-4 p-4 rounded-xl border border-white/10 bg-stone-950/90 backdrop-blur-md">
-        <ProductSearchInput />
+      <div className="flex flex-col gap-4 rounded-xl border border-white/10 bg-stone-950/90 p-4 backdrop-blur-md lg:flex-row lg:items-center">
+        <ProductSearchInput value={search} onChange={onSearchChange} />
 
-        <div className="flex items-center gap-2 flex-wrap justify-center lg:justify-end">
+        <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-end">
           <CatalogCategoryFilters
+            categories={categories}
             activeCategory={activeCategory}
-            onSelectCategory={setActiveCategory}
+            onSelectCategory={onSelectCategory}
           />
-          <FiltersButton />
+          <FiltersButton
+            priceSort={priceSort}
+            onChangePriceSort={onChangePriceSort}
+          />
         </div>
       </div>
     </div>

@@ -210,6 +210,9 @@
     "searchPlaceholder": "Rechercher des produits, habillages ou vêtements...",
     "filters": {
       "button": "Filtres",
+      "priceFilter": "Filtre prix",
+      "priceLowHigh": "Prix : croissant",
+      "priceHighLow": "Prix : décroissant",
       "allProducts": "Tous les produits",
       "vehicleWraps": "Habillages véhicule",
       "signage": "Signalétique",
@@ -228,6 +231,17 @@
     "viewDetails": "Voir les détails",
     "viewDetailsFor": "Voir les détails de {title}",
     "addToCart": "Ajouter {title} au panier",
+    "bookNow": "Réserver",
+    "priceLabel": "Prix",
+    "priceOnRequest": "Prix sur demande",
+    "serviceFallbackDescription": "Les détails du service seront confirmés pendant la réservation.",
+    "uncategorized": "Non catégorisé",
+    "loading": "Chargement des services du catalogue...",
+    "errorTitle": "Impossible de charger le catalogue",
+    "errorDescription": "L’API des services est indisponible pour le moment. Veuillez réessayer.",
+    "retry": "Réessayer",
+    "emptyTitle": "Aucun service trouvé",
+    "emptyDescription": "Essayez une autre catégorie ou un autre terme de recherche. Les nouveaux services apparaîtront ici dès leur publication.",
     "items": {
       "suvBranding": {
         "title": "Branding SUV",

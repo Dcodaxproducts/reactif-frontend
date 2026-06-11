@@ -2,7 +2,15 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 
-export default function ProductSearchInput() {
+type ProductSearchInputProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+export default function ProductSearchInput({
+  value,
+  onChange,
+}: ProductSearchInputProps) {
   const { t } = useAppTranslation();
 
   return (
@@ -14,6 +22,8 @@ export default function ProductSearchInput() {
 
       <Input
         type="text"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
         placeholder={t("catalog.searchPlaceholder")}
         className="w-full pl-10 pr-4 py-3 rounded-full bg-white/5 text-white text-sm placeholder:text-slate-500 focus:outline-none border-0 h-auto"
       />
