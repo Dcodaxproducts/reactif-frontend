@@ -589,6 +589,7 @@
     "contactUs": "Nous contacter",
     "support": "Support",
     "helpCenter": "Centre d’aide",
+    "faq": "FAQ",
     "contactSupport": "Contacter le support",
     "termsOfService": "Conditions d’utilisation",
     "privacyPolicy": "Politique de confidentialité",
@@ -657,6 +658,73 @@
           "description": "Technologie d’impression avancée garantissant fidélité des couleurs et durabilité sur la route."
         }
       }
+    }
+  },
+  "staticPages": {
+    "blogs": {
+      "eyebrow": "Actualités",
+      "title": "Histoires ReactIf et conseils d’impression",
+      "description": "Notre espace blog est en préparation pour partager des notes de projet, des guides matières, des conseils de pose et des idées de communication visuelle de l’équipe ReactIf.",
+      "cta": "Parler à notre équipe",
+      "cards": {
+        "first": {
+          "title": "Notes de projet",
+          "description": "Les prochains articles présenteront des habillages, de la signalétique et les choix de production derrière les projets clients."
+        },
+        "second": {
+          "title": "Conseils matières",
+          "description": "Nous partagerons des conseils pratiques pour entretenir le vinyle, la signalétique, les impressions textile et les surfaces finies."
+        },
+        "third": {
+          "title": "Vision design",
+          "description": "Retrouvez bientôt des contenus courts sur la visibilité de marque, l’identité de flotte, les choix de mise en page et la communication automobile à fort impact."
+        }
+      }
+    },
+    "portfolio": {
+      "eyebrow": "Réalisations",
+      "title": "Le portfolio client arrive bientôt",
+      "description": "Nous préparons un portfolio dédié aux habillages de véhicules, à la signalétique, au textile et aux projets de publicité visuelle.",
+      "cta": "Démarrer un projet",
+      "cards": {
+        "first": {
+          "title": "Transformations véhicule",
+          "description": "Les habillages terminés et graphismes publicitaires seront présentés avec un contexte clair et les détails du service."
+        },
+        "second": {
+          "title": "Systèmes de signalétique",
+          "description": "Les futures entrées montreront enseignes, vitrophanies, supports d’affichage et résultats d’installation."
+        },
+        "third": {
+          "title": "Applications de marque",
+          "description": "Textile, accessoires et supports de campagne seront organisés pour faciliter la consultation client."
+        }
+      }
+    },
+    "support": {
+      "eyebrow": "Support client",
+      "title": "Support pour commandes, designs et services",
+      "description": "Contactez l’équipe ReactIf pour les questions de commande, l’accompagnement projet, la disponibilité des services et le support compte.",
+      "cta": "Envoyer un message",
+      "cards": {
+        "first": {
+          "title": "Aide commande",
+          "description": "Posez vos questions sur le statut de réservation, les étapes de paiement, le suivi ou les modifications d’une demande envoyée."
+        },
+        "second": {
+          "title": "Aide design",
+          "description": "Obtenez des conseils sur les fichiers, les choix de service, les matières et la préparation du projet avant production."
+        },
+        "third": {
+          "title": "Questions service",
+          "description": "Confirmez la disponibilité des services automobile, signalétique, textile, accessoires et publicité."
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "Questions fréquentes",
+      "title": "Réponses du support ReactIf",
+      "description": "Consultez les contenus FAQ actuels de notre système de support. Si le backend fournit des entrées FAQ, elles s’affichent automatiquement ici."
     }
   },
   "legal": {

@@ -589,6 +589,7 @@
     "contactUs": "Contact Us",
     "support": "Support",
     "helpCenter": "Help Center",
+    "faq": "FAQ",
     "contactSupport": "Contact Support",
     "termsOfService": "Terms of Service",
     "privacyPolicy": "Privacy Policy",
@@ -657,6 +658,73 @@
           "description": "State-of-the-art printing technology ensuring color accuracy and durability that stands up to the rigors of the road."
         }
       }
+    }
+  },
+  "staticPages": {
+    "blogs": {
+      "eyebrow": "Insights",
+      "title": "ReactIf stories and print guidance",
+      "description": "Our blog space is being prepared for project notes, material guides, installation advice, and visual communication ideas from the ReactIf team.",
+      "cta": "Talk to our team",
+      "cards": {
+        "first": {
+          "title": "Project notes",
+          "description": "Upcoming articles will highlight real-world wraps, signage work, and production decisions behind customer projects."
+        },
+        "second": {
+          "title": "Material guidance",
+          "description": "We will share practical care tips for vinyl, signage, apparel prints, and other finished surfaces."
+        },
+        "third": {
+          "title": "Design thinking",
+          "description": "Expect short reads on brand visibility, fleet identity, layout choices, and high-impact automotive communication."
+        }
+      }
+    },
+    "portfolio": {
+      "eyebrow": "Selected work",
+      "title": "Portfolio showcase coming online",
+      "description": "We are preparing a customer-facing portfolio for vehicle wraps, signage, apparel, and visual advertising projects.",
+      "cta": "Start a project",
+      "cards": {
+        "first": {
+          "title": "Vehicle transformations",
+          "description": "Finished wraps and advertising graphics will be presented with clean project context and service details."
+        },
+        "second": {
+          "title": "Signage systems",
+          "description": "Future entries will show branded signs, window graphics, displays, and installation outcomes."
+        },
+        "third": {
+          "title": "Brand applications",
+          "description": "Apparel, accessories, and campaign assets will be organized for easy customer review."
+        }
+      }
+    },
+    "support": {
+      "eyebrow": "Customer support",
+      "title": "Support for orders, designs, and services",
+      "description": "Reach the ReactIf team for order questions, project guidance, service availability, and account support.",
+      "cta": "Send a message",
+      "cards": {
+        "first": {
+          "title": "Order assistance",
+          "description": "Ask about booking status, payment steps, tracking details, or changes to a submitted request."
+        },
+        "second": {
+          "title": "Design help",
+          "description": "Get guidance on files, service choices, materials, and preparing your project before production."
+        },
+        "third": {
+          "title": "Service questions",
+          "description": "Confirm availability for automotive, signage, apparel, accessory, and advertising services."
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "Frequently asked questions",
+      "title": "Answers from ReactIf support",
+      "description": "Browse current FAQ content from our support system. If the backend has FAQ entries, they are shown here automatically."
     }
   },
   "legal": {

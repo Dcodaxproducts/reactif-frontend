@@ -81,7 +81,7 @@ export default function Footer() {
               title={t("footer.support")}
               links={[
                 { label: t("footer.helpCenter"), href: "/help-center" },
-                { label: "FAQ", href: "/faq" },
+                { label: t("footer.faq"), href: "/faq" },
                 { label: t("footer.contactSupport"), href: "/support" },
                 { label: t("footer.termsOfService"), href: "/terms" },
                 { label: t("footer.privacyPolicy"), href: "/privacy-policy" },
