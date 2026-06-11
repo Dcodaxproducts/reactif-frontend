@@ -2,11 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CalendarClock, Eye, PackageOpen } from "lucide-react";
+import { CalendarClock, Eye, PackageOpen } from "lucide-react";
+import { ServiceBookNowButton } from "@/components/common/ServiceBookNowButton";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/currency";
 import { getImageSource } from "@/lib/image-source";
-import { buildServiceFlowHref } from "@/lib/service-routes";
+import {
+  buildServiceDetailHref,
+  buildServiceFlowHref,
+} from "@/lib/service-routes";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import type { Category, Service } from "@/types/categories";
 
@@ -96,6 +100,11 @@ export default function CategoryServicesListing({
               service,
               from: "category-listing",
             });
+            const serviceDetailHref = buildServiceDetailHref({
+              category,
+              service,
+              from: "category-listing",
+            });
 
             return (
               <article
@@ -155,20 +164,17 @@ export default function CategoryServicesListing({
                       variant="outline"
                       className="h-11 rounded-full border-white/15 bg-transparent text-white hover:bg-white/10 hover:text-white"
                     >
-                      <Link href={serviceHref}>
+                      <Link href={serviceDetailHref}>
                         <Eye className="h-4 w-4" />
                         {t("categoryFlow.viewDetails")}
                       </Link>
                     </Button>
-                    <Button
-                      asChild
-                      className="h-11 rounded-full bg-white text-zinc-900 hover:bg-white/90"
-                    >
-                      <Link href={serviceHref}>
-                        {t("categoryFlow.bookNow")}
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
+                    <ServiceBookNowButton
+                      href={serviceHref}
+                      serviceName={service.name}
+                      label={t("categoryFlow.bookNow")}
+                      className="text-zinc-900"
+                    />
                   </div>
                 </div>
               </article>

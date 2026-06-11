@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { buildLoginRoute, useAuth } from "@/hooks/useAuth";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { writeBookingDraft } from "@/lib/booking-draft";
 import { BookingCardHeader } from "./booking-card/BookingCardHeader";
 import { BookingCardSkeleton } from "./booking-card/BookingCardSkeleton";
@@ -44,6 +45,7 @@ export function PaintProtectionCard({
 }: PaintProtectionCardProps) {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
+  const { t } = useAppTranslation();
 
   const [formErrors, setFormErrors] = useState<ServiceFormErrors>({});
   const [formValues, setFormValues] = useState<ServiceFormValues>({});
@@ -98,7 +100,7 @@ export function PaintProtectionCard({
     setFormErrors(errors);
 
     if (!isValid) {
-      toast.error("Please fill all required fields");
+      toast.error(t("bookingFlow.requiredFieldsError"));
     }
 
     return isValid;
@@ -106,12 +108,12 @@ export function PaintProtectionCard({
 
   const handleCreateBooking = async () => {
     if (!currentService) {
-      toast.error("Please select a service");
+      toast.error(t("bookingFlow.selectServiceError"));
       return;
     }
 
     if (!user) {
-      toast.error("Please login first");
+      toast.error(t("bookingFlow.loginRequired"));
       const redirectUrl =
         typeof window !== "undefined"
           ? `${window.location.pathname}${window.location.search}${window.location.hash}`
@@ -135,7 +137,7 @@ export function PaintProtectionCard({
       writeBookingDraft(draft);
       router.push("/order/address");
     } catch {
-      toast.error("Failed to save booking draft");
+      toast.error(t("bookingFlow.saveDraftError"));
     } finally {
       setBookingLoading(false);
     }
@@ -158,13 +160,13 @@ export function PaintProtectionCard({
       {!isLoading && (
         <div className="text-neutral-400 text-sm md:text-base font-medium font-hk leading-relaxed">
           {currentService?.description ??
-            "Please select a service to configure your request."}
+            t("bookingFlow.selectServiceDescription")}
         </div>
       )}
 
       {!isLoading && services.length === 0 && (
         <ServiceEmptyState>
-          No services available under this category.
+          {t("bookingFlow.noServicesAvailable")}
         </ServiceEmptyState>
       )}
 
@@ -172,7 +174,7 @@ export function PaintProtectionCard({
         currentService &&
         (!currentService.fields || currentService.fields.length === 0) && (
           <ServiceEmptyState>
-            This service does not require additional configuration.
+            {t("bookingFlow.noAdditionalConfiguration")}
           </ServiceEmptyState>
         )}
 

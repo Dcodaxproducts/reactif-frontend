@@ -1,11 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CalendarClock } from "lucide-react";
+import { CalendarClock } from "lucide-react";
 
+import { ServiceBookNowButton } from "@/components/common/ServiceBookNowButton";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/currency";
 import { getImageSource } from "@/lib/image-source";
-import { buildServiceFlowHref } from "@/lib/service-routes";
+import {
+  buildServiceDetailHref,
+  buildServiceFlowHref,
+} from "@/lib/service-routes";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import type { CatalogCardProps } from "@/types/component-props";
 
@@ -16,6 +20,14 @@ function CatalogCard({ service, categoryName }: CatalogCardProps) {
   const { t } = useAppTranslation();
   const imageSource = getImageSource(service.service_image, "");
   const serviceHref = buildServiceFlowHref({
+    category: {
+      id: service.category_id,
+      name: categoryName,
+    },
+    service,
+    from: "catalog",
+  });
+  const serviceDetailHref = buildServiceDetailHref({
     category: {
       id: service.category_id,
       name: categoryName,
@@ -89,22 +101,18 @@ function CatalogCard({ service, categoryName }: CatalogCardProps) {
             className="h-11 rounded-full border-white/15 bg-transparent px-4 text-white hover:bg-white/10 hover:text-white"
           >
             <Link
-              href={serviceHref}
+              href={serviceDetailHref}
               aria-label={t("catalog.viewDetailsFor", { title: service.name })}
             >
               {t("catalog.viewDetails")}
             </Link>
           </Button>
 
-          <Button
-            asChild
-            className="h-11 rounded-full bg-white px-4 text-zinc-900 hover:bg-white/90"
-          >
-            <Link href={serviceHref}>
-              {t("catalog.bookNow")}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
+          <ServiceBookNowButton
+            href={serviceHref}
+            serviceName={service.name}
+            label={t("catalog.bookNow")}
+          />
         </div>
       </div>
     </article>

@@ -6,6 +6,7 @@ import {
   getImageSource,
 } from "@/lib/image-source";
 import { formatCurrency } from "@/lib/currency";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { cn } from "@/lib/utils";
 import type { Service } from "@/types/component-props";
 
@@ -18,6 +19,8 @@ export function ServiceSelector({
   selectedServiceId: string | null;
   onSelect: (serviceId: string) => void;
 }) {
+  const { t } = useAppTranslation();
+
   if (services.length <= 1) return null;
 
   return (
@@ -25,10 +28,10 @@ export function ServiceSelector({
       <div className="flex items-center justify-between gap-3">
         <div>
           <div className="text-neutral-50 text-sm font-bold">
-            Choose a service
+            {t("bookingFlow.chooseService")}
           </div>
           <div className="text-neutral-500 text-xs">
-            {services.length} options available for this category
+            {t("bookingFlow.optionCount", { count: services.length })}
           </div>
         </div>
       </div>
@@ -75,7 +78,7 @@ export function ServiceSelector({
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
                       <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-neutral-500">
-                        Option {index + 1}
+                        {t("bookingFlow.optionLabel", { number: index + 1 })}
                       </div>
                       <div className="truncate text-sm font-bold text-neutral-50">
                         {name}
@@ -100,7 +103,7 @@ export function ServiceSelector({
                     </span>
                     <span className="inline-flex items-center gap-1 rounded-md border border-slate-800 bg-black/20 px-2 py-1">
                       <ListChecks className="h-3.5 w-3.5 text-[#F262B5]" />
-                      {fieldCount} {fieldCount === 1 ? "field" : "fields"}
+                      {t("bookingFlow.fieldCount", { count: fieldCount })}
                     </span>
                   </div>
                 </div>

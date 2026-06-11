@@ -131,6 +131,45 @@
     "errorTitle": "Impossible de charger la catégorie",
     "retry": "Réessayer"
   },
+  "serviceActions": {
+    "bookNow": "Réserver",
+    "bookNowFor": "Réserver {title}"
+  },
+  "serviceDetail": {
+    "loading": "Chargement des détails du service...",
+    "errorTitle": "Service indisponible",
+    "errorDescription": "Nous n’avons pas pu charger ce service depuis l’API. Veuillez réessayer ou choisir un autre service.",
+    "eyebrow": "Détails du service",
+    "descriptionFallback": "Les détails du service seront confirmés pendant la réservation.",
+    "price": "Prix",
+    "priceOnRequest": "Prix sur demande",
+    "delivery": "Livraison",
+    "deliveryOnRequest": "Délai sur demande",
+    "bookNow": "Réserver",
+    "requestQuote": "Demander un devis",
+    "summaryTitle": "Résumé du service",
+    "category": "Catégorie",
+    "galleryTitle": "Galerie"
+  },
+  "bookingFlow": {
+    "requiredFieldsError": "Veuillez remplir tous les champs obligatoires.",
+    "selectServiceError": "Veuillez sélectionner un service.",
+    "loginRequired": "Veuillez vous connecter pour continuer la réservation.",
+    "saveDraftError": "Impossible d’enregistrer le brouillon de réservation.",
+    "selectServiceDescription": "Veuillez sélectionner un service pour configurer votre demande.",
+    "noServicesAvailable": "Aucun service n’est disponible dans cette catégorie.",
+    "noAdditionalConfiguration": "Ce service ne nécessite aucune configuration supplémentaire.",
+    "configurationSummary": "Résumé de configuration",
+    "noSelection": "Aucune sélection",
+    "servicePrice": "Prix du service",
+    "requiredDetails": "Détails requis",
+    "fieldCount": "{count} champs",
+    "creatingBooking": "Création de la réservation...",
+    "bookNow": "Réserver",
+    "chooseService": "Choisir un service",
+    "optionCount": "{count} options disponibles pour cette catégorie",
+    "optionLabel": "Option {number}"
+  },
   "home": {
     "hero": {
       "badge": "EXPERTS AUTOMOBILES",

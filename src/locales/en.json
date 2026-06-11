@@ -131,6 +131,45 @@
     "errorTitle": "Unable to load category",
     "retry": "Retry"
   },
+  "serviceActions": {
+    "bookNow": "Book Now",
+    "bookNowFor": "Book {title} now"
+  },
+  "serviceDetail": {
+    "loading": "Loading service details...",
+    "errorTitle": "Service unavailable",
+    "errorDescription": "We could not load this service from the API. Please try again or choose another service.",
+    "eyebrow": "Service details",
+    "descriptionFallback": "Service details will be confirmed during booking.",
+    "price": "Price",
+    "priceOnRequest": "Price on request",
+    "delivery": "Delivery",
+    "deliveryOnRequest": "Timeline on request",
+    "bookNow": "Book Now",
+    "requestQuote": "Request Quote",
+    "summaryTitle": "Service summary",
+    "category": "Category",
+    "galleryTitle": "Gallery"
+  },
+  "bookingFlow": {
+    "requiredFieldsError": "Please fill all required fields.",
+    "selectServiceError": "Please select a service.",
+    "loginRequired": "Please log in to continue booking.",
+    "saveDraftError": "Failed to save booking draft.",
+    "selectServiceDescription": "Please select a service to configure your request.",
+    "noServicesAvailable": "No services are available under this category.",
+    "noAdditionalConfiguration": "This service does not require additional configuration.",
+    "configurationSummary": "Configuration Summary",
+    "noSelection": "No selection",
+    "servicePrice": "Service price",
+    "requiredDetails": "Required details",
+    "fieldCount": "{count} fields",
+    "creatingBooking": "Creating Booking...",
+    "bookNow": "Book Now",
+    "chooseService": "Choose a service",
+    "optionCount": "{count} options available for this category",
+    "optionLabel": "Option {number}"
+  },
   "home": {
     "hero": {
       "badge": "AUTOMOTIVE EXPERTS",

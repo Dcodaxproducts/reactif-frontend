@@ -64,6 +64,36 @@ const parseJsonArray = (value: unknown): unknown[] => {
   }
 };
 
+const getImageUrl = (value: unknown): string | null => {
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed ? trimmed : null;
+  }
+
+  if (!isRecord(value)) {
+    return null;
+  }
+
+  return (
+    getString(value, "url") ??
+    getString(value, "image") ??
+    getString(value, "src") ??
+    getString(value, "path")
+  );
+};
+
+const getImageGallery = (service: Record<string, unknown>) => {
+  const rawGallery =
+    service.image_gallery ??
+    service.service_images ??
+    service.gallery ??
+    service.images;
+
+  return parseJsonArray(rawGallery)
+    .map(getImageUrl)
+    .filter((image): image is string => image !== null);
+};
+
 const normalizeOption = (option: unknown, index: number): ServiceFieldOption | null => {
   if (typeof option === "string") {
     return {
@@ -173,6 +203,7 @@ export const normalizeService = (service: unknown): Service | null => {
     category_id: getNumber(service, "category_id") ?? 0,
     sub_category_id: getNumber(service, "sub_category_id") ?? 0,
     service_image: getString(service, "service_image") ?? "",
+    image_gallery: getImageGallery(service),
     price: getNumber(service, "price") ?? 0,
     status: getNumber(service, "status") ?? undefined,
     delivery_time:
