@@ -20,6 +20,7 @@ export default function SpecialistCard({
   avatarImage,
   portfolioLink,
   selectLink,
+  selectFallbackLink,
   available = true,
 }: SpecialistCardProps) {
   return (
@@ -48,6 +49,7 @@ export default function SpecialistCard({
         available={available}
         portfolioLink={portfolioLink}
         selectLink={selectLink}
+        selectFallbackLink={selectFallbackLink}
       />
 
       <div className="h-10" />

@@ -17,6 +17,7 @@ export interface SpecialistCardProps {
   avatarImage?: string | null;
   portfolioLink?: string;
   selectLink?: string;
+  selectFallbackLink?: string;
   available?: boolean;
 }
 
@@ -170,7 +171,6 @@ export type SpecialistListStatusProps = {
 };
 
 export type SpecialistGridProps = {
-  categoryId: string | null;
   queryString: string;
 };
 

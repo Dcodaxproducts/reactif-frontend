@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { X, PencilRuler, Brush } from "lucide-react";
+import { toast } from "sonner";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 
 type DesignPathModalProps = {
   isOpen: boolean;
@@ -21,13 +23,19 @@ export default function DesignPathModal({
 }: DesignPathModalProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { t } = useAppTranslation();
 
   if (!isOpen) return null;
 
   const categoryId = searchParams.get("id");
 
   const handleSelect = (pathType: "have-design" | "need-designer") => {
-    if (!categoryId) return;
+    if (!categoryId) {
+      toast.error(t("designPath.missingCategoryError"));
+      router.push("/subcategories");
+      onClose();
+      return;
+    }
 
     const baseQuery = {
       path: pathType,
@@ -66,7 +74,7 @@ export default function DesignPathModal({
         >
           <Button
             type="button"
-            aria-label="Close design path modal"
+            aria-label={t("designPath.close")}
             onClick={onClose}
             className="absolute top-5 right-5 bg-gray-800 rounded-full p-2 text-gray-400 hover:text-white transition"
           >
@@ -75,10 +83,10 @@ export default function DesignPathModal({
 
           <div className="text-center mb-8">
             <h2
-              id="design-path-modal-title"
-              className="text-white text-2xl md:text-3xl font-bold"
-            >
-              Choose Your Design Path
+            id="design-path-modal-title"
+            className="text-white text-2xl md:text-3xl font-bold"
+          >
+              {t("designPath.title")}
             </h2>
           </div>
 
@@ -91,12 +99,11 @@ export default function DesignPathModal({
               </div>
 
               <h3 className="text-white text-xl md:text-2xl font-bold mb-3">
-                I have a design
+                {t("designPath.haveDesignTitle")}
               </h3>
 
               <p className="text-gray-400 mb-8">
-                Upload your print-ready files. Perfect for designers and
-                agencies who already have their artwork prepared.
+                {t("designPath.haveDesignDescription")}
               </p>
 
               <Button
@@ -104,7 +111,7 @@ export default function DesignPathModal({
                 onClick={() => handleSelect("have-design")}
                 className="w-full h-11 bg-pink-400 rounded-full text-white font-semibold hover:opacity-90 transition"
               >
-                Select
+                {t("common.select")}
               </Button>
             </div>
 
@@ -116,12 +123,11 @@ export default function DesignPathModal({
               </div>
 
               <h3 className="text-white text-xl md:text-2xl font-bold mb-3">
-                I need a designer
+                {t("designPath.needDesignerTitle")}
               </h3>
 
               <p className="text-gray-400 mb-8">
-                Let our expert team create a custom design for you. We'll work
-                with you to bring your vision to life.
+                {t("designPath.needDesignerDescription")}
               </p>
 
               <Button
@@ -129,7 +135,7 @@ export default function DesignPathModal({
                 onClick={() => handleSelect("need-designer")}
                 className="w-full h-11 bg-sky-300 rounded-full text-white font-semibold hover:opacity-90 transition"
               >
-                Select
+                {t("common.select")}
               </Button>
             </div>
           </div>

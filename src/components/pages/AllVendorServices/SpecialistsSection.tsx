@@ -12,7 +12,6 @@ import SpecialistListStatus from "./SpecialistListStatus";
 export default function SpecialistsSection() {
   const searchParams = useSearchParams();
   const queryString = searchParams.toString();
-  const categoryId = searchParams.get("categoryId");
 
   const { designers, loading, error, page, totalPages, setPage } =
     useDesigners();
@@ -48,7 +47,6 @@ export default function SpecialistsSection() {
       {hasDesigners && (
         <SpecialistGrid
           designers={designers}
-          categoryId={categoryId}
           queryString={queryString}
         />
       )}

@@ -170,6 +170,15 @@
     "optionCount": "{count} options available for this category",
     "optionLabel": "Option {number}"
   },
+  "designPath": {
+    "title": "Choose Your Design Path",
+    "close": "Close design path modal",
+    "haveDesignTitle": "I have a design",
+    "haveDesignDescription": "Upload your print-ready files. Perfect for designers and agencies who already have their artwork prepared.",
+    "needDesignerTitle": "I need a designer",
+    "needDesignerDescription": "Let our expert team create a custom design for you. We'll work with you to bring your vision to life.",
+    "missingCategoryError": "Please choose a category before selecting a designer path."
+  },
   "home": {
     "hero": {
       "badge": "AUTOMOTIVE EXPERTS",
@@ -531,6 +540,7 @@
     "trackingLoading": "Loading tracking...",
     "trackingUnavailable": "Tracking data is unavailable.",
     "currentStatus": "Current Status",
+    "backendStatus": "Booking Status",
     "estimatedDelivery": "Estimated Delivery",
     "origin": "Origin",
     "pendingConfirmation": "Pending confirmation",
@@ -543,6 +553,13 @@
     "bookingService": "Booking service",
     "viewOrderDetails": "View Order Details",
     "contactSupport": "Contact Support",
+    "trackingStages": {
+      "pending": "Pending",
+      "inProduction": "In Production",
+      "qualityCheck": "Quality Check",
+      "shipped": "Shipped",
+      "delivered": "Delivered"
+    },
     "paymentTitle": "Complete Your Payment",
     "paymentSubtitle": "Get help from our support team",
     "bookingPayment": "Booking payment",
@@ -736,6 +753,35 @@
     "dateFallback": "Date unavailable",
     "statusFallback": "Open",
     "messageFallback": "No message preview available"
+  },
+  "designers": {
+    "portfolio": "Portfolio",
+    "viewPortfolio": "View Portfolio",
+    "select": "Select",
+    "selectDesigner": "Select Designer",
+    "chooseServiceFirst": "Choose service first",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "online": "Online",
+    "offline": "Offline",
+    "unnamed": "Unnamed Designer",
+    "locationFallback": "Location not specified",
+    "availableDesigner": "Available Designer",
+    "currentlyUnavailable": "Currently Unavailable",
+    "professionalDesigner": "Professional Designer",
+    "professional": "Professional",
+    "contactForPrice": "Contact for price",
+    "backToDesigners": "Back to designers",
+    "loadingProfile": "Loading designer profile...",
+    "errorTitle": "Designer profile unavailable",
+    "notFoundTitle": "Designer not found",
+    "notFoundDescription": "This designer is not available in the current customer designer list.",
+    "profileEyebrow": "Designer Portfolio",
+    "profileDescription": "Review this designer profile before continuing your booking flow with the selected service and category context.",
+    "rating": "Rating",
+    "location": "Location",
+    "status": "Status",
+    "contactSupport": "Contact Support"
   },
   "about": {
     "heroTitleLine1": "DRIVING EXCELLENCE IN VISUAL",

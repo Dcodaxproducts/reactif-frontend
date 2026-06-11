@@ -170,6 +170,15 @@
     "optionCount": "{count} options disponibles pour cette catégorie",
     "optionLabel": "Option {number}"
   },
+  "designPath": {
+    "title": "Choisissez votre parcours design",
+    "close": "Fermer la fenêtre du parcours design",
+    "haveDesignTitle": "J’ai déjà un design",
+    "haveDesignDescription": "Importez vos fichiers prêts à imprimer. Idéal pour les designers et agences qui disposent déjà de leurs visuels.",
+    "needDesignerTitle": "J’ai besoin d’un designer",
+    "needDesignerDescription": "Laissez notre équipe experte créer un design sur mesure. Nous vous accompagnons pour donner vie à votre vision.",
+    "missingCategoryError": "Veuillez choisir une catégorie avant de sélectionner un parcours designer."
+  },
   "home": {
     "hero": {
       "badge": "EXPERTS AUTOMOBILES",
@@ -531,6 +540,7 @@
     "trackingLoading": "Chargement du suivi...",
     "trackingUnavailable": "Les données de suivi sont indisponibles.",
     "currentStatus": "Statut actuel",
+    "backendStatus": "Statut de réservation",
     "estimatedDelivery": "Livraison estimée",
     "origin": "Origine",
     "pendingConfirmation": "En attente de confirmation",
@@ -543,6 +553,13 @@
     "bookingService": "Service de réservation",
     "viewOrderDetails": "Voir les détails de la commande",
     "contactSupport": "Contacter le support",
+    "trackingStages": {
+      "pending": "En attente",
+      "inProduction": "En production",
+      "qualityCheck": "Contrôle qualité",
+      "shipped": "Expédié",
+      "delivered": "Livré"
+    },
     "paymentTitle": "Finaliser votre paiement",
     "paymentSubtitle": "Obtenez de l’aide de notre équipe support",
     "bookingPayment": "Paiement de réservation",
@@ -736,6 +753,35 @@
     "dateFallback": "Date indisponible",
     "statusFallback": "Ouverte",
     "messageFallback": "Aucun aperçu de message disponible"
+  },
+  "designers": {
+    "portfolio": "Portfolio",
+    "viewPortfolio": "Voir le portfolio",
+    "select": "Sélectionner",
+    "selectDesigner": "Sélectionner le designer",
+    "chooseServiceFirst": "Choisir d’abord un service",
+    "available": "Disponible",
+    "unavailable": "Indisponible",
+    "online": "En ligne",
+    "offline": "Hors ligne",
+    "unnamed": "Designer sans nom",
+    "locationFallback": "Lieu non précisé",
+    "availableDesigner": "Designer disponible",
+    "currentlyUnavailable": "Actuellement indisponible",
+    "professionalDesigner": "Designer professionnel",
+    "professional": "Professionnel",
+    "contactForPrice": "Prix sur demande",
+    "backToDesigners": "Retour aux designers",
+    "loadingProfile": "Chargement du profil designer...",
+    "errorTitle": "Profil designer indisponible",
+    "notFoundTitle": "Designer introuvable",
+    "notFoundDescription": "Ce designer n’est pas disponible dans la liste client actuelle.",
+    "profileEyebrow": "Portfolio designer",
+    "profileDescription": "Consultez ce profil designer avant de poursuivre votre réservation avec le service et la catégorie sélectionnés.",
+    "rating": "Note",
+    "location": "Lieu",
+    "status": "Statut",
+    "contactSupport": "Contacter le support"
   },
   "about": {
     "heroTitleLine1": "L’EXCELLENCE EN COMMUNICATION",

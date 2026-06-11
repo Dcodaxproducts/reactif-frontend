@@ -11,6 +11,7 @@ import type { Designer } from "@/types/designers";
 
 export type GetDesignersParams = {
   page?: number;
+  per_page?: number;
 };
 
 /**
