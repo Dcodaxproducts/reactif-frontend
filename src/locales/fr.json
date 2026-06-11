@@ -670,7 +670,12 @@
     "contactSupport": "Contacter le support",
     "termsOfService": "Conditions d’utilisation",
     "privacyPolicy": "Politique de confidentialité",
-    "followUs": "Suivez-nous"
+    "followUs": "Suivez-nous",
+    "socialX": "Ouvrir ReactIf sur X",
+    "socialFacebook": "Ouvrir ReactIf sur Facebook",
+    "socialInstagram": "Ouvrir ReactIf sur Instagram",
+    "socialLinkedIn": "Ouvrir ReactIf sur LinkedIn",
+    "socialYouTube": "Ouvrir ReactIf sur YouTube"
   },
   "validation": {
     "emailRequired": "L’e-mail est obligatoire.",

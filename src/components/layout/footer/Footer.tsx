@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import { Container } from "@/components/common/Container";
 import { Button } from "@/components/ui/button";
-import { Twitter, Facebook, Instagram, Youtube } from "lucide-react";
+import { Twitter, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
@@ -108,16 +108,31 @@ export default function Footer() {
           <div className="flex items-center gap-5">
             <span className="text-sm text-white/60">{t("footer.followUs")}</span>
 
-            <SocialIcon>
+            <SocialIcon href="https://x.com/" ariaLabel={t("footer.socialX")}>
               <Twitter size={16} />
             </SocialIcon>
-            <SocialIcon>
+            <SocialIcon
+              href="https://www.facebook.com/"
+              ariaLabel={t("footer.socialFacebook")}
+            >
               <Facebook size={16} />
             </SocialIcon>
-            <SocialIcon>
+            <SocialIcon
+              href="https://www.instagram.com/"
+              ariaLabel={t("footer.socialInstagram")}
+            >
               <Instagram size={16} />
             </SocialIcon>
-            <SocialIcon>
+            <SocialIcon
+              href="https://www.linkedin.com/"
+              ariaLabel={t("footer.socialLinkedIn")}
+            >
+              <Linkedin size={16} />
+            </SocialIcon>
+            <SocialIcon
+              href="https://www.youtube.com/"
+              ariaLabel={t("footer.socialYouTube")}
+            >
               <Youtube size={16} />
             </SocialIcon>
           </div>
@@ -170,10 +185,24 @@ function FooterColumn({
   );
 }
 
-function SocialIcon({ children }: { children: ReactNode }) {
+function SocialIcon({
+  href,
+  ariaLabel,
+  children,
+}: {
+  href: string;
+  ariaLabel: string;
+  children: ReactNode;
+}) {
   return (
-    <div className="w-8 h-8 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition cursor-pointer">
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={ariaLabel}
+      className="w-8 h-8 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition cursor-pointer"
+    >
       {children}
-    </div>
+    </a>
   );
 }
