@@ -12,36 +12,26 @@ import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useCurrentUser } from "@/hooks/useAuth";
 import { useCategories } from "@/hooks/useCategories";
 import {
-  buildCategoryRoute,
-  findCategoryBySlug,
-  type FooterServiceCategorySlug,
+  buildCategoryRouteFromCategory,
+  buildCategoryRouteFromNavigationSlug,
+  findCategoryByNavigationSlug,
+  footerCategoryNavigationItems,
 } from "@/lib/category-routes";
-
-const footerServiceCategoryLinks: Array<{
-  slug: FooterServiceCategorySlug;
-  labelKey: string;
-}> = [
-  { slug: "automotive", labelKey: "footer.automotive" },
-  { slug: "visual-advertising", labelKey: "footer.visualAdvertising" },
-  { slug: "signaletique", labelKey: "footer.signaletique" },
-  { slug: "apparel", labelKey: "footer.apparel" },
-  { slug: "accessories", labelKey: "footer.accessories" },
-];
 
 export default function Footer() {
   const router = useRouter();
   const { t } = useAppTranslation();
   const { data: user } = useCurrentUser();
   const { categories } = useCategories({ per_page: 100 });
-  const serviceCategoryLinks = footerServiceCategoryLinks.map(
+  const serviceCategoryLinks = footerCategoryNavigationItems.map(
     ({ slug, labelKey }) => {
-      const category = findCategoryBySlug(categories, slug);
+      const category = findCategoryByNavigationSlug(categories, slug);
 
       return {
         label: t(labelKey),
         href: category
-          ? buildCategoryRoute({ id: category.id, name: category.name })
-          : buildCategoryRoute({ slug }),
+          ? buildCategoryRouteFromCategory(category)
+          : buildCategoryRouteFromNavigationSlug(slug),
       };
     },
   );

@@ -2,8 +2,10 @@ import { describe, expect, it } from "vitest";
 
 import {
   buildCategoryRoute,
-  findCategoryBySlug,
-  footerServiceCategorySlugs,
+  buildCategoryRouteFromCategory,
+  categoryNavigationSlugs,
+  findCategoryByNavigationSlug,
+  resolveCategorySlug,
   slugifyCategoryName,
 } from "./category-routes";
 import type { Category } from "@/types/categories";
@@ -25,23 +27,46 @@ describe("category route helpers", () => {
 
   it("normalizes category names and diacritics", () => {
     expect(slugifyCategoryName("Signalétique")).toBe("signaletique");
+    expect(resolveCategorySlug("SIGNALÉTIQUE")).toBe("signaletique");
+    expect(resolveCategorySlug("Signaletique")).toBe("signaletique");
+    expect(resolveCategorySlug("Automotive Advertising")).toBe("automotive");
+    expect(resolveCategorySlug("Visual Advertising")).toBe(
+      "visual-advertising",
+    );
   });
 
   it("matches footer service categories against API category names", () => {
-    expect(findCategoryBySlug(categories, "automotive")?.id).toBe(8);
-    expect(findCategoryBySlug(categories, "visual-advertising")?.id).toBe(78);
-    expect(findCategoryBySlug(categories, "signaletique")?.id).toBe(6);
-    expect(findCategoryBySlug(categories, "apparel")?.id).toBe(74);
-    expect(findCategoryBySlug(categories, "accessories")?.id).toBe(77);
+    expect(findCategoryByNavigationSlug(categories, "automotive")?.id).toBe(8);
+    expect(
+      findCategoryByNavigationSlug(categories, "visual-advertising")?.id,
+    ).toBe(78);
+    expect(findCategoryByNavigationSlug(categories, "signaletique")?.id).toBe(
+      6,
+    );
+    expect(findCategoryByNavigationSlug(categories, "apparel")?.id).toBe(74);
+    expect(findCategoryByNavigationSlug(categories, "accessories")?.id).toBe(
+      77,
+    );
   });
 
-  it("keeps the required footer service category set explicit", () => {
-    expect(footerServiceCategorySlugs).toEqual([
+  it("keeps the required category navigation set explicit", () => {
+    expect(categoryNavigationSlugs).toEqual([
       "automotive",
       "visual-advertising",
       "signaletique",
       "apparel",
       "accessories",
     ]);
+  });
+
+  it("builds the same destination for home cards and footer links", () => {
+    const category = { id: 6, name: "SIGNALÉTIQUE" };
+
+    expect(buildCategoryRouteFromCategory(category)).toBe(
+      buildCategoryRoute({ id: category.id, name: category.name }),
+    );
+    expect(buildCategoryRouteFromCategory(category)).toBe(
+      "/subcategories?id=6&slug=signaletique",
+    );
   });
 });

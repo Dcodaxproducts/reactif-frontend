@@ -1,6 +1,6 @@
 import type { Category } from "@/types/categories";
 
-export const footerServiceCategorySlugs = [
+export const categoryNavigationSlugs = [
   "automotive",
   "visual-advertising",
   "signaletique",
@@ -8,11 +8,26 @@ export const footerServiceCategorySlugs = [
   "accessories",
 ] as const;
 
-export type FooterServiceCategorySlug =
-  (typeof footerServiceCategorySlugs)[number];
+export type CategoryNavigationSlug = (typeof categoryNavigationSlugs)[number];
 
-const categoryAliases: Record<FooterServiceCategorySlug, string[]> = {
-  automotive: ["automotive", "automobile", "covering/deco/pub"],
+export const footerCategoryNavigationItems: Array<{
+  slug: CategoryNavigationSlug;
+  labelKey: string;
+}> = [
+  { slug: "automotive", labelKey: "footer.automotive" },
+  { slug: "visual-advertising", labelKey: "footer.visualAdvertising" },
+  { slug: "signaletique", labelKey: "footer.signaletique" },
+  { slug: "apparel", labelKey: "footer.apparel" },
+  { slug: "accessories", labelKey: "footer.accessories" },
+];
+
+const categoryAliases: Record<CategoryNavigationSlug, string[]> = {
+  automotive: [
+    "automotive",
+    "automotive advertising",
+    "automobile",
+    "covering/deco/pub",
+  ],
   "visual-advertising": [
     "visual-advertising",
     "visual advertising",
@@ -33,6 +48,18 @@ export const slugifyCategoryName = (value: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
+export const resolveCategorySlug = (value: string): string => {
+  const normalizedValue = slugifyCategoryName(value);
+
+  const matchedSlug = categoryNavigationSlugs.find((slug) =>
+    categoryAliases[slug]
+      .map(slugifyCategoryName)
+      .includes(normalizedValue),
+  );
+
+  return matchedSlug ?? normalizedValue;
+};
+
 export const buildCategoryRoute = ({
   id,
   name,
@@ -48,7 +75,12 @@ export const buildCategoryRoute = ({
     params.set("id", String(id));
   }
 
-  const categorySlug = slug ?? (name ? slugifyCategoryName(name) : null);
+  const categorySlug =
+    slug != null
+      ? resolveCategorySlug(slug)
+      : name
+        ? resolveCategorySlug(name)
+        : null;
 
   if (categorySlug) {
     params.set("slug", categorySlug);
@@ -57,15 +89,20 @@ export const buildCategoryRoute = ({
   return `/subcategories?${params.toString()}`;
 };
 
-export const findCategoryBySlug = (
-  categories: Category[],
-  targetSlug: FooterServiceCategorySlug,
-) => {
-  const acceptedSlugs = new Set(
-    categoryAliases[targetSlug].map(slugifyCategoryName),
-  );
+export const buildCategoryRouteFromCategory = (
+  category: Pick<Category, "id" | "name">,
+) =>
+  buildCategoryRoute({ id: category.id, name: category.name });
 
+export const buildCategoryRouteFromNavigationSlug = (
+  slug: CategoryNavigationSlug,
+) => buildCategoryRoute({ slug });
+
+export const findCategoryByNavigationSlug = (
+  categories: Category[],
+  targetSlug: CategoryNavigationSlug,
+) => {
   return categories.find(({ name }) =>
-    acceptedSlugs.has(slugifyCategoryName(name)),
+    resolveCategorySlug(name) === targetSlug,
   );
 };
