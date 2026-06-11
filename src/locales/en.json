@@ -679,6 +679,26 @@
           "title": "Design thinking",
           "description": "Expect short reads on brand visibility, fleet identity, layout choices, and high-impact automotive communication."
         }
+      },
+      "articles": {
+        "first": {
+          "category": "Vehicle wraps",
+          "readTime": "4 min read",
+          "title": "How a branded wrap turns every customer trip into a moving campaign",
+          "description": "A practical look at layout hierarchy, readable messaging, and material choices for fleet graphics that stay sharp on the road."
+        },
+        "second": {
+          "category": "Care guide",
+          "readTime": "3 min read",
+          "title": "Simple vinyl care habits that protect color, finish, and edges",
+          "description": "Use gentle cleaning, smart parking, and regular edge checks to help wraps and signage surfaces keep their premium finish longer."
+        },
+        "third": {
+          "category": "Signage",
+          "readTime": "5 min read",
+          "title": "Choosing signage that works from storefront to event display",
+          "description": "Compare durability, viewing distance, lighting, and installation context before selecting the right sign system for your brand."
+        }
       }
     },
     "portfolio": {

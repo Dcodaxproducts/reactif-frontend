@@ -679,6 +679,26 @@
           "title": "Vision design",
           "description": "Retrouvez bientôt des contenus courts sur la visibilité de marque, l’identité de flotte, les choix de mise en page et la communication automobile à fort impact."
         }
+      },
+      "articles": {
+        "first": {
+          "category": "Habillage véhicule",
+          "readTime": "4 min de lecture",
+          "title": "Comment un habillage de marque transforme chaque trajet en campagne mobile",
+          "description": "Un regard pratique sur la hiérarchie visuelle, les messages lisibles et les choix matières pour des graphismes de flotte nets sur la route."
+        },
+        "second": {
+          "category": "Guide d’entretien",
+          "readTime": "3 min de lecture",
+          "title": "Habitudes simples pour protéger couleur, finition et bords du vinyle",
+          "description": "Nettoyage doux, stationnement réfléchi et contrôle régulier des bords aident les habillages et surfaces de signalétique à rester premium plus longtemps."
+        },
+        "third": {
+          "category": "Signalétique",
+          "readTime": "5 min de lecture",
+          "title": "Choisir une signalétique efficace de la vitrine au stand événementiel",
+          "description": "Comparez durabilité, distance de lecture, éclairage et contexte de pose avant de choisir le bon système de signalétique pour votre marque."
+        }
       }
     },
     "portfolio": {

@@ -16,14 +16,14 @@ export function StaticFaqHero() {
         }}
       />
 
-      <div className="relative z-10 max-w-3xl space-y-5">
+      <div className="relative z-10 max-w-5xl space-y-5">
         <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-white/10 text-cyan-300">
           <HelpCircle size={24} />
         </div>
         <p className="text-xs font-bold uppercase tracking-[0.28em] text-white/60">
           {t("staticPages.faq.eyebrow")}
         </p>
-        <h1 className="text-3xl font-semibold uppercase leading-tight text-white md:text-5xl">
+        <h1 className="text-3xl font-semibold leading-tight text-white md:whitespace-nowrap md:text-4xl xl:text-5xl">
           {t("staticPages.faq.title")}
         </h1>
         <p className="text-sm leading-7 text-slate-300 md:text-base">
