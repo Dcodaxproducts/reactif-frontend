@@ -174,6 +174,19 @@ export const normalizeService = (service: unknown): Service | null => {
     sub_category_id: getNumber(service, "sub_category_id") ?? 0,
     service_image: getString(service, "service_image") ?? "",
     price: getNumber(service, "price") ?? 0,
+    status: getNumber(service, "status") ?? undefined,
+    delivery_time:
+      getString(service, "delivery_time") ??
+      getString(service, "deliveryTime") ??
+      getString(service, "turnaround_time") ??
+      getString(service, "turnaroundTime") ??
+      null,
+    lead_time:
+      getString(service, "lead_time") ??
+      getString(service, "leadTime") ??
+      getString(service, "production_time") ??
+      getString(service, "productionTime") ??
+      null,
     fields: getArray(service, "fields")
       .map(normalizeField)
       .filter((field): field is ServiceField => field !== null),

@@ -114,7 +114,22 @@
     "emptyTitle": "Category unavailable",
     "emptyDescription": "This category is not available yet. Please choose another service category.",
     "backHome": "Go back home",
-    "selectServiceDescription": "Select a service below to continue your design path."
+    "selectServiceDescription": "Select a service below to continue your design path.",
+    "categoryLabel": "Selected category",
+    "fallbackDescription": "Explore available ReactIf services in this category and choose the option that best fits your project.",
+    "servicesLabel": "Dynamic services",
+    "servicesTitle": "Choose a service",
+    "serviceCount": "{count} services available",
+    "noServicesTitle": "No services available yet",
+    "noServicesDescription": "This category is active, but the backend has not published services for it yet. Please check another category or contact support.",
+    "serviceFallbackDescription": "Service details will be confirmed during booking.",
+    "priceLabel": "Price",
+    "priceUnavailable": "Price on request",
+    "viewDetails": "View Details",
+    "bookNow": "Book Now",
+    "loadingServices": "Loading category services...",
+    "errorTitle": "Unable to load category",
+    "retry": "Retry"
   },
   "home": {
     "hero": {

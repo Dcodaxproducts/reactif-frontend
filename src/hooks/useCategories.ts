@@ -105,10 +105,11 @@ export const useServicesBySubcategory = (
   };
 };
 
-export const useServices = (params: GetServicesParams = {}) => {
+export const useServices = (params?: GetServicesParams) => {
   const query = useQuery({
     queryKey: categoryKeys.servicesList(params),
-    queryFn: () => getServices(params),
+    queryFn: () => getServices(params ?? {}),
+    enabled: Boolean(params),
   });
 
   return {

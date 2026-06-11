@@ -10,6 +10,7 @@ export type Category = {
   id: number;
   name: string;
   description?: string;
+  category_image?: string;
   status: number;
   subcategories?: Subcategory[];
 };
@@ -38,5 +39,8 @@ export type Service = {
   sub_category_id: number;
   service_image: string;
   price: number;
+  status?: number;
+  delivery_time?: string | null;
+  lead_time?: string | null;
   fields: ServiceField[];
 };

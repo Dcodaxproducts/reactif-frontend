@@ -12,6 +12,7 @@ import { PaintProtectionCard } from "@/components/pages/PaintProtection/PaintPro
 import { Loader2 } from "lucide-react";
 import {
   useCategoryDetail,
+  useServices,
   useServicesBySubcategory,
 } from "@/hooks/useCategories";
 import type { Subcategory } from "@/types/categories";
@@ -43,9 +44,12 @@ function PaintProtectionContent() {
 
   const id = params?.id as string;
   const urlSubcategoryId = searchParams.get("subcategoryId");
+  const urlServiceId = searchParams.get("serviceId");
   const designerId = searchParams.get("designerId");
 
-  const [activeItem, setActiveItem] = useState<ActiveItem>("frontBlock");
+  const [activeItem, setActiveItem] = useState<ActiveItem>(
+    urlServiceId ?? "frontBlock",
+  );
   const [activeCategory, setActiveCategory] = useState<string>("");
   const [activeSubcategoryId, setActiveSubcategoryId] = useState<number | null>(
     null,
@@ -57,8 +61,22 @@ function PaintProtectionContent() {
     error: categoryError,
     refetch: fetchCategory,
   } = useCategoryDetail(id);
-  const { services, loading: isLoading } =
+  const {
+    services: subcategoryServices,
+    loading: isLoadingSubcategoryServices,
+  } =
     useServicesBySubcategory(activeSubcategoryId);
+  const {
+    services: categoryServices,
+    loading: isLoadingCategoryServices,
+  } = useServices(
+    id && !activeSubcategoryId
+      ? {
+          category_id: id,
+          limit: 100,
+        }
+      : undefined,
+  );
 
   const categoryName = category?.name ?? "";
   const status = category?.status ?? 1;
@@ -69,10 +87,12 @@ function PaintProtectionContent() {
   const displayCategoryName = activeCategory.trim()
     ? activeCategory
     : categoryName;
+  const services = activeSubcategoryId ? subcategoryServices : categoryServices;
+  const isLoading = activeSubcategoryId
+    ? isLoadingSubcategoryServices
+    : isLoadingCategoryServices;
 
   useEffect(() => {
-    if (!subcategories.length) return;
-
     if (urlSubcategoryId) {
       const matched = subcategories.find(
         (sub) => sub.id === Number(urlSubcategoryId),
@@ -84,9 +104,21 @@ function PaintProtectionContent() {
       }
     }
 
-    setActiveCategory(subcategories[0].name);
-    setActiveSubcategoryId(subcategories[0].id);
-  }, [subcategories, urlSubcategoryId]);
+    if (subcategories.length) {
+      setActiveCategory(subcategories[0].name);
+      setActiveSubcategoryId(subcategories[0].id);
+      return;
+    }
+
+    setActiveCategory(categoryName);
+    setActiveSubcategoryId(null);
+  }, [categoryName, subcategories, urlSubcategoryId]);
+
+  useEffect(() => {
+    if (urlServiceId) {
+      setActiveItem(urlServiceId);
+    }
+  }, [urlServiceId]);
 
   const handleRetry = () => {
     fetchCategory();
@@ -127,28 +159,30 @@ function PaintProtectionContent() {
         <Container gutter="page" className="pb-12 md:pb-20 pt-6 md:pt-10 flex flex-col">
           <PaintDetailsHeader name={categoryName} status={status} />
 
-          <ServicesRow
-            subcategories={subcategories}
-            totalCount={subcategories.length}
-            activeCategory={activeCategory}
-            setActiveCategory={(name: string, subId: number) => {
-              setActiveCategory(name);
-              setActiveSubcategoryId(subId);
+          {subcategories.length > 0 && (
+            <ServicesRow
+              subcategories={subcategories}
+              totalCount={subcategories.length}
+              activeCategory={activeCategory}
+              setActiveCategory={(name: string, subId: number) => {
+                setActiveCategory(name);
+                setActiveSubcategoryId(subId);
 
-              const nextSearchParams = new URLSearchParams(
-                window.location.search,
-              );
-              nextSearchParams.set("subcategoryId", String(subId));
-              nextSearchParams.set("subcategoryName", name);
+                const nextSearchParams = new URLSearchParams(
+                  window.location.search,
+                );
+                nextSearchParams.set("subcategoryId", String(subId));
+                nextSearchParams.set("subcategoryName", name);
 
-              router.replace(
-                `/paint-protection/${id}?${nextSearchParams.toString()}`,
-                {
-                  scroll: false,
-                },
-              );
-            }}
-          />
+                router.replace(
+                  `/paint-protection/${id}?${nextSearchParams.toString()}`,
+                  {
+                    scroll: false,
+                  },
+                );
+              }}
+            />
+          )}
 
           <div className="w-full flex flex-col lg:flex-row items-stretch gap-8 md:gap-12">
             <div className="w-full lg:flex-1">

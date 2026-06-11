@@ -114,7 +114,22 @@
     "emptyTitle": "Catégorie indisponible",
     "emptyDescription": "Cette catégorie n’est pas encore disponible. Veuillez choisir une autre catégorie de service.",
     "backHome": "Retour à l’accueil",
-    "selectServiceDescription": "Sélectionnez un service ci-dessous pour continuer votre parcours de design."
+    "selectServiceDescription": "Sélectionnez un service ci-dessous pour continuer votre parcours de design.",
+    "categoryLabel": "Catégorie sélectionnée",
+    "fallbackDescription": "Explorez les services ReactIf disponibles dans cette catégorie et choisissez l’option adaptée à votre projet.",
+    "servicesLabel": "Services dynamiques",
+    "servicesTitle": "Choisissez un service",
+    "serviceCount": "{count} services disponibles",
+    "noServicesTitle": "Aucun service disponible pour le moment",
+    "noServicesDescription": "Cette catégorie est active, mais le backend n’a pas encore publié de services pour celle-ci. Veuillez choisir une autre catégorie ou contacter le support.",
+    "serviceFallbackDescription": "Les détails du service seront confirmés pendant la réservation.",
+    "priceLabel": "Prix",
+    "priceUnavailable": "Prix sur demande",
+    "viewDetails": "Voir les détails",
+    "bookNow": "Réserver",
+    "loadingServices": "Chargement des services de la catégorie...",
+    "errorTitle": "Impossible de charger la catégorie",
+    "retry": "Réessayer"
   },
   "home": {
     "hero": {
