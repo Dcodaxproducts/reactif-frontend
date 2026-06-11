@@ -14,7 +14,7 @@ function StartProjectContent() {
   const isHelpCenter = pathname === "/help-center";
 
   return (
-    <section className="relative py-16 md:py-28 overflow-hidden">
+    <section id="contact" className="relative scroll-mt-24 py-16 md:py-28 overflow-hidden">
       {!isHelpCenter && (
         <Image
           src="/assets/hero/gradient.png"

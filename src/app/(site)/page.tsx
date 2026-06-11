@@ -17,7 +17,7 @@ export default function Home() {
       <WhyChooseUs />
       <ContactSection />
 
-      <section id="contact" className="scroll-mt-24">
+      <section>
         <ContactFormSection />
       </section>
     </Container>

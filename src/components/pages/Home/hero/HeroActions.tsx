@@ -1,16 +1,26 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PrimaryButton } from "@/components/common/HeroUi";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { useQuoteNavigation } from "@/hooks/useQuoteNavigation";
+import { PORTFOLIO_ROUTE } from "@/lib/quote-routes";
 
 export function HeroActions() {
   const { t } = useAppTranslation();
+  const { loading, openQuoteFlow } = useQuoteNavigation();
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 pt-2 sm:flex-row sm:gap-6 md:justify-start md:items-start">
-      <PrimaryButton href="/all-vendor-services">
+      <Button
+        type="button"
+        variant="brandGlow"
+        disabled={loading}
+        onClick={openQuoteFlow}
+        className="font-sans"
+      >
         {t("home.hero.freeQuote")}
-      </PrimaryButton>
+        <ArrowRight size={18} />
+      </Button>
 
       <Button
         asChild
@@ -22,7 +32,7 @@ export function HeroActions() {
           boxShadow: "inset 0px 4px 24.9px 0px #FFFFFF40",
         }}
       >
-        <Link href="/all-vendor-services">{t("home.hero.ourProjects")}</Link>
+        <Link href={PORTFOLIO_ROUTE}>{t("home.hero.ourProjects")}</Link>
       </Button>
     </div>
   );
