@@ -9,9 +9,11 @@ import {
 import type { Category } from "@/types/categories";
 
 const categories: Category[] = [
-  { id: 10, name: "Automotive", status: 1 },
-  { id: 20, name: "Visual Advertising", status: 1 },
-  { id: 30, name: "Signalétique", status: 1 },
+  { id: 8, name: "COVERING/DECO/PUB", status: 1 },
+  { id: 78, name: "PRESTATION GRAPHIQUE", status: 1 },
+  { id: 6, name: "SIGNALÉTIQUE", status: 1 },
+  { id: 74, name: "VÊTEMENT", status: 1 },
+  { id: 77, name: "GADGET", status: 1 },
 ];
 
 describe("category route helpers", () => {
@@ -26,8 +28,11 @@ describe("category route helpers", () => {
   });
 
   it("matches footer service categories against API category names", () => {
-    expect(findCategoryBySlug(categories, "visual-advertising")?.id).toBe(20);
-    expect(findCategoryBySlug(categories, "signaletique")?.id).toBe(30);
+    expect(findCategoryBySlug(categories, "automotive")?.id).toBe(8);
+    expect(findCategoryBySlug(categories, "visual-advertising")?.id).toBe(78);
+    expect(findCategoryBySlug(categories, "signaletique")?.id).toBe(6);
+    expect(findCategoryBySlug(categories, "apparel")?.id).toBe(74);
+    expect(findCategoryBySlug(categories, "accessories")?.id).toBe(77);
   });
 
   it("keeps the required footer service category set explicit", () => {

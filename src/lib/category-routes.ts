@@ -12,11 +12,15 @@ export type FooterServiceCategorySlug =
   (typeof footerServiceCategorySlugs)[number];
 
 const categoryAliases: Record<FooterServiceCategorySlug, string[]> = {
-  automotive: ["automotive", "automobile"],
-  "visual-advertising": ["visual-advertising", "visual-advertising"],
+  automotive: ["automotive", "automobile", "covering/deco/pub"],
+  "visual-advertising": [
+    "visual-advertising",
+    "visual advertising",
+    "prestation graphique",
+  ],
   signaletique: ["signaletique", "signalétique", "signage"],
-  apparel: ["apparel", "vetements", "vêtements"],
-  accessories: ["accessories", "accessoires"],
+  apparel: ["apparel", "vetement", "vêtement", "vetements", "vêtements"],
+  accessories: ["accessories", "accessoires", "gadget"],
 };
 
 export const slugifyCategoryName = (value: string) =>

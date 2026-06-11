@@ -12,6 +12,7 @@ import type { Category, Service } from "@/types/categories";
 
 export type GetCategoriesParams = {
   page?: number;
+  per_page?: number;
 };
 
 export type GetCategoryParams = {

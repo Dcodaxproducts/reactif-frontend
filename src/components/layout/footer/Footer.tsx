@@ -32,7 +32,7 @@ export default function Footer() {
   const router = useRouter();
   const { t } = useAppTranslation();
   const { data: user } = useCurrentUser();
-  const { categories } = useCategories();
+  const { categories } = useCategories({ per_page: 100 });
   const serviceCategoryLinks = footerServiceCategoryLinks.map(
     ({ slug, labelKey }) => {
       const category = findCategoryBySlug(categories, slug);
@@ -41,7 +41,7 @@ export default function Footer() {
         label: t(labelKey),
         href: category
           ? buildCategoryRoute({ id: category.id, name: category.name })
-          : null,
+          : buildCategoryRoute({ slug }),
       };
     },
   );
@@ -147,7 +147,7 @@ function FooterColumn({
   links,
 }: {
   title: string;
-  links: { label: string; href: string | null }[];
+  links: { label: string; href: string }[];
 }) {
   return (
     <div className="space-y-4">
@@ -156,18 +156,9 @@ function FooterColumn({
       <ul className="space-y-2 text-white/60">
         {links.map(({ label, href }) => (
           <li key={label}>
-            {href ? (
-              <Link href={href} className="hover:text-white transition">
-                {label}
-              </Link>
-            ) : (
-              <span
-                aria-disabled="true"
-                className="cursor-not-allowed opacity-60"
-              >
-                {label}
-              </span>
-            )}
+            <Link href={href} className="hover:text-white transition">
+              {label}
+            </Link>
           </li>
         ))}
       </ul>
