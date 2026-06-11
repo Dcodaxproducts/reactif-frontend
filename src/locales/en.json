@@ -639,6 +639,28 @@
     "signInRequired": "Please sign in before sending a support request.",
     "trustedBy": "Trusted By"
   },
+  "supportRequests": {
+    "eyebrow": "Support history",
+    "title": "Saved support requests",
+    "description": "Review previous messages sent to ReactIf support and track their current status.",
+    "total": "Requests",
+    "open": "Open",
+    "search": "Search support requests",
+    "searchPlaceholder": "Search request, service, email, or status",
+    "loadError": "We could not load your support requests.",
+    "signInRequired": "Please sign in to view your saved support requests.",
+    "retry": "Try again",
+    "emptyTitle": "No support requests yet",
+    "emptyDescription": "Submitted contact and support messages will appear here after the backend saves them.",
+    "noResultsTitle": "No matching requests",
+    "noResultsDescription": "Try a different service, status, email, or message keyword.",
+    "requestFallback": "Support request",
+    "initialsFallback": "SR",
+    "requestId": "Request #{id}",
+    "dateFallback": "Date unavailable",
+    "statusFallback": "Open",
+    "messageFallback": "No message preview available"
+  },
   "about": {
     "heroTitleLine1": "DRIVING EXCELLENCE IN VISUAL",
     "heroTitleLine2": "COMMUNICATION",

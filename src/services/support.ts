@@ -1,7 +1,8 @@
 import { API_ENDPOINTS } from "@/config/api-endpoints";
 import api from "@/lib/axios";
+import { normalizeCustomerSupportRequests } from "@/lib/customer-support";
 import { normalizeSupportFaqs } from "@/lib/support-faqs";
-import type { SupportFaq } from "@/types/support";
+import type { CustomerSupportRequest, SupportFaq } from "@/types/support";
 
 export type CustomerSupportPayload = {
   name: string;
@@ -29,6 +30,14 @@ export const getSupportFaqs = async (): Promise<SupportFaq[]> => {
   const { data } = await api.get<unknown>(SUPPORT_ROUTES.faqs);
 
   return normalizeSupportFaqs(data);
+};
+
+export const getCustomerSupportRequests = async (): Promise<
+  CustomerSupportRequest[]
+> => {
+  const { data } = await api.get<unknown>(SUPPORT_ROUTES.customerSupportList);
+
+  return normalizeCustomerSupportRequests(data);
 };
 
 export const saveCustomerSupportRequest = async (

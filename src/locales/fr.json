@@ -639,6 +639,28 @@
     "signInRequired": "Veuillez vous connecter avant d’envoyer une demande au support.",
     "trustedBy": "Approuvé par"
   },
+  "supportRequests": {
+    "eyebrow": "Historique support",
+    "title": "Demandes support enregistrées",
+    "description": "Consultez les messages déjà envoyés au support ReactIf et suivez leur statut actuel.",
+    "total": "Demandes",
+    "open": "Ouvertes",
+    "search": "Rechercher des demandes support",
+    "searchPlaceholder": "Rechercher par demande, service, e-mail ou statut",
+    "loadError": "Nous n’avons pas pu charger vos demandes support.",
+    "signInRequired": "Veuillez vous connecter pour voir vos demandes support enregistrées.",
+    "retry": "Réessayer",
+    "emptyTitle": "Aucune demande support pour le moment",
+    "emptyDescription": "Les messages de contact et de support apparaîtront ici après leur enregistrement par le backend.",
+    "noResultsTitle": "Aucune demande correspondante",
+    "noResultsDescription": "Essayez un autre service, statut, e-mail ou mot-clé de message.",
+    "requestFallback": "Demande support",
+    "initialsFallback": "DS",
+    "requestId": "Demande #{id}",
+    "dateFallback": "Date indisponible",
+    "statusFallback": "Ouverte",
+    "messageFallback": "Aucun aperçu de message disponible"
+  },
   "about": {
     "heroTitleLine1": "L’EXCELLENCE EN COMMUNICATION",
     "heroTitleLine2": "VISUELLE",
