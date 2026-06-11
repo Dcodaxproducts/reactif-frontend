@@ -41,7 +41,7 @@ export default function Footer() {
         label: t(labelKey),
         href: category
           ? buildCategoryRoute({ id: category.id, name: category.name })
-          : buildCategoryRoute({ slug }),
+          : null,
       };
     },
   );
@@ -147,7 +147,7 @@ function FooterColumn({
   links,
 }: {
   title: string;
-  links: { label: string; href: string }[];
+  links: { label: string; href: string | null }[];
 }) {
   return (
     <div className="space-y-4">
@@ -156,9 +156,18 @@ function FooterColumn({
       <ul className="space-y-2 text-white/60">
         {links.map(({ label, href }) => (
           <li key={label}>
-            <Link href={href} className="hover:text-white transition">
-              {label}
-            </Link>
+            {href ? (
+              <Link href={href} className="hover:text-white transition">
+                {label}
+              </Link>
+            ) : (
+              <span
+                aria-disabled="true"
+                className="cursor-not-allowed opacity-60"
+              >
+                {label}
+              </span>
+            )}
           </li>
         ))}
       </ul>
