@@ -630,8 +630,13 @@
     "fullName": "Nom complet",
     "serviceInterestedIn": "Service souhaité",
     "selectService": "Sélectionner un service",
+    "generalInquiry": "Demande générale",
     "message": "Message",
     "sendMessage": "Envoyer le message",
+    "sending": "Envoi...",
+    "submitSuccess": "Votre message a été envoyé au support ReactIf.",
+    "submitError": "Nous n’avons pas pu envoyer votre message. Veuillez réessayer.",
+    "signInRequired": "Veuillez vous connecter avant d’envoyer une demande au support.",
     "trustedBy": "Approuvé par"
   },
   "about": {

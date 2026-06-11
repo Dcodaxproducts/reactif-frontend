@@ -9,6 +9,7 @@ describe("API_ENDPOINTS", () => {
     expect(API_ENDPOINTS.bookingDetail).toBe("booking-detail");
     expect(API_ENDPOINTS.paymentGatewayList).toBe("payment-gateway-list");
     expect(API_ENDPOINTS.messageSend).toBe("message/send");
+    expect(API_ENDPOINTS.customerSupportSave).toBe("customersupport-save");
   });
 
   it("joins API paths without leading slashes", () => {

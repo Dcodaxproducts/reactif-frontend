@@ -26,6 +26,9 @@ export const API_ENDPOINTS = {
   messageSend: "message/send",
   notificationList: "notification-list",
   supportFaqs: "support/faqs",
+  customerSupportList: "customersupport-list",
+  customerSupportSave: "customersupport-save",
+  chatMessageSave: "chatmessage-save",
 } as const;
 
 export type ApiEndpointKey = keyof typeof API_ENDPOINTS;
