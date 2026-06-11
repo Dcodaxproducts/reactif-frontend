@@ -3,11 +3,13 @@ import Link from "next/link";
 import { X } from "lucide-react";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { LanguageSelector } from "./LanguageSelector";
+import { getStartedRoute } from "@/lib/get-started-routes";
 import type { MobileSidebarProps } from "@/types/component-props";
 
 export function MobileSidebar({
   isOpen,
   user,
+  authLoading,
   navItems,
   onClose,
   onSignOut,
@@ -45,10 +47,31 @@ export function MobileSidebar({
             </Link>
           ))}
 
-          {!user ? (
+          {user ? (
+            <>
+              <Button
+                asChild
+                variant="navDark"
+                className="mt-4 py-2"
+              >
+                <Link href={getStartedRoute(true)} onClick={onClose}>
+                  {t("nav.myBookings")}
+                </Link>
+              </Button>
+
+              <Button
+                type="button"
+                onClick={onSignOut}
+                variant="destructive"
+                className="rounded-full py-2"
+              >
+                {t("nav.logout")}
+              </Button>
+            </>
+          ) : authLoading ? (
             <Button
               type="button"
-              onClick={onLogin}
+              disabled
               variant="navDark"
               className="mt-4 py-2"
             >
@@ -57,11 +80,11 @@ export function MobileSidebar({
           ) : (
             <Button
               type="button"
-              onClick={onSignOut}
-              variant="destructive"
-              className="mt-4 rounded-full py-2"
+              onClick={onLogin}
+              variant="navDark"
+              className="mt-4 py-2"
             >
-              {t("nav.logout")}
+              {t("nav.getStarted")}
             </Button>
           )}
         </div>

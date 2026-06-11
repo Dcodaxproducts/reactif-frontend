@@ -33,6 +33,7 @@ export type DesktopNavLinksProps = {
 
 export type NavbarActionsProps = {
   user: NavbarUser | null;
+  authLoading: boolean;
   dropdownOpen: boolean;
   dropdownRef: RefObject<HTMLDivElement | null>;
   onToggleDropdown: () => void;
@@ -52,6 +53,7 @@ export type UserDropdownProps = {
 export type MobileSidebarProps = {
   isOpen: boolean;
   user: NavbarUser | null;
+  authLoading: boolean;
   navItems: NavItem[];
   onClose: () => void;
   onSignOut: () => void;

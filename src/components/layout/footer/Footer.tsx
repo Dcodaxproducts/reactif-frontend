@@ -17,11 +17,12 @@ import {
   findCategoryByNavigationSlug,
   footerCategoryNavigationItems,
 } from "@/lib/category-routes";
+import { getStartedRoute } from "@/lib/get-started-routes";
 
 export default function Footer() {
   const router = useRouter();
   const { t } = useAppTranslation();
-  const { data: user } = useCurrentUser();
+  const { data: user, isLoading: authLoading } = useCurrentUser();
   const { categories } = useCategories({ per_page: 100 });
   const serviceCategoryLinks = footerCategoryNavigationItems.map(
     ({ slug, labelKey }) => {
@@ -57,9 +58,22 @@ export default function Footer() {
               {t("footer.description")}
             </p>
 
-            <Button asChild variant="whiteGlow" className="h-11 px-5 py-2.5 rounded-[100px] outline-1 outline-offset-[-1px] outline-white text-[14px] font-hk">
-              <Link href="/login">{t("footer.getStarted")}</Link>
-            </Button>
+            {authLoading ? (
+              <Button
+                type="button"
+                variant="whiteGlow"
+                disabled
+                className="h-11 px-5 py-2.5 rounded-[100px] outline-1 outline-offset-[-1px] outline-white text-[14px] font-hk"
+              >
+                {t("footer.getStarted")}
+              </Button>
+            ) : (
+              <Button asChild variant="whiteGlow" className="h-11 px-5 py-2.5 rounded-[100px] outline-1 outline-offset-[-1px] outline-white text-[14px] font-hk">
+                <Link href={getStartedRoute(Boolean(user))}>
+                  {user ? t("nav.myBookings") : t("footer.getStarted")}
+                </Link>
+              </Button>
+            )}
           </div>
           <div className="grid grid-cols-3 gap-10 text-sm">
             <FooterColumn
@@ -108,7 +122,7 @@ export default function Footer() {
             </SocialIcon>
           </div>
           <div className="flex gap-4">
-            {!user && (
+            {!authLoading && !user && (
               <Button
                 onClick={() => router.push("/login")}
                 variant="outline"

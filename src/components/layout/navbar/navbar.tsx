@@ -10,13 +10,14 @@ import { MobileSidebar } from "./nav/MobileSidebar";
 import { NavbarActions } from "./nav/NavbarActions";
 import { NavbarLogo } from "./nav/NavbarLogo";
 import { useAuth } from "@/hooks/useAuth";
+import { getStartedRoute } from "@/lib/get-started-routes";
 
 export function Navbar() {
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { user, loading: authLoading, logout } = useAuth();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -54,6 +55,7 @@ export function Navbar() {
 
           <NavbarActions
             user={user}
+            authLoading={authLoading}
             dropdownOpen={dropdownOpen}
             dropdownRef={dropdownRef}
             onToggleDropdown={() => setDropdownOpen((isOpen) => !isOpen)}
@@ -66,10 +68,11 @@ export function Navbar() {
       <MobileSidebar
         isOpen={isSidebarOpen}
         user={user}
+        authLoading={authLoading}
         navItems={mobileNavItems}
         onClose={() => setIsSidebarOpen(false)}
         onSignOut={handleSignOut}
-        onLogin={() => router.push("/login")}
+        onLogin={() => router.push(getStartedRoute(false))}
       />
     </>
   );
