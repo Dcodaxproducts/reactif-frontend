@@ -2,7 +2,12 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 
-export function HelpSearch() {
+type HelpSearchProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+export function HelpSearch({ value, onChange }: HelpSearchProps) {
   const { t } = useAppTranslation();
 
   return (
@@ -15,6 +20,8 @@ export function HelpSearch() {
 
       <Input
         type="text"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
         placeholder={t("helpCenter.searchPlaceholder")}
         className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-white/20 backdrop-blur-md h-auto"
       />

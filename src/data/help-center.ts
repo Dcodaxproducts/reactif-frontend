@@ -2,9 +2,21 @@ import { Lock, Pencil, Settings, Shield, Truck, User } from "lucide-react";
 import type { FAQItemData, HelpCardData } from "@/types/component-props";
 
 export const popularHelpLinks = [
-  { label: "Shipping rates", labelKey: "helpCenter.popular.shippingRates" },
-  { label: "Vinyl care", labelKey: "helpCenter.popular.vinylCare" },
-  { label: "Bulk discounts", labelKey: "helpCenter.popular.bulkDiscounts" },
+  {
+    label: "Shipping rates",
+    labelKey: "helpCenter.popular.shippingRates",
+    query: "shipping",
+  },
+  {
+    label: "Vinyl care",
+    labelKey: "helpCenter.popular.vinylCare",
+    query: "vinyl",
+  },
+  {
+    label: "Bulk discounts",
+    labelKey: "helpCenter.popular.bulkDiscounts",
+    query: "bulk",
+  },
 ];
 
 export const helpCards: HelpCardData[] = [

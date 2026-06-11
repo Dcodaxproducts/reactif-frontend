@@ -290,6 +290,15 @@
     "faq": {
       "title": "Featured FAQs",
       "description": "Find quick answers to our most common inquiries.",
+      "loadingTitle": "Loading FAQs",
+      "loadingDescription": "We are fetching the latest support answers.",
+      "errorTitle": "Unable to load FAQs",
+      "errorDescription": "The support FAQ service is unavailable right now. Please try again.",
+      "emptyTitle": "No FAQs available yet",
+      "emptyDescription": "Support FAQs will appear here once the backend returns published answers.",
+      "noResultsTitle": "No matching FAQs",
+      "noResultsDescription": "Try another keyword or choose a popular topic.",
+      "clearSearch": "Clear search",
       "turnaroundTime": {
         "question": "What is the typical turnaround time for a full vehicle wrap?",
         "answer": "Turnaround time typically ranges from 3–7 business days depending on design complexity, printing, and installation scheduling."

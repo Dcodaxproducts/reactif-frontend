@@ -61,6 +61,8 @@ export type MobileSidebarProps = {
 export type PopularHelpLinkProps = {
   label: string;
   labelKey?: string;
+  query: string;
+  onSelect: (query: string) => void;
 };
 
 export type HelpCardData = {

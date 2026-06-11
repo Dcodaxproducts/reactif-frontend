@@ -2,7 +2,11 @@ import { popularHelpLinks } from "@/data/help-center";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { PopularHelpLink } from "./PopularHelpLink";
 
-export function PopularHelpLinks() {
+export function PopularHelpLinks({
+  onSelect,
+}: {
+  onSelect: (query: string) => void;
+}) {
   const { t } = useAppTranslation();
 
   return (
@@ -13,6 +17,8 @@ export function PopularHelpLinks() {
           key={item.labelKey}
           label={item.label}
           labelKey={item.labelKey}
+          query={item.query}
+          onSelect={onSelect}
         />
       ))}
     </div>

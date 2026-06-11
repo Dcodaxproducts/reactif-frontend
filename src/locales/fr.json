@@ -290,6 +290,15 @@
     "faq": {
       "title": "FAQ à la une",
       "description": "Trouvez rapidement les réponses aux questions les plus courantes.",
+      "loadingTitle": "Chargement des FAQ",
+      "loadingDescription": "Nous récupérons les dernières réponses du support.",
+      "errorTitle": "Impossible de charger les FAQ",
+      "errorDescription": "Le service FAQ du support est indisponible pour le moment. Veuillez réessayer.",
+      "emptyTitle": "Aucune FAQ disponible pour le moment",
+      "emptyDescription": "Les FAQ du support apparaîtront ici lorsque le backend renverra des réponses publiées.",
+      "noResultsTitle": "Aucune FAQ correspondante",
+      "noResultsDescription": "Essayez un autre mot-clé ou choisissez un sujet populaire.",
+      "clearSearch": "Effacer la recherche",
       "turnaroundTime": {
         "question": "Quel est le délai habituel pour un habillage complet de véhicule ?",
         "answer": "Le délai varie généralement de 3 à 7 jours ouvrés selon la complexité du design, l’impression et la planification de l’installation."
