@@ -110,6 +110,12 @@
     "settingsSaved": "Settings saved",
     "invalidSettings": "Please select valid settings"
   },
+  "categoryFlow": {
+    "emptyTitle": "Category unavailable",
+    "emptyDescription": "This category is not available yet. Please choose another service category.",
+    "backHome": "Go back home",
+    "selectServiceDescription": "Select a service below to continue your design path."
+  },
   "home": {
     "hero": {
       "badge": "AUTOMOTIVE EXPERTS",

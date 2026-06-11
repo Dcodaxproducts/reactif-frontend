@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { keyServices } from "@/data/home";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { buildCategoryRoute } from "@/lib/category-routes";
 import type { ServiceCardProps } from "@/types/component-props";
 
 export function ServiceCard({
@@ -67,7 +68,7 @@ export function ServiceCard({
           asChild
           className="h-11 bg-white rounded-full flex justify-center items-center font-semibold text-zinc-800 hover:bg-white/90"
         >
-          <Link href={`/subcategories?id=${id}`}>
+          <Link href={buildCategoryRoute({ id, name: title })}>
             {t("home.tailored.learnMore")}
           </Link>
         </Button>

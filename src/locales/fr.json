@@ -110,6 +110,12 @@
     "settingsSaved": "Paramètres enregistrés",
     "invalidSettings": "Veuillez sélectionner des paramètres valides"
   },
+  "categoryFlow": {
+    "emptyTitle": "Catégorie indisponible",
+    "emptyDescription": "Cette catégorie n’est pas encore disponible. Veuillez choisir une autre catégorie de service.",
+    "backHome": "Retour à l’accueil",
+    "selectServiceDescription": "Sélectionnez un service ci-dessous pour continuer votre parcours de design."
+  },
   "home": {
     "hero": {
       "badge": "EXPERTS AUTOMOBILES",

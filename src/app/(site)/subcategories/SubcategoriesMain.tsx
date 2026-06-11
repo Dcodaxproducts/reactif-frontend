@@ -7,10 +7,12 @@ import { SectionHeader } from "@/components/common/SectionHeader";
 import SubCategories from "@/components/pages/SubCategories/SubCategories";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useCategoryDetail } from "@/hooks/useCategories";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 
 const Subcategories = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { t } = useAppTranslation();
   const categoryId = searchParams.get("id");
 
   const { category, loading, error } = useCategoryDetail(categoryId);
@@ -21,20 +23,22 @@ const Subcategories = () => {
   const errorState =
     error ||
     (!loading && subcategories.length === 0
-      ? "No subcategories available."
+      ? t("categoryFlow.emptyDescription")
       : null);
 
   if (errorState) {
     return (
       <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50">
         <div className="bg-neutral-900 border border-neutral-700 rounded-3xl p-10 text-center max-w-md shadow-2xl">
-          <h2 className="text-2xl font-bold text-white mb-4">Oops!</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">
+            {t("categoryFlow.emptyTitle")}
+          </h2>
           <p className="text-neutral-400 mb-6">{errorState}</p>
           <Button
             onClick={() => router.push("/")}
             className="px-6 py-3 rounded-full bg-white text-black font-semibold"
           >
-            Go Back Home
+            {t("categoryFlow.backHome")}
           </Button>
         </div>
       </div>
@@ -53,7 +57,7 @@ const Subcategories = () => {
           description={
             loading
               ? ""
-              : "Select a service below to continue your design path."
+              : t("categoryFlow.selectServiceDescription")
           }
         />
 
