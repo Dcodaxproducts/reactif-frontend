@@ -2,6 +2,8 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { ArrowLeft } from "lucide-react";
+import { StatusCard } from "@/components/common/StatusCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
@@ -31,17 +33,39 @@ export default function BookingDetail() {
   };
 
   if (loading) {
-    return <p className="text-neutral-50/60 p-8">{t("booking.loadingBooking")}</p>;
+    return (
+      <section className="w-full px-4 py-10">
+        <StatusCard
+          tone="loading"
+          title={t("booking.loadingBooking")}
+          className="mx-auto max-w-3xl"
+        />
+      </section>
+    );
   }
 
   if (error || !booking) {
     return (
-      <div className="p-8 flex flex-col gap-4">
-        <p className="text-neutral-50/60">{t("booking.detailUnavailable")}</p>
-        <Button onClick={() => router.push("/order/management")}>
-          {t("common.back")}
-        </Button>
-      </div>
+      <section className="w-full px-4 py-10">
+        <StatusCard
+          tone="error"
+          label={t("common.backendError")}
+          title={t("booking.detailUnavailable")}
+          description={error ?? undefined}
+          action={
+            <Button
+              type="button"
+              variant="neutralOutline"
+              className="h-11 rounded-full px-5"
+              onClick={() => router.push("/order/management")}
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              {t("common.back")}
+            </Button>
+          }
+          className="mx-auto max-w-3xl"
+        />
+      </section>
     );
   }
 

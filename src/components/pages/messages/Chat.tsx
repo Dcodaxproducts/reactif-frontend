@@ -8,11 +8,11 @@ import {
   FiArrowLeft,
   FiCheckCircle,
   FiImage,
-  FiMessageSquare,
   FiPaperclip,
   FiSend,
   FiUser,
 } from "react-icons/fi";
+import { StatusCard } from "@/components/common/StatusCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -155,24 +155,23 @@ function ChatContent() {
             )}
 
             {error && (
-              <div className="rounded-2xl border border-red-400/30 bg-red-500/10 p-4 text-sm text-red-200">
-                {error}
-              </div>
+              <StatusCard
+                tone="error"
+                label={t("common.backendError")}
+                title={error}
+                className="p-5 sm:p-6"
+              />
             )}
 
             {!loading && !error && messages.length === 0 && (
-              <div className="flex min-h-[360px] flex-col items-center justify-center gap-4 text-center">
-                <div className="rounded-full border border-neutral-50/10 bg-neutral-800/90 p-5 text-pink-200">
-                  <FiMessageSquare size={30} />
-                </div>
-                <div>
-                  <p className="text-lg font-semibold text-neutral-50">
-                    {t("messages.emptyChatTitle")}
-                  </p>
-                  <p className="mt-2 max-w-sm text-sm leading-6 text-neutral-50/55">
-                    {t("messages.emptyChatDescription")}
-                  </p>
-                </div>
+              <div className="flex min-h-[360px] items-center">
+                <StatusCard
+                  tone="empty"
+                  label={t("common.noDataFound")}
+                  title={t("messages.emptyChatTitle")}
+                  description={t("messages.emptyChatDescription")}
+                  className="w-full p-6"
+                />
               </div>
             )}
 

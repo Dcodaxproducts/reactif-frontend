@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import {
   FiClock,
-  FiInbox,
   FiLifeBuoy,
   FiMail,
   FiRefreshCw,
@@ -11,6 +10,7 @@ import {
 } from "react-icons/fi";
 
 import { Container } from "@/components/common/Container";
+import { StatusCard } from "@/components/common/StatusCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -148,37 +148,42 @@ export function SupportRequestsSection() {
             ) : null}
 
             {!query.loading && query.error ? (
-              <div className="m-5 flex flex-col gap-4 rounded-2xl border border-red-400/30 bg-red-500/10 p-5 text-sm text-red-100 sm:m-6">
-                <p>{errorMessage}</p>
-                <Button
-                  type="button"
-                  variant="neutralOutline"
-                  className="h-10 w-fit rounded-xl"
-                  onClick={() => query.refetch()}
-                >
-                  <FiRefreshCw size={16} />
-                  {t("supportRequests.retry")}
-                </Button>
-              </div>
+              <StatusCard
+                tone="error"
+                label={t("common.backendError")}
+                title={errorMessage}
+                action={
+                  <Button
+                    type="button"
+                    variant="neutralOutline"
+                    className="h-10 rounded-full px-5"
+                    onClick={() => query.refetch()}
+                  >
+                    <FiRefreshCw size={16} />
+                    {t("supportRequests.retry")}
+                  </Button>
+                }
+                className="m-5 p-6 sm:m-6"
+              />
             ) : null}
 
             {!query.loading && !query.error && filteredRequests.length === 0 ? (
-              <div className="flex min-h-[420px] flex-col items-center justify-center gap-4 p-8 text-center">
-                <div className="rounded-full border border-neutral-50/10 bg-neutral-800/90 p-5 text-pink-200">
-                  <FiInbox size={30} />
-                </div>
-                <div>
-                  <p className="text-lg font-semibold text-neutral-50">
-                    {searchQuery
+              <div className="flex min-h-[420px] items-center p-5 sm:p-6">
+                <StatusCard
+                  tone="empty"
+                  label={t("common.noDataFound")}
+                  title={
+                    searchQuery
                       ? t("supportRequests.noResultsTitle")
-                      : t("supportRequests.emptyTitle")}
-                  </p>
-                  <p className="mt-2 max-w-sm text-sm leading-6 text-neutral-50/55">
-                    {searchQuery
+                      : t("supportRequests.emptyTitle")
+                  }
+                  description={
+                    searchQuery
                       ? t("supportRequests.noResultsDescription")
-                      : t("supportRequests.emptyDescription")}
-                  </p>
-                </div>
+                      : t("supportRequests.emptyDescription")
+                  }
+                  className="w-full p-6"
+                />
               </div>
             ) : null}
 

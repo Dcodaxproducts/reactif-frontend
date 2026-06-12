@@ -19,7 +19,7 @@ const AUTH_DESCRIPTION_CLASS =
 export const AUTH_FORM_CLASS = "space-y-6";
 export const AUTH_FORM_GRID_CLASS = "grid grid-cols-1 md:grid-cols-2 gap-6";
 export const AUTH_INPUT_CLASS =
-  "bg-transparent border-neutral-50/30 text-white focus:border-blue-600";
+  "bg-transparent border-neutral-50/30 text-white focus-visible:border-cyan-200/70 focus-visible:ring-cyan-200/20";
 export const AUTH_LINK_TEXT_CLASS =
   "text-center text-sm sm:text-base font-semibold text-neutral-50/60";
 export const AUTH_ERROR_CLASS = "text-red-500 text-sm font-medium";

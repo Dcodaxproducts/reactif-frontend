@@ -7,6 +7,7 @@ import { ArrowLeft, MapPin, Star, UserCheck } from "lucide-react";
 
 import { Container } from "@/components/common/Container";
 import { PageShell } from "@/components/common/PageShell";
+import { StatusCard } from "@/components/common/StatusCard";
 import { Button } from "@/components/ui/button";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useDesigners } from "@/hooks/useDesigners";
@@ -50,38 +51,38 @@ export function DesignerProfilePage() {
             </p>
           </div>
         ) : error ? (
-          <div className="rounded-3xl border border-red-400/20 bg-red-950/30 p-10 text-center backdrop-blur-xl">
-            <h1 className="text-2xl font-semibold text-white">
-              {t("designers.errorTitle")}
-            </h1>
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-red-100/75">
-              {error}
-            </p>
-            <Button
-              type="button"
-              onClick={() => refetch()}
-              className="mt-6 rounded-full bg-white px-6 py-3 text-zinc-900 hover:bg-white/90"
-            >
-              {t("common.tryAgain")}
-            </Button>
-          </div>
+          <StatusCard
+            tone="error"
+            label={t("common.backendError")}
+            title={t("designers.errorTitle")}
+            description={error}
+            action={
+              <Button
+                type="button"
+                onClick={() => refetch()}
+                className="h-11 rounded-full bg-white px-6 text-zinc-900 hover:bg-white/90"
+              >
+                {t("common.tryAgain")}
+              </Button>
+            }
+          />
         ) : !designer ? (
-          <div className="rounded-3xl border border-white/10 bg-black/45 p-10 text-center backdrop-blur-xl">
-            <h1 className="text-2xl font-semibold text-white">
-              {t("designers.notFoundTitle")}
-            </h1>
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-300">
-              {t("designers.notFoundDescription")}
-            </p>
-            <Button
-              asChild
-              className="mt-6 rounded-full bg-white px-6 py-3 text-zinc-900 hover:bg-white/90"
-            >
-              <Link href="/all-vendor-services">
-                {t("designers.backToDesigners")}
-              </Link>
-            </Button>
-          </div>
+          <StatusCard
+            tone="empty"
+            label={t("common.noDataFound")}
+            title={t("designers.notFoundTitle")}
+            description={t("designers.notFoundDescription")}
+            action={
+              <Button
+                asChild
+                className="h-11 rounded-full bg-white px-6 text-zinc-900 hover:bg-white/90"
+              >
+                <Link href="/all-vendor-services">
+                  {t("designers.backToDesigners")}
+                </Link>
+              </Button>
+            }
+          />
         ) : (
           <article className="grid gap-8 rounded-[32px] border border-white/10 bg-black/45 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl md:p-8 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="relative min-h-[360px] overflow-hidden rounded-[28px] border border-white/10 bg-slate-950">

@@ -12,7 +12,9 @@
     "error": "Something went wrong.",
     "success": "Success",
     "tryAgain": "Try again",
-    "noResults": "No results found."
+    "noResults": "No results found.",
+    "backendError": "Backend error",
+    "noDataFound": "No data found"
   },
   "nav": {
     "categories": "Categories",

@@ -1,3 +1,4 @@
+import { StatusCard } from "@/components/common/StatusCard";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { getBookingStatusTranslationKey } from "@/lib/booking-status";
 import { formatCurrency } from "@/lib/currency";
@@ -25,19 +26,18 @@ export function OrderConfirmationSummary({
 
   if (loading) {
     return (
-      <div className="w-full p-6 sm:p-8 md:p-10 bg-neutral-800 rounded-3xl border border-neutral-50/10">
-        <p className="text-neutral-50/60">{t("order.loadingReceipt")}</p>
-      </div>
+      <StatusCard tone="loading" title={t("order.loadingReceipt")} />
     );
   }
 
   if (error || !booking) {
     return (
-      <div className="w-full p-6 sm:p-8 md:p-10 bg-neutral-800 rounded-3xl border border-neutral-50/10">
-        <p className="text-neutral-50/60">
-          {t("order.receiptUnavailable")}
-        </p>
-      </div>
+      <StatusCard
+        tone="error"
+        label={t("common.backendError")}
+        title={t("order.receiptUnavailable")}
+        description={error ?? undefined}
+      />
     );
   }
 

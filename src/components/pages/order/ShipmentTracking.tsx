@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
+import { StatusCard as StatusMessageCard } from "@/components/common/StatusCard";
 import { Button } from "@/components/ui/button";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useBookingDetail } from "@/hooks/useBookings";
@@ -26,11 +27,38 @@ export default function ShipmentTracking() {
   const { booking, loading, error } = useBookingDetail(bookingId);
 
   if (loading) {
-    return <p className="text-white/60 p-8">{t("order.trackingLoading")}</p>;
+    return (
+      <section className="w-full px-4 py-10">
+        <StatusMessageCard
+          tone="loading"
+          title={t("order.trackingLoading")}
+          className="mx-auto max-w-3xl"
+        />
+      </section>
+    );
   }
 
   if (error || !booking) {
-    return <p className="text-white/60 p-8">{t("order.trackingUnavailable")}</p>;
+    return (
+      <section className="w-full px-4 py-10">
+        <StatusMessageCard
+          tone="error"
+          label={t("common.backendError")}
+          title={t("order.trackingUnavailable")}
+          description={error ?? undefined}
+          action={
+            <Button
+              asChild
+              variant="neutralOutline"
+              className="h-11 rounded-full px-5"
+            >
+              <Link href="/order/management">{t("common.back")}</Link>
+            </Button>
+          }
+          className="mx-auto max-w-3xl"
+        />
+      </section>
+    );
   }
 
   const currentStage = getTrackingStageFromStatus(booking.status);

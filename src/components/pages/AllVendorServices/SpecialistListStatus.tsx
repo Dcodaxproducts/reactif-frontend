@@ -1,3 +1,4 @@
+import { StatusCard } from "@/components/common/StatusCard";
 import type { SpecialistListStatusProps } from "@/types/component-props";
 
 export default function SpecialistListStatus({
@@ -7,21 +8,33 @@ export default function SpecialistListStatus({
 }: SpecialistListStatusProps) {
   if (loading && !hasDesigners) {
     return (
-      <div className="text-center text-neutral-400 mt-10">
-        Loading specialists...
-      </div>
+      <StatusCard
+        tone="loading"
+        title="Loading specialists..."
+        className="mx-auto mt-10 max-w-3xl p-6"
+      />
     );
   }
 
   if (error) {
-    return <div className="text-center text-red-400 mt-10">{error}</div>;
+    return (
+      <StatusCard
+        tone="error"
+        label="Backend error"
+        title={error}
+        className="mx-auto mt-10 max-w-3xl p-6"
+      />
+    );
   }
 
   if (!loading && !hasDesigners) {
     return (
-      <div className="text-center text-neutral-400 mt-10">
-        No designers available at the moment.
-      </div>
+      <StatusCard
+        tone="empty"
+        label="No data found"
+        title="No designers available at the moment."
+        className="mx-auto mt-10 max-w-3xl p-6"
+      />
     );
   }
 

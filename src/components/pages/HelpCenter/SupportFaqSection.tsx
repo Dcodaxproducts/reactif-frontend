@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, type ReactNode } from "react";
-import { AlertCircle, Loader2, SearchX } from "lucide-react";
+import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
+import { StatusCard } from "@/components/common/StatusCard";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useSupportFaqs } from "@/hooks/useSupportFaqs";
 import { FAQAccordion } from "./faqs/FAQAccordion";
@@ -59,14 +59,16 @@ export function SupportFaqSection({
         )}
 
         {loading ? (
-          <FaqStatusCard
-            icon={<Loader2 className="animate-spin" size={22} />}
+          <StatusCard
+            tone="loading"
             title={t("helpCenter.faq.loadingTitle")}
             description={t("helpCenter.faq.loadingDescription")}
+            className="p-6"
           />
         ) : isError ? (
-          <FaqStatusCard
-            icon={<AlertCircle size={22} />}
+          <StatusCard
+            tone="error"
+            label={t("common.backendError")}
             title={t("helpCenter.faq.errorTitle")}
             description={t("helpCenter.faq.errorDescription")}
             action={
@@ -78,16 +80,20 @@ export function SupportFaqSection({
                 {t("common.tryAgain")}
               </Button>
             }
+            className="p-6"
           />
         ) : faqs.length === 0 ? (
-          <FaqStatusCard
-            icon={<SearchX size={22} />}
+          <StatusCard
+            tone="empty"
+            label={t("common.noDataFound")}
             title={t("helpCenter.faq.emptyTitle")}
             description={t("helpCenter.faq.emptyDescription")}
+            className="p-6"
           />
         ) : filteredFaqs.length === 0 ? (
-          <FaqStatusCard
-            icon={<SearchX size={22} />}
+          <StatusCard
+            tone="empty"
+            label={t("common.noDataFound")}
             title={t("helpCenter.faq.noResultsTitle")}
             description={t("helpCenter.faq.noResultsDescription")}
             action={
@@ -99,36 +105,12 @@ export function SupportFaqSection({
                 {t("helpCenter.faq.clearSearch")}
               </Button>
             }
+            className="p-6"
           />
         ) : (
           <FAQAccordion faqs={filteredFaqs} />
         )}
       </div>
     </section>
-  );
-}
-
-function FaqStatusCard({
-  icon,
-  title,
-  description,
-  action,
-}: {
-  icon: ReactNode;
-  title: string;
-  description: string;
-  action?: ReactNode;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-[#0b0f17] p-6 text-center">
-      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-white/10 text-cyan-300">
-        {icon}
-      </div>
-      <h3 className="mt-4 text-lg font-semibold text-white">{title}</h3>
-      <p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-slate-400">
-        {description}
-      </p>
-      {action && <div className="mt-5">{action}</div>}
-    </div>
   );
 }

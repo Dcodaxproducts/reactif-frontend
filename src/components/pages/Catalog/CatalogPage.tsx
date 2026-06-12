@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AlertCircle, Loader2, PackageSearch } from "lucide-react";
+import { Loader2, PackageSearch } from "lucide-react";
+import { StatusCard } from "@/components/common/StatusCard";
 import { Button } from "@/components/ui/button";
 import { PageShell } from "@/components/common/PageShell";
 import { catalogBackgroundStyle } from "@/data/catalog";
@@ -103,34 +104,29 @@ export default function CatalogPage() {
             </p>
           </div>
         ) : servicesError ? (
-          <div className="rounded-3xl border border-red-400/20 bg-red-950/30 p-10 text-center backdrop-blur-xl">
-            <AlertCircle className="mx-auto h-10 w-10 text-red-200" />
-            <h2 className="mt-5 text-xl font-semibold text-white">
-              {t("catalog.errorTitle")}
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-red-100/75">
-              {t("catalog.errorDescription")}
-            </p>
-            <Button
-              type="button"
-              onClick={() => refetch()}
-              className="mt-6 rounded-full bg-white px-6 py-3 text-zinc-900 hover:bg-white/90"
-            >
-              {t("catalog.retry")}
-            </Button>
-          </div>
+          <StatusCard
+            tone="error"
+            label={t("common.backendError")}
+            title={t("catalog.errorTitle")}
+            description={t("catalog.errorDescription")}
+            action={
+              <Button
+                type="button"
+                onClick={() => refetch()}
+                className="h-11 rounded-full bg-white px-6 text-zinc-900 hover:bg-white/90"
+              >
+                {t("catalog.retry")}
+              </Button>
+            }
+          />
         ) : visibleServices.length === 0 ? (
-          <div className="rounded-3xl border border-white/10 bg-black/40 p-10 text-center backdrop-blur-xl">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
-              <PackageSearch className="h-6 w-6 text-pink-200" />
-            </div>
-            <h2 className="mt-5 text-xl font-semibold text-white">
-              {t("catalog.emptyTitle")}
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-400">
-              {t("catalog.emptyDescription")}
-            </p>
-          </div>
+          <StatusCard
+            tone="empty"
+            icon={PackageSearch}
+            label={t("common.noDataFound")}
+            title={t("catalog.emptyTitle")}
+            description={t("catalog.emptyDescription")}
+          />
         ) : (
           <CatalogSection
             title={t("catalog.sections.ourServices")}

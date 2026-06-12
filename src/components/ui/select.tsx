@@ -33,7 +33,7 @@ function SelectTrigger({
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       className={cn(
-        "border-[#BEBEBE] flex w-full items-center justify-between gap-2 rounded-md border bg-[#111111] px-3 h-[52px] text-base text-white shadow-xs transition-[color,box-shadow] outline-none",
+        "border-[#BEBEBE] flex w-full items-center justify-between gap-2 rounded-md border bg-[#111111] px-3 h-[52px] text-base text-white shadow-xs transition-[border-color,box-shadow,color] outline-none focus-visible:border-cyan-200/70 focus-visible:ring-2 focus-visible:ring-cyan-200/20",
         "data-placeholder:text-gray-400",
         "disabled:cursor-not-allowed disabled:opacity-50",
         className,
@@ -109,7 +109,7 @@ function SelectItem({
         className="absolute right-2 flex size-3.5 items-center justify-center"
       >
         <SelectPrimitive.ItemIndicator>
-          <CheckIcon className="size-4 text-primary" />
+            <CheckIcon className="size-4 text-cyan-200" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

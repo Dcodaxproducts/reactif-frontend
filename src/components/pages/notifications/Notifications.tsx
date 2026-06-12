@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Bell } from "lucide-react";
+import { StatusCard } from "@/components/common/StatusCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useNotifications } from "@/hooks/useNotifications";
@@ -21,10 +22,28 @@ export default function Notifications() {
             </h1>
           </div>
 
-          {loading && <p className="text-neutral-50/60">{t("notifications.loading")}</p>}
-          {error && <p className="text-red-400">{error}</p>}
+          {loading && (
+            <StatusCard
+              tone="loading"
+              title={t("notifications.loading")}
+              className="p-6"
+            />
+          )}
+          {error && (
+            <StatusCard
+              tone="error"
+              label={t("common.backendError")}
+              title={error}
+              className="p-6"
+            />
+          )}
           {!loading && !error && notifications.length === 0 && (
-            <p className="text-neutral-50/60">{t("notifications.empty")}</p>
+            <StatusCard
+              tone="empty"
+              label={t("common.noDataFound")}
+              title={t("notifications.empty")}
+              className="p-6"
+            />
           )}
 
           <div className="flex flex-col gap-4">

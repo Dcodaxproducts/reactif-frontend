@@ -3,6 +3,7 @@
 import type { ChangeEvent } from "react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
+import { StatusCard } from "@/components/common/StatusCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -100,10 +101,28 @@ export function Wallet() {
             </Button>
           </div>
 
-          {loading && <p className="text-neutral-50/60">{t("wallet.loading")}</p>}
-          {error && <p className="text-red-400">{error}</p>}
+          {loading && (
+            <StatusCard
+              tone="loading"
+              title={t("wallet.loading")}
+              className="p-6"
+            />
+          )}
+          {error && (
+            <StatusCard
+              tone="error"
+              label={t("common.backendError")}
+              title={error}
+              className="p-6"
+            />
+          )}
           {!loading && wallets.length === 0 && (
-            <p className="text-neutral-50/60">{t("wallet.noActivity")}</p>
+            <StatusCard
+              tone="empty"
+              label={t("common.noDataFound")}
+              title={t("wallet.noActivity")}
+              className="p-6"
+            />
           )}
           {wallets.length > 0 && (
             <div className="flex flex-col gap-3">

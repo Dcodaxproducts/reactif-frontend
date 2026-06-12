@@ -12,7 +12,9 @@
     "error": "Une erreur est survenue.",
     "success": "Succès",
     "tryAgain": "Réessayer",
-    "noResults": "Aucun résultat trouvé."
+    "noResults": "Aucun résultat trouvé.",
+    "backendError": "Erreur backend",
+    "noDataFound": "Aucune donnée trouvée"
   },
   "nav": {
     "categories": "Catégories",

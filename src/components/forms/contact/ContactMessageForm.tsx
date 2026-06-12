@@ -189,7 +189,7 @@ export function ContactMessageForm() {
           >
             <SelectTrigger
               id="contact-service"
-              className="h-11 md:h-12 rounded-xl bg-zinc-800/25 border border-blue-600 px-4 text-white outline-none"
+              className="h-11 rounded-xl border-white/10 bg-zinc-800/25 px-4 text-white focus:border-cyan-200/70 focus:ring-cyan-200/20 md:h-12"
             >
               <SelectValue placeholder={t("contact.selectService")} />
             </SelectTrigger>
@@ -221,7 +221,7 @@ export function ContactMessageForm() {
             aria-invalid={Boolean(errors.message)}
             aria-describedby={errors.message ? "contact-message-error" : undefined}
             onChange={(event) => setFieldValue("message", event.target.value)}
-            className="h-32 md:h-40 rounded-2xl bg-zinc-800/25 border border-white/10 px-4 py-3 text-white outline-none resize-none focus:border-blue-500 transition"
+            className="h-32 resize-none rounded-2xl border-white/10 bg-zinc-800/25 px-4 py-3 text-white focus-visible:border-cyan-200/70 focus-visible:ring-cyan-200/20 md:h-40"
           />
           {errors.message ? (
             <p

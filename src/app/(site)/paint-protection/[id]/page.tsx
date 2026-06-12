@@ -3,6 +3,7 @@
 import { PageShell } from "@/components/common/PageShell";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/common/Container";
+import { StatusCard } from "@/components/common/StatusCard";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import PaintDetailsHeader from "@/components/pages/PaintProtection/PaintDetailsHeader";
@@ -137,16 +138,22 @@ function PaintProtectionContent() {
           </p>
         </div>
       ) : categoryError ? (
-        <div className="bg-red-900/80 border border-red-700 rounded-xl p-6 w-full max-w-md text-center flex flex-col items-center gap-4">
-          <p className="text-red-400 font-bold text-lg">Category Not Found</p>
-          <p className="text-red-300 text-sm">{categoryError}</p>
-          <Button
-            className="mt-2 px-4 py-2 bg-transparent border border-red-400 text-red-400 rounded-lg hover:bg-red-400 hover:text-black transition"
-            onClick={handleRetry}
-          >
-            Retry
-          </Button>
-        </div>
+        <StatusCard
+          tone="error"
+          label="Backend error"
+          title="Category not found"
+          description={categoryError}
+          action={
+            <Button
+              variant="neutralOutline"
+              className="h-10 rounded-full px-5"
+              onClick={handleRetry}
+            >
+              Retry
+            </Button>
+          }
+          className="w-full max-w-md p-6"
+        />
       ) : null}
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { StatusCard } from "@/components/common/StatusCard";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
@@ -125,10 +126,28 @@ export function PaymentHistory() {
             </p>
           </div>
 
-          {loading && <p className="text-neutral-50/60">{t("payment.loading")}</p>}
-          {error && <p className="text-red-400">{error}</p>}
+          {loading && (
+            <StatusCard
+              tone="loading"
+              title={t("payment.loading")}
+              className="p-6"
+            />
+          )}
+          {error && (
+            <StatusCard
+              tone="error"
+              label={t("common.backendError")}
+              title={error}
+              className="p-6"
+            />
+          )}
           {!loading && payments.length === 0 && (
-            <p className="text-neutral-50/60">{t("payment.noPaymentsFound")}</p>
+            <StatusCard
+              tone="empty"
+              label={t("common.noDataFound")}
+              title={t("payment.noPaymentsFound")}
+              className="p-6"
+            />
           )}
 
           {payments.length > 0 && (

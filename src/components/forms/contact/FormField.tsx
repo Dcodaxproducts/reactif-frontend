@@ -43,7 +43,7 @@ export function FormField({
         aria-invalid={Boolean(error)}
         aria-describedby={error ? errorId : undefined}
         onChange={(event) => onChange?.(event.target.value)}
-        className="h-11 md:h-12 rounded-xl bg-zinc-800/25 border border-white/10 px-4 text-white outline-none focus:border-blue-500 transition"
+        className="h-11 rounded-xl border-white/10 bg-zinc-800/25 px-4 text-white focus-visible:border-cyan-200/70 focus-visible:ring-cyan-200/20 md:h-12"
       />
       {error ? (
         <p id={errorId} className="text-xs font-medium text-rose-300">

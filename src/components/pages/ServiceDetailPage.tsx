@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { AlertCircle, CalendarClock, ImageIcon, PackageCheck } from "lucide-react";
+import { CalendarClock, ImageIcon, PackageCheck } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
 
 import { Container } from "@/components/common/Container";
 import { PageShell } from "@/components/common/PageShell";
 import { ServiceBookNowButton } from "@/components/common/ServiceBookNowButton";
+import { StatusCard } from "@/components/common/StatusCard";
 import { Button } from "@/components/ui/button";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useCategoryDetail, useServiceDetail } from "@/hooks/useCategories";
@@ -74,22 +75,21 @@ export function ServiceDetailPage() {
             </p>
           </div>
         ) : serviceError || !service ? (
-          <div className="rounded-3xl border border-red-400/20 bg-red-950/30 p-10 text-center backdrop-blur-xl">
-            <AlertCircle className="mx-auto h-10 w-10 text-red-200" />
-            <h1 className="mt-5 text-2xl font-semibold text-white">
-              {t("serviceDetail.errorTitle")}
-            </h1>
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-red-100/75">
-              {t("serviceDetail.errorDescription")}
-            </p>
-            <Button
-              type="button"
-              onClick={() => refetch()}
-              className="mt-6 rounded-full bg-white px-6 py-3 text-zinc-900 hover:bg-white/90"
-            >
-              {t("common.tryAgain")}
-            </Button>
-          </div>
+          <StatusCard
+            tone="error"
+            label={t("common.backendError")}
+            title={t("serviceDetail.errorTitle")}
+            description={t("serviceDetail.errorDescription")}
+            action={
+              <Button
+                type="button"
+                onClick={() => refetch()}
+                className="h-11 rounded-full bg-white px-6 text-zinc-900 hover:bg-white/90"
+              >
+                {t("common.tryAgain")}
+              </Button>
+            }
+          />
         ) : (
           <article className="space-y-8">
             <section className="grid gap-8 rounded-[32px] border border-white/10 bg-black/45 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl md:p-8 lg:grid-cols-[1.05fr_0.95fr]">
