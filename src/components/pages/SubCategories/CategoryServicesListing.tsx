@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarClock, Eye, PackageOpen } from "lucide-react";
+import { ArrowRight, CalendarClock, Eye, PackageOpen } from "lucide-react";
 import { ServiceBookNowButton } from "@/components/common/ServiceBookNowButton";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/currency";
 import { getImageSource } from "@/lib/image-source";
+import { buildSubcategoryRoute } from "@/lib/category-routes";
 import {
   buildServiceDetailHref,
   buildServiceFlowHref,
@@ -17,17 +18,27 @@ import type { Category, Service } from "@/types/categories";
 type CategoryServicesListingProps = {
   category: Category;
   services: Service[];
+  activeSubcategoryId?: string | null;
 };
 
 const getLeadTime = (service: Service) =>
   service.lead_time ?? service.delivery_time ?? null;
 
-export default function CategoryServicesListing({
+export function CategoryServicesListing({
   category,
   services,
+  activeSubcategoryId,
 }: CategoryServicesListingProps) {
   const { t } = useAppTranslation();
   const categoryImage = getImageSource(category.category_image, "");
+  const activeSubcategories = (category.subcategories ?? []).filter(
+    ({ status }) => status !== 0,
+  );
+  const selectedSubcategory = activeSubcategories.find(
+    ({ id }) => String(id) === activeSubcategoryId,
+  );
+  const showSubcategoryPrompt =
+    activeSubcategories.length > 0 && !activeSubcategoryId;
   const activeServices = services.filter(({ status }) => status !== 0);
 
   return (
@@ -64,13 +75,85 @@ export default function CategoryServicesListing({
         </div>
       </div>
 
+      {activeSubcategories.length > 0 ? (
+        <div className="mt-10">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-200/70">
+                {t("categoryFlow.subcategoriesLabel")}
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold text-white md:text-3xl">
+                {t("categoryFlow.subcategoriesTitle")}
+              </h2>
+            </div>
+            <p className="text-sm text-slate-400">
+              {t("categoryFlow.subcategoryCount", {
+                count: activeSubcategories.length,
+              })}
+            </p>
+          </div>
+
+          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {activeSubcategories.map((subcategory) => {
+              const subcategoryImage = getImageSource(
+                subcategory.category_image,
+                "",
+              );
+              const isSelected = String(subcategory.id) === activeSubcategoryId;
+
+              return (
+                <Link
+                  key={subcategory.id}
+                  href={buildSubcategoryRoute({ category, subcategory })}
+                  className={`group overflow-hidden rounded-[22px] border bg-black/40 shadow-xl shadow-black/15 backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-cyan-200/40 ${
+                    isSelected ? "border-cyan-200/50" : "border-white/10"
+                  }`}
+                >
+                  <div className="relative h-44 bg-slate-950">
+                    {subcategoryImage ? (
+                      <Image
+                        src={subcategoryImage}
+                        alt={subcategory.name}
+                        fill
+                        sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-cyan-950/50 to-fuchsia-950/50" />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  </div>
+                  <div className="p-5">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-pink-200/75">
+                          {t("categoryFlow.subcategoryLabel")}
+                        </p>
+                        <h3 className="mt-2 text-lg font-semibold text-white">
+                          {subcategory.name}
+                        </h3>
+                      </div>
+                      <ArrowRight className="mt-1 h-5 w-5 text-slate-400 transition group-hover:translate-x-1 group-hover:text-white" />
+                    </div>
+                    <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-400">
+                      {subcategory.description ||
+                        t("categoryFlow.subcategoryFallbackDescription")}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+
       <div className="mt-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-200/70">
             {t("categoryFlow.servicesLabel")}
           </p>
           <h2 className="mt-2 text-2xl font-semibold text-white md:text-3xl">
-            {t("categoryFlow.servicesTitle")}
+            {selectedSubcategory?.name ?? t("categoryFlow.servicesTitle")}
           </h2>
         </div>
         <p className="text-sm text-slate-400">
@@ -78,7 +161,19 @@ export default function CategoryServicesListing({
         </p>
       </div>
 
-      {activeServices.length === 0 ? (
+      {showSubcategoryPrompt ? (
+        <div className="mt-8 rounded-3xl border border-white/10 bg-black/40 p-8 text-center backdrop-blur-xl">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+            <PackageOpen className="h-6 w-6 text-cyan-200" />
+          </div>
+          <h3 className="mt-5 text-xl font-semibold text-white">
+            {t("categoryFlow.chooseSubcategoryTitle")}
+          </h3>
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-400">
+            {t("categoryFlow.chooseSubcategoryDescription")}
+          </p>
+        </div>
+      ) : activeServices.length === 0 ? (
         <div className="mt-8 rounded-3xl border border-white/10 bg-black/40 p-8 text-center backdrop-blur-xl">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
             <PackageOpen className="h-6 w-6 text-pink-200" />

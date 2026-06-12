@@ -11,21 +11,19 @@ import { useCategories, useServices } from "@/hooks/useCategories";
 import type { Service } from "@/types/categories";
 import CatalogSection from "./CatalogSection";
 import CatalogHero from "./CatalogHero";
-import ProductFilterBar from "./ProductFilterBar";
+import { ProductFilterBar } from "./ProductFilterBar";
 import type { CatalogPriceSort } from "./FiltersButton";
+import { CatalogCategoryExplorer } from "./CatalogCategoryExplorer";
 
 const buildServiceParams = ({
-  activeCategory,
   search,
 }: {
-  activeCategory: string;
   search: string;
 }) => {
   const trimmedSearch = search.trim();
 
   return {
     limit: 100,
-    ...(activeCategory !== "all" ? { category_id: activeCategory } : {}),
     ...(trimmedSearch ? { search: trimmedSearch } : {}),
   };
 };
@@ -48,9 +46,8 @@ const sortServicesByPrice = (
   });
 };
 
-export default function CatalogPage() {
+export function CatalogPage() {
   const { t } = useAppTranslation();
-  const [activeCategory, setActiveCategory] = useState("all");
   const [search, setSearch] = useState("");
   const [priceSort, setPriceSort] = useState<CatalogPriceSort>("none");
 
@@ -58,8 +55,8 @@ export default function CatalogPage() {
     per_page: 100,
   });
   const serviceParams = useMemo(
-    () => buildServiceParams({ activeCategory, search }),
-    [activeCategory, search],
+    () => buildServiceParams({ search }),
+    [search],
   );
   const {
     services,
@@ -87,14 +84,15 @@ export default function CatalogPage() {
       <CatalogHero />
       <div className="space-y-10 px-4 pb-20 sm:px-6 md:px-30">
         <ProductFilterBar
-          categories={categories}
-          activeCategory={activeCategory}
-          onSelectCategory={setActiveCategory}
           search={search}
           onSearchChange={setSearch}
           priceSort={priceSort}
           onChangePriceSort={setPriceSort}
         />
+
+        {!categoriesLoading ? (
+          <CatalogCategoryExplorer categories={categories} />
+        ) : null}
 
         {loading ? (
           <div className="rounded-3xl border border-white/10 bg-black/40 p-10 text-center backdrop-blur-xl">

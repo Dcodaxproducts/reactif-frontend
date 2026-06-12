@@ -1,9 +1,10 @@
 "use client";
 
+import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/common/Container";
 import { PageShell } from "@/components/common/PageShell";
-import CategoryServicesListing from "@/components/pages/SubCategories/CategoryServicesListing";
+import { CategoryServicesListing } from "@/components/pages/SubCategories/CategoryServicesListing";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   useCategories,
@@ -13,12 +14,34 @@ import {
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { resolveCategorySlug } from "@/lib/category-routes";
 
-const Subcategories = () => {
+export function SubcategoriesMain() {
+  return (
+    <Suspense
+      fallback={
+        <PageShell className="min-h-screen">
+          <Container gutter="page" className="py-12 md:py-20">
+            <div className="rounded-3xl border border-white/10 bg-black/40 p-10 text-center backdrop-blur-xl">
+              <div className="mx-auto h-12 w-12 animate-spin rounded-full border-4 border-white border-t-transparent" />
+              <p className="mt-5 text-sm text-slate-400">
+                Loading category services...
+              </p>
+            </div>
+          </Container>
+        </PageShell>
+      }
+    >
+      <SubcategoriesContent />
+    </Suspense>
+  );
+}
+
+const SubcategoriesContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { t } = useAppTranslation();
   const categoryId = searchParams.get("id");
   const categorySlug = searchParams.get("slug");
+  const selectedSubcategoryId = searchParams.get("subcategoryId");
 
   const { categories, loading: categoriesLoading } = useCategories({
     per_page: 100,
@@ -37,25 +60,29 @@ const Subcategories = () => {
     error: categoryError,
     refetch: refetchCategory,
   } = useCategoryDetail(resolvedCategoryId);
+  const displayCategory = category ?? categoryFromSlug ?? null;
+  const activeSubcategories = (displayCategory?.subcategories ?? []).filter(
+    ({ status }) => status !== 0,
+  );
+  const shouldLoadServices = Boolean(resolvedCategoryId) &&
+    (activeSubcategories.length === 0 || Boolean(selectedSubcategoryId));
+  const serviceParams =
+    shouldLoadServices && selectedSubcategoryId
+      ? { sub_category_id: selectedSubcategoryId, limit: 100 }
+      : shouldLoadServices && resolvedCategoryId
+        ? { category_id: resolvedCategoryId, limit: 100 }
+        : undefined;
   const {
     services,
     loading: servicesLoading,
     error: servicesError,
     refetch: refetchServices,
-  } = useServices(
-    resolvedCategoryId
-      ? {
-          category_id: resolvedCategoryId,
-          limit: 100,
-        }
-      : undefined,
-  );
+  } = useServices(serviceParams);
 
-  const displayCategory = category ?? categoryFromSlug ?? null;
   const loading =
     categoriesLoading ||
     categoryLoading ||
-    (Boolean(resolvedCategoryId) && servicesLoading);
+    (shouldLoadServices && servicesLoading);
   const errorState = categoryError || servicesError;
 
   if (errorState) {
@@ -127,11 +154,10 @@ const Subcategories = () => {
           <CategoryServicesListing
             category={displayCategory}
             services={services}
+            activeSubcategoryId={selectedSubcategoryId}
           />
         ) : null}
       </Container>
     </PageShell>
   );
 };
-
-export default Subcategories;

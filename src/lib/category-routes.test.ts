@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildCategoryRoute,
   buildCategoryRouteFromCategory,
+  buildSubcategoryRoute,
   categoryNavigationSlugs,
   findCategoryByNavigationSlug,
   resolveCategorySlug,
@@ -67,6 +68,17 @@ describe("category route helpers", () => {
     );
     expect(buildCategoryRouteFromCategory(category)).toBe(
       "/subcategories?id=6&slug=signaletique",
+    );
+  });
+
+  it("builds dynamic subcategory destinations with category context", () => {
+    expect(
+      buildSubcategoryRoute({
+        category: { id: 6, name: "SIGNALÉTIQUE" },
+        subcategory: { id: 79, name: "Test category" },
+      }),
+    ).toBe(
+      "/subcategories?id=6&slug=signaletique&subcategoryId=79&subcategoryName=Test+category",
     );
   });
 });

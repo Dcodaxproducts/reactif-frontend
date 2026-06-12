@@ -120,6 +120,13 @@
     "selectServiceDescription": "Sélectionnez un service ci-dessous pour continuer votre parcours de design.",
     "categoryLabel": "Catégorie sélectionnée",
     "fallbackDescription": "Explorez les services ReactIf disponibles dans cette catégorie et choisissez l’option adaptée à votre projet.",
+    "subcategoriesLabel": "Sous-catégories dynamiques",
+    "subcategoriesTitle": "Choisissez une sous-catégorie",
+    "subcategoryLabel": "Sous-catégorie",
+    "subcategoryCount": "{count} sous-catégories disponibles",
+    "subcategoryFallbackDescription": "Ouvrez cette sous-catégorie pour voir les services disponibles.",
+    "chooseSubcategoryTitle": "Sélectionnez une sous-catégorie pour continuer",
+    "chooseSubcategoryDescription": "Cette catégorie est organisée par sous-catégorie. Choisissez-en une ci-dessus pour voir les services publiés.",
     "servicesLabel": "Services dynamiques",
     "servicesTitle": "Choisissez un service",
     "serviceCount": "{count} services disponibles",
@@ -276,6 +283,17 @@
     "sections": {
       "ourServices": "Nos services",
       "popularServices": "Services populaires"
+    },
+    "categoryExplorer": {
+      "eyebrow": "Catégories dynamiques",
+      "title": "Parcourir par catégorie",
+      "description": "Explorez les catégories et sous-catégories publiées depuis le catalogue ReactIf.",
+      "category": "Catégorie",
+      "fallbackDescription": "Ouvrez cette catégorie pour voir les options et services disponibles.",
+      "noSubcategories": "Les services sont listés directement dans cette catégorie.",
+      "viewSubcategories": "Voir les sous-catégories",
+      "viewServices": "Voir les services",
+      "openCategory": "Ouvrir {name}"
     },
     "categories": {
       "commercial": "COMMERCIAL",

@@ -2,6 +2,7 @@ export type Subcategory = {
   id: number;
   name: string;
   description: string;
+  parent_id?: number | null;
   category_image: string;
   status: number;
 };
@@ -11,6 +12,7 @@ export type Category = {
   name: string;
   description?: string;
   category_image?: string;
+  parent_id?: number | null;
   status: number;
   subcategories?: Subcategory[];
 };

@@ -120,6 +120,13 @@
     "selectServiceDescription": "Select a service below to continue your design path.",
     "categoryLabel": "Selected category",
     "fallbackDescription": "Explore available ReactIf services in this category and choose the option that best fits your project.",
+    "subcategoriesLabel": "Dynamic subcategories",
+    "subcategoriesTitle": "Choose a subcategory",
+    "subcategoryLabel": "Subcategory",
+    "subcategoryCount": "{count} subcategories available",
+    "subcategoryFallbackDescription": "Open this subcategory to view the available services.",
+    "chooseSubcategoryTitle": "Select a subcategory to continue",
+    "chooseSubcategoryDescription": "This category is organized by subcategory. Choose one above to view the services published for that area.",
     "servicesLabel": "Dynamic services",
     "servicesTitle": "Choose a service",
     "serviceCount": "{count} services available",
@@ -276,6 +283,17 @@
     "sections": {
       "ourServices": "Our Services",
       "popularServices": "Popular Services"
+    },
+    "categoryExplorer": {
+      "eyebrow": "Dynamic categories",
+      "title": "Browse by category",
+      "description": "Explore service categories and subcategories published from the ReactIf catalog.",
+      "category": "Category",
+      "fallbackDescription": "Open this category to view available options and services.",
+      "noSubcategories": "Services are listed directly in this category.",
+      "viewSubcategories": "View subcategories",
+      "viewServices": "View services",
+      "openCategory": "Open {name}"
     },
     "categories": {
       "commercial": "COMMERCIAL",

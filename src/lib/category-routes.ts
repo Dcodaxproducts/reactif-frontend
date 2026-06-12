@@ -94,6 +94,25 @@ export const buildCategoryRouteFromCategory = (
 ) =>
   buildCategoryRoute({ id: category.id, name: category.name });
 
+export const buildSubcategoryRoute = ({
+  category,
+  subcategory,
+}: {
+  category: Pick<Category, "id" | "name">;
+  subcategory: { id: number | string; name?: string | null };
+}) => {
+  const params = new URLSearchParams();
+  params.set("id", String(category.id));
+  params.set("slug", resolveCategorySlug(category.name));
+  params.set("subcategoryId", String(subcategory.id));
+
+  if (subcategory.name) {
+    params.set("subcategoryName", subcategory.name);
+  }
+
+  return `/subcategories?${params.toString()}`;
+};
+
 export const buildCategoryRouteFromNavigationSlug = (
   slug: CategoryNavigationSlug,
 ) => buildCategoryRoute({ slug });
