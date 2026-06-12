@@ -6,25 +6,8 @@ import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
 import { Container } from "@/components/common/Container";
 import { PageShell } from "@/components/common/PageShell";
 import { Button } from "@/components/ui/button";
+import { blogArticles } from "@/data/blogs";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
-
-const blogItems = [
-  {
-    key: "first",
-    image:
-      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=1200&q=85",
-  },
-  {
-    key: "second",
-    image:
-      "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1200&q=85",
-  },
-  {
-    key: "third",
-    image:
-      "https://images.unsplash.com/photo-1525362081669-2b476bb628c3?auto=format&fit=crop&w=1200&q=85",
-  },
-] as const;
 
 export function BlogsPage() {
   const { t } = useAppTranslation();
@@ -82,36 +65,42 @@ export function BlogsPage() {
         </section>
 
         <section className="mt-8 grid gap-5 md:mt-10 lg:grid-cols-3">
-          {blogItems.map((item) => (
+          {blogArticles.map((item) => (
             <article
               key={item.key}
               className="group overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-2xl shadow-black/20 backdrop-blur transition hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-white/[0.07]"
             >
-              <div className="relative aspect-[16/11] overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={t(`staticPages.blogs.articles.${item.key}.title`)}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/55 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/80 backdrop-blur">
-                  <Sparkles size={12} />
-                  {t(`staticPages.blogs.articles.${item.key}.category`)}
+              <Link href={`/blogs/${item.slug}`} className="block h-full">
+                <div className="relative aspect-[16/11] overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={t(`staticPages.blogs.articles.${item.key}.title`)}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                  <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/55 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/80 backdrop-blur">
+                    <Sparkles size={12} />
+                    {t(`staticPages.blogs.articles.${item.key}.category`)}
+                  </div>
+                  <span className="absolute bottom-4 left-4 rounded-full bg-white px-3 py-1 text-xs font-bold text-zinc-950">
+                    {t(`staticPages.blogs.articles.${item.key}.readTime`)}
+                  </span>
                 </div>
-                <span className="absolute bottom-4 left-4 rounded-full bg-white px-3 py-1 text-xs font-bold text-zinc-950">
-                  {t(`staticPages.blogs.articles.${item.key}.readTime`)}
-                </span>
-              </div>
-              <div className="p-5">
-                <h2 className="text-xl font-semibold leading-snug text-white">
-                  {t(`staticPages.blogs.articles.${item.key}.title`)}
-                </h2>
-                <p className="mt-3 text-sm leading-6 text-slate-400">
-                  {t(`staticPages.blogs.articles.${item.key}.description`)}
-                </p>
-              </div>
+                <div className="p-5">
+                  <h2 className="text-xl font-semibold leading-snug text-white">
+                    {t(`staticPages.blogs.articles.${item.key}.title`)}
+                  </h2>
+                  <p className="mt-3 text-sm leading-6 text-slate-400">
+                    {t(`staticPages.blogs.articles.${item.key}.description`)}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cyan-100">
+                    {t("staticPages.blogs.readArticle")}
+                    <ArrowRight size={15} />
+                  </span>
+                </div>
+              </Link>
             </article>
           ))}
         </section>

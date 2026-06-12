@@ -899,6 +899,7 @@
       "title": "Histoires ReactIf et conseils d’impression",
       "description": "Notre espace blog est en préparation pour partager des notes de projet, des guides matières, des conseils de pose et des idées de communication visuelle de l’équipe ReactIf.",
       "cta": "Parler à notre équipe",
+      "readArticle": "Lire l’article",
       "cards": {
         "first": {
           "title": "Notes de projet",
@@ -918,20 +919,59 @@
           "category": "Habillage véhicule",
           "readTime": "4 min de lecture",
           "title": "Comment un habillage de marque transforme chaque trajet en campagne mobile",
-          "description": "Un regard pratique sur la hiérarchie visuelle, les messages lisibles et les choix matières pour des graphismes de flotte nets sur la route."
+          "description": "Un regard pratique sur la hiérarchie visuelle, les messages lisibles et les choix matières pour des graphismes de flotte nets sur la route.",
+          "body": {
+            "first": "Un habillage de véhicule fonctionne mieux lorsqu’il est pensé comme un support média extérieur, pas seulement comme une décoration. Les compositions les plus efficaces gardent le nom de l’entreprise, le service et le contact lisibles en quelques secondes.",
+            "second": "Le contraste, la hiérarchie et un texte maîtrisé comptent davantage que le remplissage de chaque panneau. Pour une flotte, la cohérence est essentielle afin que la marque soit reconnue rapidement sur voitures et utilitaires.",
+            "third": "Le choix matière complète la campagne. Un vinyle durable, un traitement soigné des bords et le bon laminage aident le visuel à rester net face aux trajets quotidiens, à la météo et aux lavages."
+          },
+          "takeaways": {
+            "first": "Prioriser le nom de marque, le service et les contacts avant les graphismes secondaires.",
+            "second": "Concevoir pour la circulation avec un fort contraste et des messages courts.",
+            "third": "Adapter matière et finition à l’usage du véhicule, aux trajets et à la durée attendue."
+          }
         },
         "second": {
           "category": "Guide d’entretien",
           "readTime": "3 min de lecture",
           "title": "Habitudes simples pour protéger couleur, finition et bords du vinyle",
-          "description": "Nettoyage doux, stationnement réfléchi et contrôle régulier des bords aident les habillages et surfaces de signalétique à rester premium plus longtemps."
+          "description": "Nettoyage doux, stationnement réfléchi et contrôle régulier des bords aident les habillages et surfaces de signalétique à rester premium plus longtemps.",
+          "body": {
+            "first": "Les finitions vinyle durent plus longtemps avec un nettoyage doux et régulier. Rincez d’abord la poussière, utilisez une solution légère et évitez les brosses agressives qui peuvent marquer les finitions brillantes, satinées ou mates.",
+            "second": "La chaleur et le soleil peuvent affecter les bords avec le temps, surtout autour des courbes, rétroviseurs et zones creuses. Stationner à l’ombre quand c’est possible et contrôler les bords après lavage limite les problèmes.",
+            "third": "Le nettoyage haute pression demande de la prudence. Gardez une distance suffisante, évitez de viser les joints et laissez au vinyle récemment posé le temps de se stabiliser avant un lavage intensif."
+          },
+          "takeaways": {
+            "first": "Utiliser des produits doux et des chiffons souples pour l’entretien courant.",
+            "second": "Inspecter régulièrement les bords et joints, surtout après chaleur ou lavage pression.",
+            "third": "Protéger les finitions mates et satinées des outils abrasifs et produits agressifs."
+          }
         },
         "third": {
           "category": "Signalétique",
           "readTime": "5 min de lecture",
           "title": "Choisir une signalétique efficace de la vitrine au stand événementiel",
-          "description": "Comparez durabilité, distance de lecture, éclairage et contexte de pose avant de choisir le bon système de signalétique pour votre marque."
+          "description": "Comparez durabilité, distance de lecture, éclairage et contexte de pose avant de choisir le bon système de signalétique pour votre marque.",
+          "body": {
+            "first": "Une bonne signalétique commence par son environnement. Une enseigne de vitrine, une vitrophanie, un affichage intérieur ou un stand événementiel ont chacun des distances de lecture, éclairages et contraintes de pose différentes.",
+            "second": "Les matériaux doivent suivre ce contexte. Les supports extérieurs demandent durabilité et résistance météo, tandis que les affichages événementiels privilégient souvent légèreté, transport facile et montage rapide.",
+            "third": "Les meilleurs résultats viennent de l’alignement entre taille du message, contraste, finition et méthode de fixation avant la production. Cette préparation rend le support clair, pratique et cohérent avec la marque."
+          },
+          "takeaways": {
+            "first": "Choisir les matériaux selon un usage intérieur, extérieur, temporaire ou longue durée.",
+            "second": "Adapter taille du texte et contraste à la distance de lecture et à l’éclairage.",
+            "third": "Prévoir les besoins de pose et de transport avant de valider la production."
+          }
         }
+      },
+      "detail": {
+        "backToBlogs": "Retour aux blogs",
+        "author": "Équipe éditoriale ReactIf",
+        "takeaways": "Points clés",
+        "nextStep": "Prochaine étape",
+        "ctaTitle": "Prêt à préparer votre projet visuel ?",
+        "ctaDescription": "Partagez votre objectif véhicule, signalétique ou impression et l’équipe ReactIf vous aidera à choisir la bonne matière et le bon parcours de production.",
+        "relatedTitle": "Plus d’articles"
       }
     },
     "portfolio": {

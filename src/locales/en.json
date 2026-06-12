@@ -899,6 +899,7 @@
       "title": "ReactIf stories and print guidance",
       "description": "Our blog space is being prepared for project notes, material guides, installation advice, and visual communication ideas from the ReactIf team.",
       "cta": "Talk to our team",
+      "readArticle": "Read article",
       "cards": {
         "first": {
           "title": "Project notes",
@@ -918,20 +919,59 @@
           "category": "Vehicle wraps",
           "readTime": "4 min read",
           "title": "How a branded wrap turns every customer trip into a moving campaign",
-          "description": "A practical look at layout hierarchy, readable messaging, and material choices for fleet graphics that stay sharp on the road."
+          "description": "A practical look at layout hierarchy, readable messaging, and material choices for fleet graphics that stay sharp on the road.",
+          "body": {
+            "first": "A branded vehicle wrap works best when it is planned like outdoor media, not just decoration. The strongest layouts keep the company name, service category, and contact path readable within a few seconds while the vehicle is moving.",
+            "second": "Color contrast, clear hierarchy, and restrained copy matter more than filling every panel. On fleets, consistency is even more important: the same placement rules across cars and vans help customers recognize the brand quickly.",
+            "third": "Material choice completes the campaign. Durable vinyl, careful edge treatment, and the right laminate help the design stay crisp through daily routes, weather, washing, and repeat exposure."
+          },
+          "takeaways": {
+            "first": "Prioritize brand name, service, and contact details before secondary graphics.",
+            "second": "Design for moving traffic with high contrast and short readable messages.",
+            "third": "Match material and finish to the vehicle’s usage, route, and expected lifespan."
+          }
         },
         "second": {
           "category": "Care guide",
           "readTime": "3 min read",
           "title": "Simple vinyl care habits that protect color, finish, and edges",
-          "description": "Use gentle cleaning, smart parking, and regular edge checks to help wraps and signage surfaces keep their premium finish longer."
+          "description": "Use gentle cleaning, smart parking, and regular edge checks to help wraps and signage surfaces keep their premium finish longer.",
+          "body": {
+            "first": "Vinyl finishes last longer when cleaning stays gentle and consistent. Rinse loose dust first, wash with a mild solution, and avoid harsh brushes that can scratch gloss, satin, or matte finishes.",
+            "second": "Heat and sun exposure can affect edges over time, especially around curves, mirrors, and recessed areas. Parking in shade when possible and checking edges after washes helps catch small issues before they grow.",
+            "third": "Pressure washing needs extra care. Keep distance from the surface, avoid directing water at seams, and give newly installed vinyl time to settle before aggressive cleaning."
+          },
+          "takeaways": {
+            "first": "Use mild cleaning products and soft cloths for routine maintenance.",
+            "second": "Inspect edges and seams regularly, especially after heat or pressure washing.",
+            "third": "Protect matte and satin finishes from abrasive tools and harsh chemicals."
+          }
         },
         "third": {
           "category": "Signage",
           "readTime": "5 min read",
           "title": "Choosing signage that works from storefront to event display",
-          "description": "Compare durability, viewing distance, lighting, and installation context before selecting the right sign system for your brand."
+          "description": "Compare durability, viewing distance, lighting, and installation context before selecting the right sign system for your brand.",
+          "body": {
+            "first": "Good signage starts with the environment. A storefront sign, window graphic, indoor display, and event stand each have different viewing distances, lighting conditions, and installation constraints.",
+            "second": "Material decisions should follow that context. Outdoor signs need durability and weather resistance, while event displays often need lighter construction, easy transport, and fast setup.",
+            "third": "The most reliable results come from aligning message size, contrast, finish, and mounting method before production begins. That planning keeps the final sign clear, practical, and brand-consistent."
+          },
+          "takeaways": {
+            "first": "Choose materials based on indoor, outdoor, temporary, or long-term use.",
+            "second": "Set text size and contrast around real viewing distance and lighting.",
+            "third": "Plan installation and transport needs before approving production."
+          }
         }
+      },
+      "detail": {
+        "backToBlogs": "Back to blogs",
+        "author": "ReactIf editorial team",
+        "takeaways": "Key takeaways",
+        "nextStep": "Next step",
+        "ctaTitle": "Ready to plan your own visual project?",
+        "ctaDescription": "Share the vehicle, signage, or print objective and the ReactIf team can help shape the right material and production path.",
+        "relatedTitle": "More from the blog"
       }
     },
     "portfolio": {
