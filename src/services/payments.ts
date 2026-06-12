@@ -1,5 +1,6 @@
 import { API_ENDPOINTS } from "@/config/api-endpoints";
 import api from "@/lib/axios";
+import { getStoredAuthToken } from "@/lib/auth-token";
 import { getPaymentSaveError } from "@/lib/payment-save-response";
 import { normalizePaymentGatewayList } from "@/lib/payments";
 import type { ApiListResponse } from "@/types/api";
@@ -19,8 +20,29 @@ export const PAYMENT_ROUTES = {
   walletList: API_ENDPOINTS.walletList,
 };
 
+const readMessage = (value: unknown, fallback: string) => {
+  if (typeof value === "object" && value !== null && "message" in value) {
+    const message = value.message;
+
+    if (typeof message === "string") {
+      return message;
+    }
+  }
+
+  return fallback;
+};
+
 export const getPaymentGateways = async (): Promise<PaymentGateway[]> => {
-  const { data } = await api.get<unknown>(PAYMENT_ROUTES.gateways);
+  const token = getStoredAuthToken();
+  const response = await fetch("/api/payment-gateways", {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    cache: "no-store",
+  });
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(readMessage(data, "Failed to load payment gateways"));
+  }
 
   return normalizePaymentGatewayList(data);
 };

@@ -12,6 +12,16 @@ const readString = (value: unknown) =>
 const readBoolean = (value: unknown) =>
   value === true || value === 1 || value === "1" || value === "true";
 
+const readActiveStatus = (value: unknown) => {
+  const normalizedValue = readString(value).toLowerCase();
+
+  return (
+    readBoolean(value) ||
+    normalizedValue === "active" ||
+    normalizedValue === "enabled"
+  );
+};
+
 const getApiBaseUrl = () =>
   process.env.NEXT_PUBLIC_API_URL || "https://reactif.dcodax.net/api";
 
@@ -35,7 +45,7 @@ const findStripeGatewayConfig = (value: unknown) => {
     (gateway): gateway is Record<string, unknown> =>
       isRecord(gateway) &&
       readString(gateway.type).toLowerCase() === "stripe" &&
-      readBoolean(gateway.status),
+      readActiveStatus(gateway.status),
   );
 
   if (!stripeGateway) {
