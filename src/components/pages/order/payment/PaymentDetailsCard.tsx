@@ -7,9 +7,13 @@ import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useAuth } from "@/hooks/useAuth";
-import { usePaymentGateways } from "@/hooks/usePayments";
-import { readBookingDraft } from "@/lib/booking-draft";
-import { getMissingBookingLocationFields } from "@/lib/booking-payload";
+import { useCreateBooking } from "@/hooks/useBookings";
+import { usePaymentGateways, useSavePayment } from "@/hooks/usePayments";
+import { clearBookingDraft, readBookingDraft } from "@/lib/booking-draft";
+import {
+  buildBookingFormDataFromDraft,
+  getMissingBookingLocationFields,
+} from "@/lib/booking-payload";
 import { PaymentTab } from "./PaymentTab";
 
 export function PaymentDetailsCard() {
@@ -17,6 +21,8 @@ export function PaymentDetailsCard() {
   const { t } = useAppTranslation();
   const { user, loading: authLoading } = useAuth();
   const { gateways, loading } = usePaymentGateways();
+  const createBooking = useCreateBooking();
+  const savePayment = useSavePayment();
   const [selectedGatewayId, setSelectedGatewayId] = useState<string | null>(null);
   const draft = typeof window === "undefined" ? null : readBookingDraft();
   const paymentMethods = useMemo(() => {
@@ -61,6 +67,7 @@ export function PaymentDetailsCard() {
             : t("payment.liveMode"),
         })
       : t("payment.onlineCardNotConfiguredDescription");
+  const paymentSubmitting = createBooking.isPending || savePayment.isPending;
   const amount = draft?.total_amount ?? "0";
 
   const handlePay = async () => {
@@ -92,12 +99,34 @@ export function PaymentDetailsCard() {
       return;
     }
 
-    if (activeGateway?.url) {
-      window.location.assign(activeGateway.url);
-      return;
-    }
+    try {
+      const bookingResponse = await createBooking.mutateAsync(
+        buildBookingFormDataFromDraft({
+          ...draft,
+          payment_type: activeGateway?.type || activeGateway?.title || "stripe",
+        }),
+      );
+      const bookingId = bookingResponse.data?.id;
 
-    toast.error(t("payment.paymentSessionMissing"));
+      if (!bookingId) {
+        throw new Error("Booking id missing from create booking response");
+      }
+
+      await savePayment.mutateAsync({
+        user_id: user.userId,
+        booking_id: bookingId,
+        amount: draft.total_amount,
+        transaction_id: `${activeGateway?.type || "stripe"}-${bookingId}-${Date.now()}`,
+        payment_type: activeGateway?.type || activeGateway?.title || "stripe",
+        payment_method: activeGateway?.title || activeGateway?.name || "Stripe",
+        payment_status: activeGateway?.isTest ? "paid" : "pending",
+      });
+
+      clearBookingDraft();
+      router.push(`/order/success?bookingId=${bookingId}`);
+    } catch {
+      toast.error(t("payment.couldNotComplete"));
+    }
   };
 
   return (
@@ -149,10 +178,12 @@ export function PaymentDetailsCard() {
         <button
           type="button"
           onClick={handlePay}
-          disabled={authLoading}
+          disabled={authLoading || gatewayLoading || paymentSubmitting}
           className="w-full h-12 bg-pink-400 hover:bg-pink-500 rounded-lg text-neutral-50 text-lg font-semibold font-['HK_Grotesk'] flex items-center justify-center"
         >
-          {t("payment.payAmount", { amount: `$${amount}` })}
+          {paymentSubmitting
+            ? t("payment.processing")
+            : t("payment.payAmount", { amount: `$${amount}` })}
         </button>
         <p className="text-center text-neutral-50/60 text-sm md:text-base font-medium font-['HK_Grotesk']">
           {t("payment.paymentNotStartedNotice")}
