@@ -572,15 +572,15 @@
     "bookingFor": "Booking for {serviceName}"
   },
   "cart": {
-    "eyebrow": "Frontend cart",
+    "eyebrow": "Booking cart",
     "title": "Your Cart",
-    "description": "Your configured services are saved on this device until checkout. My Bookings only shows backend-created bookings after payment or booking submission.",
+    "description": "Review your selected booking services before continuing to address and payment.",
     "items": "Items",
     "itemCount": "{count} item(s)",
     "emptyTitle": "Your cart is empty",
     "emptyDescription": "Configure a service and add it here before continuing to address and payment.",
     "browseServices": "Browse Services",
-    "localNotice": "Cart is managed locally in the browser because the backend does not provide cart APIs yet.",
+    "localNotice": "Your selected services are ready for checkout. Confirm the details below before continuing.",
     "readyForCheckout": "Ready for checkout",
     "service": "Service",
     "descriptionFallback": "Service details will be confirmed during checkout.",

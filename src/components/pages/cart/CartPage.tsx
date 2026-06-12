@@ -63,8 +63,8 @@ function CartItemCard({
     .slice(0, 4);
 
   return (
-    <article className="grid gap-5 rounded-3xl border border-white/10 bg-neutral-950/70 p-4 shadow-2xl shadow-black/20 backdrop-blur-xl md:grid-cols-[180px_1fr] md:p-5">
-      <div className="relative min-h-[180px] overflow-hidden rounded-2xl border border-white/10 bg-slate-950">
+    <article className="grid gap-5 rounded-3xl border border-white/10 bg-neutral-950/70 p-4 shadow-2xl shadow-black/20 backdrop-blur-xl md:grid-cols-[132px_1fr] md:p-5">
+      <div className="relative size-32 overflow-hidden rounded-2xl border border-white/10 bg-slate-950 sm:size-36 md:size-[132px]">
         {imageSource ? (
           <Image
             src={imageSource}

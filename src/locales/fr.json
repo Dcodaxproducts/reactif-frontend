@@ -572,15 +572,15 @@
     "bookingFor": "Réservation pour {serviceName}"
   },
   "cart": {
-    "eyebrow": "Panier frontend",
+    "eyebrow": "Panier de réservation",
     "title": "Votre panier",
-    "description": "Vos services configurés sont enregistrés sur cet appareil jusqu’au paiement. Mes réservations affiche uniquement les réservations créées côté backend.",
+    "description": "Vérifiez les services sélectionnés avant de continuer vers l’adresse et le paiement.",
     "items": "Articles",
     "itemCount": "{count} article(s)",
     "emptyTitle": "Votre panier est vide",
     "emptyDescription": "Configurez un service et ajoutez-le ici avant de continuer vers l’adresse et le paiement.",
     "browseServices": "Parcourir les services",
-    "localNotice": "Le panier est géré localement dans le navigateur car le backend ne fournit pas encore d’API panier.",
+    "localNotice": "Vos services sélectionnés sont prêts pour le paiement. Confirmez les détails ci-dessous avant de continuer.",
     "readyForCheckout": "Prêt pour le paiement",
     "service": "Service",
     "descriptionFallback": "Les détails du service seront confirmés pendant le paiement.",
