@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
@@ -30,6 +30,37 @@ export function PaymentDetailsCard() {
     }));
   }, [gateways, t]);
   const activeGatewayId = selectedGatewayId ?? paymentMethods[0]?.id ?? "pending";
+  const activeGateway = gateways.find(
+    (gateway) => String(gateway.id) === activeGatewayId,
+  );
+  const gatewayLoading = loading && gateways.length === 0;
+  const activeGatewayConfigured =
+    !gatewayLoading && Boolean(activeGateway?.publishableKey);
+  const gatewayStatusClass = activeGatewayConfigured
+    ? "border-emerald-300/25 bg-emerald-300/10"
+    : gatewayLoading
+      ? "border-neutral-50/15 bg-neutral-50/5"
+      : "border-amber-300/25 bg-amber-300/10";
+  const gatewayIconClass = activeGatewayConfigured
+    ? "bg-emerald-300/15 text-emerald-200"
+    : gatewayLoading
+      ? "bg-neutral-50/10 text-neutral-50/70"
+      : "bg-amber-300/15 text-amber-200";
+  const gatewayStatusTitle = gatewayLoading
+    ? t("payment.loading")
+    : activeGatewayConfigured
+      ? t("payment.onlineCardConfigured")
+      : t("payment.onlineCardNotConfigured");
+  const gatewayStatusDescription = gatewayLoading
+    ? t("payment.loadingPaymentMethods")
+    : activeGatewayConfigured
+      ? t("payment.onlineCardConfiguredDescription", {
+          gateway: activeGateway?.title ?? t("payment.unknown"),
+          mode: activeGateway?.isTest
+            ? t("payment.testMode")
+            : t("payment.liveMode"),
+        })
+      : t("payment.onlineCardNotConfiguredDescription");
   const amount = draft?.total_amount ?? "0";
 
   const handlePay = async () => {
@@ -56,7 +87,17 @@ export function PaymentDetailsCard() {
       return;
     }
 
-    toast.error(t("payment.onlineCardNotConfigured"));
+    if (!activeGatewayConfigured) {
+      toast.error(t("payment.onlineCardNotConfigured"));
+      return;
+    }
+
+    if (activeGateway?.url) {
+      window.location.assign(activeGateway.url);
+      return;
+    }
+
+    toast.error(t("payment.paymentSessionMissing"));
   };
 
   return (
@@ -81,17 +122,25 @@ export function PaymentDetailsCard() {
           ))}
         </div>
 
-        <div className="rounded-2xl border border-amber-300/25 bg-amber-300/10 p-5 flex flex-col gap-3">
+        <div
+          className={`rounded-2xl border p-5 flex flex-col gap-3 ${gatewayStatusClass}`}
+        >
           <div className="flex items-start gap-3">
-            <span className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-300/15 text-amber-200">
-              <AlertTriangle className="h-5 w-5" aria-hidden="true" />
+            <span
+              className={`mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${gatewayIconClass}`}
+            >
+              {activeGatewayConfigured ? (
+                <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <AlertTriangle className="h-5 w-5" aria-hidden="true" />
+              )}
             </span>
             <div className="flex flex-col gap-2">
               <h3 className="text-neutral-50 text-lg font-semibold font-['HK_Grotesk']">
-                {t("payment.onlineCardNotConfigured")}
+                {gatewayStatusTitle}
               </h3>
               <p className="text-neutral-50/70 text-sm md:text-base font-medium font-['HK_Grotesk'] leading-relaxed">
-                {t("payment.onlineCardNotConfiguredDescription")}
+                {gatewayStatusDescription}
               </p>
             </div>
           </div>

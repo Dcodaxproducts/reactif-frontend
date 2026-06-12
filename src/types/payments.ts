@@ -4,6 +4,9 @@ export type PaymentGateway = {
   name: string;
   type: string;
   status: string | number | boolean;
+  isTest?: boolean;
+  is_test?: string | number | boolean | null;
+  url?: string | null;
   gateway_image?: string | null;
   publishableKey?: string | null;
   publishable_key?: string | null;
