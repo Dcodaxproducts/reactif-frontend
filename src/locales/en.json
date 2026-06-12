@@ -331,6 +331,38 @@
       }
     }
   },
+  "automotive": {
+    "eyebrow": "Automotive",
+    "title": "Automotive visual communication built for the road.",
+    "description": "Explore vehicle wraps, protective films, tinting, fleet branding, and custom finishes designed to make every vehicle look sharp and work harder for your brand.",
+    "exploreCategory": "Explore automotive",
+    "viewCatalog": "View full catalog",
+    "imageAlt": "Reactif automotive vehicle wrap service",
+    "heroCardLabel": "Vehicle-first finishes",
+    "heroCardDescription": "From single cars to branded fleets, Reactif helps plan, produce, and install automotive visuals with clean detail and durable materials.",
+    "highlights": {
+      "wraps": {
+        "title": "Wraps and decoration",
+        "description": "Full or partial wraps, custom color accents, and visual upgrades for personal and commercial vehicles."
+      },
+      "protection": {
+        "title": "Protection and tinting",
+        "description": "Paint protection, window tinting, and film solutions selected for daily use and long-lasting presentation."
+      },
+      "branding": {
+        "title": "Fleet branding",
+        "description": "Consistent layouts for vans, cars, and commercial vehicles that keep your brand visible on every route."
+      }
+    },
+    "servicesEyebrow": "Bookable services",
+    "servicesTitle": "Automotive services",
+    "allAutomotive": "All automotive options",
+    "loading": "Loading automotive services...",
+    "errorTitle": "Unable to load automotive services",
+    "errorDescription": "Please retry or browse the full catalog while services refresh.",
+    "emptyTitle": "No automotive services found",
+    "emptyDescription": "Automotive services will appear here once they are available in the catalog."
+  },
   "helpCenter": {
     "supportCenter": "Support Center",
     "hero": {

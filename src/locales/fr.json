@@ -331,6 +331,38 @@
       }
     }
   },
+  "automotive": {
+    "eyebrow": "Automobile",
+    "title": "Communication visuelle automobile prête pour la route.",
+    "description": "Découvrez les habillages de véhicules, films de protection, vitres teintées, branding de flotte et finitions personnalisées pour valoriser chaque véhicule et renforcer votre marque.",
+    "exploreCategory": "Explorer l’automobile",
+    "viewCatalog": "Voir tout le catalogue",
+    "imageAlt": "Service d’habillage automobile Reactif",
+    "heroCardLabel": "Finitions pensées véhicule",
+    "heroCardDescription": "De la voiture individuelle aux flottes brandées, Reactif vous accompagne dans la préparation, la production et la pose de visuels automobiles durables.",
+    "highlights": {
+      "wraps": {
+        "title": "Habillages et décoration",
+        "description": "Habillages complets ou partiels, accents couleur personnalisés et améliorations visuelles pour véhicules personnels et commerciaux."
+      },
+      "protection": {
+        "title": "Protection et teintage",
+        "description": "Films de protection, vitres teintées et solutions choisies pour un usage quotidien et une présentation durable."
+      },
+      "branding": {
+        "title": "Branding de flotte",
+        "description": "Compositions cohérentes pour vans, voitures et véhicules commerciaux afin de rendre votre marque visible sur chaque trajet."
+      }
+    },
+    "servicesEyebrow": "Services réservables",
+    "servicesTitle": "Services automobiles",
+    "allAutomotive": "Toutes les options automobile",
+    "loading": "Chargement des services automobiles...",
+    "errorTitle": "Impossible de charger les services automobiles",
+    "errorDescription": "Veuillez réessayer ou consulter le catalogue complet pendant l’actualisation des services.",
+    "emptyTitle": "Aucun service automobile trouvé",
+    "emptyDescription": "Les services automobiles apparaîtront ici dès qu’ils seront disponibles dans le catalogue."
+  },
   "helpCenter": {
     "supportCenter": "Centre de support",
     "hero": {
