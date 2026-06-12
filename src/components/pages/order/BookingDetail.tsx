@@ -95,6 +95,12 @@ export default function BookingDetail() {
             </Button>
             <Button
               variant="neutralOutline"
+              onClick={() => router.push(`/messages/${booking.id}`)}
+            >
+              {t("messages.startChat")}
+            </Button>
+            <Button
+              variant="neutralOutline"
               disabled={cancelBookingMutation.isPending}
               onClick={handleCancel}
             >

@@ -66,6 +66,13 @@ export function OrderCard({ booking }: { booking: Booking }) {
             {t("booking.trackShipment")}
           </Button>
         )}
+
+        <Button
+          onClick={() => router.push(`/messages/${id}`)}
+          className="h-11 px-4 py-2 bg-cyan-300 hover:bg-cyan-200 text-neutral-950 rounded-lg font-hk font-semibold"
+        >
+          {t("messages.startChat")}
+        </Button>
       </div>
     </Card>
   );
