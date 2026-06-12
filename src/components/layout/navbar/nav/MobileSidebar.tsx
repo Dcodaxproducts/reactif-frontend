@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { X } from "lucide-react";
+import { ShoppingCart, X } from "lucide-react";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { useCart } from "@/hooks/useCart";
 import { LanguageSelector } from "./LanguageSelector";
 import { getStartedRoute } from "@/lib/get-started-routes";
 import type { MobileSidebarProps } from "@/types/component-props";
@@ -16,6 +17,7 @@ export function MobileSidebar({
   onLogin,
 }: MobileSidebarProps) {
   const { t } = useAppTranslation();
+  const { count } = useCart();
 
   if (!isOpen) return null;
 
@@ -56,6 +58,18 @@ export function MobileSidebar({
               >
                 <Link href={getStartedRoute(true)} onClick={onClose}>
                   {t("nav.myBookings")}
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                variant="navOutline"
+                className="border-black/20 py-2 text-black hover:bg-black/5"
+              >
+                <Link href="/cart" onClick={onClose}>
+                  <ShoppingCart className="h-4 w-4" aria-hidden="true" />
+                  {t("nav.cart")}
+                  {count > 0 ? ` (${count})` : ""}
                 </Link>
               </Button>
 

@@ -14,6 +14,11 @@ import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useAuth } from "@/hooks/useAuth";
 import { usePaymentGateways } from "@/hooks/usePayments";
 import { clearBookingDraft, readBookingDraft } from "@/lib/booking-draft";
+import {
+  clearActiveCartItemId,
+  readActiveCartItemId,
+  removeCartItem,
+} from "@/lib/cart";
 import { getStoredAuthToken } from "@/lib/auth-token";
 import {
   buildBookingFormDataFromDraft,
@@ -281,6 +286,8 @@ export function PaymentDetailsCard() {
         payment_status: "paid",
       });
 
+      removeCartItem(readActiveCartItemId());
+      clearActiveCartItemId();
       clearBookingDraft();
       router.push(`/order/success?bookingId=${bookingId}`);
     } catch {

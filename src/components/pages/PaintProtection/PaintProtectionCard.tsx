@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { buildLoginRoute, useAuth } from "@/hooks/useAuth";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { writeBookingDraft } from "@/lib/booking-draft";
+import { addCartItem } from "@/lib/cart";
 import { BookingCardHeader } from "./booking-card/BookingCardHeader";
 import { BookingCardSkeleton } from "./booking-card/BookingCardSkeleton";
 import { BookingSummary } from "./booking-card/BookingSummary";
@@ -134,8 +135,10 @@ export function PaintProtectionCard({
         designerId,
       });
 
+      addCartItem(draft);
       writeBookingDraft(draft);
-      router.push("/order/address");
+      toast.success(t("bookingFlow.addedToCart"));
+      router.push("/cart");
     } catch {
       toast.error(t("bookingFlow.saveDraftError"));
     } finally {

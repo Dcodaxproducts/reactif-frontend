@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { useCart } from "@/hooks/useCart";
 import { LanguageSelector } from "./LanguageSelector";
 import { UserDropdown } from "./UserDropdown";
 import { getStartedRoute } from "@/lib/get-started-routes";
@@ -19,6 +20,7 @@ export function NavbarActions({
 }: NavbarActionsProps) {
   const router = useRouter();
   const { t } = useAppTranslation();
+  const { count } = useCart();
 
   return (
     <div className="flex items-center gap-3 md:gap-4 relative">
@@ -29,10 +31,16 @@ export function NavbarActions({
       {user && (
         <Button
           variant="navOutline"
-          onClick={() => router.push("/order/management")}
-          className="w-9 h-9 md:w-10 md:h-10"
+          onClick={() => router.push("/cart")}
+          aria-label={t("nav.cart")}
+          className="relative h-9 w-9 md:h-10 md:w-10"
         >
           <ShoppingCart size={19} />
+          {count > 0 ? (
+            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full border border-black bg-cyan-200 px-1 text-[11px] font-bold text-slate-950">
+              {count > 9 ? "9+" : count}
+            </span>
+          ) : null}
         </Button>
       )}
 

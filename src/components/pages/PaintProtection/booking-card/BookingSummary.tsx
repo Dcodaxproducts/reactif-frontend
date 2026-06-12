@@ -58,7 +58,9 @@ export function BookingSummary({
         className="w-full px-4 py-3 rounded-lg flex justify-center items-center gap-2.5 cursor-pointer hover:opacity-90 transition bg-[#F262B5] hover:bg-[#F262B5]"
       >
         <div className="text-neutral-50 text-xs font-bold font-hk">
-          {isSubmitting ? t("bookingFlow.creatingBooking") : t("bookingFlow.bookNow")}
+          {isSubmitting
+            ? t("bookingFlow.addingToCart")
+            : t("bookingFlow.addToCart")}
         </div>
         <ArrowRight className="w-4 h-4 text-neutral-50" />
       </Button>
