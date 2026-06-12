@@ -14,8 +14,8 @@ export function BlogsPage() {
 
   return (
     <PageShell>
-      <Container gutter="page" width="7xl" className="py-14 md:py-24">
-        <section className="relative overflow-hidden rounded-3xl border border-white/15 bg-black/50 p-6 shadow-2xl shadow-fuchsia-950/20 md:p-10">
+      <Container gutter="content" width="7xl" className="py-10 md:py-16">
+        <section className="relative overflow-hidden rounded-3xl border border-white/15 bg-black/50 p-5 shadow-2xl shadow-fuchsia-950/20 sm:p-6 md:p-8 lg:p-10">
           <div
             className="absolute inset-0 opacity-60 blur-3xl"
             style={{
@@ -64,7 +64,7 @@ export function BlogsPage() {
           </div>
         </section>
 
-        <section className="mt-8 grid gap-5 md:mt-10 lg:grid-cols-3">
+        <section className="mt-6 grid gap-5 md:mt-8 md:grid-cols-2 xl:grid-cols-3">
           {blogArticles.map((item) => (
             <article
               key={item.key}

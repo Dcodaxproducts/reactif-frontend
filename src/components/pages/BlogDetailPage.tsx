@@ -34,7 +34,7 @@ export function BlogDetailPage({ article }: BlogDetailPageProps) {
 
   return (
     <PageShell>
-      <Container gutter="page" width="6xl" className="py-10 md:py-16">
+      <Container gutter="content" width="7xl" className="py-8 md:py-12">
         <Button
           asChild
           variant="outline"
@@ -47,7 +47,7 @@ export function BlogDetailPage({ article }: BlogDetailPageProps) {
         </Button>
 
         <article className="overflow-hidden rounded-3xl border border-white/10 bg-black/50 shadow-2xl shadow-black/25 backdrop-blur">
-          <header className="grid gap-8 p-5 md:p-8 lg:grid-cols-[1fr_0.85fr] lg:p-10">
+          <header className="grid gap-6 p-5 sm:p-6 md:p-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:p-10">
             <div className="flex flex-col justify-center gap-6">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-cyan-100">
@@ -78,7 +78,7 @@ export function BlogDetailPage({ article }: BlogDetailPageProps) {
               </div>
             </div>
 
-            <div className="relative min-h-[320px] overflow-hidden rounded-3xl bg-slate-950">
+            <div className="relative min-h-[260px] overflow-hidden rounded-3xl bg-slate-950 sm:min-h-[320px] lg:min-h-[420px]">
               <Image
                 src={article.image}
                 alt={t(`staticPages.blogs.articles.${article.key}.title`)}
@@ -91,7 +91,7 @@ export function BlogDetailPage({ article }: BlogDetailPageProps) {
             </div>
           </header>
 
-          <div className="grid gap-8 border-t border-white/10 p-5 md:p-8 lg:grid-cols-[1fr_320px] lg:p-10">
+          <div className="grid gap-8 border-t border-white/10 p-5 sm:p-6 md:p-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:p-10">
             <div className="space-y-6">
               {article.bodyKeys.map((key) => (
                 <p key={key} className="text-base leading-8 text-slate-300">

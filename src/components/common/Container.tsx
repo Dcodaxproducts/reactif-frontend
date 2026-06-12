@@ -17,6 +17,7 @@ const containerVariants = cva("w-full mx-auto", {
     gutter: {
       none: "",
       page: "px-4 sm:px-6 md:px-30",
+      content: "px-4 sm:px-6 lg:px-8",
       wide: "px-4 md:px-8 lg:px-20",
       hero: "px-4 sm:px-6 md:pl-20 md:pr-12",
       narrow: "px-4 sm:px-6 md:px-40",
