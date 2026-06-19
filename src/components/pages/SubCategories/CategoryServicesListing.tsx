@@ -2,18 +2,21 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { ArrowRight, CalendarClock, Eye, PackageOpen } from "lucide-react";
-import { ServiceBookNowButton } from "@/components/common/ServiceBookNowButton";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/currency";
 import { getImageSource } from "@/lib/image-source";
-import { buildSubcategoryRoute } from "@/lib/category-routes";
+import {
+  buildSubcategoryRoute,
+  resolveCategorySlug,
+} from "@/lib/category-routes";
 import {
   buildServiceDetailHref,
-  buildServiceFlowHref,
 } from "@/lib/service-routes";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import type { Category, Service } from "@/types/categories";
+import DesignPathModal from "./DesignPathModal";
 
 type CategoryServicesListingProps = {
   category: Category;
@@ -30,6 +33,7 @@ export function CategoryServicesListing({
   activeSubcategoryId,
 }: CategoryServicesListingProps) {
   const { t } = useAppTranslation();
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
   const categoryImage = getImageSource(category.category_image, "");
   const activeSubcategories = (category.subcategories ?? []).filter(
     ({ status }) => status !== 0,
@@ -40,6 +44,12 @@ export function CategoryServicesListing({
   const showSubcategoryPrompt =
     activeSubcategories.length > 0 && !activeSubcategoryId;
   const activeServices = services.filter(({ status }) => status !== 0);
+  const selectedServiceSubcategory = activeSubcategories.find(
+    ({ id }) => String(id) === String(selectedService?.sub_category_id),
+  );
+  const modalSubcategory = selectedServiceSubcategory ?? selectedSubcategory;
+  const modalSubcategoryName = modalSubcategory?.name ?? category.name;
+  const modalSubcategorySlug = resolveCategorySlug(modalSubcategoryName);
 
   return (
     <section className="w-full pb-12">
@@ -190,11 +200,6 @@ export function CategoryServicesListing({
           {activeServices.map((service, index) => {
             const imageSource = getImageSource(service.service_image, "");
             const leadTime = getLeadTime(service);
-            const serviceHref = buildServiceFlowHref({
-              category,
-              service,
-              from: "category-listing",
-            });
             const serviceDetailHref = buildServiceDetailHref({
               category,
               service,
@@ -264,12 +269,17 @@ export function CategoryServicesListing({
                         {t("categoryFlow.viewDetails")}
                       </Link>
                     </Button>
-                    <ServiceBookNowButton
-                      href={serviceHref}
-                      serviceName={service.name}
-                      label={t("categoryFlow.bookNow")}
-                      className="text-zinc-900"
-                    />
+                    <Button
+                      type="button"
+                      onClick={() => setSelectedService(service)}
+                      aria-label={t("serviceActions.bookNowFor", {
+                        title: service.name,
+                      })}
+                      className="h-11 rounded-full bg-white px-4 text-zinc-900 hover:bg-white/90"
+                    >
+                      {t("categoryFlow.bookNow")}
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
                   </div>
                 </div>
               </article>
@@ -286,6 +296,23 @@ export function CategoryServicesListing({
           }
         }
       `}</style>
+
+      {selectedService ? (
+        <DesignPathModal
+          isOpen={Boolean(selectedService)}
+          onClose={() => setSelectedService(null)}
+          categoryId={category.id}
+          categorySlug={resolveCategorySlug(category.name)}
+          serviceId={selectedService.id}
+          subcategoryId={
+            selectedService.sub_category_id ??
+            modalSubcategory?.id ??
+            activeSubcategoryId
+          }
+          subcategoryName={modalSubcategoryName}
+          subcategorySlug={modalSubcategorySlug}
+        />
+      ) : null}
     </section>
   );
 }

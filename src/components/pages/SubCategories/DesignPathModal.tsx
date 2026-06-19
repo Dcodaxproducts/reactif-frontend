@@ -5,11 +5,18 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { X, PencilRuler, Brush } from "lucide-react";
 import { toast } from "sonner";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
+import {
+  buildDesignPathHref,
+  type DesignPathType,
+} from "@/lib/design-path-routes";
 
 type DesignPathModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  subcategoryId: number;
+  categoryId?: string | number | null;
+  categorySlug?: string | null;
+  serviceId?: string | number | null;
+  subcategoryId?: string | number | null;
   subcategoryName: string;
   subcategorySlug: string;
 };
@@ -17,6 +24,9 @@ type DesignPathModalProps = {
 export default function DesignPathModal({
   isOpen,
   onClose,
+  categoryId: categoryIdProp,
+  categorySlug: categorySlugProp,
+  serviceId,
   subcategoryId,
   subcategoryName,
   subcategorySlug,
@@ -27,34 +37,28 @@ export default function DesignPathModal({
 
   if (!isOpen) return null;
 
-  const categoryId = searchParams.get("id");
+  const categoryId = categoryIdProp ?? searchParams.get("id");
+  const categorySlug = categorySlugProp ?? searchParams.get("slug") ?? "";
 
-  const handleSelect = (pathType: "have-design" | "need-designer") => {
-    if (!categoryId) {
+  const handleSelect = (pathType: DesignPathType) => {
+    const href = buildDesignPathHref({
+      pathType,
+      categoryId,
+      subcategoryId,
+      subcategoryName,
+      subcategorySlug,
+      categorySlug,
+      serviceId,
+    });
+
+    if (!href) {
       toast.error(t("designPath.missingCategoryError"));
       router.push("/subcategories");
       onClose();
       return;
     }
 
-    const baseQuery = {
-      path: pathType,
-      categoryId: categoryId,
-      subcategoryId: String(subcategoryId),
-      subcategoryName: subcategoryName,
-      subcategorySlug,
-      categorySlug: searchParams.get("slug") ?? "",
-      from: "design-path-modal",
-    };
-
-    const query = new URLSearchParams(baseQuery).toString();
-
-    if (pathType === "have-design") {
-      router.push(`/paint-protection/${categoryId}?${query}`);
-    } else {
-      router.push(`/all-vendor-services?${query}`);
-    }
-
+    router.push(href);
     onClose();
   };
 
