@@ -64,25 +64,34 @@ export function OrderConfirmationSummary({
   ];
 
   return (
-    <div className="w-full p-6 sm:p-8 md:p-10 bg-neutral-800 rounded-3xl border border-neutral-50/10 flex flex-col gap-8">
+    <div
+      data-print-receipt-summary="true"
+      className="w-full p-6 sm:p-8 md:p-10 bg-neutral-800 rounded-3xl border border-neutral-50/10 flex flex-col gap-8"
+    >
       <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-neutral-50 font-hk">
         {t("order.summaryTitle")}
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div
+        data-print-receipt-grid="true"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+      >
         {orderConfirmationInfo.map((item) => (
           <InfoItem key={item.title} {...item} />
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div
+        data-print-receipt-grid="true"
+        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+      >
         <InfoItem title={t("order.serviceAddress")} value={booking.address || t("booking.notProvided")} />
         <InfoItem title={t("order.latitude")} value={String(booking.latitude ?? t("booking.notProvided"))} />
         <InfoItem title={t("order.longitude")} value={String(booking.longitude ?? t("booking.notProvided"))} />
       </div>
 
       {fieldResponses.length > 0 && (
-        <div className="flex flex-col gap-3">
+        <div data-print-receipt-details="true" className="flex flex-col gap-3">
           <h3 className="text-neutral-50 text-base sm:text-lg font-semibold font-hk">
             {t("order.submittedDetails")}
           </h3>
@@ -104,7 +113,10 @@ export function OrderConfirmationSummary({
         </div>
       )}
 
-      <div className="w-full md:max-w-sm ml-auto flex flex-col gap-4">
+      <div
+        data-print-receipt-totals="true"
+        className="w-full md:max-w-sm ml-auto flex flex-col gap-4"
+      >
         {orderConfirmationTotals.map((item) => (
           <TotalItem key={item.label} {...item} />
         ))}

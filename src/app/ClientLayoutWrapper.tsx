@@ -15,11 +15,15 @@ function ClientLayoutContent({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-transparent text-white">
-      <TopInfoBar />
-      <Navbar />
+      <div data-print-hidden="true">
+        <TopInfoBar />
+        <Navbar />
+      </div>
       <Toaster position="top-right" richColors />
       <div>{children}</div>
-      <Footer />
+      <div data-print-hidden="true">
+        <Footer />
+      </div>
     </div>
   );
 }

@@ -16,7 +16,10 @@ export function OrderConfirmationActions({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+    <div
+      data-print-hidden="true"
+      className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+    >
       <Link
         href={trackHref}
         className="h-12 w-full sm:w-auto bg-pink-500 hover:bg-pink-600 text-white font-semibold text-base px-8 flex items-center justify-center rounded-[12px]"

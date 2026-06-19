@@ -25,12 +25,19 @@ function OrderConfirmContent() {
     : t("order.pendingConfirmation");
 
   return (
-    <section className="w-full flex justify-center px-4 py-10">
+    <section
+      data-print-page="true"
+      className="w-full flex justify-center px-4 py-10"
+    >
       <div
         id="booking-receipt"
+        data-print-receipt="true"
         className="w-full max-w-5xl p-6 sm:p-8 md:p-10 bg-neutral-800/80 rounded-3xl border border-neutral-50/10 flex flex-col gap-10"
       >
-        <div className="text-center flex flex-col items-center gap-4">
+        <div
+          data-print-receipt-header="true"
+          className="text-center flex flex-col items-center gap-4"
+        >
           <div className="p-4 bg-green-600/10 rounded-full">
             <CheckCircle className="w-12 h-12 text-green-600" />
           </div>

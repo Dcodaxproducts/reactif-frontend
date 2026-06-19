@@ -221,3 +221,127 @@ body {
 html {
   scroll-behavior: smooth !important;
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  html,
+  body {
+    height: auto !important;
+    background: #ffffff !important;
+  }
+
+  body {
+    color: #111827 !important;
+    background-image: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  [data-print-hidden="true"] {
+    display: none !important;
+  }
+
+  [data-print-page="true"] {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  [data-print-receipt="true"] {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 10px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  [data-print-receipt="true"] *,
+  [data-print-receipt="true"] :before,
+  [data-print-receipt="true"] :after {
+    color: #111827 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  [data-print-receipt-header="true"] {
+    gap: 6px !important;
+  }
+
+  [data-print-receipt-header="true"] > div {
+    padding: 6px !important;
+  }
+
+  [data-print-receipt-header="true"] svg {
+    width: 32px !important;
+    height: 32px !important;
+    color: #16a34a !important;
+  }
+
+  [data-print-receipt-header="true"] h1 {
+    font-size: 22px !important;
+    line-height: 1.2 !important;
+  }
+
+  [data-print-receipt-header="true"] p {
+    max-width: 100% !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  [data-print-receipt-summary="true"] {
+    padding: 12px !important;
+    gap: 12px !important;
+    border: 1px solid #d4d4d8 !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  [data-print-receipt-summary="true"] h2 {
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+  }
+
+  [data-print-receipt-summary="true"] h3 {
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+  }
+
+  [data-print-receipt-grid="true"] {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  [data-print-receipt-details="true"] {
+    gap: 8px !important;
+  }
+
+  [data-print-receipt-details="true"] > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  [data-print-receipt-details="true"] [class*="rounded-xl"] {
+    padding: 8px !important;
+    border: 1px solid #d4d4d8 !important;
+    background: #ffffff !important;
+  }
+
+  [data-print-receipt-totals="true"] {
+    gap: 8px !important;
+    max-width: 260px !important;
+  }
+}
