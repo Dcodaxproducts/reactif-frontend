@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { normalizeServicesResponse } from "./service-response";
+import {
+  filterServicesByParams,
+  normalizeServicesResponse,
+} from "./service-response";
 
 describe("normalizeServicesResponse", () => {
   it("supports data, array, and services response shapes", () => {
@@ -52,6 +55,36 @@ describe("normalizeServicesResponse", () => {
     });
     expect(response.data[0]?.fields[0]?.options).toEqual([
       { key: "matte", display: "Matte" },
+    ]);
+  });
+
+  it("keeps only services linked to requested category filters", () => {
+    const services = normalizeServicesResponse({
+      data: [
+        { id: 1, name: "Full Wrap", category_id: 10, sub_category_id: 0 },
+        { id: 2, name: "Fleet Branding", category_id: 20, sub_category_id: 0 },
+      ],
+    }).data;
+
+    expect(filterServicesByParams(services, { category_id: 999 })).toEqual([]);
+    expect(filterServicesByParams(services, { category_id: 10 })).toEqual([
+      expect.objectContaining({ id: 1, category_id: 10 }),
+    ]);
+  });
+
+  it("keeps only services linked to requested subcategory and service filters", () => {
+    const services = normalizeServicesResponse({
+      data: [
+        { id: 1, name: "Full Wrap", category_id: 10, sub_category_id: 5 },
+        { id: 2, name: "Window Graphics", category_id: 10, sub_category_id: 6 },
+      ],
+    }).data;
+
+    expect(filterServicesByParams(services, { sub_category_id: 5 })).toEqual([
+      expect.objectContaining({ id: 1, sub_category_id: 5 }),
+    ]);
+    expect(filterServicesByParams(services, { service_id: 2 })).toEqual([
+      expect.objectContaining({ id: 2 }),
     ]);
   });
 });

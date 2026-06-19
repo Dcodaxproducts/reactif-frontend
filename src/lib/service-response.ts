@@ -5,6 +5,12 @@ import type {
 } from "@/types/categories";
 import type { ApiListResponse } from "@/types/api";
 
+type ServiceFilterParams = {
+  category_id?: string | number | null;
+  sub_category_id?: string | number | null;
+  service_id?: string | number | null;
+};
+
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null;
 
@@ -183,6 +189,26 @@ const getServiceItems = (response: unknown): unknown[] => {
 
   return [];
 };
+
+const idsMatch = (
+  actual: number,
+  expected: string | number | null | undefined,
+) =>
+  expected === undefined ||
+  expected === null ||
+  expected === "" ||
+  String(actual) === String(expected);
+
+export const filterServicesByParams = (
+  services: Service[],
+  params: ServiceFilterParams = {},
+) =>
+  services.filter(
+    (service) =>
+      idsMatch(service.category_id, params.category_id) &&
+      idsMatch(service.sub_category_id, params.sub_category_id) &&
+      idsMatch(service.id, params.service_id),
+  );
 
 export const normalizeService = (service: unknown): Service | null => {
   if (!isRecord(service)) {

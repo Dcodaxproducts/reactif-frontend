@@ -1,6 +1,9 @@
 import api from "@/lib/axios";
 import { API_ENDPOINTS } from "@/config/api-endpoints";
-import { normalizeServicesResponse } from "@/lib/service-response";
+import {
+  filterServicesByParams,
+  normalizeServicesResponse,
+} from "@/lib/service-response";
 import type { ApiItemResponse, ApiListResponse } from "@/types/api";
 import type { Category, Service } from "@/types/categories";
 
@@ -106,7 +109,12 @@ export const getServices = async (
     params: cleanParams(params),
   });
 
-  return normalizeServicesResponse(data);
+  const response = normalizeServicesResponse(data);
+
+  return {
+    ...response,
+    data: filterServicesByParams(response.data, params),
+  };
 };
 
 export const getServiceDetail = async (
