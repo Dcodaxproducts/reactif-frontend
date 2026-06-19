@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, PackageSearch, XCircle } from "lucide-react";
 import { StatusCard } from "@/components/common/StatusCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,6 +14,7 @@ import {
   formatBookingLabel,
 } from "@/lib/booking-display";
 import { getBookingStatusTranslationKey } from "@/lib/booking-status";
+import { buildCancelBookingPayload } from "@/lib/cancel-booking-payload";
 import { formatCurrency } from "@/lib/currency";
 import { parseBookingData } from "./management/order-management-utils";
 
@@ -26,13 +27,20 @@ export default function BookingDetail() {
   const cancelBookingMutation = useCancelBooking();
 
   const handleCancel = async () => {
-    if (!bookingId) return;
+    if (!booking) return;
 
     try {
-      await cancelBookingMutation.mutateAsync({
-        booking_id: bookingId,
-        cancellation_reason: "Canceled by customer",
-      });
+      const payload = buildCancelBookingPayload(
+        booking,
+        t("booking.cancelReasonCustomer"),
+      );
+
+      if (!payload) {
+        toast.error(t("booking.unableToCancel"));
+        return;
+      }
+
+      await cancelBookingMutation.mutateAsync(payload);
     } catch {
       toast.error(t("booking.unableToCancel"));
     }
@@ -232,16 +240,27 @@ export default function BookingDetail() {
             </div>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button onClick={() => router.push(`/order/track/${booking.id}`)}>
+          <div className="flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row">
+            <Button
+              type="button"
+              variant="brandSolid"
+              className="h-12 rounded-full px-6 shadow-lg shadow-blue-950/20"
+              onClick={() => router.push(`/order/track/${booking.id}`)}
+            >
+              <PackageSearch className="h-4 w-4" aria-hidden="true" />
               {t("booking.track")}
             </Button>
             <Button
-              variant="neutralOutline"
+              type="button"
+              variant="destructive"
+              className="h-12 rounded-full border border-red-300/25 bg-red-500/15 px-6 text-red-100 hover:bg-red-500/25"
               disabled={cancelBookingMutation.isPending}
               onClick={handleCancel}
             >
-              {t("booking.cancelBooking")}
+              <XCircle className="h-4 w-4" aria-hidden="true" />
+              {cancelBookingMutation.isPending
+                ? t("booking.canceling")
+                : t("booking.cancelBooking")}
             </Button>
           </div>
         </CardContent>

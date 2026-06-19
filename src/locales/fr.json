@@ -515,6 +515,7 @@
     "configuration": "Configuration",
     "track": "Suivre",
     "cancelBooking": "Annuler la réservation",
+    "canceling": "Annulation...",
     "cancelReasonCustomer": "Annulé par le client",
     "unableToCancel": "Impossible d’annuler la réservation",
     "status": {

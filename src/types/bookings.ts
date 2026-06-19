@@ -1,6 +1,7 @@
 export type Booking = {
   id: number;
   user_id?: number;
+  service_id?: number | string | null;
   status: string;
   created_at: string;
   updated_at?: string;
@@ -112,4 +113,10 @@ export type BookingDraft = {
 export type CancelBookingPayload = {
   booking_id: number | string;
   cancellation_reason: string;
+  service_id: number | string;
+  address: string;
+  latitude: string | number;
+  longitude: string | number;
+  datetime: string;
+  status: "canceled";
 };
