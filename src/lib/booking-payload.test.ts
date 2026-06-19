@@ -48,6 +48,15 @@ describe("booking payload helpers", () => {
     expect(formData.get("total_amount")).toBe("75");
   });
 
+  it("sends designer_id when the draft has a selected designer", () => {
+    const formData = buildBookingFormDataFromDraft({
+      ...draft,
+      selected_designer_id: "12",
+    });
+
+    expect(formData.get("designer_id")).toBe("12");
+  });
+
   it("preserves dynamic field responses", () => {
     const formData = buildBookingFormDataFromDraft(draft);
     const responses = JSON.parse(String(formData.get("field_responses"))) as
