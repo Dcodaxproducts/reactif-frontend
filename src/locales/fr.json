@@ -35,6 +35,8 @@
     "authDescription": "Rejoignez ReactIf Printing and Design dès aujourd’hui",
     "email": "E-mail",
     "password": "Mot de passe",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
     "enterYourEmail": "Entrez votre e-mail",
     "enterPassword": "Entrez votre mot de passe",
     "forgotPasswordLink": "Mot de passe oublié ?",

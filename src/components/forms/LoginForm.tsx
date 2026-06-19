@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 import {
   AUTH_FORM_CLASS,
+  AuthPasswordField,
   AuthFormShell,
   AuthInlineLink,
   AuthSubmitButton,
@@ -69,10 +70,9 @@ export default function LoginForm() {
           {...register("email")}
         />
 
-        <AuthTextField
+        <AuthPasswordField
           label={t("auth.password")}
           placeholder={t("auth.enterPassword")}
-          type="password"
           autoComplete="current-password"
           error={errors.password?.message}
           {...register("password")}

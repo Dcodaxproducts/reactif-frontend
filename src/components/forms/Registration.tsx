@@ -11,6 +11,7 @@ import {
   AUTH_SUCCESS_CLASS,
   AuthFormShell,
   AuthInlineLink,
+  AuthPasswordField,
   AuthSubmitButton,
   AuthTextField,
 } from "@/components/forms/AuthFormShell";
@@ -99,17 +100,15 @@ export default function RegistrationForm() {
           error={errors.email?.message}
           {...register("email")}
         />
-        <AuthTextField
+        <AuthPasswordField
           label={t("auth.password")}
-          type="password"
           autoComplete="new-password"
           placeholder={t("auth.enterPassword")}
           error={errors.password?.message}
           {...register("password")}
         />
-        <AuthTextField
+        <AuthPasswordField
           label={t("auth.confirmPassword")}
-          type="password"
           autoComplete="new-password"
           placeholder={t("auth.enterConfirmPassword")}
           error={errors.confirmPassword?.message}

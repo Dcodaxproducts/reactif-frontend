@@ -35,6 +35,8 @@
     "authDescription": "Join ReactIf Printing and Design Today",
     "email": "Email",
     "password": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
     "enterYourEmail": "Enter Your Email",
     "enterPassword": "Enter Password",
     "forgotPasswordLink": "Forgot Password?",

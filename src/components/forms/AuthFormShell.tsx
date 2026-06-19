@@ -1,5 +1,8 @@
-import { useId, type ChangeEvent, type ReactNode } from "react";
+"use client";
+
+import { useId, useState, type ChangeEvent, type ReactNode } from "react";
 import Link from "next/link";
+import { Eye, EyeOff } from "lucide-react";
 
 import { PageShell } from "@/components/common/PageShell";
 import { Button } from "@/components/ui/button";
@@ -75,12 +78,14 @@ export function AuthFormShell({
 type AuthTextFieldProps = {
   label: string;
   error?: string;
+  endAdornment?: ReactNode;
 } & React.ComponentProps<typeof Input>;
 
 export function AuthTextField({
   label,
   className,
   error,
+  endAdornment,
   id,
   ...props
 }: AuthTextFieldProps) {
@@ -92,14 +97,48 @@ export function AuthTextField({
       <Label htmlFor={inputId} className="text-neutral-50 font-semibold">
         {label}
       </Label>
-      <Input
-        id={inputId}
-        aria-invalid={Boolean(error)}
-        className={cn(AUTH_INPUT_CLASS, className)}
-        {...props}
-      />
+      <div className="relative">
+        <Input
+          id={inputId}
+          aria-invalid={Boolean(error)}
+          className={cn(AUTH_INPUT_CLASS, endAdornment && "pr-12", className)}
+          {...props}
+        />
+        {endAdornment && (
+          <div className="absolute inset-y-0 right-2 flex items-center">
+            {endAdornment}
+          </div>
+        )}
+      </div>
       {error && <p className={AUTH_ERROR_CLASS}>{error}</p>}
     </div>
+  );
+}
+
+export function AuthPasswordField(props: AuthTextFieldProps) {
+  const { t } = useAppTranslation();
+  const [visible, setVisible] = useState(false);
+  const Icon = visible ? EyeOff : Eye;
+
+  return (
+    <AuthTextField
+      {...props}
+      type={visible ? "text" : "password"}
+      className={cn("pr-12", props.className)}
+      endAdornment={
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          aria-label={visible ? t("auth.hidePassword") : t("auth.showPassword")}
+          aria-pressed={visible}
+          onClick={() => setVisible((current) => !current)}
+          className="h-9 w-9 rounded-full text-neutral-50/60 hover:bg-white/10 hover:text-neutral-50"
+        >
+          <Icon className="h-4 w-4" aria-hidden="true" />
+        </Button>
+      }
+    />
   );
 }
 

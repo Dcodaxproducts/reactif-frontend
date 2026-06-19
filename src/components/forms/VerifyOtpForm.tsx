@@ -11,6 +11,7 @@ import {
   AUTH_OTP_INPUT_CLASS,
   AuthFormShell,
   AuthInlineLink,
+  AuthPasswordField,
   AuthResendOtpControl,
   AuthSubmitButton,
   AuthTextField,
@@ -88,9 +89,8 @@ const VerifyOtpForm = () => {
           error={errors.otp?.message}
           {...register("otp", { onChange: sanitizeOtpInput })}
         />
-        <AuthTextField
+        <AuthPasswordField
           label={t("auth.newPassword")}
-          type="password"
           autoComplete="new-password"
           placeholder={t("auth.enterNewPassword")}
           error={errors.newPassword?.message}
