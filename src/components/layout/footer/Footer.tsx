@@ -19,6 +19,14 @@ import {
 } from "@/lib/category-routes";
 import { getStartedRoute } from "@/lib/get-started-routes";
 
+const socialLinks = {
+  x: "https://x.com/reactif",
+  facebook: "https://www.facebook.com/reactif",
+  instagram: "https://www.instagram.com/reactif",
+  linkedin: "https://www.linkedin.com/company/reactif",
+  youtube: "https://www.youtube.com/@reactif",
+} as const;
+
 export default function Footer() {
   const router = useRouter();
   const { t } = useAppTranslation();
@@ -108,29 +116,29 @@ export default function Footer() {
           <div className="flex items-center gap-5">
             <span className="text-sm text-white/60">{t("footer.followUs")}</span>
 
-            <SocialIcon href="https://x.com/" ariaLabel={t("footer.socialX")}>
+            <SocialIcon href={socialLinks.x} ariaLabel={t("footer.socialX")}>
               <Twitter size={16} />
             </SocialIcon>
             <SocialIcon
-              href="https://www.facebook.com/"
+              href={socialLinks.facebook}
               ariaLabel={t("footer.socialFacebook")}
             >
               <Facebook size={16} />
             </SocialIcon>
             <SocialIcon
-              href="https://www.instagram.com/"
+              href={socialLinks.instagram}
               ariaLabel={t("footer.socialInstagram")}
             >
               <Instagram size={16} />
             </SocialIcon>
             <SocialIcon
-              href="https://www.linkedin.com/"
+              href={socialLinks.linkedin}
               ariaLabel={t("footer.socialLinkedIn")}
             >
               <Linkedin size={16} />
             </SocialIcon>
             <SocialIcon
-              href="https://www.youtube.com/"
+              href={socialLinks.youtube}
               ariaLabel={t("footer.socialYouTube")}
             >
               <Youtube size={16} />

@@ -1,4 +1,5 @@
 import { getBookingDraftFile } from "./booking-draft";
+import { isValidCoordinate } from "./coordinates";
 import type { BookingDraft } from "@/types/bookings";
 
 const appendIfPresent = (formData: FormData, key: string, value: string) => {
@@ -63,8 +64,16 @@ export const getMissingBookingLocationFields = (draft: BookingDraft | null) => {
   const missingFields: string[] = [];
 
   if (draft.address.trim() === "") missingFields.push("address");
-  if (draft.latitude.trim() === "") missingFields.push("latitude");
-  if (draft.longitude.trim() === "") missingFields.push("longitude");
+  if (draft.latitude.trim() === "") {
+    missingFields.push("latitude");
+  } else if (!isValidCoordinate(draft.latitude, "latitude")) {
+    missingFields.push("valid latitude");
+  }
+  if (draft.longitude.trim() === "") {
+    missingFields.push("longitude");
+  } else if (!isValidCoordinate(draft.longitude, "longitude")) {
+    missingFields.push("valid longitude");
+  }
 
   return missingFields;
 };

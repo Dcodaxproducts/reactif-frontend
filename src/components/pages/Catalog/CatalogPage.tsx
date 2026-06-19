@@ -8,6 +8,7 @@ import { PageShell } from "@/components/common/PageShell";
 import { catalogBackgroundStyle } from "@/data/catalog";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useCategories, useServices } from "@/hooks/useCategories";
+import { filterCatalogServices } from "@/lib/catalog-search";
 import type { Service } from "@/types/categories";
 import CatalogSection from "./CatalogSection";
 import CatalogHero from "./CatalogHero";
@@ -15,16 +16,9 @@ import { ProductFilterBar } from "./ProductFilterBar";
 import type { CatalogPriceSort } from "./FiltersButton";
 import { CatalogCategoryExplorer } from "./CatalogCategoryExplorer";
 
-const buildServiceParams = ({
-  search,
-}: {
-  search: string;
-}) => {
-  const trimmedSearch = search.trim();
-
+const buildServiceParams = () => {
   return {
     limit: 100,
-    ...(trimmedSearch ? { search: trimmedSearch } : {}),
   };
 };
 
@@ -55,8 +49,8 @@ export function CatalogPage() {
     per_page: 100,
   });
   const serviceParams = useMemo(
-    () => buildServiceParams({ search }),
-    [search],
+    () => buildServiceParams(),
+    [],
   );
   const {
     services,
@@ -72,10 +66,14 @@ export function CatalogPage() {
   const visibleServices = useMemo(
     () =>
       sortServicesByPrice(
-        services.filter(({ status }) => status !== 0),
+        filterCatalogServices({
+          services: services.filter(({ status }) => status !== 0),
+          categories,
+          search,
+        }),
         priceSort,
       ),
-    [priceSort, services],
+    [categories, priceSort, search, services],
   );
   const loading = categoriesLoading || servicesLoading;
 

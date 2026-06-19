@@ -540,6 +540,7 @@
     "missingDraft": "Le brouillon de réservation est manquant. Veuillez recommencer la réservation.",
     "missingLocation": "Veuillez ajouter l’adresse, la latitude et la longitude avant le paiement.",
     "locationSaved": "Emplacement de réservation enregistré",
+    "invalidLocation": "Veuillez saisir une latitude et une longitude valides.",
     "locationUnsupported": "La localisation n’est pas prise en charge par ce navigateur.",
     "locationAddressAdded": "Position actuelle et adresse ajoutées",
     "locationCoordinatesAdded": "Latitude et longitude actuelles ajoutées",

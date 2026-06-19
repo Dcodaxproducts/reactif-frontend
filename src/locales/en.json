@@ -540,6 +540,7 @@
     "missingDraft": "Booking draft is missing. Please start the booking again.",
     "missingLocation": "Please add address, latitude, and longitude before payment.",
     "locationSaved": "Booking location saved",
+    "invalidLocation": "Please enter a valid latitude and longitude.",
     "locationUnsupported": "Location is not supported by this browser.",
     "locationAddressAdded": "Current location and address added",
     "locationCoordinatesAdded": "Current latitude and longitude added",

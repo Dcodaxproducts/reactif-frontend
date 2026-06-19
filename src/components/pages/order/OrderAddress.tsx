@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { addressFields } from "@/data/order";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { readBookingDraft, writeBookingDraft } from "@/lib/booking-draft";
+import { hasValidCoordinates } from "@/lib/coordinates";
 import {
   buildOrderDetailItems,
   buildOrderFieldGroups,
@@ -102,6 +103,11 @@ export function OrderAddress() {
 
     if (!address || !latitude || !longitude) {
       toast.error(t("order.missingLocation"));
+      return false;
+    }
+
+    if (!hasValidCoordinates({ latitude, longitude })) {
+      toast.error(t("order.invalidLocation"));
       return false;
     }
 
