@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { filterCatalogServices } from "./catalog-search";
+import {
+  filterCatalogCategories,
+  filterCatalogServices,
+} from "./catalog-search";
 import type { Category, Service } from "@/types/categories";
 
 const services: Service[] = [
@@ -70,5 +73,14 @@ describe("filterCatalogServices", () => {
       .toEqual([expect.objectContaining({ id: 1 })]);
     expect(filterCatalogServices({ services, categories, search: "Test category" }))
       .toEqual([expect.objectContaining({ id: 1 })]);
+  });
+});
+
+describe("filterCatalogCategories", () => {
+  it("matches category and subcategory text", () => {
+    expect(filterCatalogCategories({ categories, search: "signalétique" }))
+      .toEqual([expect.objectContaining({ id: 6 })]);
+    expect(filterCatalogCategories({ categories, search: "test category" }))
+      .toEqual([expect.objectContaining({ id: 6 })]);
   });
 });

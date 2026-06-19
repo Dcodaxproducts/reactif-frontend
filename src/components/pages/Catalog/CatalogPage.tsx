@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Loader2, PackageSearch } from "lucide-react";
 import { StatusCard } from "@/components/common/StatusCard";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,10 @@ import { PageShell } from "@/components/common/PageShell";
 import { catalogBackgroundStyle } from "@/data/catalog";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useCategories, useServices } from "@/hooks/useCategories";
-import { filterCatalogServices } from "@/lib/catalog-search";
+import {
+  filterCatalogCategories,
+  filterCatalogServices,
+} from "@/lib/catalog-search";
 import type { Service } from "@/types/categories";
 import CatalogSection from "./CatalogSection";
 import CatalogHero from "./CatalogHero";
@@ -18,7 +21,7 @@ import { CatalogCategoryExplorer } from "./CatalogCategoryExplorer";
 
 const buildServiceParams = () => {
   return {
-    limit: 100,
+    per_page: 100,
   };
 };
 
@@ -43,7 +46,16 @@ const sortServicesByPrice = (
 export function CatalogPage() {
   const { t } = useAppTranslation();
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [priceSort, setPriceSort] = useState<CatalogPriceSort>("none");
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 250);
+
+    return () => window.clearTimeout(timer);
+  }, [search]);
 
   const { categories, loading: categoriesLoading } = useCategories({
     per_page: 100,
@@ -63,17 +75,25 @@ export function CatalogPage() {
     () => new Map(categories.map((category) => [category.id, category.name])),
     [categories],
   );
+  const visibleCategories = useMemo(
+    () =>
+      filterCatalogCategories({
+        categories,
+        search: debouncedSearch,
+      }),
+    [categories, debouncedSearch],
+  );
   const visibleServices = useMemo(
     () =>
       sortServicesByPrice(
         filterCatalogServices({
           services: services.filter(({ status }) => status !== 0),
           categories,
-          search,
+          search: debouncedSearch,
         }),
         priceSort,
       ),
-    [categories, priceSort, search, services],
+    [categories, debouncedSearch, priceSort, services],
   );
   const loading = categoriesLoading || servicesLoading;
 
@@ -89,7 +109,7 @@ export function CatalogPage() {
         />
 
         {!categoriesLoading ? (
-          <CatalogCategoryExplorer categories={categories} />
+          <CatalogCategoryExplorer categories={visibleCategories} />
         ) : null}
 
         {loading ? (

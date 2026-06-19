@@ -50,3 +50,30 @@ export const filterCatalogServices = ({
     return searchableText.includes(query);
   });
 };
+
+export const filterCatalogCategories = ({
+  categories,
+  search,
+}: {
+  categories: Category[];
+  search: string;
+}) => {
+  const query = normalizeSearchText(search);
+
+  if (!query) {
+    return categories;
+  }
+
+  return categories.filter((category) => {
+    const subcategoryText = (category.subcategories ?? [])
+      .map((subcategory) => `${subcategory.name} ${subcategory.description}`)
+      .join(" ");
+    const searchableText = normalizeSearchText(
+      [category.name, category.description, subcategoryText]
+        .filter(Boolean)
+        .join(" "),
+    );
+
+    return searchableText.includes(query);
+  });
+};

@@ -28,6 +28,7 @@ export type GetServicesBySubcategoryParams = {
 
 export type GetServicesParams = {
   page?: number;
+  per_page?: number;
   limit?: number;
   offset?: number;
   category_id?: string | number;
