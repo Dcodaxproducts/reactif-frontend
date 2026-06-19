@@ -6,13 +6,20 @@ import { StatusCard as StatusMessageCard } from "@/components/common/StatusCard"
 import { Button } from "@/components/ui/button";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useBookingDetail } from "@/hooks/useBookings";
+import {
+  formatBookingDateTime,
+  formatBookingDisplayValue,
+  formatBookingLabel,
+} from "@/lib/booking-display";
 import { getBookingStatusTranslationKey } from "@/lib/booking-status";
+import { formatCurrency } from "@/lib/currency";
 import {
   TRACKING_STAGES,
   getTrackingStageFromStatus,
   getTrackingStageIndex,
   getTrackingStageTranslationKey,
 } from "@/lib/tracking-status";
+import { parseBookingData } from "./management/order-management-utils";
 import { DetailItem } from "./tracking/DetailItem";
 import { StatusCard } from "./tracking/StatusCard";
 import { TimelineItem } from "./tracking/TimelineItem";
@@ -65,16 +72,33 @@ export default function ShipmentTracking() {
   const currentStageIndex = getTrackingStageIndex(currentStage);
   const statusLabel = t(getBookingStatusTranslationKey(booking.status));
   const stageLabel = t(getTrackingStageTranslationKey(currentStage));
+  const { serviceData } = parseBookingData(booking);
+  const notProvided = t("booking.notProvided");
+  const pending = t("order.trackingPending");
+  const serviceName =
+    serviceData?.service_name ?? booking.service?.name ?? t("order.bookingService");
+  const scheduledDate = formatBookingDateTime(
+    booking.schedule_datetime,
+    t("order.pendingConfirmation"),
+  );
+  const activeStageDate = formatBookingDateTime(
+    booking.booking_datetime ?? booking.datetime ?? booking.created_at,
+    pending,
+  );
+  const paymentType = formatBookingLabel(
+    booking.payment?.payment_type ?? booking.payment_type,
+    t("booking.pending"),
+  );
+  const paymentStatus = formatBookingLabel(
+    booking.payment?.payment_status,
+    t("booking.pending"),
+  );
   const shipmentStatuses = [
     { title: t("order.currentStatus"), value: stageLabel },
     { title: t("order.backendStatus"), value: statusLabel },
-    {
-      title: t("order.estimatedDelivery"),
-      value: booking.schedule_datetime ?? t("order.pendingConfirmation"),
-    },
+    { title: t("order.estimatedDelivery"), value: scheduledDate },
+    { title: t("booking.paymentStatus"), value: paymentStatus },
   ];
-  const activeStageDate =
-    booking.booking_datetime ?? booking.datetime ?? booking.created_at;
   const shipmentTimeline = TRACKING_STAGES.map((stage, index) => ({
     icon:
       index === 0
@@ -83,16 +107,36 @@ export default function ShipmentTracking() {
           ? ("check" as const)
           : ("truck" as const),
     title: t(getTrackingStageTranslationKey(stage)),
-    date: index <= currentStageIndex ? activeStageDate : t("order.trackingPending"),
+    date: index <= currentStageIndex ? activeStageDate : pending,
     last: index === TRACKING_STAGES.length - 1,
   }));
   const shipmentDetails = [
     { title: t("order.trackingNumberLabel"), value: `TRK-${booking.id}` },
-    { title: t("order.service"), value: booking.service?.name ?? t("order.bookingService") },
-    { title: t("order.origin"), value: booking.address || t("order.addressPending") },
-    { title: t("order.distance"), value: String(booking.distance ?? t("order.trackingPending")) },
-    { title: t("booking.payment"), value: booking.payment_type ?? t("booking.pending") },
+    { title: t("order.service"), value: serviceName },
+    {
+      title: t("booking.category"),
+      value: formatBookingDisplayValue(serviceData?.category, notProvided),
+    },
+    {
+      title: t("booking.subcategory"),
+      value: formatBookingDisplayValue(serviceData?.subcategory?.name, notProvided),
+    },
+    {
+      title: t("order.origin"),
+      value: formatBookingDisplayValue(booking.address, t("order.addressPending")),
+    },
+    {
+      title: t("order.distance"),
+      value: formatBookingDisplayValue(booking.distance, pending),
+    },
+    { title: t("booking.total"), value: formatCurrency(booking.total_amount) },
+    { title: t("booking.payment"), value: paymentType },
+    {
+      title: t("booking.customer"),
+      value: formatBookingDisplayValue(booking.user?.name, notProvided),
+    },
   ];
+  const bookingHistory = booking.booking_history ?? [];
 
   return (
     <section className="w-full flex justify-center px-4 py-10">
@@ -106,7 +150,7 @@ export default function ShipmentTracking() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {shipmentStatuses.map((status) => (
             <StatusCard key={status.title} {...status} />
           ))}
@@ -117,6 +161,34 @@ export default function ShipmentTracking() {
             <TimelineItem key={item.title} {...item} />
           ))}
         </div>
+
+        {bookingHistory.length > 0 && (
+          <div className="flex flex-col gap-6">
+            <h2 className="text-lg md:text-xl font-semibold text-white">
+              {t("booking.bookingHistory")}
+            </h2>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {bookingHistory.map((history, index) => (
+                <div
+                  key={history.id ?? `${history.history_type}-${index}`}
+                  className="rounded-lg border border-white/10 bg-[#333] p-5"
+                >
+                  <p className="text-sm font-semibold text-white">
+                    {history.history_message ??
+                      formatBookingLabel(history.history_type, notProvided)}
+                  </p>
+                  <p className="mt-2 text-sm text-white/60">
+                    {formatBookingDateTime(
+                      history.datetime ?? history.created_at,
+                      notProvided,
+                    )}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="flex flex-col gap-6">
           <h2 className="text-lg md:text-xl font-semibold text-white">

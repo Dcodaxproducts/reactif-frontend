@@ -301,6 +301,12 @@ export type TrackingTimelineItemData = {
 
 export type BookingServiceData = {
   service_name?: string;
+  category?: string;
+  subcategory?: {
+    id?: number | string | null;
+    name?: string | null;
+  } | null;
+  design_path?: string;
 };
 
 export type BookingParsedData = {

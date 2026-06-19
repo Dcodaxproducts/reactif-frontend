@@ -1,7 +1,9 @@
 export type Booking = {
   id: number;
+  user_id?: number;
   status: string;
   created_at: string;
+  updated_at?: string;
   address?: string | null;
   latitude?: string | number | null;
   longitude?: string | number | null;
@@ -13,14 +15,49 @@ export type Booking = {
   extra_charges_amount?: string | number | null;
   total_amount: number | string;
   payment_type?: string | null;
+  payment?: BookingPayment | null;
   booking_type?: string | null;
   cancellation_reason?: string | null;
   service_data?: string | Record<string, unknown> | null;
   field_responses?: string | BookingFieldResponse[] | null;
+  booking_history?: BookingHistoryItem[];
+  user?: BookingUser | null;
   service?: {
     id?: number;
     name?: string;
+    description?: string | null;
+    category_id?: number | string | null;
+    sub_category_id?: number | string | null;
+    price?: number | string | null;
+    service_image?: string | null;
   };
+};
+
+export type BookingUser = {
+  id?: number;
+  name?: string | null;
+  email?: string | null;
+  contact_number?: string | null;
+  address?: string | null;
+};
+
+export type BookingPayment = {
+  id?: number;
+  booking_id?: number | string;
+  total_amount?: number | string | null;
+  payment_type?: string | null;
+  payment_status?: string | null;
+  txn_id?: string | null;
+  datetime?: string | null;
+};
+
+export type BookingHistoryItem = {
+  id?: number;
+  booking_id?: number | string;
+  history_type?: string | null;
+  history_message?: string | null;
+  datetime?: string | null;
+  created_at?: string | null;
 };
 
 export type BookingFieldResponse = {
