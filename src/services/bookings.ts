@@ -34,7 +34,7 @@ export const getBookingDetail = async (
     BOOKING_ROUTES.detail,
     {
       params: {
-        booking_id: bookingId,
+        id: bookingId,
       },
     },
   );
