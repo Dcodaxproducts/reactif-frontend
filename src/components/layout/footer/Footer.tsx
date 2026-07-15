@@ -2,10 +2,9 @@
 
 import type { ReactNode } from "react";
 
-import Image from "next/image";
 import { Container } from "@/components/common/Container";
 import { Button } from "@/components/ui/button";
-import { Twitter, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
@@ -20,11 +19,9 @@ import {
 import { getStartedRoute } from "@/lib/get-started-routes";
 
 const socialLinks = {
-  x: "https://x.com/reactif",
+  tiktok: "https://www.tiktok.com/@reactif",
   facebook: "https://www.facebook.com/reactif",
   instagram: "https://www.instagram.com/reactif",
-  linkedin: "https://www.linkedin.com/company/reactif",
-  youtube: "https://www.youtube.com/@reactif",
 } as const;
 
 export default function Footer() {
@@ -46,15 +43,7 @@ export default function Footer() {
   );
 
   return (
-    <footer className="relative text-white overflow-hidden">
-      <Image
-        src="/assets/footer/background.png"
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover -z-10"
-      />
-
+    <footer className="relative overflow-hidden bg-black text-white">
       <Container width="7xl" gutter="compact" className="py-12">
         <div className="grid lg:grid-cols-2 gap-16">
           <div className="space-y-6">
@@ -83,7 +72,7 @@ export default function Footer() {
               </Button>
             )}
           </div>
-          <div className="grid grid-cols-3 gap-10 text-sm">
+          <div className="grid grid-cols-2 gap-10 text-sm sm:grid-cols-4">
             <FooterColumn
               title={t("footer.services")}
               links={serviceCategoryLinks}
@@ -96,6 +85,14 @@ export default function Footer() {
                 { label: t("footer.blogs"), href: "/blogs" },
                 { label: t("footer.portfolio"), href: "/portfolio" },
                 { label: t("footer.contactUs"), href: "/contact" },
+              ]}
+            />
+
+            <FooterColumn
+              title={t("footer.gallery")}
+              links={[
+                { label: t("footer.portfolio"), href: "/portfolio" },
+                { label: t("footer.blogs"), href: "/blogs" },
               ]}
             />
 
@@ -116,32 +113,23 @@ export default function Footer() {
           <div className="flex items-center gap-5">
             <span className="text-sm text-white/60">{t("footer.followUs")}</span>
 
-            <SocialIcon href={socialLinks.x} ariaLabel={t("footer.socialX")}>
-              <Twitter size={16} />
+            <SocialIcon
+              href={socialLinks.tiktok}
+              ariaLabel={t("footer.socialTikTok")}
+            >
+              <FaTiktok size={15} />
             </SocialIcon>
             <SocialIcon
               href={socialLinks.facebook}
               ariaLabel={t("footer.socialFacebook")}
             >
-              <Facebook size={16} />
+              <FaFacebookF size={15} />
             </SocialIcon>
             <SocialIcon
               href={socialLinks.instagram}
               ariaLabel={t("footer.socialInstagram")}
             >
-              <Instagram size={16} />
-            </SocialIcon>
-            <SocialIcon
-              href={socialLinks.linkedin}
-              ariaLabel={t("footer.socialLinkedIn")}
-            >
-              <Linkedin size={16} />
-            </SocialIcon>
-            <SocialIcon
-              href={socialLinks.youtube}
-              ariaLabel={t("footer.socialYouTube")}
-            >
-              <Youtube size={16} />
+              <FaInstagram size={16} />
             </SocialIcon>
           </div>
           <div className="flex gap-4">
@@ -208,7 +196,7 @@ function SocialIcon({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={ariaLabel}
-      className="w-8 h-8 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition cursor-pointer"
+      className="w-8 h-8 flex items-center justify-center rounded-full border border-white/15 bg-black text-white hover:bg-white hover:text-black transition cursor-pointer"
     >
       {children}
     </a>
