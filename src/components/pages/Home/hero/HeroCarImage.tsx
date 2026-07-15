@@ -80,15 +80,19 @@ export function HeroCarImage() {
             strokeOpacity="0.55"
             strokeWidth="3"
           />
-          <g className="hero-wheel hero-front-wheel" transform="translate(714 369)">
-            <circle r="68" fill="#03141a" stroke="url(#hero-car-stroke)" strokeWidth="7" />
-            <circle r="31" fill="none" stroke="#80f7ff" strokeOpacity="0.85" strokeWidth="5" />
-            <path d="M0 -55 L0 55 M-55 0 L55 0 M-39 -39 L39 39 M39 -39 L-39 39" stroke="#6ff6ff" strokeOpacity="0.48" strokeWidth="3" />
+          <g transform="translate(714 369)">
+            <g className="hero-wheel hero-front-wheel">
+              <circle r="68" fill="#03141a" stroke="url(#hero-car-stroke)" strokeWidth="7" />
+              <circle r="31" fill="none" stroke="#80f7ff" strokeOpacity="0.85" strokeWidth="5" />
+              <path d="M0 -55 L0 55 M-55 0 L55 0 M-39 -39 L39 39 M39 -39 L-39 39" stroke="#6ff6ff" strokeOpacity="0.48" strokeWidth="3" />
+            </g>
           </g>
-          <g className="hero-wheel hero-rear-wheel" transform="translate(262 369)">
-            <circle r="68" fill="#03141a" stroke="url(#hero-car-stroke)" strokeWidth="7" />
-            <circle r="31" fill="none" stroke="#80f7ff" strokeOpacity="0.85" strokeWidth="5" />
-            <path d="M0 -55 L0 55 M-55 0 L55 0 M-39 -39 L39 39 M39 -39 L-39 39" stroke="#6ff6ff" strokeOpacity="0.48" strokeWidth="3" />
+          <g transform="translate(262 369)">
+            <g className="hero-wheel hero-rear-wheel">
+              <circle r="68" fill="#03141a" stroke="url(#hero-car-stroke)" strokeWidth="7" />
+              <circle r="31" fill="none" stroke="#80f7ff" strokeOpacity="0.85" strokeWidth="5" />
+              <path d="M0 -55 L0 55 M-55 0 L55 0 M-39 -39 L39 39 M39 -39 L-39 39" stroke="#6ff6ff" strokeOpacity="0.48" strokeWidth="3" />
+            </g>
           </g>
           <path
             className="hero-headlight"
