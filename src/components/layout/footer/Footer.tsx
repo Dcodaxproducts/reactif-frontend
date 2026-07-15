@@ -43,7 +43,12 @@ export default function Footer() {
   );
 
   return (
-    <footer className="relative overflow-hidden bg-black text-white">
+    <footer
+      className="relative isolate overflow-hidden bg-black text-white"
+      style={{ backgroundColor: "#000", backgroundImage: "none" }}
+    >
+      <div className="absolute inset-0 -z-10 bg-black" aria-hidden="true" />
+
       <Container width="7xl" gutter="compact" className="py-12">
         <div className="grid lg:grid-cols-2 gap-16">
           <div className="space-y-6">
@@ -83,7 +88,6 @@ export default function Footer() {
               links={[
                 { label: t("footer.aboutUs"), href: "/about" },
                 { label: t("footer.blogs"), href: "/blogs" },
-                { label: t("footer.portfolio"), href: "/portfolio" },
                 { label: t("footer.contactUs"), href: "/contact" },
               ]}
             />
@@ -91,8 +95,7 @@ export default function Footer() {
             <FooterColumn
               title={t("footer.gallery")}
               links={[
-                { label: t("footer.portfolio"), href: "/portfolio" },
-                { label: t("footer.blogs"), href: "/blogs" },
+                { label: t("footer.gallery"), href: "/portfolio" },
               ]}
             />
 
@@ -196,7 +199,7 @@ function SocialIcon({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={ariaLabel}
-      className="w-8 h-8 flex items-center justify-center rounded-full border border-white/15 bg-black text-white hover:bg-white hover:text-black transition cursor-pointer"
+      className="w-8 h-8 flex items-center justify-center rounded-full border border-white/15 bg-black text-white shadow-[0_0_0_1px_rgba(0,0,0,0.9)] hover:bg-white hover:text-black transition cursor-pointer"
     >
       {children}
     </a>
