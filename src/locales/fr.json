@@ -268,7 +268,28 @@
   "catalog": {
     "hero": {
       "title": "Design visuel à fort impact",
-      "description": "Valorisez votre marque avec nos habillages automobiles professionnels, signalétiques personnalisées et solutions textiles premium."
+      "description": "Valorisez votre marque avec nos habillages automobiles professionnels, signalétiques personnalisées et solutions textiles premium.",
+      "eyebrow": "Catalogue visuel complet",
+      "exploreCategories": "Explorer les catégories",
+      "viewAutomotive": "Voir l’automobile",
+      "galleryAltOne": "Visuel catalogue habillage automobile",
+      "galleryAltTwo": "Visuel catalogue branding véhicule",
+      "cardLabel": "Catalogue prêt à réserver",
+      "cardDescription": "Trouvez la bonne catégorie, comparez les options publiées et passez directement au devis ou à la réservation.",
+      "highlights": {
+        "automotive": {
+          "title": "Pensé automobile",
+          "description": "Habillages, vitres teintées, branding de flotte et communication visuelle véhicule."
+        },
+        "design": {
+          "title": "Parcours clairs",
+          "description": "Chaque catégorie mène aux bons services, sous-catégories et options de réservation."
+        },
+        "finish": {
+          "title": "Finition premium",
+          "description": "Impression, signalétique, textile et détails de marque dans un seul catalogue."
+        }
+      }
     },
     "searchPlaceholder": "Rechercher des produits, habillages ou vêtements...",
     "filters": {

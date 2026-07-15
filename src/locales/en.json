@@ -268,7 +268,28 @@
   "catalog": {
     "hero": {
       "title": "High-Impact Visual Design",
-      "description": "Elevate your brand with our professional automotive wraps, custom signage, and premium apparel solutions."
+      "description": "Elevate your brand with our professional automotive wraps, custom signage, and premium apparel solutions.",
+      "eyebrow": "Complete visual catalogue",
+      "exploreCategories": "Explore categories",
+      "viewAutomotive": "View automotive",
+      "galleryAltOne": "Automotive wrap catalogue visual",
+      "galleryAltTwo": "Vehicle branding catalogue visual",
+      "cardLabel": "Ready-to-book catalogue",
+      "cardDescription": "Find the right category, compare published options, and move straight into a quote or booking flow.",
+      "highlights": {
+        "automotive": {
+          "title": "Automotive-first",
+          "description": "Wraps, tinting, fleet branding, and vehicle-ready visual communication."
+        },
+        "design": {
+          "title": "Clear category paths",
+          "description": "Each category leads to the right services, subcategories, and booking options."
+        },
+        "finish": {
+          "title": "Premium finish",
+          "description": "Professional print, signage, apparel, and brand details in one catalogue."
+        }
+      }
     },
     "searchPlaceholder": "Search products, wraps, or apparel...",
     "filters": {

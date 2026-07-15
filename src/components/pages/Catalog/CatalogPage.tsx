@@ -100,7 +100,7 @@ export function CatalogPage() {
   return (
     <PageShell backgroundStyle={catalogBackgroundStyle}>
       <CatalogHero />
-      <div className="space-y-10 px-4 pb-20 sm:px-6 md:px-30">
+      <div className="mx-auto w-full max-w-7xl space-y-10 px-4 pb-20 sm:px-6 lg:px-8">
         <ProductFilterBar
           search={search}
           onSearchChange={setSearch}
