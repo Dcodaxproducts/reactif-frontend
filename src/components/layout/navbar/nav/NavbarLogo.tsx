@@ -6,7 +6,7 @@ export function NavbarLogo() {
     <div className="flex items-center gap-2">
       <Link href="/">
         <Image
-          src="/assets/logo.png"
+          src="/assets/brand/reactifpub-logo.png"
           alt="Reactif"
           width={120}
           height={30}

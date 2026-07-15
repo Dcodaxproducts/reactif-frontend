@@ -2,34 +2,34 @@ import Image from "next/image";
 
 const reasons = [
   {
-    image: "/assets/home/why-choose/reactivity.png",
+    image: "/assets/home/why-choose/reactivity.gif",
     imageAlt: "Fast reaction reference visual",
     title: "Réactivité légendaire",
     description: "Pas de panique ! Nous nous adaptons à vos deadlines",
   },
   {
-    image: "/assets/home/why-choose/attention.png",
+    image: "/assets/home/why-choose/attention.gif",
     imageAlt: "Eye-catching reaction reference visual",
     title: "Des créations qui attirent l'œil",
     description:
       "On ne peut pas garantir que les gens regarderont la route... mais votre pub, oui !",
   },
   {
-    image: "/assets/home/why-choose/covering.png",
+    image: "/assets/home/why-choose/covering.gif",
     imageAlt: "Vehicle covering reference visual",
     title: "Le covering, c'est notre terrain de jeu",
     description:
       "Nous transformons vos véhicules en véritables ambassadeurs de votre marque.",
   },
   {
-    image: "/assets/home/why-choose/quality.png",
+    image: "/assets/home/why-choose/quality.gif",
     imageAlt: "Quality reference visual",
     title: "Une qualité qui tient la route",
     description:
       "Des matériaux professionnels qui vieillissent mieux que certaines tendances TikTok.",
   },
   {
-    image: "/assets/home/why-choose/support.png",
+    image: "/assets/home/why-choose/support.gif",
     imageAlt: "Human support reference visual",
     title: "Un accompagnement humain",
     description:
