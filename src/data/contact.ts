@@ -5,19 +5,19 @@ export const contactItems = [
     icon: FaPhoneAlt,
     label: "Phone",
     labelKey: "contact.phone",
-    value: "+33 1 23 45 67 89",
+    value: "+41 78 325 18 88",
   },
   {
     icon: FaEnvelope,
     label: "Email",
     labelKey: "contact.email",
-    value: "reactif@gmail.com",
+    value: "info@reactifpub.ch",
   },
   {
     icon: FaMapMarkerAlt,
     label: "Address",
     labelKey: "contact.address",
-    value: "123 Avenue des Champs, Paris, France",
+    value: "Ch. de Morglas 7, 1214 Vernier Genève",
   },
 ];
 
