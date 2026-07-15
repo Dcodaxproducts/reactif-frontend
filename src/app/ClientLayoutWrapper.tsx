@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import { WhatsAppFloatingButton } from "@/components/common/WhatsAppFloatingButton";
 import Footer from "@/components/layout/footer/Footer";
 import { Navbar } from "@/components/layout/navbar/navbar";
 import TopInfoBar from "@/components/layout/navbar/TopInfoBar";
@@ -21,6 +22,7 @@ function ClientLayoutContent({ children }: { children: ReactNode }) {
       </div>
       <Toaster position="top-right" richColors />
       <div>{children}</div>
+      <WhatsAppFloatingButton />
       <div data-print-hidden="true">
         <Footer />
       </div>

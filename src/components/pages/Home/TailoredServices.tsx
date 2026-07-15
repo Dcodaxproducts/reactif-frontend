@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { Container } from "@/components/common/Container";
 import { useCategories } from "@/hooks/useCategories";
 import { LoadMoreButton } from "./tailored-services/LoadMoreButton";
@@ -26,16 +25,8 @@ export default function TailoredServices() {
   };
 
   return (
-    <section className="relative w-full py-16 md:py-28 overflow-hidden">
+    <section className="relative w-full overflow-hidden bg-black py-16 md:py-28">
       <TailoredServicesAnimations />
-
-      <Image
-        src="/assets/hero/gradient.png"
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover -z-10"
-      />
 
       <Container gutter="topbar">
         <TailoredServicesHeader />
