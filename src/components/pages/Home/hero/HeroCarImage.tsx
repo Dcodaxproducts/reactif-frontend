@@ -50,10 +50,10 @@ export function HeroCarImage() {
             className="hero-showcase-wheel hero-showcase-wheel-rear"
           />
           <Image
-            src="/assets/hero/reactif-car-body-hd.png"
+            src="/assets/hero/reactif-car-body.png"
             alt=""
-            width={3344}
-            height={1882}
+            width={1672}
+            height={941}
             priority
             unoptimized
             sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 54vw, 95vw"
