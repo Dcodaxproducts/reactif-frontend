@@ -535,10 +535,10 @@ html {
 @keyframes hero-showcase-car-drift {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) rotate(-0.08deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(-0.08deg);
   }
   48% {
-    transform: translate3d(14px, -5px, 0) rotate(0.1deg) scale(1.008);
+    transform: translate3d(14px, -5px, 0) rotate(0.1deg);
   }
 }
 

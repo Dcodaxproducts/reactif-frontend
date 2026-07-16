@@ -7,7 +7,7 @@ export function HeroContent() {
   const { t } = useAppTranslation();
 
   return (
-    <div className="relative z-20 space-y-5 text-center md:max-w-[660px] md:text-left lg:self-start lg:pt-0 xl:max-w-[720px] xl:pt-1">
+    <div className="relative z-30 space-y-5 text-center md:max-w-[660px] md:text-left lg:w-[min(760px,62vw)] lg:max-w-none lg:self-start lg:pt-0 xl:w-[min(820px,60vw)] xl:pt-1">
       <HeroBadge />
 
       <HeroTitle className="text-[clamp(2.45rem,4.85vw,5.15rem)] font-black uppercase leading-[1.04] tracking-[-0.055em] drop-shadow-[0_18px_52px_rgba(242,27,109,0.24)]">
