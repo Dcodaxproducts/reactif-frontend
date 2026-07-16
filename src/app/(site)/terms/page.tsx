@@ -5,10 +5,7 @@ export default function Page() {
   return (
     <PageShell
       backgroundStyle={{
-        backgroundImage: `
-      linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-      url('/assets/AllVendorServices/background.png')
-    `,
+        backgroundImage: "linear-gradient(180deg, #010101 0%, #030303 100%)",
       }}
     >
       <TermsOfService />

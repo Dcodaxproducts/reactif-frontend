@@ -6,34 +6,34 @@ import { onest } from "@/lib/fonts";
 import { ClientLayoutWrapper } from "./ClientLayoutWrapper";
 
 export const metadata: Metadata = {
-  title: "Reactif | Automotive Visual Communication Expert",
+  title: "RéactifPub | Communication visuelle automobile",
   description:
-    "Reactif is a leader in automotive visual communication. Vehicle wrapping, marking, and advertising with professional quality. Get a free quote today!",
-  metadataBase: new URL("https://reactif-mocha.vercel.app"),
+    "RéactifPub transforme vos véhicules, vitrines, enseignes et supports imprimés en outils publicitaires professionnels.",
+  metadataBase: new URL("https://reactifpub.ch"),
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Reactif | Automotive Visual Communication Expert",
+    title: "RéactifPub | Communication visuelle automobile",
     description:
-      "Transform your vehicles into advertising tools with Reactif. Complete visual communication solutions for the automotive sector.",
-    url: "https://reactif-mocha.vercel.app",
-    siteName: "Reactif",
+      "Transformez votre visibilité avec RéactifPub : covering, signalétique, papeterie, enseignes et publicité visuelle.",
+    url: "https://reactifpub.ch",
+    siteName: "RéactifPub",
     type: "website",
     images: [
       {
-        url: "https://reactif-mocha.vercel.app/og/og-home.png",
+        url: "https://reactifpub.ch/og/og-home.png",
         width: 1200,
         height: 630,
-        alt: "Reactif Automotive Visual Communication",
+        alt: "RéactifPub communication visuelle automobile",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Reactif | Automotive Visual Communication Expert",
+    title: "RéactifPub | Communication visuelle automobile",
     description:
-      "Transform your vehicles into advertising tools with Reactif. Vehicle wrapping, marking, and advertising with professional quality.",
-    images: ["https://reactif-mocha.vercel.app/og/og-home.png"],
-    creator: "@reactif",
+      "Covering, signalétique, papeterie, enseignes et publicité visuelle par RéactifPub.",
+    images: ["https://reactifpub.ch/og/og-home.png"],
+    creator: "@reactifpub",
   },
   icons: {
     icon: "/favicon.ico",
@@ -52,7 +52,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning>
       <body className={`${onest.className}`}>
         <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>

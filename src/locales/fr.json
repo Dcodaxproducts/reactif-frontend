@@ -249,6 +249,28 @@
           "title": "Livraison rapide",
           "description": "Des processus efficaces pour faire avancer votre projet sans compromis"
         }
+      },
+      "rows": {
+        "reactivity": {
+          "title": "Réactivité légendaire",
+          "description": "Pas de panique ! Nous nous adaptons à vos deadlines"
+        },
+        "eyeCatching": {
+          "title": "Des créations qui attirent l’œil",
+          "description": "On ne peut pas garantir que les gens regarderont la route... mais votre pub, oui !"
+        },
+        "covering": {
+          "title": "Le covering, c’est notre terrain de jeu",
+          "description": "Nous transformons vos véhicules en véritables ambassadeurs de votre marque."
+        },
+        "quality": {
+          "title": "Une qualité qui tient la route",
+          "description": "Des matériaux professionnels qui vieillissent mieux que certaines tendances TikTok."
+        },
+        "humanSupport": {
+          "title": "Un accompagnement humain",
+          "description": "Si une idée n’est pas bonne, on vous le dira. Même si elle vient de votre cousin qui s’y connaît en design sur Canva."
+        }
       }
     },
     "contact": {
@@ -263,33 +285,41 @@
       "description": "Contactez-nous dès aujourd’hui pour un devis personnalisé gratuit. Notre équipe d’experts est disponible pour vous conseiller.",
       "requesting": "Demande en cours...",
       "requestQuote": "Demander un devis gratuit"
+    },
+    "featuredCategories": {
+      "eyebrow": "on s’adapte !",
+      "title": "COMMENT VOULEZ-VOUS QUE L’ON REMARQUE VOTRE MARQUE ?",
+      "options": {
+        "road": "Sur la route",
+        "street": "Dans la rue",
+        "supports": "Sur vos supports"
+      },
+      "description": "Quatre familles best-sellers pour accéder rapidement au catalogue.",
+      "seeMore": "voir plus",
+      "cards": {
+        "automobiles": {
+          "title": "AUTOMOBILES",
+          "alt": "Catégorie automobile"
+        },
+        "papeterie": {
+          "title": "PAPETERIE",
+          "alt": "Catégorie papeterie"
+        },
+        "habillageVitrine": {
+          "title": "HABILLAGE VITRINE",
+          "alt": "Catégorie habillage de vitrine"
+        },
+        "enseigne": {
+          "title": "ENSEIGNE",
+          "alt": "Catégorie enseigne"
+        }
+      }
     }
   },
   "catalog": {
     "hero": {
       "title": "Design visuel à fort impact",
-      "description": "Valorisez votre marque avec nos habillages automobiles professionnels, signalétiques personnalisées et solutions textiles premium.",
-      "eyebrow": "Catalogue visuel complet",
-      "exploreCategories": "Explorer les catégories",
-      "viewAutomotive": "Voir l’automobile",
-      "galleryAltOne": "Visuel catalogue habillage automobile",
-      "galleryAltTwo": "Visuel catalogue branding véhicule",
-      "cardLabel": "Catalogue prêt à réserver",
-      "cardDescription": "Trouvez la bonne catégorie, comparez les options publiées et passez directement au devis ou à la réservation.",
-      "highlights": {
-        "automotive": {
-          "title": "Pensé automobile",
-          "description": "Habillages, vitres teintées, branding de flotte et communication visuelle véhicule."
-        },
-        "design": {
-          "title": "Parcours clairs",
-          "description": "Chaque catégorie mène aux bons services, sous-catégories et options de réservation."
-        },
-        "finish": {
-          "title": "Finition premium",
-          "description": "Impression, signalétique, textile et détails de marque dans un seul catalogue."
-        }
-      }
+      "description": "Valorisez votre marque avec nos habillages automobiles professionnels, signalétiques personnalisées et solutions textiles premium."
     },
     "searchPlaceholder": "Rechercher des produits, habillages ou vêtements...",
     "filters": {
@@ -466,7 +496,8 @@
       "vinylUvLife": {
         "question": "Combien de temps les matériaux vinyle résistent-ils aux UV ?",
         "answer": "Les vinyles de haute qualité durent généralement 5 à 7 ans avec un entretien adapté, même sous forte exposition UV."
-      }
+      },
+      "fallbackNotice": "FAQ locale affichée parce que le service FAQ backend est indisponible."
     }
   },
   "profile": {
@@ -811,7 +842,6 @@
     "aboutUs": "À propos",
     "blogs": "Blogs",
     "portfolio": "Portfolio",
-    "gallery": "Galerie",
     "contactUs": "Nous contacter",
     "support": "Support",
     "helpCenter": "Centre d’aide",
@@ -820,12 +850,16 @@
     "termsOfService": "Conditions d’utilisation",
     "privacyPolicy": "Politique de confidentialité",
     "followUs": "Suivez-nous",
-    "socialTikTok": "Ouvrir ReactIf sur TikTok",
     "socialX": "Ouvrir ReactIf sur X",
-    "socialFacebook": "Ouvrir ReactIf sur Facebook",
-    "socialInstagram": "Ouvrir ReactIf sur Instagram",
+    "socialFacebook": "Ouvrir RéactifPub sur Facebook",
+    "socialInstagram": "Ouvrir RéactifPub sur Instagram",
     "socialLinkedIn": "Ouvrir ReactIf sur LinkedIn",
-    "socialYouTube": "Ouvrir ReactIf sur YouTube"
+    "socialYouTube": "Ouvrir ReactIf sur YouTube",
+    "gallery": "Galerie",
+    "socialTikTok": "Ouvrir RéactifPub sur TikTok",
+    "papeterie": "Papeterie",
+    "habillageVitrine": "Habillage vitrine",
+    "enseigne": "Enseigne"
   },
   "validation": {
     "emailRequired": "L’e-mail est obligatoire.",
@@ -857,7 +891,7 @@
     "message": "Message",
     "sendMessage": "Envoyer le message",
     "sending": "Envoi...",
-    "submitSuccess": "Votre message a été envoyé au support ReactIf.",
+    "submitSuccess": "Votre message a été envoyé au support RéactifPub.",
     "submitError": "Nous n’avons pas pu envoyer votre message. Veuillez réessayer.",
     "signInRequired": "Veuillez vous connecter avant d’envoyer une demande au support.",
     "trustedBy": "Approuvé par"
@@ -1163,6 +1197,43 @@
           "content1": "Nous pouvons mettre à jour cette Politique de confidentialité de temps à autre.",
           "content2": "Toute modification sera communiquée via notre plateforme ou par e-mail."
         }
+      }
+    }
+  },
+  "whatsapp": {
+    "label": "Chat on WhatsApp",
+    "ariaLabel": "Discuter avec RéactifPub sur WhatsApp",
+    "defaultMessage": "Bonjour RéactifPub, j’aimerais des informations pour un projet."
+  },
+  "gallery": {
+    "eyebrow": "Galerie",
+    "title": "Réalisations RéactifPub",
+    "description": "Un aperçu visuel des projets véhicules, papeterie, enseignes et vitrines.",
+    "viewAll": "Voir la galerie",
+    "items": {
+      "vehicleWrap": {
+        "title": "Covering véhicule",
+        "description": "Marquages visibles pour voitures et véhicules utilitaires."
+      },
+      "stationery": {
+        "title": "Papeterie",
+        "description": "Supports imprimés professionnels pour une identité cohérente."
+      },
+      "signage": {
+        "title": "Enseigne",
+        "description": "Enseignes et supports rigides pour visibilité intérieure et extérieure."
+      },
+      "window": {
+        "title": "Habillage vitrine",
+        "description": "Vitrophanie et visuels adhésifs pour vitrines commerciales."
+      },
+      "fleet": {
+        "title": "Flotte automobile",
+        "description": "Communication cohérente sur plusieurs véhicules d’entreprise."
+      },
+      "print": {
+        "title": "Finitions imprimées",
+        "description": "Détails premium pour campagnes et supports personnalisés."
       }
     }
   }

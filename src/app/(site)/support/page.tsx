@@ -1,4 +1,4 @@
-import ContactFormSection from "@/components/pages/Home/ContactFormSection";
+import { StartProjectSection as ContactFormSection } from "@/components/pages/Home/ContactFormSection";
 import { StaticCustomerPage } from "@/components/pages/StaticCustomerPage";
 import { SupportRequestsSection } from "@/components/pages/SupportRequestsSection";
 

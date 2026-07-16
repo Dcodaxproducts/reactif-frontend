@@ -12,32 +12,32 @@ import {
 } from "./i18n";
 
 describe("i18n helpers", () => {
-  it("keeps valid languages valid", () => {
+  it("keeps French as the default while supporting English", () => {
+    expect(isSupportedLanguage("fr")).toBe(true);
     expect(isSupportedLanguage("en")).toBe(true);
     expect(normalizeLanguage("fr")).toBe("fr");
+    expect(normalizeLanguage("en")).toBe("en");
   });
 
-  it("normalizes invalid languages to English", () => {
+  it("normalizes invalid languages to the default French locale", () => {
     expect(isSupportedLanguage("es")).toBe(false);
     expect(normalizeLanguage("es")).toBe(DEFAULT_LANGUAGE);
   });
 
-  it("loads English messages", () => {
+  it("loads French and English messages", () => {
+    expect(getMessagesForLanguage("fr")).toBe(messagesByLocale.fr);
+    expect(getMessagesForLanguage("fr").common.loading).toBe("Chargement...");
     expect(getMessagesForLanguage("en")).toBe(messagesByLocale.en);
     expect(getMessagesForLanguage("en").common.loading).toBe("Loading...");
   });
 
-  it("loads French messages", () => {
-    expect(getMessagesForLanguage("fr")).toBe(messagesByLocale.fr);
-    expect(getMessagesForLanguage("fr").common.loading).toBe("Chargement...");
+  it("returns French messages for missing or invalid languages", () => {
+    expect(getMessagesForLanguage(undefined)).toBe(messagesByLocale.fr);
+    expect(getMessagesForLanguage("de")).toBe(messagesByLocale.fr);
   });
 
-  it("returns English messages for missing or invalid languages", () => {
-    expect(getMessagesForLanguage(undefined)).toBe(messagesByLocale.en);
-    expect(getMessagesForLanguage("de")).toBe(messagesByLocale.en);
-  });
-
-  it("supports only English and French", () => {
-    expect([...SUPPORTED_LANGUAGES]).toEqual(["en", "fr"]);
+  it("offers French first and English second on the customer site", () => {
+    expect([...SUPPORTED_LANGUAGES]).toEqual(["fr", "en"]);
+    expect(DEFAULT_LANGUAGE).toBe("fr");
   });
 });

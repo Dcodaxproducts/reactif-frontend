@@ -15,7 +15,7 @@ function StartProjectContent() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 overflow-hidden bg-black py-16 md:py-28"
+      className="relative scroll-mt-24 overflow-hidden bg-[#010101] py-16 md:py-28"
     >
       <Container gutter="narrow">
         <SectionHeader
@@ -23,7 +23,7 @@ function StartProjectContent() {
           size={isHelpCenter ? "sm" : "default"}
           title={
             <>
-              {t("home.contact.titlePrefix")}{" "}
+              {t("home.contact.titlePrefix")} {" "}
               <span
                 style={{
                   background:
@@ -46,7 +46,7 @@ function StartProjectContent() {
   );
 }
 
-export default function StartProjectSection() {
+export function StartProjectSection() {
   return (
     <Suspense fallback={null}>
       <StartProjectContent />

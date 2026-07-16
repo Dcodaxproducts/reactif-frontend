@@ -6,6 +6,9 @@ export const categoryNavigationSlugs = [
   "signaletique",
   "apparel",
   "accessories",
+  "papeterie",
+  "habillage-vitrine",
+  "enseigne",
 ] as const;
 
 export type CategoryNavigationSlug = (typeof categoryNavigationSlugs)[number];
@@ -15,10 +18,9 @@ export const footerCategoryNavigationItems: Array<{
   labelKey: string;
 }> = [
   { slug: "automotive", labelKey: "footer.automotive" },
-  { slug: "visual-advertising", labelKey: "footer.visualAdvertising" },
-  { slug: "signaletique", labelKey: "footer.signaletique" },
-  { slug: "apparel", labelKey: "footer.apparel" },
-  { slug: "accessories", labelKey: "footer.accessories" },
+  { slug: "papeterie", labelKey: "footer.papeterie" },
+  { slug: "habillage-vitrine", labelKey: "footer.habillageVitrine" },
+  { slug: "enseigne", labelKey: "footer.enseigne" },
 ];
 
 const categoryAliases: Record<CategoryNavigationSlug, string[]> = {
@@ -36,6 +38,23 @@ const categoryAliases: Record<CategoryNavigationSlug, string[]> = {
   signaletique: ["signaletique", "signalétique", "signage"],
   apparel: ["apparel", "vetement", "vêtement", "vetements", "vêtements"],
   accessories: ["accessories", "accessoires", "gadget"],
+  papeterie: [
+    "papeterie",
+    "pappeterie",
+    "stationery",
+    "printing",
+    "print",
+    "impression",
+  ],
+  "habillage-vitrine": [
+    "habillage-vitrine",
+    "habillage vitrine",
+    "vitrine",
+    "window",
+    "window graphics",
+    "vitrophanie",
+  ],
+  enseigne: ["enseigne", "enseignes", "sign", "signs", "signage"],
 };
 
 export const slugifyCategoryName = (value: string) =>

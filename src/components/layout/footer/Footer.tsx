@@ -2,11 +2,12 @@
 
 import type { ReactNode } from "react";
 
-import { Container } from "@/components/common/Container";
-import { Button } from "@/components/ui/button";
-import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
+import { Container } from "@/components/common/Container";
+import { Button } from "@/components/ui/button";
+import { reactifSocialLinks } from "@/data/contact";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useCurrentUser } from "@/hooks/useAuth";
 import { useCategories } from "@/hooks/useCategories";
@@ -18,13 +19,7 @@ import {
 } from "@/lib/category-routes";
 import { getStartedRoute } from "@/lib/get-started-routes";
 
-const socialLinks = {
-  tiktok: "https://www.tiktok.com/@reactif",
-  facebook: "https://www.facebook.com/reactif",
-  instagram: "https://www.instagram.com/reactif",
-} as const;
-
-export default function Footer() {
+export function Footer() {
   const router = useRouter();
   const { t } = useAppTranslation();
   const { data: user, isLoading: authLoading } = useCurrentUser();
@@ -43,20 +38,19 @@ export default function Footer() {
   );
 
   return (
-    <footer
-      className="relative isolate overflow-hidden bg-black text-white"
-      style={{ backgroundColor: "#000", backgroundImage: "none" }}
-    >
-      <div className="absolute inset-0 -z-10 bg-black" aria-hidden="true" />
+    <footer className="relative overflow-hidden bg-[#010101] text-white">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/10" />
+      <div className="pointer-events-none absolute -left-32 top-16 h-80 w-80 rounded-full bg-[#1d4ed8]/15 blur-[110px]" />
+      <div className="pointer-events-none absolute -right-24 bottom-16 h-80 w-80 rounded-full bg-[#f21b6d]/15 blur-[120px]" />
 
-      <Container width="7xl" gutter="compact" className="py-12">
-        <div className="grid lg:grid-cols-2 gap-16">
+      <Container width="7xl" gutter="compact" className="relative py-12 pb-24">
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           <div className="space-y-6">
             <h2 className="text-4xl font-semibold leading-tight">
               Reactif Printing & Design <br /> {t("footer.platform")}
             </h2>
 
-            <p className="text-white/60 max-w-md">
+            <p className="max-w-md text-white/60">
               {t("footer.description")}
             </p>
 
@@ -65,19 +59,24 @@ export default function Footer() {
                 type="button"
                 variant="whiteGlow"
                 disabled
-                className="h-11 px-5 py-2.5 rounded-[100px] outline-1 outline-offset-[-1px] outline-white text-[14px] font-hk"
+                className="h-11 rounded-[100px] px-5 py-2.5 text-[14px] font-hk outline-1 outline-offset-[-1px] outline-white"
               >
                 {t("footer.getStarted")}
               </Button>
             ) : (
-              <Button asChild variant="whiteGlow" className="h-11 px-5 py-2.5 rounded-[100px] outline-1 outline-offset-[-1px] outline-white text-[14px] font-hk">
+              <Button
+                asChild
+                variant="whiteGlow"
+                className="h-11 rounded-[100px] px-5 py-2.5 text-[14px] font-hk outline-1 outline-offset-[-1px] outline-white"
+              >
                 <Link href={getStartedRoute(Boolean(user))}>
                   {user ? t("nav.myBookings") : t("footer.getStarted")}
                 </Link>
               </Button>
             )}
           </div>
-          <div className="grid grid-cols-2 gap-10 text-sm sm:grid-cols-4">
+
+          <div className="grid gap-8 text-sm sm:grid-cols-3">
             <FooterColumn
               title={t("footer.services")}
               links={serviceCategoryLinks}
@@ -88,14 +87,9 @@ export default function Footer() {
               links={[
                 { label: t("footer.aboutUs"), href: "/about" },
                 { label: t("footer.blogs"), href: "/blogs" },
+                { label: t("footer.portfolio"), href: "/portfolio" },
+                { label: t("footer.gallery"), href: "/gallery" },
                 { label: t("footer.contactUs"), href: "/contact" },
-              ]}
-            />
-
-            <FooterColumn
-              title={t("footer.gallery")}
-              links={[
-                { label: t("footer.gallery"), href: "/portfolio" },
               ]}
             />
 
@@ -111,36 +105,39 @@ export default function Footer() {
             />
           </div>
         </div>
+
         <div className="my-8 border-t border-white/10" />
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+
+        <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div className="flex items-center gap-5">
             <span className="text-sm text-white/60">{t("footer.followUs")}</span>
 
             <SocialIcon
-              href={socialLinks.tiktok}
+              href={reactifSocialLinks.tiktok}
               ariaLabel={t("footer.socialTikTok")}
             >
-              <FaTiktok size={15} />
+              <FaTiktok size={16} />
             </SocialIcon>
             <SocialIcon
-              href={socialLinks.facebook}
+              href={reactifSocialLinks.facebook}
               ariaLabel={t("footer.socialFacebook")}
             >
-              <FaFacebookF size={15} />
+              <FaFacebookF size={16} />
             </SocialIcon>
             <SocialIcon
-              href={socialLinks.instagram}
+              href={reactifSocialLinks.instagram}
               ariaLabel={t("footer.socialInstagram")}
             >
               <FaInstagram size={16} />
             </SocialIcon>
           </div>
+
           <div className="flex gap-4">
             {!authLoading && !user && (
               <Button
                 onClick={() => router.push("/login")}
                 variant="outline"
-                className="rounded-full border-white/30 text-white bg-transparent hover:bg-white/10 px-6"
+                className="rounded-full border-white/30 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white"
               >
                 {t("auth.signIn")}
               </Button>
@@ -149,7 +146,7 @@ export default function Footer() {
             <Button
               onClick={() => router.push("/#contact")}
               variant="outline"
-              className="rounded-full border-white/30 text-white bg-transparent hover:bg-white/10 px-6"
+              className="rounded-full border-white/30 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white"
             >
               {t("footer.contactUs")}
             </Button>
@@ -173,8 +170,8 @@ function FooterColumn({
 
       <ul className="space-y-2 text-white/60">
         {links.map(({ label, href }) => (
-          <li key={label}>
-            <Link href={href} className="hover:text-white transition">
+          <li key={`${label}-${href}`}>
+            <Link href={href} className="transition hover:text-white">
               {label}
             </Link>
           </li>
@@ -199,7 +196,7 @@ function SocialIcon({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={ariaLabel}
-      className="w-8 h-8 flex items-center justify-center rounded-full border border-white/15 bg-black text-white shadow-[0_0_0_1px_rgba(0,0,0,0.9)] hover:bg-white hover:text-black transition cursor-pointer"
+      className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-white/20 transition hover:bg-white/10"
     >
       {children}
     </a>

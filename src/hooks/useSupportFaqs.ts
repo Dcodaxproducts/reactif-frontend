@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { fallbackSupportFaqs } from "@/data/home";
 import { getSupportFaqs } from "@/services/support";
 
 export const supportFaqKeys = {
@@ -15,10 +16,12 @@ export const useSupportFaqs = () => {
     queryFn: getSupportFaqs,
     retry: false,
   });
+  const hasBackendError = query.isError;
 
   return {
     ...query,
-    faqs: query.data ?? [],
+    faqs: hasBackendError ? fallbackSupportFaqs : query.data ?? [],
     loading: query.isLoading,
+    isFallback: hasBackendError,
   };
 };

@@ -14,7 +14,7 @@ import {
 } from "@/lib/catalog-search";
 import type { Service } from "@/types/categories";
 import CatalogSection from "./CatalogSection";
-import CatalogHero from "./CatalogHero";
+import { CatalogHero } from "./CatalogHero";
 import { ProductFilterBar } from "./ProductFilterBar";
 import type { CatalogPriceSort } from "./FiltersButton";
 import { CatalogCategoryExplorer } from "./CatalogCategoryExplorer";
@@ -100,7 +100,7 @@ export function CatalogPage() {
   return (
     <PageShell backgroundStyle={catalogBackgroundStyle}>
       <CatalogHero />
-      <div className="mx-auto w-full max-w-7xl space-y-10 px-4 pb-20 sm:px-6 lg:px-8">
+      <div className="space-y-10 px-4 pb-20 sm:px-6 md:px-30">
         <ProductFilterBar
           search={search}
           onSearchChange={setSearch}

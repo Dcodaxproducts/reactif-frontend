@@ -3,8 +3,9 @@
 import { Phone, Mail } from "lucide-react";
 import { Container } from "@/components/common/Container";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { reactifContact } from "@/data/contact";
 
-export default function TopInfoBar() {
+export function TopInfoBar() {
   const { t } = useAppTranslation();
 
   return (
@@ -12,15 +13,15 @@ export default function TopInfoBar() {
       className="relative w-full text-white text-xs md:text-sm overflow-hidden"
       style={{
         background:
-          "linear-gradient(90deg, rgba(30,30,30,0.9) 0%, rgba(45,45,55,0.9) 50%, rgba(40,35,45,0.9) 100%)",
-        borderBottom: "2px solid #515151",
+          "linear-gradient(90deg, #0f3142 0%, #060708 45%, #3b1025 100%)",
+        borderBottom: "1px solid rgba(255,255,255,0.12)",
       }}
     >
       <div
         className="absolute -left-40 -top-20 w-[620px] h-[220px] rounded-full opacity-40 pointer-events-none"
         style={{
           background: "#5FC5FF",
-          filter: "blur(130px)",
+          filter: "blur(145px)",
         }}
       />
 
@@ -28,7 +29,7 @@ export default function TopInfoBar() {
         className="absolute -right-40 -top-20 w-[620px] h-[220px] rounded-full opacity-40 pointer-events-none"
         style={{
           background: "#F262B5",
-          filter: "blur(130px)",
+          filter: "blur(145px)",
         }}
       />
 
@@ -39,12 +40,12 @@ export default function TopInfoBar() {
         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-[#F5F5F5]">
           <div className="flex items-center gap-2">
             <Phone size={14} />
-            <span>+33 1 23 45 67 89</span>
+            <span>{reactifContact.phone}</span>
           </div>
 
           <div className="flex items-center gap-2">
             <Mail size={14} />
-            <span>contact@company.fr</span>
+            <span>{reactifContact.email}</span>
           </div>
         </div>
 

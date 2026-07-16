@@ -1,29 +1,17 @@
-import { Onest, Barlow, Poppins, Arimo } from "next/font/google";
+type FontClass = {
+  className: string;
+  variable: string;
+};
 
-export const onest = Onest({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-onest",
-  weight: ["400", "500", "600", "700", "800", "900"],
+const createLocalFontClass = (variable: string): FontClass => ({
+  className: "font-hk",
+  variable,
 });
 
-export const barlow = Barlow({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-barlow",
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
-
-export const poppins = Poppins({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-poppins",
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
-
-export const arimo = Arimo({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-arimo",
-  weight: ["400", "500", "600", "700"],
-});
+// The project already ships its customer-facing typography through globals.css.
+// Keeping these exports local avoids build-time dependency on Google Fonts while
+// preserving the previous import contract used by the layout/components.
+export const onest = createLocalFontClass("--font-onest");
+export const barlow = createLocalFontClass("--font-barlow");
+export const poppins = createLocalFontClass("--font-poppins");
+export const arimo = createLocalFontClass("--font-arimo");

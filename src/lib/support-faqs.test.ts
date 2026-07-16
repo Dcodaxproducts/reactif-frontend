@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { normalizeSupportFaqs } from "./support-faqs";
+import { isSupportFaqBackendError, normalizeSupportFaqs } from "./support-faqs";
 
 describe("normalizeSupportFaqs", () => {
   it("supports data, array, and faqs response shapes", () => {
@@ -25,5 +25,20 @@ describe("normalizeSupportFaqs", () => {
         answer: "Body",
       },
     ]);
+  });
+});
+
+
+describe("isSupportFaqBackendError", () => {
+  it("detects Unable to load FAQs backend responses", () => {
+    expect(isSupportFaqBackendError({ message: "Unable to load FAQs" })).toBe(
+      true,
+    );
+    expect(isSupportFaqBackendError("Backend error: Unable to load FAQs")).toBe(
+      true,
+    );
+    expect(isSupportFaqBackendError({ message: "Other backend issue" })).toBe(
+      false,
+    );
   });
 });

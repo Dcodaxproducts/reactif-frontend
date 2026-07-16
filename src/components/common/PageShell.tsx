@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 
-import GlobalBackground from "@/hooks/GlobalBackground";
+import { GlobalBackground } from "@/hooks/GlobalBackground";
 import { cn } from "@/lib/utils";
 
 type PageShellProps = {

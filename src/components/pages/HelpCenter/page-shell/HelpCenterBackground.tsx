@@ -1,28 +1,17 @@
-import GlobalBackground from "@/hooks/GlobalBackground";
+import { GlobalBackground } from "@/hooks/GlobalBackground";
 
 export function HelpCenterBackground() {
   return (
     <>
       <GlobalBackground
         style={{
-          backgroundImage: `
-            linear-gradient(
-              to bottom,
-              rgba(0,0,0,0.75) 0%,
-              rgba(0,0,0,0.3) 30%,
-              rgba(0,0,0,0.7) 100%
-            ),
-            url('/assets/AllVendorServices/background.png')
-          `,
-          backgroundSize: "cover",
-          backgroundPosition: "top center",
-          backgroundRepeat: "no-repeat",
+          backgroundImage: "linear-gradient(180deg, #010101 0%, #030303 100%)",
         }}
       />
 
       <div className="pointer-events-none absolute inset-0 z-[1]">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#1e3a8a]/30 blur-[120px] opacity-60" />
-        <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#0a0f1c]/40 blur-[100px] opacity-50" />
+        <div className="absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 bg-[#1e3a8a]/20 blur-[120px] opacity-50" />
+        <div className="absolute left-1/2 top-[30%] h-[300px] w-[600px] -translate-x-1/2 bg-[#0a0f1c]/40 blur-[100px] opacity-50" />
       </div>
     </>
   );

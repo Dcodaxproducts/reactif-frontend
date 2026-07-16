@@ -22,10 +22,9 @@ export function HeroTitle({
       )}
       style={{
         background:
-          "linear-gradient(90deg, #FAFAFA 0%, #5FC5FF 81.25%, #9F73F1 100%)",
+          "linear-gradient(92deg, #FFFFFF 0%, #FFFFFF 34%, #F262B5 56%, #9F73F1 76%, #5FC5FF 100%)",
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
-        lineHeight: "1.2",
       }}
     >
       {children}

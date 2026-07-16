@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ContactFormSection from "@/components/pages/Home/ContactFormSection";
+import { StartProjectSection as ContactFormSection } from "@/components/pages/Home/ContactFormSection";
 import HelpGrid from "@/components/pages/HelpCenter/HelpGrid";
 import Hero from "@/components/pages/HelpCenter/Hero";
 import { SupportFaqSection } from "@/components/pages/HelpCenter/SupportFaqSection";

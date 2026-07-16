@@ -6,7 +6,7 @@ export const APP_SETTINGS_CHANGE_EVENT = "reactif.appSettings.change";
 
 export const DEFAULT_APP_SETTINGS: AppSettings = {
   themeMode: "system",
-  language: "en",
+  language: "fr",
 };
 
 const isBrowser = () => typeof window !== "undefined";

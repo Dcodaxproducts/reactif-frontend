@@ -24,7 +24,7 @@ export function SupportFaqSection({
   showControls = false,
 }: SupportFaqSectionProps) {
   const { t } = useAppTranslation();
-  const { faqs, loading, isError, refetch } = useSupportFaqs();
+  const { faqs, loading, isFallback } = useSupportFaqs();
   const normalizedQuery = normalizeSearchValue(searchQuery);
 
   const filteredFaqs = useMemo(() => {
@@ -65,23 +65,6 @@ export function SupportFaqSection({
             description={t("helpCenter.faq.loadingDescription")}
             className="p-6"
           />
-        ) : isError ? (
-          <StatusCard
-            tone="error"
-            label={t("common.backendError")}
-            title={t("helpCenter.faq.errorTitle")}
-            description={t("helpCenter.faq.errorDescription")}
-            action={
-              <Button
-                type="button"
-                onClick={() => void refetch()}
-                className="h-10 rounded-full bg-white px-5 text-zinc-900 hover:bg-white/90"
-              >
-                {t("common.tryAgain")}
-              </Button>
-            }
-            className="p-6"
-          />
         ) : faqs.length === 0 ? (
           <StatusCard
             tone="empty"
@@ -108,7 +91,14 @@ export function SupportFaqSection({
             className="p-6"
           />
         ) : (
-          <FAQAccordion faqs={filteredFaqs} />
+          <>
+            {isFallback ? (
+              <p className="mb-4 rounded-2xl border border-amber-200/20 bg-amber-300/10 px-4 py-3 text-sm text-amber-100">
+                {t("helpCenter.faq.fallbackNotice")}
+              </p>
+            ) : null}
+            <FAQAccordion faqs={filteredFaqs} />
+          </>
         )}
       </div>
     </section>

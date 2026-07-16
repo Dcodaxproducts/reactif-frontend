@@ -249,6 +249,28 @@
           "title": "Fast Project Delivery",
           "description": "Efficient workflows that keep your project moving without compromise"
         }
+      },
+      "rows": {
+        "reactivity": {
+          "title": "Réactivité légendaire",
+          "description": "Pas de panique ! Nous nous adaptons à vos deadlines"
+        },
+        "eyeCatching": {
+          "title": "Des créations qui attirent l’œil",
+          "description": "On ne peut pas garantir que les gens regarderont la route... mais votre pub, oui !"
+        },
+        "covering": {
+          "title": "Le covering, c’est notre terrain de jeu",
+          "description": "Nous transformons vos véhicules en véritables ambassadeurs de votre marque."
+        },
+        "quality": {
+          "title": "Une qualité qui tient la route",
+          "description": "Des matériaux professionnels qui vieillissent mieux que certaines tendances TikTok."
+        },
+        "humanSupport": {
+          "title": "Un accompagnement humain",
+          "description": "Si une idée n’est pas bonne, on vous le dira. Même si elle vient de votre cousin qui s’y connaît en design sur Canva."
+        }
       }
     },
     "contact": {
@@ -263,33 +285,41 @@
       "description": "Contact us today for a free personalized quote. Our team of experts is available to advise you.",
       "requesting": "Requesting...",
       "requestQuote": "Request a Free Quote"
+    },
+    "featuredCategories": {
+      "eyebrow": "on s’adapte !",
+      "title": "COMMENT VOULEZ-VOUS QUE L’ON REMARQUE VOTRE MARQUE ?",
+      "options": {
+        "road": "Sur la route",
+        "street": "Dans la rue",
+        "supports": "Sur vos supports"
+      },
+      "description": "Four best-seller families to quickly reach the catalog.",
+      "seeMore": "voir plus",
+      "cards": {
+        "automobiles": {
+          "title": "AUTOMOBILES",
+          "alt": "Automotive wrapping category"
+        },
+        "papeterie": {
+          "title": "PAPETERIE",
+          "alt": "Stationery category"
+        },
+        "habillageVitrine": {
+          "title": "HABILLAGE VITRINE",
+          "alt": "Window dressing category"
+        },
+        "enseigne": {
+          "title": "ENSEIGNE",
+          "alt": "Signage category"
+        }
+      }
     }
   },
   "catalog": {
     "hero": {
       "title": "High-Impact Visual Design",
-      "description": "Elevate your brand with our professional automotive wraps, custom signage, and premium apparel solutions.",
-      "eyebrow": "Complete visual catalogue",
-      "exploreCategories": "Explore categories",
-      "viewAutomotive": "View automotive",
-      "galleryAltOne": "Automotive wrap catalogue visual",
-      "galleryAltTwo": "Vehicle branding catalogue visual",
-      "cardLabel": "Ready-to-book catalogue",
-      "cardDescription": "Find the right category, compare published options, and move straight into a quote or booking flow.",
-      "highlights": {
-        "automotive": {
-          "title": "Automotive-first",
-          "description": "Wraps, tinting, fleet branding, and vehicle-ready visual communication."
-        },
-        "design": {
-          "title": "Clear category paths",
-          "description": "Each category leads to the right services, subcategories, and booking options."
-        },
-        "finish": {
-          "title": "Premium finish",
-          "description": "Professional print, signage, apparel, and brand details in one catalogue."
-        }
-      }
+      "description": "Elevate your brand with our professional automotive wraps, custom signage, and premium apparel solutions."
     },
     "searchPlaceholder": "Search products, wraps, or apparel...",
     "filters": {
@@ -466,7 +496,8 @@
       "vinylUvLife": {
         "question": "How long do the vinyl materials last under UV exposure?",
         "answer": "High-quality vinyl materials typically last 5–7 years with proper care, even under strong UV exposure."
-      }
+      },
+      "fallbackNotice": "Showing the offline FAQ because the backend FAQ service is unavailable."
     }
   },
   "profile": {
@@ -811,7 +842,6 @@
     "aboutUs": "About Us",
     "blogs": "Blogs",
     "portfolio": "Portfolio",
-    "gallery": "Gallery",
     "contactUs": "Contact Us",
     "support": "Support",
     "helpCenter": "Help Center",
@@ -820,12 +850,16 @@
     "termsOfService": "Terms of Service",
     "privacyPolicy": "Privacy Policy",
     "followUs": "Follow us",
-    "socialTikTok": "Open ReactIf on TikTok",
     "socialX": "Open ReactIf on X",
-    "socialFacebook": "Open ReactIf on Facebook",
-    "socialInstagram": "Open ReactIf on Instagram",
+    "socialFacebook": "Open RéactifPub on Facebook",
+    "socialInstagram": "Open RéactifPub on Instagram",
     "socialLinkedIn": "Open ReactIf on LinkedIn",
-    "socialYouTube": "Open ReactIf on YouTube"
+    "socialYouTube": "Open ReactIf on YouTube",
+    "gallery": "Gallery",
+    "socialTikTok": "Open RéactifPub on TikTok",
+    "papeterie": "Stationery",
+    "habillageVitrine": "Window graphics",
+    "enseigne": "Signs"
   },
   "validation": {
     "emailRequired": "Email is required.",
@@ -843,7 +877,7 @@
     "passwordsDoNotMatch": "Passwords do not match."
   },
   "topInfoBar": {
-    "tagline": "Automotive Visual Communication Expert"
+    "tagline": "Automotive visual communication expert"
   },
   "contact": {
     "information": "Contact Information",
@@ -857,7 +891,7 @@
     "message": "Message",
     "sendMessage": "Send Message",
     "sending": "Sending...",
-    "submitSuccess": "Your message was sent to ReactIf support.",
+    "submitSuccess": "Your message was sent to RéactifPub support.",
     "submitError": "We could not send your message. Please try again.",
     "signInRequired": "Please sign in before sending a support request.",
     "trustedBy": "Trusted By"
@@ -1163,6 +1197,43 @@
           "content1": "We may update this Privacy Policy from time to time.",
           "content2": "Any changes will be communicated through our platform or via email."
         }
+      }
+    }
+  },
+  "whatsapp": {
+    "label": "Chat on WhatsApp",
+    "ariaLabel": "Chat with RéactifPub on WhatsApp",
+    "defaultMessage": "Hello RéactifPub, I would like information about a project."
+  },
+  "gallery": {
+    "eyebrow": "Gallery",
+    "title": "RéactifPub achievements",
+    "description": "A visual preview of vehicle, stationery, signage and window projects.",
+    "viewAll": "Open the gallery",
+    "items": {
+      "vehicleWrap": {
+        "title": "Vehicle wrapping",
+        "description": "High-visibility markings for cars and utility vehicles."
+      },
+      "stationery": {
+        "title": "Stationery",
+        "description": "Professional printed supports for brand consistency."
+      },
+      "signage": {
+        "title": "Signage",
+        "description": "Signs and rigid supports for indoor and outdoor visibility."
+      },
+      "window": {
+        "title": "Window graphics",
+        "description": "Window dressing and adhesive visuals for storefronts."
+      },
+      "fleet": {
+        "title": "Fleet branding",
+        "description": "Coherent visuals across several company vehicles."
+      },
+      "print": {
+        "title": "Print finishes",
+        "description": "Premium print details for campaigns and supports."
       }
     }
   }

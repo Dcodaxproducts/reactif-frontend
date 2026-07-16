@@ -4,13 +4,14 @@ import Link from "next/link";
 export function NavbarLogo() {
   return (
     <div className="flex items-center gap-2">
-      <Link href="/">
+      <Link href="/" aria-label="RéactifPub home">
         <Image
-          src="/assets/brand/reactifpub-logo.png"
-          alt="Reactif"
-          width={120}
-          height={30}
-          className="w-[100px] md:w-[120px]"
+          src="/assets/logo.png"
+          alt="RéactifPub"
+          width={512}
+          height={108}
+          priority
+          className="h-auto w-[136px] md:w-[172px]"
         />
       </Link>
     </div>

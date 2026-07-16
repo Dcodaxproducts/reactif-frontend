@@ -14,7 +14,7 @@ import type {
 } from "@/types/component-props";
 
 export const orderBackgroundStyle = {
-  backgroundImage: "url('/assets/AllVendorServices/background.png')",
+  backgroundImage: "linear-gradient(180deg, #010101 0%, #030303 100%)",
 };
 
 export const projectSummary = {

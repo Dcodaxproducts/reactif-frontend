@@ -17,6 +17,9 @@ const categories: Category[] = [
   { id: 6, name: "SIGNALÉTIQUE", status: 1 },
   { id: 74, name: "VÊTEMENT", status: 1 },
   { id: 77, name: "GADGET", status: 1 },
+  { id: 91, name: "PAPPETERIE", status: 1 },
+  { id: 92, name: "Habillage vitrine", status: 1 },
+  { id: 93, name: "Enseignes", status: 1 },
 ];
 
 describe("category route helpers", () => {
@@ -34,20 +37,20 @@ describe("category route helpers", () => {
     expect(resolveCategorySlug("Visual Advertising")).toBe(
       "visual-advertising",
     );
+    expect(resolveCategorySlug("PAPPETERIE")).toBe("papeterie");
+    expect(resolveCategorySlug("Habillage vitrine")).toBe(
+      "habillage-vitrine",
+    );
+    expect(resolveCategorySlug("Enseignes")).toBe("enseigne");
   });
 
   it("matches footer service categories against API category names", () => {
     expect(findCategoryByNavigationSlug(categories, "automotive")?.id).toBe(8);
+    expect(findCategoryByNavigationSlug(categories, "papeterie")?.id).toBe(91);
     expect(
-      findCategoryByNavigationSlug(categories, "visual-advertising")?.id,
-    ).toBe(78);
-    expect(findCategoryByNavigationSlug(categories, "signaletique")?.id).toBe(
-      6,
-    );
-    expect(findCategoryByNavigationSlug(categories, "apparel")?.id).toBe(74);
-    expect(findCategoryByNavigationSlug(categories, "accessories")?.id).toBe(
-      77,
-    );
+      findCategoryByNavigationSlug(categories, "habillage-vitrine")?.id,
+    ).toBe(92);
+    expect(findCategoryByNavigationSlug(categories, "enseigne")?.id).toBe(93);
   });
 
   it("keeps the required category navigation set explicit", () => {
@@ -57,6 +60,9 @@ describe("category route helpers", () => {
       "signaletique",
       "apparel",
       "accessories",
+      "papeterie",
+      "habillage-vitrine",
+      "enseigne",
     ]);
   });
 

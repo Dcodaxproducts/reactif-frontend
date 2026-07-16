@@ -1,7 +1,11 @@
 import { API_ENDPOINTS } from "@/config/api-endpoints";
 import api from "@/lib/axios";
 import { normalizeCustomerSupportRequests } from "@/lib/customer-support";
-import { normalizeSupportFaqs } from "@/lib/support-faqs";
+import {
+  FAQ_BACKEND_ERROR_MESSAGE,
+  isSupportFaqBackendError,
+  normalizeSupportFaqs,
+} from "@/lib/support-faqs";
 import type { CustomerSupportRequest, SupportFaq } from "@/types/support";
 
 export type CustomerSupportPayload = {
@@ -28,6 +32,10 @@ export const SUPPORT_ROUTES = {
 
 export const getSupportFaqs = async (): Promise<SupportFaq[]> => {
   const { data } = await api.get<unknown>(SUPPORT_ROUTES.faqs);
+
+  if (isSupportFaqBackendError(data)) {
+    throw new Error(FAQ_BACKEND_ERROR_MESSAGE);
+  }
 
   return normalizeSupportFaqs(data);
 };

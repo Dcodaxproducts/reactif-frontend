@@ -14,14 +14,17 @@ import {
 import { StatusCard } from "@/components/common/StatusCard";
 import { PageShell } from "@/components/common/PageShell";
 import { Button } from "@/components/ui/button";
-import CatalogScroller from "@/components/pages/Catalog/CatalogScroller";
 import { catalogBackgroundStyle } from "@/data/catalog";
+import { formatCurrency } from "@/lib/currency";
+import { getImageSource } from "@/lib/image-source";
+import { buildServiceDetailHref } from "@/lib/service-routes";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useCategories, useServices } from "@/hooks/useCategories";
 import {
   buildCategoryRouteFromNavigationSlug,
   findCategoryByNavigationSlug,
 } from "@/lib/category-routes";
+import type { Service } from "@/types/categories";
 
 const automotiveHighlights = [
   {
@@ -83,6 +86,8 @@ export function AutomotivePage() {
   return (
     <PageShell backgroundStyle={catalogBackgroundStyle}>
       <main className="relative mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <div className="pointer-events-none absolute right-0 top-8 hidden h-28 w-28 rounded-tr-[28px] border-r-4 border-t-4 border-[#f262b5] opacity-80 lg:block" />
+        <div className="pointer-events-none absolute bottom-12 right-0 hidden h-28 w-28 rounded-br-[28px] border-b-4 border-r-4 border-[#f262b5] opacity-70 lg:block" />
         <section className="grid min-h-[520px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="flex flex-col items-start gap-6">
             <p className="rounded-full border border-cyan-200/20 bg-cyan-200/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-cyan-100">
@@ -116,14 +121,14 @@ export function AutomotivePage() {
             </div>
           </div>
 
-          <div className="relative min-h-[360px] overflow-hidden rounded-3xl border border-white/10 bg-black/50 shadow-2xl shadow-black/30">
+          <div className="relative min-h-[360px] overflow-hidden rounded-3xl border border-white/10 bg-black/70 shadow-2xl shadow-black/30">
             <Image
               src="/assets/catalog/carOne.png"
               alt={t("automotive.imageAlt")}
               fill
               priority
               sizes="(min-width: 1024px) 48vw, 100vw"
-              className="object-cover"
+              className="object-contain p-10 transition duration-500 hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
             <div className="absolute bottom-5 left-5 right-5 rounded-2xl border border-white/10 bg-black/70 p-4 backdrop-blur">
@@ -219,7 +224,7 @@ export function AutomotivePage() {
               }
             />
           ) : (
-            <CatalogScroller
+            <AutomotiveServicesGrid
               services={visibleServices}
               categoryNamesById={categoryNamesById}
             />
@@ -227,5 +232,78 @@ export function AutomotivePage() {
         </section>
       </main>
     </PageShell>
+  );
+}
+
+
+function AutomotiveServicesGrid({
+  services,
+  categoryNamesById,
+}: {
+  services: Service[];
+  categoryNamesById: Map<number, string>;
+}) {
+  const { t } = useAppTranslation();
+
+  return (
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {services.map((service) => {
+        const categoryName =
+          categoryNamesById.get(service.category_id) ??
+          t("catalog.uncategorized");
+        const imageSource = getImageSource(
+          service.service_image,
+          "/assets/catalog/carOne.png",
+        );
+        const serviceDetailHref = buildServiceDetailHref({
+          category: {
+            id: service.category_id,
+            name: categoryName,
+          },
+          service,
+          from: "catalog",
+        });
+
+        return (
+          <Link
+            href={serviceDetailHref}
+            key={service.id}
+            className="group relative grid min-h-[330px] overflow-hidden rounded-2xl border border-white/10 bg-[#02030c] transition duration-300 hover:-translate-y-1 hover:border-[#f262b5]/60 hover:shadow-[0_22px_70px_rgba(242,98,181,0.18)]"
+          >
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(95,197,255,0.15),transparent_58%)] opacity-70 transition group-hover:opacity-100" />
+            <div className="relative flex h-44 items-center justify-center p-7">
+              <Image
+                src={imageSource}
+                alt={service.name}
+                fill
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                className="object-contain p-5 transition duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="relative z-10 flex flex-col gap-3 p-5 pt-0">
+              <span className="w-fit rounded-full border border-white/10 bg-black/65 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-white/85">
+                {categoryName}
+              </span>
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="min-w-0 text-base font-black leading-6 text-white">
+                  {service.name}
+                </h3>
+                <span className="shrink-0 text-xs font-black text-white">
+                  {service.price > 0
+                    ? formatCurrency(service.price)
+                    : t("catalog.priceOnRequest")}
+                </span>
+              </div>
+              <p className="line-clamp-2 text-xs leading-5 text-slate-400">
+                {service.description || t("catalog.serviceFallbackDescription")}
+              </p>
+              <span className="mt-auto text-xs font-semibold text-pink-100 opacity-80 transition group-hover:text-[#f262b5]">
+                {t("catalog.viewDetails")} →
+              </span>
+            </div>
+          </Link>
+        );
+      })}
+    </div>
   );
 }

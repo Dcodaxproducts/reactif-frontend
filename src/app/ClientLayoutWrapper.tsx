@@ -1,15 +1,15 @@
 "use client";
 
 import { ReactNode } from "react";
-import { WhatsAppFloatingButton } from "@/components/common/WhatsAppFloatingButton";
-import Footer from "@/components/layout/footer/Footer";
+import { Footer } from "@/components/layout/footer/Footer";
 import { Navbar } from "@/components/layout/navbar/navbar";
-import TopInfoBar from "@/components/layout/navbar/TopInfoBar";
+import { TopInfoBar } from "@/components/layout/navbar/TopInfoBar";
 import { Toaster } from "sonner";
 import { LanguageProvider } from "@/components/providers/language-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { useAuth } from "@/hooks/useAuth";
+import { FloatingWhatsAppButton } from "@/components/common/FloatingWhatsAppButton";
 
 function ClientLayoutContent({ children }: { children: ReactNode }) {
   useAuth();
@@ -22,10 +22,10 @@ function ClientLayoutContent({ children }: { children: ReactNode }) {
       </div>
       <Toaster position="top-right" richColors />
       <div>{children}</div>
-      <WhatsAppFloatingButton />
       <div data-print-hidden="true">
         <Footer />
       </div>
+      <FloatingWhatsAppButton />
     </div>
   );
 }
