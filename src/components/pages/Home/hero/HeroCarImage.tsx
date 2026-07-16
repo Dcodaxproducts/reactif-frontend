@@ -32,20 +32,32 @@ export function HeroCarImage() {
 
         <div className="hero-showcase-car">
           <Image
-            src="/assets/hero/reactif-neon-car.png"
+            src="/assets/hero/reactif-wheel.png"
             alt=""
-            width={1363}
-            height={470}
+            width={1254}
+            height={1254}
+            priority
+            sizes="(min-width: 1280px) 11vw, (min-width: 768px) 14vw, 21vw"
+            className="hero-showcase-wheel hero-showcase-wheel-front"
+          />
+          <Image
+            src="/assets/hero/reactif-wheel.png"
+            alt=""
+            width={1254}
+            height={1254}
+            priority
+            sizes="(min-width: 1280px) 10vw, (min-width: 768px) 13vw, 20vw"
+            className="hero-showcase-wheel hero-showcase-wheel-rear"
+          />
+          <Image
+            src="/assets/hero/reactif-car-body.png"
+            alt=""
+            width={1672}
+            height={941}
             priority
             sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 54vw, 95vw"
             className="hero-showcase-car-image"
           />
-          <span className="hero-showcase-wheel hero-showcase-wheel-front">
-            <span />
-          </span>
-          <span className="hero-showcase-wheel hero-showcase-wheel-rear">
-            <span />
-          </span>
         </div>
       </div>
     </div>
