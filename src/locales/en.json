@@ -287,30 +287,30 @@
       "requestQuote": "Request a Free Quote"
     },
     "featuredCategories": {
-      "eyebrow": "on s’adapte !",
-      "title": "COMMENT VOULEZ-VOUS QUE L’ON REMARQUE VOTRE MARQUE ?",
+      "eyebrow": "we adapt!",
+      "title": "HOW DO YOU WANT YOUR BRAND TO GET NOTICED?",
       "options": {
-        "road": "Sur la route",
-        "street": "Dans la rue",
-        "supports": "Sur vos supports"
+        "road": "On the road",
+        "street": "On the street",
+        "supports": "Across your media"
       },
       "description": "Four best-seller families to quickly reach the catalog.",
-      "seeMore": "voir plus",
+      "seeMore": "see more",
       "cards": {
         "automobiles": {
           "title": "AUTOMOBILES",
           "alt": "Automotive wrapping category"
         },
         "papeterie": {
-          "title": "PAPETERIE",
+          "title": "STATIONERY",
           "alt": "Stationery category"
         },
         "habillageVitrine": {
-          "title": "HABILLAGE VITRINE",
+          "title": "WINDOW GRAPHICS",
           "alt": "Window dressing category"
         },
         "enseigne": {
-          "title": "ENSEIGNE",
+          "title": "SIGNAGE",
           "alt": "Signage category"
         }
       }
@@ -1207,7 +1207,7 @@
   },
   "gallery": {
     "eyebrow": "Gallery",
-    "title": "RéactifPub achievements",
+    "title": "RéactifPub Projects",
     "description": "A visual preview of vehicle, stationery, signage and window projects.",
     "viewAll": "Open the gallery",
     "items": {

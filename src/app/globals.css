@@ -744,10 +744,11 @@ html {
 }
 
 .hero-showcase-wheel-rear {
-  left: 71.72%;
-  top: 50.72%;
-  width: 15.1%;
-  transform: scaleX(1.07) rotate(var(--hero-wheel-angle));
+  left: 72.3%;
+  top: 50%;
+  width: 15.15%;
+  transform: rotate(var(--hero-wheel-angle));
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.28));
 }
 
 .hero-showcase-road {

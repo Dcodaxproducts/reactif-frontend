@@ -1201,7 +1201,7 @@
     }
   },
   "whatsapp": {
-    "label": "Chat on WhatsApp",
+    "label": "Discuter sur WhatsApp",
     "ariaLabel": "Discuter avec RéactifPub sur WhatsApp",
     "defaultMessage": "Bonjour RéactifPub, j’aimerais des informations pour un projet."
   },
