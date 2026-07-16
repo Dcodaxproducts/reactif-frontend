@@ -4,7 +4,10 @@ import { HeroActions } from "./HeroActions";
 import { HeroBadge } from "./HeroBadge";
 
 export function HeroContent() {
-  const { t } = useAppTranslation();
+  const { t, language } = useAppTranslation();
+  const finalTitleLine = t("home.hero.titleLine3");
+  const finalWordIndex =
+    language === "en" ? finalTitleLine.lastIndexOf(" ") : -1;
 
   return (
     <div className="relative z-30 space-y-5 text-center md:max-w-[660px] md:text-left lg:w-[min(760px,62vw)] lg:max-w-none lg:self-start lg:pt-0 xl:w-[min(820px,60vw)] xl:pt-1">
@@ -18,7 +21,15 @@ export function HeroContent() {
           {t("home.hero.titleLine2")}
         </span>
         <span className="block sm:whitespace-nowrap">
-          {t("home.hero.titleLine3")}
+          {finalWordIndex > 0 ? (
+            <>
+              {finalTitleLine.slice(0, finalWordIndex)}
+              <br />
+              {finalTitleLine.slice(finalWordIndex + 1)}
+            </>
+          ) : (
+            finalTitleLine
+          )}
         </span>
       </HeroTitle>
 

@@ -27,6 +27,8 @@
     "getStarted": "Commencer",
     "logout": "Déconnexion",
     "language": "Langue",
+    "mobileMenu": "Menu mobile",
+    "closeMobileMenu": "Fermer le menu mobile",
     "languageEnglish": "English",
     "languageFrench": "Français"
   },

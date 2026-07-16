@@ -27,6 +27,8 @@
     "getStarted": "Get Started",
     "logout": "Logout",
     "language": "Language",
+    "mobileMenu": "Mobile menu",
+    "closeMobileMenu": "Close mobile menu",
     "languageEnglish": "English",
     "languageFrench": "Français"
   },
@@ -252,24 +254,24 @@
       },
       "rows": {
         "reactivity": {
-          "title": "Réactivité légendaire",
-          "description": "Pas de panique ! Nous nous adaptons à vos deadlines"
+          "title": "Legendary responsiveness",
+          "description": "No panic! We adapt to your deadlines."
         },
         "eyeCatching": {
-          "title": "Des créations qui attirent l’œil",
-          "description": "On ne peut pas garantir que les gens regarderont la route... mais votre pub, oui !"
+          "title": "Designs that catch the eye",
+          "description": "We cannot guarantee people will watch the road... but they will notice your ad!"
         },
         "covering": {
-          "title": "Le covering, c’est notre terrain de jeu",
-          "description": "Nous transformons vos véhicules en véritables ambassadeurs de votre marque."
+          "title": "Vehicle wrapping is our playground",
+          "description": "We turn your vehicles into true ambassadors for your brand."
         },
         "quality": {
-          "title": "Une qualité qui tient la route",
-          "description": "Des matériaux professionnels qui vieillissent mieux que certaines tendances TikTok."
+          "title": "Quality built to last",
+          "description": "Professional materials that age better than some TikTok trends."
         },
         "humanSupport": {
-          "title": "Un accompagnement humain",
-          "description": "Si une idée n’est pas bonne, on vous le dira. Même si elle vient de votre cousin qui s’y connaît en design sur Canva."
+          "title": "Genuine human support",
+          "description": "If an idea is not right, we will tell you—even if it came from your cousin who knows Canva design."
         }
       }
     },

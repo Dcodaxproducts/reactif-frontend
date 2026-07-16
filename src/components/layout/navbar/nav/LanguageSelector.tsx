@@ -41,7 +41,7 @@ export function LanguageSelector({ tone = "dark" }: LanguageSelectorProps) {
       </SelectTrigger>
       <SelectContent
         align="end"
-        className="z-[1000] min-w-[9rem]"
+        className="z-[1300] min-w-[9rem]"
         position="popper"
         sideOffset={6}
       >

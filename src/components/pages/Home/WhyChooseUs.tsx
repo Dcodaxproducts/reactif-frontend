@@ -17,7 +17,8 @@ export function WhyChooseUs() {
             {t("home.why.badge")}
           </p>
           <h2 className="mt-5 text-3xl font-black uppercase leading-tight tracking-[0.08em] text-white md:text-5xl">
-            WHY CHOOSE <br /> RÉACTIFPUB?
+            {t("home.why.titlePrefix")} <br />
+            {t("home.why.titleAccent")} RÉACTIFPUB?
           </h2>
         </div>
 
