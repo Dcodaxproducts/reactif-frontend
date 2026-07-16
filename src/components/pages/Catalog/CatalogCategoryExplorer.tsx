@@ -14,6 +14,7 @@ import type { Category } from "@/types/categories";
 
 type CatalogCategoryExplorerProps = {
   categories: Category[];
+  showFeaturedCategory?: boolean;
 };
 
 const getActiveSubcategories = (category: Category) =>
@@ -21,6 +22,7 @@ const getActiveSubcategories = (category: Category) =>
 
 export function CatalogCategoryExplorer({
   categories,
+  showFeaturedCategory = true,
 }: CatalogCategoryExplorerProps) {
   const { t } = useAppTranslation();
   const activeCategories = categories.filter(({ status }) => status !== 0);
@@ -46,7 +48,7 @@ export function CatalogCategoryExplorer({
         </p>
       </div>
 
-      {featuredCategory ? (
+      {showFeaturedCategory && featuredCategory ? (
         <FeaturedCategory category={featuredCategory} />
       ) : null}
 
