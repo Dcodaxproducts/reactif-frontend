@@ -747,6 +747,7 @@ html {
   left: 71.72%;
   top: 50.72%;
   width: 15.1%;
+  transform: scaleX(1.07) rotate(var(--hero-wheel-angle));
 }
 
 .hero-showcase-road {
