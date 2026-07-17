@@ -33,7 +33,7 @@ export function HeroContent() {
         </span>
       </HeroTitle>
 
-      <HeroText className="mx-auto max-w-xl text-balance text-white/78 md:mx-0 lg:max-w-[23rem] xl:max-w-[34rem] xl:text-[18px] 2xl:max-w-2xl">
+      <HeroText className="mx-auto max-w-xl text-balance text-white/78 md:mx-0 lg:max-w-[23rem] xl:max-w-[30rem] xl:text-[18px] 2xl:max-w-[32rem]">
         {t("home.hero.description")}
       </HeroText>
 
