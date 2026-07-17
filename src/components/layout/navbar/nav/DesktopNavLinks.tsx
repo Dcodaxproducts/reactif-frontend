@@ -10,7 +10,7 @@ export function DesktopNavLinks({ user }: DesktopNavLinksProps) {
   return (
     <div className="relative z-20 hidden shrink-0 items-center gap-8 text-sm text-white md:flex">
       {publicNavItems.map(
-        ({ label, translationKey, highlight, href, badge }) => (
+        ({ label, translationKey, highlight, href, badgeTranslationKey }) => (
           <div
             key={label}
             className={
@@ -42,9 +42,9 @@ export function DesktopNavLinks({ user }: DesktopNavLinksProps) {
               {translationKey ? t(translationKey) : label}
             </Link>
 
-            {badge && (
+            {badgeTranslationKey && (
               <span className="text-[12px] bg-[#E2E2E2] px-3 py-[3px] rounded-full text-black font-[400]">
-                {badge}
+                {t(badgeTranslationKey)}
               </span>
             )}
           </div>

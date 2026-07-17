@@ -1,8 +1,10 @@
 "use client";
 
+import { Suspense } from "react";
 import { Star, Check, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 
 interface ServiceCardProps {
   category: string;
@@ -12,7 +14,7 @@ interface ServiceCardProps {
   popular?: boolean;
 }
 
-export default function ServiceCard({
+function VendorServiceCardContent({
   category,
   title,
   features,
@@ -20,6 +22,7 @@ export default function ServiceCard({
   popular,
 }: ServiceCardProps) {
   const searchParams = useSearchParams();
+  const { t } = useAppTranslation();
 
   const queryString = searchParams.toString();
 
@@ -41,7 +44,7 @@ export default function ServiceCard({
         {popular && (
           <div className="px-3 py-1.5 bg-pink-400 rounded-full flex items-center gap-1 text-white text-xs">
             <Star size={14} className="text-amber-300 fill-amber-300" />
-            Popular
+            {t("vendorPortfolio.popular")}
           </div>
         )}
       </div>
@@ -71,7 +74,9 @@ export default function ServiceCard({
 
       <div className="flex justify-between items-center">
         <div>
-          <p className="text-xs text-stone-500 font-hk">STARTING FROM</p>
+          <p className="text-xs text-stone-500 font-hk">
+            {t("vendorPortfolio.startingFrom").toUpperCase()}
+          </p>
 
           <p className="text-xl sm:text-2xl font-bold text-neutral-50 font-hk">
             $ {price}
@@ -90,5 +95,17 @@ export default function ServiceCard({
         </Link>
       </div>
     </div>
+  );
+}
+
+export function VendorServiceCard(props: ServiceCardProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-[420px] w-full animate-pulse rounded-xl border border-stone-500/50 bg-neutral-900/80" />
+      }
+    >
+      <VendorServiceCardContent {...props} />
+    </Suspense>
   );
 }

@@ -19,6 +19,7 @@
   "nav": {
     "categories": "Categories",
     "automotive": "Automotive",
+    "new": "New",
     "catalog": "Catalog",
     "contact": "Contact",
     "myBookings": "My Bookings",
@@ -921,6 +922,15 @@
     "messageFallback": "No message preview available"
   },
   "designers": {
+    "sectionBadge": "Our Commitment",
+    "sectionTitlePrefix": "SELECT A",
+    "sectionTitleAccent": "SPECIALIST",
+    "sectionDescription": "Choose a certified vendor to explore their specific protection packages and designs.",
+    "loadingSpecialists": "Loading specialists...",
+    "noDesigners": "No designers available at the moment.",
+    "loadMore": "Load More",
+    "experience": "Experience",
+    "startingFrom": "Starting From",
     "portfolio": "Portfolio",
     "viewPortfolio": "View Portfolio",
     "select": "Select",
@@ -948,6 +958,23 @@
     "location": "Location",
     "status": "Status",
     "contactSupport": "Contact Support"
+  },
+  "vendorPortfolio": {
+    "location": "Geneva, CH",
+    "reviews": "{count} Reviews",
+    "all": "All",
+    "paintProtection": "Paint Protection",
+    "windowTinting": "Window Tinting",
+    "fullBodyStealth": "Full Body Stealth",
+    "privacyGlassEdition": "Privacy Glass Edition",
+    "selfHealing": "Self Healing",
+    "antiYellowing": "Anti-Yellowing",
+    "tenYearWarranty": "10 Yrs Warranty",
+    "uvProtection": "UV Protection",
+    "heatReduction": "Heat Reduction",
+    "lifetimeWarranty": "Lifetime Warranty",
+    "popular": "Popular",
+    "startingFrom": "Starting From"
   },
   "about": {
     "heroTitleLine1": "DRIVING EXCELLENCE IN VISUAL",

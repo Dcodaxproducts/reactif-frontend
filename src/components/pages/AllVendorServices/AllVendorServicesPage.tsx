@@ -1,9 +1,9 @@
 import { Container } from "@/components/common/Container";
 import { PageShell } from "@/components/common/PageShell";
 import DeliveryService from "./DeliveryService";
-import SpecialistsSection from "./SpecialistsSection";
+import { SpecialistsSection } from "./SpecialistsSection";
 
-export default function AllVendorServicesPage() {
+export function AllVendorServicesPage() {
   return (
     <>
       <PageShell>

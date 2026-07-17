@@ -1,15 +1,18 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/common/Container";
 
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { useDesigners } from "@/hooks/useDesigners";
-import LoadMoreSpecialistsButton from "./LoadMoreSpecialistsButton";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { LoadMoreSpecialistsButton } from "./LoadMoreSpecialistsButton";
 import SpecialistGrid from "./SpecialistGrid";
-import SpecialistListStatus from "./SpecialistListStatus";
+import { SpecialistListStatus } from "./SpecialistListStatus";
 
-export default function SpecialistsSection() {
+function SpecialistsSectionContent() {
+  const { t } = useAppTranslation();
   const searchParams = useSearchParams();
   const queryString = searchParams.toString();
 
@@ -20,10 +23,10 @@ export default function SpecialistsSection() {
   return (
     <Container gutter="page" className="py-12 md:py-20">
       <SectionHeader
-        badgeText="Our Commitment"
+        badgeText={t("designers.sectionBadge")}
         title={
           <>
-            SELECT A{" "}
+            {t("designers.sectionTitlePrefix")}{" "}
             <span
               style={{
                 background: "linear-gradient(90deg, #F262B5 0%, #9F73F1 100%)",
@@ -31,11 +34,11 @@ export default function SpecialistsSection() {
                 WebkitTextFillColor: "transparent",
               }}
             >
-              SPECIALIST
+              {t("designers.sectionTitleAccent")}
             </span>
           </>
         }
-        description="Choose a certified vendor to explore their specific protection packages and designs."
+        description={t("designers.sectionDescription")}
       />
 
       <SpecialistListStatus
@@ -58,5 +61,23 @@ export default function SpecialistsSection() {
         />
       )}
     </Container>
+  );
+}
+
+export function SpecialistsSection() {
+  return (
+    <Suspense
+      fallback={
+        <Container gutter="page" className="py-12 md:py-20">
+          <SpecialistListStatus
+            loading
+            error={null}
+            hasDesigners={false}
+          />
+        </Container>
+      }
+    >
+      <SpecialistsSectionContent />
+    </Suspense>
   );
 }

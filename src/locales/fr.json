@@ -19,6 +19,7 @@
   "nav": {
     "categories": "Catégories",
     "automotive": "Automobile",
+    "new": "Nouveau",
     "catalog": "Catalogue",
     "contact": "Contact",
     "myBookings": "Mes réservations",
@@ -921,6 +922,15 @@
     "messageFallback": "Aucun aperçu de message disponible"
   },
   "designers": {
+    "sectionBadge": "Notre engagement",
+    "sectionTitlePrefix": "CHOISISSEZ UN",
+    "sectionTitleAccent": "SPÉCIALISTE",
+    "sectionDescription": "Choisissez un prestataire certifié pour découvrir ses formules de protection et ses créations.",
+    "loadingSpecialists": "Chargement des spécialistes...",
+    "noDesigners": "Aucun designer disponible pour le moment.",
+    "loadMore": "Voir plus",
+    "experience": "Expérience",
+    "startingFrom": "À partir de",
     "portfolio": "Portfolio",
     "viewPortfolio": "Voir le portfolio",
     "select": "Sélectionner",
@@ -948,6 +958,23 @@
     "location": "Lieu",
     "status": "Statut",
     "contactSupport": "Contacter le support"
+  },
+  "vendorPortfolio": {
+    "location": "Genève, CH",
+    "reviews": "{count} avis",
+    "all": "Tous",
+    "paintProtection": "Protection de peinture",
+    "windowTinting": "Teintage des vitres",
+    "fullBodyStealth": "Finition furtive intégrale",
+    "privacyGlassEdition": "Édition vitres teintées",
+    "selfHealing": "Auto-réparant",
+    "antiYellowing": "Anti-jaunissement",
+    "tenYearWarranty": "Garantie 10 ans",
+    "uvProtection": "Protection UV",
+    "heatReduction": "Réduction de chaleur",
+    "lifetimeWarranty": "Garantie à vie",
+    "popular": "Populaire",
+    "startingFrom": "À partir de"
   },
   "about": {
     "heroTitleLine1": "L’EXCELLENCE EN COMMUNICATION",

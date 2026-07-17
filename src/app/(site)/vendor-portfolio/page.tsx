@@ -1,12 +1,12 @@
 import { Suspense } from "react";
-import VendorPortfolio from "./VendorPortfolioMain";
+import { VendorPortfolio } from "./VendorPortfolioMain";
 
 const page = () => {
   return (
     <div>
       <Suspense
         fallback={
-          <div className="py-10 text-center">Loading subcategories...</div>
+          <div className="py-10 text-center">Chargement des sous-catégories...</div>
         }
       >
         <VendorPortfolio />

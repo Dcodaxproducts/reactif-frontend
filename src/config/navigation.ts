@@ -3,7 +3,7 @@ export type NavItem = {
   href: string;
   translationKey?: string;
   isAnchor?: boolean;
-  badge?: string;
+  badgeTranslationKey?: string;
   highlight?: boolean;
   requiresAuth?: boolean;
 };
@@ -20,7 +20,7 @@ export const publicNavItems: NavItem[] = [
     label: "Automotive",
     translationKey: "nav.automotive",
     href: "/automotive",
-    badge: "New",
+    badgeTranslationKey: "nav.new",
   },
   {
     label: "Catalog",

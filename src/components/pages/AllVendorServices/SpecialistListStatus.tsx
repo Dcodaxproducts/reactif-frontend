@@ -1,16 +1,19 @@
 import { StatusCard } from "@/components/common/StatusCard";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import type { SpecialistListStatusProps } from "@/types/component-props";
 
-export default function SpecialistListStatus({
+export function SpecialistListStatus({
   loading,
   error,
   hasDesigners,
 }: SpecialistListStatusProps) {
+  const { t } = useAppTranslation();
+
   if (loading && !hasDesigners) {
     return (
       <StatusCard
         tone="loading"
-        title="Loading specialists..."
+        title={t("designers.loadingSpecialists")}
         className="mx-auto mt-10 max-w-3xl p-6"
       />
     );
@@ -20,7 +23,7 @@ export default function SpecialistListStatus({
     return (
       <StatusCard
         tone="error"
-        label="Backend error"
+        label={t("common.backendError")}
         title={error}
         className="mx-auto mt-10 max-w-3xl p-6"
       />
@@ -31,8 +34,8 @@ export default function SpecialistListStatus({
     return (
       <StatusCard
         tone="empty"
-        label="No data found"
-        title="No designers available at the moment."
+        label={t("common.noDataFound")}
+        title={t("designers.noDesigners")}
         className="mx-auto mt-10 max-w-3xl p-6"
       />
     );

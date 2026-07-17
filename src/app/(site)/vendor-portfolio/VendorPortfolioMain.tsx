@@ -1,42 +1,61 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/common/Container";
 import { PageShell } from "@/components/common/PageShell";
-import ServiceCard from "@/components/cards/ServiceCard";
+import { VendorServiceCard } from "@/components/cards/ServiceCard";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { MapPin, Star, CheckCircle } from "lucide-react";
 
-const services = [
-  {
-    id: "full-body-stealth-paint-protection-featured",
-    category: "Paint Protection",
-    title: "Full Body Stealth",
-    features: ["Self Healing", "Anti-Yellowing", "10 Yrs Warranty"],
-    price: "125.00",
-    popular: true,
-  },
-  {
-    id: "privacy-glass-edition-window-tinting",
-    category: "Window Tinting",
-    title: "Privacy Glass Edition",
-    features: ["UV Protection", "Heat Reduction", "Lifetime Warranty"],
-    price: "125.00",
-  },
-  {
-    id: "full-body-stealth-paint-protection-standard",
-    category: "Paint Protection",
-    title: "Full Body Stealth",
-    features: ["Self Healing", "Anti-Yellowing", "10 Yrs Warranty"],
-    price: "125.00",
-  },
-  {
-    id: "full-body-stealth-window-tinting",
-    category: "Window Tinting",
-    title: "Full Body Stealth",
-    features: ["Self Healing", "Anti-Yellowing", "10 Yrs Warranty"],
-    price: "125.00",
-  },
-];
-
-export default function VendorPortfolio() {
+export function VendorPortfolio() {
+  const { t } = useAppTranslation();
+  const services = [
+    {
+      id: "full-body-stealth-paint-protection-featured",
+      category: t("vendorPortfolio.paintProtection"),
+      title: t("vendorPortfolio.fullBodyStealth"),
+      features: [
+        t("vendorPortfolio.selfHealing"),
+        t("vendorPortfolio.antiYellowing"),
+        t("vendorPortfolio.tenYearWarranty"),
+      ],
+      price: "125.00",
+      popular: true,
+    },
+    {
+      id: "privacy-glass-edition-window-tinting",
+      category: t("vendorPortfolio.windowTinting"),
+      title: t("vendorPortfolio.privacyGlassEdition"),
+      features: [
+        t("vendorPortfolio.uvProtection"),
+        t("vendorPortfolio.heatReduction"),
+        t("vendorPortfolio.lifetimeWarranty"),
+      ],
+      price: "125.00",
+    },
+    {
+      id: "full-body-stealth-paint-protection-standard",
+      category: t("vendorPortfolio.paintProtection"),
+      title: t("vendorPortfolio.fullBodyStealth"),
+      features: [
+        t("vendorPortfolio.selfHealing"),
+        t("vendorPortfolio.antiYellowing"),
+        t("vendorPortfolio.tenYearWarranty"),
+      ],
+      price: "125.00",
+    },
+    {
+      id: "full-body-stealth-window-tinting",
+      category: t("vendorPortfolio.windowTinting"),
+      title: t("vendorPortfolio.fullBodyStealth"),
+      features: [
+        t("vendorPortfolio.selfHealing"),
+        t("vendorPortfolio.antiYellowing"),
+        t("vendorPortfolio.tenYearWarranty"),
+      ],
+      price: "125.00",
+    },
+  ];
   return (
     <PageShell>
       <Container gutter="xl" className="py-12 md:py-20 flex flex-col gap-10 md:gap-14">
@@ -58,7 +77,7 @@ export default function VendorPortfolio() {
               <div className="flex flex-wrap items-center gap-3 md:gap-4 text-xs text-stone-300 mt-1">
                 <div className="flex items-center gap-1">
                   <MapPin size={12} />
-                  Geneva, CH
+                  {t("vendorPortfolio.location")}
                 </div>
 
                 <div className="flex items-center gap-1">
@@ -66,30 +85,30 @@ export default function VendorPortfolio() {
 
                   <span className="text-neutral-50">4.9</span>
 
-                  <span>(127 Reviews)</span>
+                  <span>({t("vendorPortfolio.reviews", { count: 127 })})</span>
                 </div>
 
-                <span className="text-emerald-500">Available</span>
+                <span className="text-emerald-500">{t("designers.available")}</span>
               </div>
             </div>
           </div>
 
           <Button className="px-5 py-2.5 bg-white rounded-full text-black font-medium w-fit">
-            Contact
+            {t("nav.contact")}
           </Button>
         </div>
 
         <div className="flex flex-wrap gap-3">
           <div className="px-4 md:px-5 py-2 bg-pink-400 rounded-full text-white text-sm md:text-base">
-            All
+            {t("vendorPortfolio.all")}
           </div>
 
           <div className="px-4 md:px-5 py-2 bg-gray-900 rounded-full border border-stone-500/50 text-stone-300 text-sm md:text-base">
-            Paint Protection
+            {t("vendorPortfolio.paintProtection")}
           </div>
 
           <div className="px-4 md:px-5 py-2 bg-gray-900 rounded-full border border-stone-500/50 text-stone-300 text-sm md:text-base">
-            Window Tinting
+            {t("vendorPortfolio.windowTinting")}
           </div>
         </div>
 
@@ -97,7 +116,7 @@ export default function VendorPortfolio() {
           {services.map((service) => {
             const { id, ...serviceCardProps } = service;
 
-            return <ServiceCard key={id} {...serviceCardProps} />;
+            return <VendorServiceCard key={id} {...serviceCardProps} />;
           })}
         </div>
       </Container>
