@@ -532,6 +532,16 @@ html {
   }
 }
 
+@keyframes hero-showcase-car-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-0.08deg);
+  }
+  48% {
+    transform: translate3d(14px, -5px, 0) rotate(0.1deg);
+  }
+}
+
 @keyframes hero-showcase-speed-run {
   0% {
     opacity: 0;
@@ -695,7 +705,11 @@ html {
   width: 111%;
   max-width: none;
   margin-left: -4.5%;
-  animation: hero-showcase-wheel-spin 1.8s linear infinite;
+  transform-origin: 54% 55%;
+  animation:
+    hero-showcase-car-drift 6.4s cubic-bezier(0.44, 0, 0.2, 1) infinite,
+    hero-showcase-wheel-spin 1.8s linear infinite;
+  will-change: transform;
 }
 
 .hero-showcase-car-image {
