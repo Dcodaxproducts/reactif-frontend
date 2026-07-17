@@ -13,11 +13,7 @@ const speedLineKeys = [
 export function HeroCarImage() {
   return (
     <div
-      className="relative z-10 flex min-h-[330px] w-full items-center justify-center pt-2 transition-transform duration-300 sm:min-h-[420px] lg:min-h-[550px] lg:justify-end lg:self-center lg:pt-0"
-      style={{
-        transform:
-          "translate3d(calc(var(--hero-parallax-x, 0px) * 0.68), calc(var(--hero-parallax-y, 0px) * 0.58), 0)",
-      }}
+      className="relative z-10 flex min-h-[330px] w-full items-center justify-center pt-2 sm:min-h-[420px] lg:min-h-[550px] lg:justify-end lg:self-center lg:pt-0"
     >
       <div className="hero-showcase-stage" aria-hidden="true">
         <div className="hero-showcase-atmosphere" />
