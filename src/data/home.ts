@@ -96,36 +96,31 @@ export const featuredCategoryCards = [
 export const whyChooseUsRows = [
   {
     id: "reactivity",
-    gifUrl:
-      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2FveGNpOHZ4bjh2eGhlOWNoM2Z6bHBvYTNmbGp4cHkzbTd3YXR5ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o8doZFy4iPd8VBL8I/giphy.gif",
+    videoUrl: "/assets/why/reactivity.webm",
     titleKey: "home.why.rows.reactivity.title",
     descriptionKey: "home.why.rows.reactivity.description",
   },
   {
     id: "eyeCatching",
-    gifUrl:
-      "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExc3NuZWF3c2R5Zjk1ajJtZzR2NDhiNHE1dTJleDc5YmExMWJ5aXpqYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lxxOGaDRk4f7R5TkBd/giphy.gif",
+    videoUrl: "/assets/why/eye-catching.webm",
     titleKey: "home.why.rows.eyeCatching.title",
     descriptionKey: "home.why.rows.eyeCatching.description",
   },
   {
     id: "covering",
-    gifUrl:
-      "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExN290M2c1aWNyNGhoZHRhNGtyaXVmb2cybjI0OWRnemFpMjRoaHVjZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDPlcQFeRKf9S/giphy.gif",
+    videoUrl: "/assets/why/covering.webm",
     titleKey: "home.why.rows.covering.title",
     descriptionKey: "home.why.rows.covering.description",
   },
   {
     id: "quality",
-    gifUrl:
-      "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcngyYWNleGNjam9oeTdsNTdsZzJoczY5b3F4bTFjaGwwczhxeDhqYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/r1fDuPIcs18d2/giphy.gif",
+    videoUrl: "/assets/why/quality.webm",
     titleKey: "home.why.rows.quality.title",
     descriptionKey: "home.why.rows.quality.description",
   },
   {
     id: "humanSupport",
-    gifUrl:
-      "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTRlb2xuZHkyNWhtM3FsM3JpZWxnY2FueXA0ajYxMnNiYXZkN2RmZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Sw6ROTndwCGGByV0Db/giphy.gif",
+    videoUrl: "/assets/why/human-support.webm",
     titleKey: "home.why.rows.humanSupport.title",
     descriptionKey: "home.why.rows.humanSupport.description",
   },

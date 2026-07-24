@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/common/Container";
 import { whyChooseUsRows } from "@/data/home";
@@ -29,14 +29,7 @@ export function WhyChooseUs() {
               className="grid items-center gap-6 border-b border-white/10 pb-8 md:grid-cols-[190px_1fr_80px_1.2fr] md:gap-10 md:pb-10"
             >
               <div className="relative h-28 overflow-hidden rounded-sm bg-white/5 md:h-24">
-                <Image
-                  src={row.gifUrl}
-                  alt=""
-                  fill
-                  unoptimized
-                  sizes="(min-width: 768px) 190px, 100vw"
-                  className="object-cover"
-                />
+                <LazyDecorativeVideo src={row.videoUrl} />
               </div>
 
               <h3 className="text-[15px] font-medium leading-snug tracking-normal text-white/90 md:text-base">
@@ -53,5 +46,49 @@ export function WhyChooseUs() {
         </div>
       </Container>
     </section>
+  );
+}
+
+function LazyDecorativeVideo({ src }: { src: string }) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      setShouldLoad(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px 0px" },
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      autoPlay={shouldLoad}
+      aria-hidden="true"
+      loop
+      muted
+      playsInline
+      preload="none"
+      src={shouldLoad ? src : undefined}
+      className="h-full w-full object-cover"
+    />
   );
 }

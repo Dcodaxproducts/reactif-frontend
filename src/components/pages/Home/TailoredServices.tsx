@@ -83,6 +83,7 @@ export function TailoredServices() {
                     alt={t(card.imageAltKey)}
                     width={420}
                     height={300}
+                    sizes="(min-width: 640px) 42vw, 90vw"
                     className="max-h-full w-full object-contain transition duration-500 group-hover:scale-105"
                   />
                 </div>

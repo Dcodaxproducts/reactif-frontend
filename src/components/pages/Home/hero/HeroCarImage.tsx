@@ -32,20 +32,20 @@ export function HeroCarImage() {
 
         <div className="hero-showcase-car">
           <Image
-            src="/assets/hero/reactif-wheel-hd.png"
+            src="/assets/hero/reactif-wheel.webp"
             alt=""
-            width={2048}
-            height={2048}
-            priority
+            width={512}
+            height={512}
+            quality={85}
             sizes="(min-width: 1280px) 11vw, (min-width: 768px) 14vw, 21vw"
             className="hero-showcase-wheel hero-showcase-wheel-front"
           />
           <Image
-            src="/assets/hero/reactif-wheel-hd.png"
+            src="/assets/hero/reactif-wheel.webp"
             alt=""
-            width={2048}
-            height={2048}
-            priority
+            width={512}
+            height={512}
+            quality={85}
             sizes="(min-width: 1280px) 10vw, (min-width: 768px) 13vw, 20vw"
             className="hero-showcase-wheel hero-showcase-wheel-rear"
           />
@@ -55,7 +55,7 @@ export function HeroCarImage() {
             width={1672}
             height={941}
             priority
-            unoptimized
+            quality={90}
             sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 54vw, 95vw"
             className="hero-showcase-car-image"
           />
