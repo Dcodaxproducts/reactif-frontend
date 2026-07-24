@@ -29,7 +29,7 @@ export function WhyProtection({
 
   return (
     <div
-      className={`w-full max-w-6xl flex flex-col md:flex-row gap-10 p-10 rounded-3xl outline-1 outline-offset-[-1px] ${
+      className={`w-full max-w-6xl flex flex-col md:flex-row gap-10 p-10 rounded-3xl outline-1 outline-offset-[-1px] font-hk ${
         !isPortfolioDetailsPage
           ? "bg-neutral-800/80 outline-neutral-50/30"
           : "border-none outline-none"
@@ -48,7 +48,7 @@ export function WhyProtection({
       <div className="flex-1 p-6 rounded-3xl outline-1 outline-offset-[-1px] outline-slate-700 flex flex-col gap-5">
         <div className="flex items-center gap-2">
           <Shield className="w-5 h-5 text-white" />
-          <h2 className="text-neutral-50 text-base md:text-lg font-bold font-['HK_Grotesk']">
+          <h2 className="text-base font-bold text-neutral-50 md:text-lg">
             {t("order.selectedService")}
           </h2>
         </div>
@@ -65,7 +65,7 @@ export function WhyProtection({
           )}
         </div>
 
-        <p className="text-neutral-400 text-sm md:text-base font-medium font-['HK_Grotesk']">
+        <p className="text-sm font-medium text-neutral-400 md:text-base">
           {serviceDescription}
         </p>
 

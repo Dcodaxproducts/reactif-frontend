@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { addressFields } from "@/data/order";
@@ -49,6 +50,7 @@ const hydrateAddressValues = (draft: BookingDraft | null): AddressFormValues => 
 });
 
 export function OrderAddress() {
+  const router = useRouter();
   const { t } = useAppTranslation();
   const [draft, setDraft] = useState<BookingDraft | null>(null);
   const [addressValues, setAddressValues] =
@@ -178,6 +180,16 @@ export function OrderAddress() {
     );
   };
 
+  const handleSaveAndContinue = () => {
+    if (saveDraftLocation()) {
+      router.push("/order/payment");
+    }
+  };
+
+  const handleCancel = () => {
+    router.push("/cart");
+  };
+
   return (
     <section className="w-full flex flex-col items-center gap-10 py-8 px-5 md:px-0">
       <PersonalInfo
@@ -186,7 +198,8 @@ export function OrderAddress() {
         locationLoading={locationLoading}
         onAddressChange={handleAddressChange}
         onUseCurrentLocation={handleUseCurrentLocation}
-        onSave={saveDraftLocation}
+        onSave={handleSaveAndContinue}
+        onCancel={handleCancel}
       />
       <WhyProtection draft={draft} details={detailItems} />
       <Configuration

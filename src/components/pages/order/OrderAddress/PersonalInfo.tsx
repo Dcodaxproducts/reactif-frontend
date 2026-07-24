@@ -13,6 +13,7 @@ export function PersonalInfo({
   onAddressChange,
   onUseCurrentLocation,
   onSave,
+  onCancel,
 }: {
   fields?: EditableInputFieldProps[];
   editableAddressFields?: EditableInputFieldProps[];
@@ -20,6 +21,7 @@ export function PersonalInfo({
   onAddressChange?: (name: string, value: string) => void;
   onUseCurrentLocation?: () => void;
   onSave?: () => void;
+  onCancel?: () => void;
 }) {
   const { t } = useAppTranslation();
   const translatedFields = fields.map((field) => ({
@@ -34,10 +36,10 @@ export function PersonalInfo({
   }));
 
   return (
-    <Card className="w-full max-w-6xl bg-neutral-800/80 rounded-3xl border border-neutral-50/30">
+    <Card className="w-full max-w-6xl rounded-3xl border border-neutral-50/30 bg-neutral-800/80 font-hk">
       <CardContent className="p-6 md:p-10 flex flex-col gap-8 md:py-5">
         <div className="flex flex-col gap-4">
-          <h2 className="text-neutral-50 text-xl md:text-2xl font-semibold font-['HK_Grotesk']">
+          <h2 className="text-xl font-semibold text-neutral-50 md:text-2xl">
             {t("order.personalInformation")}
           </h2>
 
@@ -51,7 +53,7 @@ export function PersonalInfo({
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="text-neutral-50 text-xl md:text-2xl font-semibold font-['HK_Grotesk']">
+              <h2 className="text-xl font-semibold text-neutral-50 md:text-2xl">
                 {t("order.address")}
               </h2>
               <p className="text-neutral-50/50 text-sm font-medium">
@@ -87,7 +89,7 @@ export function PersonalInfo({
             type="button"
             variant="brandSolid"
             onClick={onSave}
-            className="px-5 h-10 text-neutral-50 text-base md:text-lg font-semibold font-['HK_Grotesk']"
+            className="h-10 px-5 text-base font-semibold text-neutral-50 md:text-lg"
           >
             {t("order.save")}
           </Button>
@@ -95,7 +97,8 @@ export function PersonalInfo({
           <Button
             type="button"
             variant="neutralOutline"
-            className="px-5 h-10 text-base md:text-lg font-semibold font-['HK_Grotesk']"
+            onClick={onCancel}
+            className="h-10 px-5 text-base font-semibold md:text-lg"
           >
             {t("order.cancel")}
           </Button>
