@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   filterServicesByParams,
+  normalizeServiceDetailResponse,
   normalizeServicesResponse,
 } from "./service-response";
 
@@ -56,6 +57,26 @@ describe("normalizeServicesResponse", () => {
     expect(response.data[0]?.fields[0]?.options).toEqual([
       { key: "matte", display: "Matte" },
     ]);
+  });
+
+  it("normalizes a service detail response wrapped in data", () => {
+    expect(
+      normalizeServiceDetailResponse({
+        data: {
+          id: "52",
+          name: "Vehicle Lettering",
+          category_id: "6",
+          sub_category_id: null,
+          price: "250",
+        },
+      }),
+    ).toMatchObject({
+      id: 52,
+      name: "Vehicle Lettering",
+      category_id: 6,
+      sub_category_id: 0,
+      price: 250,
+    });
   });
 
   it("keeps only services linked to requested category filters", () => {

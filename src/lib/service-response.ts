@@ -250,6 +250,15 @@ export const normalizeService = (service: unknown): Service | null => {
   };
 };
 
+export const normalizeServiceDetailResponse = (
+  response: unknown,
+): Service | null => {
+  const service =
+    isRecord(response) && "data" in response ? response.data : response;
+
+  return normalizeService(service);
+};
+
 export const normalizeServicesResponse = (
   response: unknown,
 ): ApiListResponse<Service> => {

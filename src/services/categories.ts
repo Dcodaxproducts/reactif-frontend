@@ -2,6 +2,7 @@ import api from "@/lib/axios";
 import { API_ENDPOINTS } from "@/config/api-endpoints";
 import {
   filterServicesByParams,
+  normalizeServiceDetailResponse,
   normalizeServicesResponse,
 } from "@/lib/service-response";
 import type { ApiItemResponse, ApiListResponse } from "@/types/api";
@@ -48,6 +49,8 @@ export const CATEGORY_ROUTES = {
   detail: (categoryId: string | number) =>
     `${API_ENDPOINTS.category}/${encodeURIComponent(String(categoryId))}`,
   services: API_ENDPOINTS.service,
+  serviceDetail: (serviceId: string | number) =>
+    `${API_ENDPOINTS.service}/${encodeURIComponent(String(serviceId))}`,
 };
 
 /**
@@ -121,8 +124,11 @@ export const getServices = async (
 export const getServiceDetail = async (
   serviceId: string | number,
 ): Promise<Service | null> => {
-  const { data } = await getServices({ service_id: serviceId, limit: 1 });
-  return data[0] ?? null;
+  const { data } = await api.get<unknown>(
+    CATEGORY_ROUTES.serviceDetail(serviceId),
+  );
+
+  return normalizeServiceDetailResponse(data);
 };
 
 export const searchServices = async (
