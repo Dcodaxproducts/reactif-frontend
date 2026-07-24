@@ -6,6 +6,8 @@ export const metadata = createPageMetadata({
   description:
     "Découvrez nos services automobiles : covering publicitaire, protection de peinture, vitres teintées et marquage de véhicules à Genève.",
   path: "/automotive",
+  image: "/og/og-automotive.png",
+  imageAlt: "Services de communication visuelle automobile RéactifPub",
 });
 
 export default function Page() {

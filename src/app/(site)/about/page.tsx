@@ -10,6 +10,8 @@ export const metadata = createPageMetadata({
   description:
     "Découvrez RéactifPub, son expertise en covering automobile, signalétique et impression ainsi que son engagement pour des réalisations professionnelles à Genève.",
   path: "/about",
+  image: "/og/og-about.png",
+  imageAlt: "Présentation de l’expertise RéactifPub",
 });
 
 export default function Page() {

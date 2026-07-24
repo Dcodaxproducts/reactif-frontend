@@ -18,25 +18,28 @@ type BlogPageProps = {
 
 const metadataBySlug: Record<
   string,
-  { title: string; description: string; section: string }
+  { title: string; description: string; section: string; image: string }
 > = {
   "branded-wrap-moving-campaign": {
     title: "Transformer chaque trajet en campagne avec un covering",
     description:
       "Hiérarchie visuelle, lisibilité et choix des matériaux pour créer un covering publicitaire efficace et durable sur la route.",
     section: "Covering automobile",
+    image: "/og/og-blog-branded-wrap.png",
   },
   "vinyl-care-color-finish-edges": {
     title: "Entretenir un vinyle : couleur, finition et bords",
     description:
       "Les gestes de nettoyage et d’entretien qui préservent plus longtemps la couleur, la finition et les bords de votre covering vinyle.",
     section: "Entretien du vinyle",
+    image: "/og/og-blog-vinyl-care.png",
   },
   "signage-storefront-event-display": {
     title: "Choisir sa signalétique, de la vitrine à l’événement",
     description:
       "Comparez durabilité, distance de lecture, éclairage et contexte de pose pour choisir une signalétique adaptée à votre marque.",
     section: "Signalétique",
+    image: "/og/og-blog-signage.png",
   },
 };
 
@@ -65,7 +68,7 @@ export async function generateMetadata({
     title: metadata.title,
     description: metadata.description,
     path: `/blogs/${slug}`,
-    image: article?.image,
+    image: metadata.image,
     imageAlt: metadata.title,
     type: "article",
   });
@@ -97,7 +100,7 @@ export default async function Page({ params }: BlogPageProps) {
     "@type": "Article",
     headline: metadata.title,
     description: metadata.description,
-    image: article.image,
+    image: absoluteUrl(metadata.image),
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     inLanguage: "fr-CH",

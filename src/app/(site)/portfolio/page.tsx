@@ -6,6 +6,8 @@ export const metadata = createPageMetadata({
   description:
     "Explorez les projets RéactifPub de covering de véhicules, signalétique et applications de marque réalisés pour nos clients.",
   path: "/portfolio",
+  image: "/og/og-portfolio.png",
+  imageAlt: "Portfolio des projets clients RéactifPub",
 });
 
 export default function Page() {

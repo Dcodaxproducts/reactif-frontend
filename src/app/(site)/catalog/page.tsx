@@ -6,6 +6,8 @@ export const metadata = createPageMetadata({
   description:
     "Explorez le catalogue RéactifPub de covering, signalétique, impressions, habillages de vitrines et supports publicitaires personnalisés.",
   path: "/catalog",
+  image: "/og/og-catalog.png",
+  imageAlt: "Catalogue de design et communication visuelle RéactifPub",
 });
 
 export default function Page() {
