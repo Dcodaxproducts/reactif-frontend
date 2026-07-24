@@ -5,8 +5,13 @@ import { StartProjectSection as ContactFormSection } from "@/components/pages/Ho
 import HelpGrid from "@/components/pages/HelpCenter/HelpGrid";
 import Hero from "@/components/pages/HelpCenter/Hero";
 import { SupportFaqSection } from "@/components/pages/HelpCenter/SupportFaqSection";
+import type { SupportFaq } from "@/types/support";
 
-export function HelpCenterContent() {
+export function HelpCenterContent({
+  initialFaqs,
+}: {
+  initialFaqs: SupportFaq[];
+}) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handlePopularSelect = (query: string) => {
@@ -29,6 +34,7 @@ export function HelpCenterContent() {
       <SupportFaqSection
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
+        initialFaqs={initialFaqs}
       />
       <ContactFormSection />
     </>

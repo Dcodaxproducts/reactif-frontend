@@ -6,6 +6,7 @@ interface SectionHeaderProps {
   description?: string;
   align?: "left" | "center";
   size?: "default" | "sm";
+  headingLevel?: "h1" | "h2";
 }
 
 export function SectionHeader({
@@ -14,7 +15,10 @@ export function SectionHeader({
   description,
   align = "center",
   size = "default",
+  headingLevel = "h2",
 }: SectionHeaderProps) {
+  const Heading = headingLevel;
+
   return (
     <div
       className={`
@@ -47,7 +51,7 @@ export function SectionHeader({
         </div>
       )}
 
-      <h2
+      <Heading
         className={`
           font-semibold text-white font-hk mb-4 md:mb-5
           ${
@@ -58,7 +62,7 @@ export function SectionHeader({
         `}
       >
         {title}
-      </h2>
+      </Heading>
 
       {description && (
         <p

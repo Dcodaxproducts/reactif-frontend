@@ -85,7 +85,7 @@ export function AutomotivePage() {
 
   return (
     <PageShell backgroundStyle={catalogBackgroundStyle}>
-      <main className="relative mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
         <div className="pointer-events-none absolute right-0 top-8 hidden h-28 w-28 rounded-tr-[28px] border-r-4 border-t-4 border-[#f262b5] opacity-80 lg:block" />
         <div className="pointer-events-none absolute bottom-12 right-0 hidden h-28 w-28 rounded-br-[28px] border-b-4 border-r-4 border-[#f262b5] opacity-70 lg:block" />
         <section className="grid min-h-[520px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
@@ -230,7 +230,7 @@ export function AutomotivePage() {
             />
           )}
         </section>
-      </main>
+      </div>
     </PageShell>
   );
 }

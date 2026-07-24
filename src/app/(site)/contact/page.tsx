@@ -3,7 +3,7 @@ import { StartProjectSection as ContactFormSection } from "@/components/pages/Ho
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Contact et devis de communication visuelle",
+  title: "Devis covering et signalétique à Genève",
   description:
     "Contactez RéactifPub à Vernier, Genève, pour discuter de votre projet de covering, signalétique ou impression et demander un devis personnalisé.",
   path: "/contact",
@@ -12,7 +12,7 @@ export const metadata = createPageMetadata({
 export default function Page() {
   return (
     <PageShell>
-      <ContactFormSection />
+      <ContactFormSection headingLevel="h1" />
     </PageShell>
   );
 }

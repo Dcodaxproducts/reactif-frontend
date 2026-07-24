@@ -9,11 +9,13 @@ import { FAQAccordion } from "./faqs/FAQAccordion";
 import { FAQHeader } from "./faqs/FAQHeader";
 import { HelpSearch } from "./hero/HelpSearch";
 import { PopularHelpLinks } from "./hero/PopularHelpLinks";
+import type { SupportFaq } from "@/types/support";
 
 type SupportFaqSectionProps = {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   showControls?: boolean;
+  initialFaqs?: SupportFaq[];
 };
 
 const normalizeSearchValue = (value: string) => value.trim().toLowerCase();
@@ -22,9 +24,10 @@ export function SupportFaqSection({
   searchQuery,
   onSearchChange,
   showControls = false,
+  initialFaqs,
 }: SupportFaqSectionProps) {
   const { t } = useAppTranslation();
-  const { faqs, loading, isFallback } = useSupportFaqs();
+  const { faqs, loading, isFallback } = useSupportFaqs(initialFaqs);
   const normalizedQuery = normalizeSearchValue(searchQuery);
 
   const filteredFaqs = useMemo(() => {

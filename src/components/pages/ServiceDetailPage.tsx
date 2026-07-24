@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CalendarClock, ImageIcon, PackageCheck } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 import { Container } from "@/components/common/Container";
 import { PageShell } from "@/components/common/PageShell";
@@ -29,7 +30,13 @@ const uniqueImages = (images: Array<string | null | undefined>) =>
       Boolean(image) && images.indexOf(image) === index,
   );
 
-export function ServiceDetailPage() {
+type ServiceDetailPageProps = {
+  initialService?: Service | null;
+};
+
+function ServiceDetailContent({
+  initialService = null,
+}: ServiceDetailPageProps) {
   const { t } = useAppTranslation();
   const params = useParams();
   const searchParams = useSearchParams();
@@ -42,10 +49,10 @@ export function ServiceDetailPage() {
     loading: serviceLoading,
     error: serviceError,
     refetch,
-  } = useServiceDetail(serviceId);
+  } = useServiceDetail(serviceId, initialService);
   const categoryId = queryCategoryId ?? service?.category_id ?? null;
-  const { category, loading: categoryLoading } = useCategoryDetail(categoryId);
-  const loading = serviceLoading || (Boolean(categoryId) && categoryLoading);
+  const { category } = useCategoryDetail(categoryId);
+  const loading = serviceLoading;
 
   const categoryName =
     category?.name ?? searchParams.get("categorySlug") ?? t("catalog.uncategorized");
@@ -92,6 +99,23 @@ export function ServiceDetailPage() {
           />
         ) : (
           <article className="space-y-8">
+            <nav
+              aria-label={t("serviceDetail.breadcrumbLabel")}
+              className="flex flex-wrap items-center gap-2 text-sm text-slate-400"
+            >
+              <Link href="/" className="transition hover:text-white">
+                {t("serviceDetail.home")}
+              </Link>
+              <span aria-hidden="true">/</span>
+              <Link href="/catalog" className="transition hover:text-white">
+                {t("nav.catalog")}
+              </Link>
+              <span aria-hidden="true">/</span>
+              <span aria-current="page" className="text-slate-200">
+                {service.name}
+              </span>
+            </nav>
+
             <section className="grid gap-8 rounded-[32px] border border-white/10 bg-black/45 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl md:p-8 lg:grid-cols-[1.05fr_0.95fr]">
               <div className="relative min-h-[340px] overflow-hidden rounded-[28px] border border-white/10 bg-slate-950 md:min-h-[520px]">
                 <Image
@@ -121,7 +145,7 @@ export function ServiceDetailPage() {
 
                 <div className="mt-7 grid gap-3 sm:grid-cols-2">
                   <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                    <span className="text-xs uppercase tracking-[0.18em] text-slate-500">
+                    <span className="text-xs uppercase tracking-[0.18em] text-slate-400">
                       {t("serviceDetail.price")}
                     </span>
                     <strong className="mt-2 block text-lg text-white">
@@ -131,7 +155,7 @@ export function ServiceDetailPage() {
                     </strong>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                    <span className="text-xs uppercase tracking-[0.18em] text-slate-500">
+                    <span className="text-xs uppercase tracking-[0.18em] text-slate-400">
                       {t("serviceDetail.delivery")}
                     </span>
                     <strong className="mt-2 block text-lg text-white">
@@ -213,5 +237,23 @@ export function ServiceDetailPage() {
         )}
       </Container>
     </PageShell>
+  );
+}
+
+export function ServiceDetailPage(props: ServiceDetailPageProps) {
+  return (
+    <Suspense
+      fallback={
+        <PageShell className="min-h-screen">
+          <Container gutter="page" className="py-10">
+            <div className="rounded-3xl border border-white/10 bg-black/45 p-10 text-center backdrop-blur-xl">
+              <div className="mx-auto h-12 w-12 animate-spin rounded-full border-2 border-white/15 border-t-white" />
+            </div>
+          </Container>
+        </PageShell>
+      }
+    >
+      <ServiceDetailContent {...props} />
+    </Suspense>
   );
 }

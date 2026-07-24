@@ -23,6 +23,7 @@ function SpecialistsSectionContent() {
   return (
     <Container gutter="page" className="py-12 md:py-20">
       <SectionHeader
+        headingLevel="h1"
         badgeText={t("designers.sectionBadge")}
         title={
           <>

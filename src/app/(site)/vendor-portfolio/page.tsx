@@ -1,12 +1,11 @@
 import { Suspense } from "react";
-import { createPageMetadata } from "@/lib/seo";
+import { createNoIndexMetadata } from "@/lib/seo";
 import { VendorPortfolio } from "./VendorPortfolioMain";
 
-export const metadata = createPageMetadata({
+export const metadata = createNoIndexMetadata({
   title: "Portfolio d’un spécialiste",
   description:
-    "Consultez les réalisations et services proposés par un spécialiste de la plateforme RéactifPub.",
-  path: "/vendor-portfolio",
+    "Parcours de consultation du portfolio d’un spécialiste RéactifPub.",
 });
 
 const page = () => {

@@ -1,9 +1,14 @@
-import { Suspense } from "react";
-
-import { Container } from "@/components/common/Container";
-import { PageShell } from "@/components/common/PageShell";
 import { ServiceDetailPage } from "@/components/pages/ServiceDetailPage";
-import { createPageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  absoluteUrl,
+  createDescriptionSnippet,
+  createNoIndexMetadata,
+  createPageMetadata,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/seo";
+import { getServicePageData } from "@/lib/service-page-data";
 
 type ServicePageProps = {
   params: Promise<{ id: string }>;
@@ -11,29 +16,103 @@ type ServicePageProps = {
 
 export async function generateMetadata({ params }: ServicePageProps) {
   const { id } = await params;
+  const service = await getServicePageData(id);
+
+  if (!service) {
+    return createNoIndexMetadata({
+      title: "Service indisponible",
+      description:
+        "Ce service RéactifPub est temporairement indisponible ou n’existe plus.",
+    });
+  }
+
+  const description = createDescriptionSnippet(
+    service.description?.trim().length >= 40
+      ? service.description.trim()
+      : `Découvrez le service ${service.name} proposé par RéactifPub à Genève, ses options, son tarif et le parcours pour demander un devis ou réserver.`,
+  );
 
   return createPageMetadata({
-    title: "Détail du service",
-    description:
-      "Consultez les détails, options et spécialistes disponibles pour ce service de communication visuelle RéactifPub.",
+    title: `${service.name} à Genève`,
+    description,
     path: `/services/${id}`,
+    image: service.service_image || undefined,
+    imageAlt: `${service.name} — service RéactifPub à Genève`,
   });
 }
 
-export default function Page() {
-  return (
-    <Suspense
-      fallback={
-        <PageShell className="min-h-screen">
-          <Container gutter="page" className="py-10">
-            <div className="rounded-3xl border border-white/10 bg-black/45 p-10 text-center backdrop-blur-xl">
-              <div className="mx-auto h-12 w-12 animate-spin rounded-full border-2 border-white/15 border-t-white" />
-            </div>
-          </Container>
-        </PageShell>
+export default async function Page({ params }: ServicePageProps) {
+  const { id } = await params;
+  const service = await getServicePageData(id);
+  const serviceUrl = absoluteUrl(`/services/${id}`);
+  const description =
+    service?.description?.trim() ||
+    (service
+      ? `Service ${service.name} proposé par RéactifPub à Genève.`
+      : "");
+  const serviceJsonLd = service
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": `${serviceUrl}#service`,
+        name: service.name,
+        description,
+        url: serviceUrl,
+        image: service.service_image || undefined,
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: "Genève",
+        },
+        provider: {
+          "@id": `${SITE_URL}/#organization`,
+          "@type": "Organization",
+          name: SITE_NAME,
+        },
+        ...(service.price > 0
+          ? {
+              offers: {
+                "@type": "Offer",
+                price: service.price,
+                priceCurrency: "CHF",
+                availability: "https://schema.org/InStock",
+                url: serviceUrl,
+              },
+            }
+          : {}),
       }
-    >
-      <ServiceDetailPage />
-    </Suspense>
+    : null;
+  const breadcrumbJsonLd = service
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Accueil",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Catalogue",
+            item: absoluteUrl("/catalog"),
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: service.name,
+            item: serviceUrl,
+          },
+        ],
+      }
+    : null;
+
+  return (
+    <>
+      {serviceJsonLd ? <JsonLd data={serviceJsonLd} /> : null}
+      {breadcrumbJsonLd ? <JsonLd data={breadcrumbJsonLd} /> : null}
+      <ServiceDetailPage initialService={service} />
+    </>
   );
 }

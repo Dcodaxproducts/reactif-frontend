@@ -1,5 +1,7 @@
 import { FaqPageContent } from "@/components/pages/FaqPageContent";
-import { createPageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getFaqPageData } from "@/lib/faq-page-data";
+import { createFaqPageJsonLd, createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
   title: "Questions fréquentes",
@@ -8,6 +10,13 @@ export const metadata = createPageMetadata({
   path: "/faq",
 });
 
-export default function Page() {
-  return <FaqPageContent />;
+export default async function Page() {
+  const faqs = await getFaqPageData();
+
+  return (
+    <>
+      <JsonLd data={createFaqPageJsonLd(faqs, "/faq")} />
+      <FaqPageContent initialFaqs={faqs} />
+    </>
+  );
 }

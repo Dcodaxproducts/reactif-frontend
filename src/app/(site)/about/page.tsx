@@ -6,7 +6,7 @@ import OurExpertise from "@/components/pages/About/OurExpertise";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "À propos de notre atelier de communication visuelle",
+  title: "Atelier de communication visuelle à Genève",
   description:
     "Découvrez RéactifPub, son expertise en covering automobile, signalétique et impression ainsi que son engagement pour des réalisations professionnelles à Genève.",
   path: "/about",

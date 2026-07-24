@@ -2,6 +2,7 @@ import { PageShell } from "@/components/common/PageShell";
 import { HelpCenterBackground } from "@/components/pages/HelpCenter/page-shell/HelpCenterBackground";
 import { HelpCenterContent } from "@/components/pages/HelpCenter/page-shell/HelpCenterContent";
 import { createPageMetadata } from "@/lib/seo";
+import { getFaqPageData } from "@/lib/faq-page-data";
 
 export const metadata = createPageMetadata({
   title: "Centre d’aide",
@@ -10,10 +11,12 @@ export const metadata = createPageMetadata({
   path: "/help-center",
 });
 
-export default function Page() {
+export default async function Page() {
+  const faqs = await getFaqPageData();
+
   return (
     <PageShell background={<HelpCenterBackground />}>
-      <HelpCenterContent />
+      <HelpCenterContent initialFaqs={faqs} />
     </PageShell>
   );
 }

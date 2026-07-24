@@ -10,9 +10,11 @@ import { MobileSidebar } from "./nav/MobileSidebar";
 import { NavbarActions } from "./nav/NavbarActions";
 import { NavbarLogo } from "./nav/NavbarLogo";
 import { useAuth } from "@/hooks/useAuth";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { getStartedRoute } from "@/lib/get-started-routes";
 
 export function Navbar() {
+  const { t } = useAppTranslation();
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -43,10 +45,12 @@ export function Navbar() {
         <div className="flex w-[95%] items-center justify-between gap-4 rounded-[14px] border border-[#FFFFFF3D] px-4 py-3 md:px-6 md:py-4">
           <div className="flex min-w-0 items-center gap-3 md:gap-5">
             <Button
+              type="button"
               className="md:hidden text-white"
+              aria-label={t("nav.mobileMenu")}
               onClick={() => setIsSidebarOpen(true)}
             >
-              <Menu size={26} />
+              <Menu size={26} aria-hidden="true" />
             </Button>
 
             <NavbarLogo />

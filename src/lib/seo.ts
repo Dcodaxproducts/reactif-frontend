@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { SupportFaq } from "@/types/support";
 
 export const SITE_NAME = "RéactifPub";
 export const SITE_URL = "https://react-if.vercel.app";
@@ -13,7 +14,29 @@ type PageMetadataOptions = {
   type?: "website" | "article";
 };
 
+type NoIndexMetadataOptions = {
+  title: string;
+  description: string;
+};
+
 export const absoluteUrl = (path: string) => new URL(path, SITE_URL).toString();
+
+export function createDescriptionSnippet(
+  description: string,
+  maxLength = 160,
+) {
+  const normalized = description.replace(/\s+/g, " ").trim();
+
+  if (normalized.length <= maxLength) {
+    return normalized;
+  }
+
+  const shortened = normalized.slice(0, maxLength - 1);
+  const lastSpace = shortened.lastIndexOf(" ");
+  const cutAt = lastSpace > 80 ? lastSpace : shortened.length;
+
+  return `${shortened.slice(0, cutAt)}…`;
+}
 
 export function createPageMetadata({
   title,
@@ -24,16 +47,17 @@ export function createPageMetadata({
   type = "website",
 }: PageMetadataOptions): Metadata {
   const socialTitle = `${title} | ${SITE_NAME}`;
+  const normalizedDescription = createDescriptionSnippet(description);
 
   return {
     title,
-    description,
+    description: normalizedDescription,
     alternates: {
       canonical: path,
     },
     openGraph: {
       title: socialTitle,
-      description,
+      description: normalizedDescription,
       url: path,
       siteName: SITE_NAME,
       locale: "fr_CH",
@@ -50,7 +74,7 @@ export function createPageMetadata({
     twitter: {
       card: "summary_large_image",
       title: socialTitle,
-      description,
+      description: normalizedDescription,
       images: [image],
     },
     robots: {
@@ -79,6 +103,45 @@ export const privatePageMetadata: Metadata = {
     },
   },
 };
+
+export function createNoIndexMetadata({
+  title,
+  description,
+}: NoIndexMetadataOptions): Metadata {
+  return {
+    title,
+    description,
+    robots: {
+      index: false,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: false,
+        follow: true,
+        noimageindex: true,
+      },
+    },
+  };
+}
+
+export const createFaqPageJsonLd = (
+  faqs: SupportFaq[],
+  path: string,
+) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${absoluteUrl(path)}#faq`,
+  url: absoluteUrl(path),
+  inLanguage: "fr-CH",
+  mainEntity: faqs.map(({ question, answer }) => ({
+    "@type": "Question",
+    name: question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: answer,
+    },
+  })),
+});
 
 export const organizationJsonLd = {
   "@context": "https://schema.org",

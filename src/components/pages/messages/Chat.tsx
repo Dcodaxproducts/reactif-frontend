@@ -99,7 +99,7 @@ function ChatContent() {
   };
 
   return (
-    <main className="w-full px-4 py-8 sm:py-10">
+    <div className="w-full px-4 py-8 sm:py-10">
       <section className="mx-auto flex min-h-[680px] w-full max-w-6xl flex-col overflow-hidden rounded-3xl border border-neutral-50/15 bg-neutral-900 shadow-2xl shadow-black/20">
         <header className="flex flex-col gap-4 border-b border-neutral-50/10 bg-neutral-950/80 p-5 sm:p-6 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
@@ -240,7 +240,7 @@ function ChatContent() {
           </form>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 

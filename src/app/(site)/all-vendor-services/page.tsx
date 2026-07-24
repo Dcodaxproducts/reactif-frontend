@@ -3,7 +3,7 @@ import { AllVendorServicesPage } from "@/components/pages/AllVendorServices/AllV
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Spécialistes en impression et communication visuelle",
+  title: "Spécialistes en communication visuelle à Genève",
   description:
     "Trouvez les spécialistes RéactifPub adaptés à votre projet de covering, signalétique, impression ou communication visuelle à Genève.",
   path: "/all-vendor-services",

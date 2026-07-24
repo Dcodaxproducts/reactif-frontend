@@ -7,7 +7,11 @@ import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { usePathname } from "next/navigation";
 import { Suspense } from "react";
 
-function StartProjectContent() {
+function StartProjectContent({
+  headingLevel,
+}: {
+  headingLevel: "h1" | "h2";
+}) {
   const { t } = useAppTranslation();
   const pathname = usePathname();
   const isHelpCenter = pathname === "/help-center";
@@ -19,6 +23,7 @@ function StartProjectContent() {
     >
       <Container gutter="narrow">
         <SectionHeader
+          headingLevel={headingLevel}
           badgeText={t("home.contact.badge")}
           size={isHelpCenter ? "sm" : "default"}
           title={
@@ -46,10 +51,14 @@ function StartProjectContent() {
   );
 }
 
-export function StartProjectSection() {
+export function StartProjectSection({
+  headingLevel = "h2",
+}: {
+  headingLevel?: "h1" | "h2";
+}) {
   return (
     <Suspense fallback={null}>
-      <StartProjectContent />
+      <StartProjectContent headingLevel={headingLevel} />
     </Suspense>
   );
 }

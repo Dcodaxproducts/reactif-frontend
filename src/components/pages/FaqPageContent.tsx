@@ -5,8 +5,9 @@ import { Container } from "@/components/common/Container";
 import { PageShell } from "@/components/common/PageShell";
 import { StaticFaqHero } from "@/components/pages/StaticFaqHero";
 import { SupportFaqSection } from "@/components/pages/HelpCenter/SupportFaqSection";
+import type { SupportFaq } from "@/types/support";
 
-export function FaqPageContent() {
+export function FaqPageContent({ initialFaqs }: { initialFaqs: SupportFaq[] }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
@@ -23,6 +24,7 @@ export function FaqPageContent() {
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           showControls
+          initialFaqs={initialFaqs}
         />
       </div>
     </PageShell>

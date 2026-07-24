@@ -151,6 +151,8 @@
     "bookNowFor": "Book {title} now"
   },
   "serviceDetail": {
+    "breadcrumbLabel": "Breadcrumb",
+    "home": "Home",
     "loading": "Loading service details...",
     "errorTitle": "Service unavailable",
     "errorDescription": "We could not load this service from the API. Please try again or choose another service.",
@@ -1038,14 +1040,23 @@
       "articles": {
         "first": {
           "category": "Vehicle wraps",
-          "readTime": "4 min read",
+          "readTime": "6 min read",
           "title": "How a branded wrap turns every customer trip into a moving campaign",
           "description": "A practical look at layout hierarchy, readable messaging, and material choices for fleet graphics that stay sharp on the road.",
           "body": {
             "first": "A branded vehicle wrap works best when it is planned like outdoor media, not just decoration. The strongest layouts keep the company name, service category, and contact path readable within a few seconds while the vehicle is moving.",
             "second": "Color contrast, clear hierarchy, and restrained copy matter more than filling every panel. On fleets, consistency is even more important: the same placement rules across cars and vans help customers recognize the brand quickly.",
-            "third": "Material choice completes the campaign. Durable vinyl, careful edge treatment, and the right laminate help the design stay crisp through daily routes, weather, washing, and repeat exposure."
+            "third": "Material choice completes the campaign. Durable vinyl, careful edge treatment, and the right laminate help the design stay crisp through daily routes, weather, washing, and repeat exposure.",
+            "fourth": "Treat each side of the vehicle as a separate viewing moment. The side panels can carry the primary brand message, while the rear should repeat the name and contact path for drivers who spend longer behind the vehicle.",
+            "fifth": "Before production, review the layout at realistic scale and from a distance. This catches contact details that are too small, graphics that cross door handles, and important words that disappear around wheel arches or panel gaps.",
+            "sixth": "A simple inspection and care plan protects that investment after installation. Regular washing, quick attention to lifted edges, and consistent fleet maintenance help every vehicle present the same professional image."
           },
+          "sections": {
+            "visibility": "Build the message for fast recognition",
+            "vehicle": "Plan every vehicle panel deliberately",
+            "production": "Protect quality from production to daily use"
+          },
+          "relatedService": "Explore ReactIf vehicle wrapping services",
           "takeaways": {
             "first": "Prioritize brand name, service, and contact details before secondary graphics.",
             "second": "Design for moving traffic with high contrast and short readable messages.",
@@ -1054,14 +1065,23 @@
         },
         "second": {
           "category": "Care guide",
-          "readTime": "3 min read",
+          "readTime": "6 min read",
           "title": "Simple vinyl care habits that protect color, finish, and edges",
           "description": "Use gentle cleaning, smart parking, and regular edge checks to help wraps and signage surfaces keep their premium finish longer.",
           "body": {
             "first": "Vinyl finishes last longer when cleaning stays gentle and consistent. Rinse loose dust first, wash with a mild solution, and avoid harsh brushes that can scratch gloss, satin, or matte finishes.",
             "second": "Heat and sun exposure can affect edges over time, especially around curves, mirrors, and recessed areas. Parking in shade when possible and checking edges after washes helps catch small issues before they grow.",
-            "third": "Pressure washing needs extra care. Keep distance from the surface, avoid directing water at seams, and give newly installed vinyl time to settle before aggressive cleaning."
+            "third": "Pressure washing needs extra care. Keep distance from the surface, avoid directing water at seams, and give newly installed vinyl time to settle before aggressive cleaning.",
+            "fourth": "Work from the top down with clean water, a soft microfiber cloth, and a pH-neutral cleaner. Remove bird droppings, fuel splashes, and road residue promptly instead of letting contaminants bake into the film.",
+            "fifth": "Matte, satin, and gloss films react differently to polishes and waxes. Use products approved for the installed finish, and test any unfamiliar cleaner on a discreet area before treating a full panel.",
+            "sixth": "If an edge starts to lift, avoid pulling or pressing dirt underneath it. Photograph the area and ask the installer to inspect it early; a small professional repair is easier than replacing a damaged panel."
           },
+          "sections": {
+            "cleaning": "Use a gentle routine for regular cleaning",
+            "exposure": "Manage heat, sun, and finish-specific products",
+            "pressure": "Handle pressure washing and edge repairs carefully"
+          },
+          "relatedService": "Explore vehicle protection and finishing services",
           "takeaways": {
             "first": "Use mild cleaning products and soft cloths for routine maintenance.",
             "second": "Inspect edges and seams regularly, especially after heat or pressure washing.",
@@ -1070,14 +1090,23 @@
         },
         "third": {
           "category": "Signage",
-          "readTime": "5 min read",
+          "readTime": "7 min read",
           "title": "Choosing signage that works from storefront to event display",
           "description": "Compare durability, viewing distance, lighting, and installation context before selecting the right sign system for your brand.",
           "body": {
             "first": "Good signage starts with the environment. A storefront sign, window graphic, indoor display, and event stand each have different viewing distances, lighting conditions, and installation constraints.",
             "second": "Material decisions should follow that context. Outdoor signs need durability and weather resistance, while event displays often need lighter construction, easy transport, and fast setup.",
-            "third": "The most reliable results come from aligning message size, contrast, finish, and mounting method before production begins. That planning keeps the final sign clear, practical, and brand-consistent."
+            "third": "The most reliable results come from aligning message size, contrast, finish, and mounting method before production begins. That planning keeps the final sign clear, practical, and brand-consistent.",
+            "fourth": "Start by measuring how people approach the sign, how long they can see it, and what action they should take. A storefront may need recognition from across the street, while an event panel can support more detail at walking distance.",
+            "fifth": "Lighting changes color, contrast, and legibility. Check whether the sign relies on daylight, interior lighting, spotlights, or built-in illumination, then select inks, films, and surfaces that stay readable in those conditions.",
+            "sixth": "Confirm wall condition, fixing points, access, power, transport dimensions, and installation permissions before artwork approval. Resolving those details early prevents last-minute compromises in size or placement."
           },
+          "sections": {
+            "context": "Define viewing distance and the job of the sign",
+            "materials": "Match materials and lighting to the environment",
+            "production": "Plan installation before approving production"
+          },
+          "relatedService": "Browse ReactIf signage and print services",
           "takeaways": {
             "first": "Choose materials based on indoor, outdoor, temporary, or long-term use.",
             "second": "Set text size and contrast around real viewing distance and lighting.",
@@ -1088,6 +1117,7 @@
       "detail": {
         "backToBlogs": "Back to blogs",
         "author": "ReactIf editorial team",
+        "updated": "Updated",
         "takeaways": "Key takeaways",
         "nextStep": "Next step",
         "ctaTitle": "Ready to plan your own visual project?",
@@ -1241,6 +1271,9 @@
         }
       }
     }
+  },
+  "accessibility": {
+    "skipToContent": "Skip to main content"
   },
   "whatsapp": {
     "label": "Chat on WhatsApp",

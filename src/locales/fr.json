@@ -151,6 +151,8 @@
     "bookNowFor": "Réserver {title}"
   },
   "serviceDetail": {
+    "breadcrumbLabel": "Fil d’Ariane",
+    "home": "Accueil",
     "loading": "Chargement des détails du service...",
     "errorTitle": "Service indisponible",
     "errorDescription": "Nous n’avons pas pu charger ce service depuis l’API. Veuillez réessayer ou choisir un autre service.",
@@ -1038,14 +1040,23 @@
       "articles": {
         "first": {
           "category": "Habillage véhicule",
-          "readTime": "4 min de lecture",
+          "readTime": "6 min de lecture",
           "title": "Comment un habillage de marque transforme chaque trajet en campagne mobile",
           "description": "Un regard pratique sur la hiérarchie visuelle, les messages lisibles et les choix matières pour des graphismes de flotte nets sur la route.",
           "body": {
             "first": "Un habillage de véhicule fonctionne mieux lorsqu’il est pensé comme un support média extérieur, pas seulement comme une décoration. Les compositions les plus efficaces gardent le nom de l’entreprise, le service et le contact lisibles en quelques secondes.",
             "second": "Le contraste, la hiérarchie et un texte maîtrisé comptent davantage que le remplissage de chaque panneau. Pour une flotte, la cohérence est essentielle afin que la marque soit reconnue rapidement sur voitures et utilitaires.",
-            "third": "Le choix matière complète la campagne. Un vinyle durable, un traitement soigné des bords et le bon laminage aident le visuel à rester net face aux trajets quotidiens, à la météo et aux lavages."
+            "third": "Le choix matière complète la campagne. Un vinyle durable, un traitement soigné des bords et le bon laminage aident le visuel à rester net face aux trajets quotidiens, à la météo et aux lavages.",
+            "fourth": "Considérez chaque face du véhicule comme un temps de lecture distinct. Les côtés portent le message principal, tandis que l’arrière doit répéter le nom et le moyen de contact pour les automobilistes qui suivent le véhicule plus longtemps.",
+            "fifth": "Avant la production, contrôlez la composition à une échelle réaliste et à distance. Cette étape révèle les coordonnées trop petites, les graphismes coupés par les poignées et les mots importants qui disparaissent autour des passages de roue.",
+            "sixth": "Un plan simple d’inspection et d’entretien protège ensuite l’investissement. Des lavages réguliers, une intervention rapide sur les bords et un suivi cohérent de la flotte préservent une image professionnelle."
           },
+          "sections": {
+            "visibility": "Construire un message reconnu en quelques secondes",
+            "vehicle": "Planifier chaque panneau du véhicule",
+            "production": "Préserver la qualité de la production à l’usage quotidien"
+          },
+          "relatedService": "Découvrir les services d’habillage automobile ReactIf",
           "takeaways": {
             "first": "Prioriser le nom de marque, le service et les contacts avant les graphismes secondaires.",
             "second": "Concevoir pour la circulation avec un fort contraste et des messages courts.",
@@ -1054,14 +1065,23 @@
         },
         "second": {
           "category": "Guide d’entretien",
-          "readTime": "3 min de lecture",
+          "readTime": "6 min de lecture",
           "title": "Habitudes simples pour protéger couleur, finition et bords du vinyle",
           "description": "Nettoyage doux, stationnement réfléchi et contrôle régulier des bords aident les habillages et surfaces de signalétique à rester premium plus longtemps.",
           "body": {
             "first": "Les finitions vinyle durent plus longtemps avec un nettoyage doux et régulier. Rincez d’abord la poussière, utilisez une solution légère et évitez les brosses agressives qui peuvent marquer les finitions brillantes, satinées ou mates.",
             "second": "La chaleur et le soleil peuvent affecter les bords avec le temps, surtout autour des courbes, rétroviseurs et zones creuses. Stationner à l’ombre quand c’est possible et contrôler les bords après lavage limite les problèmes.",
-            "third": "Le nettoyage haute pression demande de la prudence. Gardez une distance suffisante, évitez de viser les joints et laissez au vinyle récemment posé le temps de se stabiliser avant un lavage intensif."
+            "third": "Le nettoyage haute pression demande de la prudence. Gardez une distance suffisante, évitez de viser les joints et laissez au vinyle récemment posé le temps de se stabiliser avant un lavage intensif.",
+            "fourth": "Travaillez du haut vers le bas avec de l’eau propre, une microfibre douce et un nettoyant au pH neutre. Retirez rapidement les fientes, projections de carburant et résidus routiers au lieu de les laisser cuire sur le film.",
+            "fifth": "Les films mats, satinés et brillants ne réagissent pas de la même façon aux cires et aux produits de finition. Utilisez des produits compatibles et testez tout nettoyant nouveau sur une zone discrète.",
+            "sixth": "Si un bord commence à se soulever, évitez de tirer dessus ou d’y emprisonner des saletés. Photographiez la zone et demandez rapidement un contrôle : une petite réparation professionnelle évite souvent le remplacement d’un panneau."
           },
+          "sections": {
+            "cleaning": "Adopter une routine douce pour le nettoyage courant",
+            "exposure": "Gérer chaleur, soleil et produits selon la finition",
+            "pressure": "Maîtriser le lavage pression et les réparations de bord"
+          },
+          "relatedService": "Découvrir les services de protection et finition automobile",
           "takeaways": {
             "first": "Utiliser des produits doux et des chiffons souples pour l’entretien courant.",
             "second": "Inspecter régulièrement les bords et joints, surtout après chaleur ou lavage pression.",
@@ -1070,14 +1090,23 @@
         },
         "third": {
           "category": "Signalétique",
-          "readTime": "5 min de lecture",
+          "readTime": "7 min de lecture",
           "title": "Choisir une signalétique efficace de la vitrine au stand événementiel",
           "description": "Comparez durabilité, distance de lecture, éclairage et contexte de pose avant de choisir le bon système de signalétique pour votre marque.",
           "body": {
             "first": "Une bonne signalétique commence par son environnement. Une enseigne de vitrine, une vitrophanie, un affichage intérieur ou un stand événementiel ont chacun des distances de lecture, éclairages et contraintes de pose différentes.",
             "second": "Les matériaux doivent suivre ce contexte. Les supports extérieurs demandent durabilité et résistance météo, tandis que les affichages événementiels privilégient souvent légèreté, transport facile et montage rapide.",
-            "third": "Les meilleurs résultats viennent de l’alignement entre taille du message, contraste, finition et méthode de fixation avant la production. Cette préparation rend le support clair, pratique et cohérent avec la marque."
+            "third": "Les meilleurs résultats viennent de l’alignement entre taille du message, contraste, finition et méthode de fixation avant la production. Cette préparation rend le support clair, pratique et cohérent avec la marque.",
+            "fourth": "Commencez par mesurer la manière dont le public approche le support, le temps de visibilité et l’action attendue. Une vitrine doit parfois être reconnue depuis l’autre côté de la rue, tandis qu’un panneau événementiel peut détailler davantage à courte distance.",
+            "fifth": "L’éclairage modifie les couleurs, le contraste et la lisibilité. Vérifiez si le support dépend de la lumière du jour, de l’éclairage intérieur, de spots ou d’une illumination intégrée, puis choisissez des encres, films et surfaces adaptés.",
+            "sixth": "Validez l’état du mur, les points de fixation, l’accès, l’alimentation, les dimensions de transport et les autorisations de pose avant le bon à tirer. Ces détails évitent des compromis tardifs sur le format ou l’emplacement."
           },
+          "sections": {
+            "context": "Définir la distance de lecture et le rôle du support",
+            "materials": "Adapter matériaux et éclairage à l’environnement",
+            "production": "Préparer la pose avant de valider la production"
+          },
+          "relatedService": "Parcourir les services de signalétique et d’impression ReactIf",
           "takeaways": {
             "first": "Choisir les matériaux selon un usage intérieur, extérieur, temporaire ou longue durée.",
             "second": "Adapter taille du texte et contraste à la distance de lecture et à l’éclairage.",
@@ -1088,6 +1117,7 @@
       "detail": {
         "backToBlogs": "Retour aux blogs",
         "author": "Équipe éditoriale ReactIf",
+        "updated": "Mis à jour le",
         "takeaways": "Points clés",
         "nextStep": "Prochaine étape",
         "ctaTitle": "Prêt à préparer votre projet visuel ?",
@@ -1241,6 +1271,9 @@
         }
       }
     }
+  },
+  "accessibility": {
+    "skipToContent": "Aller au contenu principal"
   },
   "whatsapp": {
     "label": "Discuter sur WhatsApp",

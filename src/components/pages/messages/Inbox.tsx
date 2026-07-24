@@ -54,7 +54,7 @@ export function Inbox() {
   }, [inbox, searchQuery, t]);
 
   return (
-    <main className="w-full px-4 py-8 sm:py-10">
+    <div className="w-full px-4 py-8 sm:py-10">
       <section className="mx-auto flex w-full max-w-6xl flex-col overflow-hidden rounded-3xl border border-neutral-50/15 bg-neutral-900/95 shadow-2xl shadow-black/20 lg:min-h-[660px] lg:flex-row">
         <aside className="flex w-full flex-col border-b border-neutral-50/10 bg-neutral-950/70 lg:w-[380px] lg:border-b-0 lg:border-r">
           <div className="flex flex-col gap-5 border-b border-neutral-50/10 p-5 sm:p-6">
@@ -167,7 +167,7 @@ export function Inbox() {
           </p>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 

@@ -79,6 +79,7 @@ export async function generateMetadata({
       ...pageMetadata.openGraph,
       type: "article",
       publishedTime: article?.publishedAt,
+      modifiedTime: article?.modifiedAt,
       authors: [`${SITE_URL}/about`],
       section: metadata.section,
     },
@@ -102,7 +103,7 @@ export default async function Page({ params }: BlogPageProps) {
     description: metadata.description,
     image: absoluteUrl(metadata.image),
     datePublished: article.publishedAt,
-    dateModified: article.publishedAt,
+    dateModified: article.modifiedAt,
     inLanguage: "fr-CH",
     mainEntityOfPage: articleUrl,
     author: {

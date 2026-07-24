@@ -203,7 +203,7 @@ export function CartPage() {
   };
 
   return (
-    <main className="w-full px-4 py-10 sm:px-6 md:py-14">
+    <div className="w-full px-4 py-10 sm:px-6 md:py-14">
       <section className="mx-auto flex w-full max-w-6xl flex-col gap-8">
         <div className="flex flex-col gap-5 rounded-3xl border border-white/10 bg-neutral-950/70 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl md:flex-row md:items-end md:justify-between md:p-8">
           <div>
@@ -274,6 +274,6 @@ export function CartPage() {
           </div>
         )}
       </section>
-    </main>
+    </div>
   );
 }

@@ -15,7 +15,7 @@ import {
   type GetServicesParams,
   type GetServicesBySubcategoryParams,
 } from "@/services/categories";
-import type { Category } from "@/types/categories";
+import type { Category, Service } from "@/types/categories";
 
 export const categoryKeys = {
   all: ["categories"] as const,
@@ -133,11 +133,15 @@ export const useServices = (params?: GetServicesParams) => {
   };
 };
 
-export const useServiceDetail = (serviceId?: string | number | null) => {
+export const useServiceDetail = (
+  serviceId?: string | number | null,
+  initialService?: Service | null,
+) => {
   const query = useQuery({
     queryKey: categoryKeys.serviceDetail(serviceId),
     queryFn: () => getServiceDetail(serviceId as string | number),
     enabled: Boolean(serviceId),
+    initialData: initialService ?? undefined,
   });
 
   return {

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function NotFoundPage() {
   return (
-    <main className="flex min-h-[70vh] items-center justify-center bg-[#010101] px-6 py-20 text-white">
+    <section className="flex min-h-[70vh] items-center justify-center bg-[#010101] px-6 py-20 text-white">
       <div className="w-full max-w-xl rounded-3xl border border-white/10 bg-white/[0.04] p-8 text-center shadow-2xl backdrop-blur md:p-12">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#f21b6d]">
           Erreur 404
@@ -31,6 +31,6 @@ export default function NotFoundPage() {
           <Link href="/">Retour à l’accueil</Link>
         </Button>
       </div>
-    </main>
+    </section>
   );
 }

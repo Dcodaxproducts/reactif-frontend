@@ -154,7 +154,7 @@ function FooterColumn({
 }) {
   return (
     <div className="space-y-4">
-      <h4 className="font-semibold">{title}</h4>
+      <h3 className="font-semibold">{title}</h3>
 
       <ul className="space-y-2 text-white/60">
         {links.map(({ label, href }) => (

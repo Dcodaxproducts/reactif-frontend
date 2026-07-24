@@ -80,6 +80,11 @@ export function BlogDetailPage({ article, shareUrl }: BlogDetailPageProps) {
                   <CalendarDays className="h-4 w-4" aria-hidden="true" />
                   {formatArticleDate(article.publishedAt)}
                 </span>
+                <span className="hidden h-1 w-1 rounded-full bg-slate-500 sm:block" />
+                <span>
+                  {t("staticPages.blogs.detail.updated")}{" "}
+                  {formatArticleDate(article.modifiedAt)}
+                </span>
               </div>
               <ArticleShare title={articleTitle} url={shareUrl} />
             </div>
@@ -98,12 +103,26 @@ export function BlogDetailPage({ article, shareUrl }: BlogDetailPageProps) {
           </header>
 
           <div className="grid gap-8 border-t border-white/10 p-5 sm:p-6 md:p-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:p-10">
-            <div className="space-y-6">
-              {article.bodyKeys.map((key) => (
-                <p key={key} className="text-base leading-8 text-slate-300">
-                  {t(key)}
-                </p>
+            <div className="space-y-10">
+              {article.sections.map((section) => (
+                <section key={section.titleKey} className="space-y-5">
+                  <h2 className="text-2xl font-semibold leading-tight text-white">
+                    {t(section.titleKey)}
+                  </h2>
+                  {section.bodyKeys.map((key) => (
+                    <p key={key} className="text-base leading-8 text-slate-300">
+                      {t(key)}
+                    </p>
+                  ))}
+                </section>
               ))}
+              <Link
+                href={article.relatedServiceHref}
+                className="inline-flex items-center gap-2 font-semibold text-cyan-100 underline decoration-cyan-300/40 underline-offset-4 transition hover:text-white"
+              >
+                {t(article.relatedServiceLabelKey)}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
             </div>
 
             <aside className="h-fit rounded-3xl border border-white/10 bg-white/[0.04] p-5">

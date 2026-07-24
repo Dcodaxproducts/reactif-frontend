@@ -1,11 +1,10 @@
 import { SubcategoriesMain } from "./SubcategoriesMain";
-import { createPageMetadata } from "@/lib/seo";
+import { createNoIndexMetadata } from "@/lib/seo";
 
-export const metadata = createPageMetadata({
+export const metadata = createNoIndexMetadata({
   title: "Services de communication visuelle",
   description:
-    "Parcourez les catégories de services RéactifPub pour trouver la solution de covering, signalétique ou impression adaptée à votre projet.",
-  path: "/subcategories",
+    "Parcours de sélection des catégories et services RéactifPub.",
 });
 
 const page = () => {
