@@ -8,7 +8,7 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { PaintDetailsHeader } from "@/components/pages/PaintProtection/PaintDetailsHeader";
 import ServicesRow from "@/components/pages/PaintProtection/ServicesRow";
-import CarPreviewSection from "@/components/pages/PaintProtection/CarPreviewSection";
+import { CarPreviewSection } from "@/components/pages/PaintProtection/CarPreviewSection";
 import { PaintProtectionCard } from "@/components/pages/PaintProtection/PaintProtectionCard";
 import { Loader2 } from "lucide-react";
 import {

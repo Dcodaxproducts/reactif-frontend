@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useNotifications } from "@/hooks/useNotifications";
 
-export default function Notifications() {
+export function Notifications() {
   const { t } = useAppTranslation();
   const { notifications, loading, error } = useNotifications();
 
@@ -57,6 +57,7 @@ export default function Notifications() {
                     <Image
                       src={notification.image}
                       alt=""
+                      aria-hidden="true"
                       fill
                       sizes="48px"
                       className="object-cover"

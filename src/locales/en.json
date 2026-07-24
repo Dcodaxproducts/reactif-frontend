@@ -204,6 +204,7 @@
       "titleLine2": "VEHICLES INTO",
       "titleLine3": "ADVERTISING TOOLS",
       "description": "Leader In Visual Communication For The Automotive Sector. Vehicle Wrapping, Marking, And Advertising With Uncompromising Professional Quality.",
+      "imageAlt": "Custom wrapped sports car showcasing ReactIf automotive visual communication",
       "freeQuote": "Free Quote",
       "ourProjects": "Our Projects"
     },
@@ -986,7 +987,9 @@
     "originTitleLine2": "Defined by Precision",
     "originParagraph1": "Founded at the intersection of automotive passion and cutting-edge design, ReactIf Printing & Design specializes in pushing the boundaries of visual communication. We started as a small workshop with a single vision: to treat every vehicle as a high-performance canvas.",
     "originParagraph2": "Our mission is to transform the ordinary into the extraordinary. By blending industrial-grade materials with futuristic design aesthetics, we help our clients demand attention on the road and beyond.",
+    "originImageAlt": "ReactIf designer preparing a custom camouflage wrap for a vehicle",
     "commitmentTitle": "Our Commitment",
+    "commitmentImageAlt": "Black luxury sedan representing ReactIf premium vehicle finishes",
     "commitments": {
       "quality": "Uncompromising quality in every square inch.",
       "environment": "Environmentally conscious printing processes.",

@@ -16,7 +16,7 @@ interface CarPreviewSectionProps {
   isLoading?: boolean;
 }
 
-export default function CarPreviewSection({
+export function CarPreviewSection({
   activeItem,
   activeCategory,
   services,
@@ -43,6 +43,10 @@ export default function CarPreviewSection({
     currentService?.service_image,
     PAINT_PROTECTION_FALLBACK_IMAGE,
   );
+  const carImageAlt =
+    currentService?.name ||
+    activeCategory ||
+    "RéactifPub vehicle service preview";
 
   const topLabel = isPaint ? "PPF Protection" : activeCategory;
   const topDetail = isPaint
@@ -63,7 +67,7 @@ export default function CarPreviewSection({
             <div className="w-full h-full  flex items-center justify-center p-4">
               <Image
                 src={carImage}
-                alt="Preview"
+                alt={carImageAlt}
                 width={900}
                 height={520}
                 className="object-contain max-w-full md:max-w-full rounded-xl"

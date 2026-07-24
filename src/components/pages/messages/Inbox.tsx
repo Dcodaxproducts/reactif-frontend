@@ -192,6 +192,7 @@ function InboxConversation({ item }: { item: MessageInboxItem }) {
           <Image
             src={item.receiver_image}
             alt=""
+            aria-hidden="true"
             fill
             sizes="48px"
             className="object-cover"

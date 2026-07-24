@@ -2,6 +2,7 @@
 
 import { type PointerEvent, useRef } from "react";
 import { Container } from "@/components/common/Container";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { HeroCarImage } from "./hero/HeroCarImage";
 import { HeroContent } from "./hero/HeroContent";
 
@@ -11,6 +12,7 @@ const resetParallax = (element: HTMLElement | null) => {
 };
 
 export function Hero() {
+  const { t } = useAppTranslation();
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
@@ -49,7 +51,7 @@ export function Hero() {
 
       <Container className="relative z-10 grid w-[92%] max-w-none grid-cols-1 items-start gap-6 pt-6 pb-12 sm:w-[90%] md:pt-7 md:pb-14 lg:min-h-[590px] lg:grid-cols-[minmax(380px,0.86fr)_minmax(560px,1.24fr)] lg:gap-0 lg:pt-2 lg:pb-8 xl:w-[91%] xl:grid-cols-[minmax(430px,0.82fr)_minmax(680px,1.28fr)]">
         <HeroContent />
-        <HeroCarImage />
+        <HeroCarImage altText={t("home.hero.imageAlt")} />
       </Container>
     </section>
   );

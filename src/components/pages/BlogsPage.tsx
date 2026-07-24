@@ -27,6 +27,7 @@ export function BlogsPage() {
             <Image
               src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=85"
               alt=""
+              aria-hidden="true"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"

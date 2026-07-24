@@ -12,7 +12,7 @@ const commitments = [
   "about.commitments.materials",
 ];
 
-export default function OurCommitment() {
+export function OurCommitment() {
   const { t } = useAppTranslation();
 
   return (
@@ -40,7 +40,7 @@ export default function OurCommitment() {
           <div className="relative w-full max-w-md md:max-w-lg">
             <Image
               src="/assets/about/carAbout.png"
-              alt="Car"
+              alt={t("about.commitmentImageAlt")}
               width={600}
               height={300}
               className="w-full h-auto object-contain"

@@ -68,6 +68,7 @@ export function ServiceSelector({
                   <Image
                     src={imageSource}
                     alt=""
+                    aria-hidden="true"
                     fill
                     sizes="64px"
                     className="object-cover"

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Container } from "@/components/common/Container";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 
-export default function AboutContent() {
+export function AboutContent() {
   const { t } = useAppTranslation();
 
   return (
@@ -36,7 +36,7 @@ export default function AboutContent() {
           <div className="relative w-full">
             <Image
               src="/assets/about/about_content.png"
-              alt="About"
+              alt={t("about.originImageAlt")}
               width={600}
               height={400}
               className="w-full h-auto rounded-2xl shadow-2xl mt-9"

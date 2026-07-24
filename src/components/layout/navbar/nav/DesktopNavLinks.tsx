@@ -24,6 +24,7 @@ export function DesktopNavLinks({ user }: DesktopNavLinksProps) {
                 <Image
                   src="/assets/elipse.png"
                   alt=""
+                  aria-hidden="true"
                   fill
                   sizes="48px"
                   className="object-contain"
