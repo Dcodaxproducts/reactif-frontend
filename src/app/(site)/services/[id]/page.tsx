@@ -3,6 +3,22 @@ import { Suspense } from "react";
 import { Container } from "@/components/common/Container";
 import { PageShell } from "@/components/common/PageShell";
 import { ServiceDetailPage } from "@/components/pages/ServiceDetailPage";
+import { createPageMetadata } from "@/lib/seo";
+
+type ServicePageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: ServicePageProps) {
+  const { id } = await params;
+
+  return createPageMetadata({
+    title: "Détail du service",
+    description:
+      "Consultez les détails, options et spécialistes disponibles pour ce service de communication visuelle RéactifPub.",
+    path: `/services/${id}`,
+  });
+}
 
 export default function Page() {
   return (

@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import { AutomotivePage } from "@/components/pages/Automotive/AutomotivePage";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Automotive Services | Reactif",
+export const metadata = createPageMetadata({
+  title: "Covering et protection automobile à Genève",
   description:
-    "Explore Reactif automotive visual communication services, vehicle wraps, paint protection, tinting, and branding solutions.",
-};
+    "Découvrez nos services automobiles : covering publicitaire, protection de peinture, vitres teintées et marquage de véhicules à Genève.",
+  path: "/automotive",
+});
 
 export default function Page() {
   return <AutomotivePage />;

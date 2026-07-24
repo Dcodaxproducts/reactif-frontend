@@ -1090,6 +1090,16 @@
         "ctaTitle": "Ready to plan your own visual project?",
         "ctaDescription": "Share the vehicle, signage, or print objective and the ReactIf team can help shape the right material and production path.",
         "relatedTitle": "More from the blog"
+      },
+      "share": {
+        "label": "Share this article",
+        "action": "Share",
+        "whatsapp": "Share on WhatsApp",
+        "facebook": "Share on Facebook",
+        "linkedin": "Share on LinkedIn",
+        "email": "Share by email",
+        "copy": "Copy link",
+        "copied": "Link copied"
       }
     },
     "portfolio": {

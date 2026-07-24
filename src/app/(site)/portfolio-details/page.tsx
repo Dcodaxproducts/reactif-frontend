@@ -1,6 +1,9 @@
 import { PageShell } from "@/components/common/PageShell";
 import { Configuration } from "@/components/pages/order/OrderAddress/Configuration";
 import { WhyProtection } from "@/components/pages/order/OrderAddress/WhyProtection";
+import { privatePageMetadata } from "@/lib/seo";
+
+export const metadata = privatePageMetadata;
 
 const page = () => {
   return (

@@ -1,4 +1,7 @@
 import { headers } from "next/headers";
+import { privatePageMetadata } from "@/lib/seo";
+
+export const metadata = privatePageMetadata;
 
 export default async function IpDetails() {
   const headerList = await headers();

@@ -11,12 +11,14 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/common/Container";
 import { PageShell } from "@/components/common/PageShell";
+import { ArticleShare } from "@/components/pages/blog/ArticleShare";
 import { Button } from "@/components/ui/button";
 import { blogArticles, type BlogArticle } from "@/data/blogs";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 
 type BlogDetailPageProps = {
   article: BlogArticle;
+  shareUrl: string;
 };
 
 const formatArticleDate = (value: string) =>
@@ -26,8 +28,11 @@ const formatArticleDate = (value: string) =>
     year: "numeric",
   }).format(new Date(value));
 
-export function BlogDetailPage({ article }: BlogDetailPageProps) {
+export function BlogDetailPage({ article, shareUrl }: BlogDetailPageProps) {
   const { t } = useAppTranslation();
+  const articleTitle = t(
+    `staticPages.blogs.articles.${article.key}.title`,
+  );
   const relatedArticles = blogArticles.filter(
     (relatedArticle) => relatedArticle.slug !== article.slug,
   );
@@ -61,7 +66,7 @@ export function BlogDetailPage({ article }: BlogDetailPageProps) {
 
               <div className="space-y-4">
                 <h1 className="text-3xl font-semibold leading-tight text-white md:text-5xl">
-                  {t(`staticPages.blogs.articles.${article.key}.title`)}
+                  {articleTitle}
                 </h1>
                 <p className="max-w-3xl text-base leading-7 text-slate-300">
                   {t(`staticPages.blogs.articles.${article.key}.description`)}
@@ -76,6 +81,7 @@ export function BlogDetailPage({ article }: BlogDetailPageProps) {
                   {formatArticleDate(article.publishedAt)}
                 </span>
               </div>
+              <ArticleShare title={articleTitle} url={shareUrl} />
             </div>
 
             <div className="relative min-h-[260px] overflow-hidden rounded-3xl bg-slate-950 sm:min-h-[320px] lg:min-h-[420px]">

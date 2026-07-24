@@ -2,39 +2,26 @@
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { onest } from "@/lib/fonts";
+import {
+  organizationJsonLd,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/seo";
 import { ClientLayoutWrapper } from "./ClientLayoutWrapper";
 
 export const metadata: Metadata = {
-  title: "RéactifPub | Communication visuelle automobile",
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  title: {
+    default: "Communication visuelle automobile à Genève | RéactifPub",
+    template: "%s | RéactifPub",
+  },
   description:
     "RéactifPub transforme vos véhicules, vitrines, enseignes et supports imprimés en outils publicitaires professionnels.",
-  metadataBase: new URL("https://reactifpub.ch"),
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "RéactifPub | Communication visuelle automobile",
-    description:
-      "Transformez votre visibilité avec RéactifPub : covering, signalétique, papeterie, enseignes et publicité visuelle.",
-    url: "https://reactifpub.ch",
-    siteName: "RéactifPub",
-    type: "website",
-    images: [
-      {
-        url: "https://reactifpub.ch/og/og-home.png",
-        width: 1200,
-        height: 630,
-        alt: "RéactifPub communication visuelle automobile",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "RéactifPub | Communication visuelle automobile",
-    description:
-      "Covering, signalétique, papeterie, enseignes et publicité visuelle par RéactifPub.",
-    images: ["https://reactifpub.ch/og/og-home.png"],
-    creator: "@reactifpub",
-  },
+  manifest: "/manifest.webmanifest",
+  referrer: "origin-when-cross-origin",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
@@ -54,6 +41,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning>
       <body className={`${onest.className}`}>
+        <JsonLd data={organizationJsonLd} />
         <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>
     </html>

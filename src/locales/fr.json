@@ -1090,6 +1090,16 @@
         "ctaTitle": "Prêt à préparer votre projet visuel ?",
         "ctaDescription": "Partagez votre objectif véhicule, signalétique ou impression et l’équipe ReactIf vous aidera à choisir la bonne matière et le bon parcours de production.",
         "relatedTitle": "Plus d’articles"
+      },
+      "share": {
+        "label": "Partager cet article",
+        "action": "Partager",
+        "whatsapp": "Partager sur WhatsApp",
+        "facebook": "Partager sur Facebook",
+        "linkedin": "Partager sur LinkedIn",
+        "email": "Partager par e-mail",
+        "copy": "Copier le lien",
+        "copied": "Lien copié"
       }
     },
     "portfolio": {
