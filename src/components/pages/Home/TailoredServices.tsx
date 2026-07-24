@@ -7,30 +7,10 @@ import { Container } from "@/components/common/Container";
 import { Button } from "@/components/ui/button";
 import { featuredCategoryCards } from "@/data/home";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
-import { useCategories } from "@/hooks/useCategories";
-import {
-  buildCategoryRoute,
-  buildCategoryRouteFromCategory,
-  resolveCategorySlug,
-} from "@/lib/category-routes";
-import type { Category } from "@/types/categories";
-
-const isMatchingCategory = (
-  category: Category,
-  aliases: readonly string[],
-) => {
-  const categorySlug = resolveCategorySlug(category.name);
-
-  return aliases.some((alias) => {
-    const aliasSlug = resolveCategorySlug(alias);
-
-    return categorySlug === aliasSlug || categorySlug.includes(aliasSlug);
-  });
-};
+import { buildCategoryRoute } from "@/lib/category-routes";
 
 export function TailoredServices() {
   const { t } = useAppTranslation();
-  const { categories } = useCategories({ per_page: 100 });
 
   return (
     <section className="relative w-full overflow-hidden bg-[#010101] py-16 md:py-24">
@@ -61,12 +41,7 @@ export function TailoredServices() {
 
         <div className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2">
           {featuredCategoryCards.map((card, index) => {
-            const matchedCategory = categories.find((category) =>
-              isMatchingCategory(category, card.aliases),
-            );
-            const href = matchedCategory
-              ? buildCategoryRouteFromCategory(matchedCategory)
-              : buildCategoryRoute({ slug: card.slug });
+            const href = buildCategoryRoute({ slug: card.slug });
 
             return (
               <Link

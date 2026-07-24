@@ -31,7 +31,14 @@ export const categoryKeys = {
     ["categories", "services", "detail", serviceId ?? ""] as const,
 };
 
-export const useCategories = (initialParams: GetCategoriesParams = {}) => {
+type UseCategoriesOptions = {
+  enabled?: boolean;
+};
+
+export const useCategories = (
+  initialParams: GetCategoriesParams = {},
+  { enabled = true }: UseCategoriesOptions = {},
+) => {
   const [page, setPage] = useState(initialParams.page ?? 1);
   const [categories, setCategories] = useState<Category[]>([]);
 
@@ -39,6 +46,7 @@ export const useCategories = (initialParams: GetCategoriesParams = {}) => {
   const query = useQuery({
     queryKey: categoryKeys.list(params),
     queryFn: () => getCategories(params),
+    enabled,
   });
 
   useEffect(() => {

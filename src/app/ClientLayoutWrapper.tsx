@@ -8,12 +8,9 @@ import { Toaster } from "sonner";
 import { LanguageProvider } from "@/components/providers/language-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { useAuth } from "@/hooks/useAuth";
 import { FloatingWhatsAppButton } from "@/components/common/FloatingWhatsAppButton";
 
 function ClientLayoutContent({ children }: { children: ReactNode }) {
-  useAuth();
-
   return (
     <div className="min-h-screen bg-transparent text-white">
       <div data-print-hidden="true">

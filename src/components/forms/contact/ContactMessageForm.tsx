@@ -44,7 +44,11 @@ const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function ContactMessageForm() {
   const { t } = useAppTranslation();
   const pathname = usePathname();
-  const { categories } = useCategories({ per_page: 100 });
+  const [shouldLoadServices, setShouldLoadServices] = useState(false);
+  const { categories } = useCategories(
+    { per_page: 100 },
+    { enabled: shouldLoadServices },
+  );
   const saveSupportRequest = useSaveCustomerSupportRequest();
   const [values, setValues] = useState<ContactFormValues>(initialValues);
   const [errors, setErrors] = useState<ContactFormErrors>({});
@@ -186,6 +190,11 @@ export function ContactMessageForm() {
           <Select
             value={values.service}
             onValueChange={(value) => setFieldValue("service", value)}
+            onOpenChange={(open) => {
+              if (open) {
+                setShouldLoadServices(true);
+              }
+            }}
           >
             <SelectTrigger
               id="contact-service"

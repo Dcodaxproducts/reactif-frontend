@@ -3,38 +3,26 @@
 import type { ReactNode } from "react";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import { Container } from "@/components/common/Container";
 import { Button } from "@/components/ui/button";
 import { reactifSocialLinks } from "@/data/contact";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { useCurrentUser } from "@/hooks/useAuth";
-import { useCategories } from "@/hooks/useCategories";
 import {
-  buildCategoryRouteFromCategory,
   buildCategoryRouteFromNavigationSlug,
-  findCategoryByNavigationSlug,
   footerCategoryNavigationItems,
 } from "@/lib/category-routes";
 import { getStartedRoute } from "@/lib/get-started-routes";
 
 export function Footer() {
-  const router = useRouter();
   const { t } = useAppTranslation();
   const { data: user, isLoading: authLoading } = useCurrentUser();
-  const { categories } = useCategories({ per_page: 100 });
   const serviceCategoryLinks = footerCategoryNavigationItems.map(
-    ({ slug, labelKey }) => {
-      const category = findCategoryByNavigationSlug(categories, slug);
-
-      return {
-        label: t(labelKey),
-        href: category
-          ? buildCategoryRouteFromCategory(category)
-          : buildCategoryRouteFromNavigationSlug(slug),
-      };
-    },
+    ({ slug, labelKey }) => ({
+      label: t(labelKey),
+      href: buildCategoryRouteFromNavigationSlug(slug),
+    }),
   );
 
   return (
@@ -135,20 +123,20 @@ export function Footer() {
           <div className="flex gap-4">
             {!authLoading && !user && (
               <Button
-                onClick={() => router.push("/login")}
+                asChild
                 variant="outline"
                 className="rounded-full border-white/30 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white"
               >
-                {t("auth.signIn")}
+                <Link href="/login">{t("auth.signIn")}</Link>
               </Button>
             )}
 
             <Button
-              onClick={() => router.push("/#contact")}
+              asChild
               variant="outline"
               className="rounded-full border-white/30 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white"
             >
-              {t("footer.contactUs")}
+              <Link href="/#contact">{t("footer.contactUs")}</Link>
             </Button>
           </div>
         </div>
