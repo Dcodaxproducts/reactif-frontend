@@ -154,7 +154,8 @@ export function PaymentDetailsCard() {
           style: {
             base: {
               color: "#f5f5f5",
-              fontFamily: "HK Grotesk, system-ui, sans-serif",
+              fontFamily:
+                'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
               fontSize: "16px",
               "::placeholder": {
                 color: "rgba(245, 245, 245, 0.55)",
@@ -300,7 +301,7 @@ export function PaymentDetailsCard() {
   return (
     <Card className="bg-neutral-800 rounded-3xl border border-neutral-50/30">
       <CardContent className="p-6 md:px-10 md:py-8 flex flex-col gap-6">
-        <h2 className="text-neutral-50 text-2xl font-semibold font-['HK_Grotesk']">
+        <h2 className="text-2xl font-semibold text-neutral-50 font-hk">
           {t("payment.details")}
         </h2>
 
@@ -333,10 +334,10 @@ export function PaymentDetailsCard() {
               )}
             </span>
             <div className="flex flex-col gap-2">
-              <h3 className="text-neutral-50 text-lg font-semibold font-['HK_Grotesk']">
+              <h3 className="text-lg font-semibold text-neutral-50 font-hk">
                 {gatewayStatusTitle}
               </h3>
-              <p className="text-neutral-50/70 text-sm md:text-base font-medium font-['HK_Grotesk'] leading-relaxed">
+              <p className="text-sm font-medium leading-relaxed text-neutral-50/70 font-hk md:text-base">
                 {gatewayStatusDescription}
               </p>
             </div>
@@ -347,7 +348,7 @@ export function PaymentDetailsCard() {
           <div className="rounded-2xl border border-neutral-50/10 bg-neutral-900/50 p-5 flex flex-col gap-3">
             <label
               htmlFor="stripe-card-element"
-              className="text-neutral-50 text-base font-semibold font-['HK_Grotesk']"
+              className="text-base font-semibold text-neutral-50 font-hk"
             >
               {t("payment.cardDetails")}
             </label>
@@ -371,13 +372,13 @@ export function PaymentDetailsCard() {
             paymentSubmitting ||
             (activeGatewayConfigured && !stripeReady)
           }
-          className="w-full h-12 bg-pink-400 hover:bg-pink-500 rounded-lg text-neutral-50 text-lg font-semibold font-['HK_Grotesk'] flex items-center justify-center"
+          className="flex h-12 w-full items-center justify-center rounded-lg bg-pink-400 text-lg font-semibold text-neutral-50 font-hk hover:bg-pink-500"
         >
           {paymentSubmitting
             ? t("payment.processing")
             : t("payment.payAmount", { amount: `$${amount}` })}
         </button>
-        <p className="text-center text-neutral-50/60 text-sm md:text-base font-medium font-['HK_Grotesk']">
+        <p className="text-center text-sm font-medium text-neutral-50/60 font-hk md:text-base">
           {t("payment.paymentNotStartedNotice")}
         </p>
       </CardContent>

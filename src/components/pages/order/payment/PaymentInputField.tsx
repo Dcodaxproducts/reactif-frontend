@@ -7,7 +7,7 @@ export function PaymentInputField({
 }: PaymentInputFieldProps) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-neutral-50 text-lg font-semibold font-['HK_Grotesk']">
+      <label className="text-lg font-semibold text-neutral-50 font-hk">
         {label}
       </label>
       <Input

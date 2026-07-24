@@ -40,7 +40,7 @@ export function OrderSummaryCard({
   return (
     <Card className="bg-neutral-800 rounded-3xl border border-neutral-50/30">
       <CardContent className="p-6 md:px-10 md:py-6 flex flex-col gap-6">
-        <h2 className="text-neutral-50 text-2xl font-semibold font-['HK_Grotesk']">
+        <h2 className="text-2xl font-semibold text-neutral-50 font-hk">
           {t("payment.orderSummary")}
         </h2>
 
@@ -53,10 +53,10 @@ export function OrderSummaryCard({
           </div>
 
           <div className="flex flex-col gap-1">
-            <div className="text-neutral-50/60 text-lg font-medium font-['HK_Grotesk']">
+            <div className="text-lg font-medium text-neutral-50/60 font-hk">
               {title}
             </div>
-            <div className="text-neutral-50/60 text-lg font-medium font-['HK_Grotesk']">
+            <div className="text-lg font-medium text-neutral-50/60 font-hk">
               {t("order.summaryDescription")}
             </div>
           </div>
@@ -116,10 +116,10 @@ export function OrderSummaryCard({
         <div className="border-t border-neutral-50/10" />
 
         <div className="flex justify-between items-center">
-          <span className="text-neutral-50 text-xl md:text-2xl font-semibold font-['HK_Grotesk']">
+          <span className="text-xl font-semibold text-neutral-50 font-hk md:text-2xl">
             {t("payment.totalPayableAmount")}
           </span>
-          <span className="text-pink-400 text-xl md:text-2xl font-semibold font-['HK_Grotesk']">
+          <span className="text-xl font-semibold text-pink-400 font-hk md:text-2xl">
             {formatCurrency(total)}
           </span>
         </div>

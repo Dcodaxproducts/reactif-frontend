@@ -154,7 +154,8 @@ export function Wallet() {
           style: {
             base: {
               color: "#f5f5f5",
-              fontFamily: "HK Grotesk, system-ui, sans-serif",
+              fontFamily:
+                'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
               fontSize: "16px",
               "::placeholder": {
                 color: "rgba(245, 245, 245, 0.55)",

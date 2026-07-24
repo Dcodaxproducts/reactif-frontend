@@ -27,10 +27,10 @@ export function OrderPayment() {
     <section className="w-full flex justify-center px-4 py-8">
       <div className="w-full max-w-6xl flex flex-col gap-6">
         <div className="flex flex-col gap-2 max-w-md">
-          <h1 className="text-neutral-50 text-3xl md:text-4xl font-semibold font-['HK_Grotesk']">
+          <h1 className="text-3xl font-semibold text-neutral-50 font-hk md:text-4xl">
             {t("order.paymentTitle")}
           </h1>
-          <p className="text-neutral-50/60 text-lg md:text-xl font-medium font-['HK_Grotesk']">
+          <p className="text-lg font-medium text-neutral-50/60 font-hk md:text-xl">
             {t("order.paymentSubtitle")}
           </p>
         </div>

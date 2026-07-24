@@ -8,12 +8,12 @@ interface Props {
   status: number;
 }
 
-export default function PaintDetailsHeader({ name, status }: Props) {
+export function PaintDetailsHeader({ name, status }: Props) {
   return (
     <div className="flex flex-col gap-14 w-full">
       <div className="flex justify-between items-center w-full">
         <div className="flex flex-col gap-1 w-80">
-          <h2 className="text-3xl font-bold text-neutral-50 font-['Inter'] capitalize">
+          <h2 className="text-3xl font-bold capitalize text-neutral-50 font-hk">
             {name}
           </h2>
 
